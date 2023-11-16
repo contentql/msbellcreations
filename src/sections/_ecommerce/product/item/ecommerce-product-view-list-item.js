@@ -79,7 +79,11 @@ export default function EcommerceProductViewListItem({ product, ...other }) {
             {product.category}
           </TextMaxLine>
 
-          <Link component={RouterLink} href={paths.eCommerce.product} color="inherit">
+          <Link
+            component={RouterLink}
+            href={`${paths.eCommerce.products}/${product.id}`}
+            color="inherit"
+          >
             <TextMaxLine variant="h6" line={1}>
               {product.name}
             </TextMaxLine>
@@ -104,6 +108,7 @@ export default function EcommerceProductViewListItem({ product, ...other }) {
 
 EcommerceProductViewListItem.propTypes = {
   product: PropTypes.shape({
+    id: PropTypes.string,
     caption: PropTypes.string,
     category: PropTypes.string,
     coverUrl: PropTypes.string,

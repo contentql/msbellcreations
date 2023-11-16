@@ -15,7 +15,12 @@ import ProductRating from '../../common/product-rating';
 
 export default function EcommerceProductItemBestSellers({ product, ...other }) {
   return (
-    <Link component={RouterLink} href={paths.eCommerce.product} color="inherit" underline="none">
+    <Link
+      component={RouterLink}
+      href={`${paths.eCommerce.products}/${product.id}`}
+      color="inherit"
+      underline="none"
+    >
       <Stack
         spacing={2}
         direction="row"
@@ -56,6 +61,7 @@ export default function EcommerceProductItemBestSellers({ product, ...other }) {
 
 EcommerceProductItemBestSellers.propTypes = {
   product: PropTypes.shape({
+    id: PropTypes.string,
     coverUrl: PropTypes.string,
     name: PropTypes.string,
     price: PropTypes.number,

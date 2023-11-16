@@ -1,6 +1,7 @@
-"use client"
+'use client';
 
 import PropTypes from 'prop-types';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -13,13 +14,11 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 import { fPercent, fCurrency } from 'src/utils/format-number';
-import { useEffect } from 'react';
 
 export default function EcommerceCartSummary({ products, tax, shipping, discount }) {
   // Calculate subtotal and total based on the updated products array
   const subtotal = products.reduce((temp, ele) => temp + ele.price * ele.quantity, 0);
   const total = subtotal + tax + shipping - discount;
-
 
   return (
     <Stack
@@ -35,8 +34,7 @@ export default function EcommerceCartSummary({ products, tax, shipping, discount
       <Stack spacing={2}>
         <Row label="Subtotal" value={fCurrency(subtotal)} />
 
-        <Row label="Shipping" value={fCurrency(products.length === 0 ? 0 : shipping)}
- />
+        <Row label="Shipping" value={fCurrency(products.length === 0 ? 0 : shipping)} />
 
         <Row label="Discount (15%)" value={`-${fCurrency(products.length === 0 ? 0 : discount)}`} />
 

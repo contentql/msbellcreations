@@ -36,7 +36,7 @@ export default function EcommerceProductItemTop({ product, variant = 'small', sx
   const moreBtn = (
     <Button
       component={RouterLink}
-      href={paths.eCommerce.product}
+      href={`${paths.eCommerce.products}/${product.id}`}
       color="inherit"
       endIcon={<Iconify icon="carbon:chevron-right" />}
       sx={{ flexShrink: 0 }}
@@ -107,6 +107,7 @@ export default function EcommerceProductItemTop({ product, variant = 'small', sx
 
 EcommerceProductItemTop.propTypes = {
   product: PropTypes.shape({
+    id: PropTypes.string,
     coverUrl: PropTypes.string,
     name: PropTypes.string,
     price: PropTypes.number,

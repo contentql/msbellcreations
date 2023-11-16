@@ -1,7 +1,8 @@
 // EcommerceCartItem.js
 
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
