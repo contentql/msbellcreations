@@ -17,7 +17,12 @@ import ProductPrice from '../../common/product-price';
 
 export default function EcommerceProductItemHot({ product, hotProduct = false, sx }) {
   return (
-    <Link component={RouterLink} href={paths.eCommerce.product} color="inherit" underline="none">
+    <Link
+      component={RouterLink}
+      href={`${paths.eCommerce.products}/${product.id}`}
+      color="inherit"
+      underline="none"
+    >
       <Paper
         variant="outlined"
         sx={{
@@ -82,6 +87,7 @@ export default function EcommerceProductItemHot({ product, hotProduct = false, s
 EcommerceProductItemHot.propTypes = {
   hotProduct: PropTypes.bool,
   product: PropTypes.shape({
+    id: PropTypes.string,
     coverUrl: PropTypes.string,
     name: PropTypes.string,
     price: PropTypes.number,

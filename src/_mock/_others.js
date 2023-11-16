@@ -102,16 +102,59 @@ export const _brandsColor = BRANDS_NAME.map((brand, index) => ({
 // ----------------------------------------------------------------------
 
 export const _faqs = [
-  'Sed augue ipsum, egestas nec, vestibulum et',
-  'alesuada adipiscing, dui vestibulum suscipit nulla quis orci.',
-  'Ut varius tincidunt libero',
-  'In ut quam vitae odio lacinia tincidunt.',
-  'Fusce vel dui Morbi nec metus.',
-].map((question, index) => ({
+  {
+    question: 'How do I place an order?',
+    answer: 'You can place an order in the “Shop” area of the page.',
+  },
+  {
+    question: 'Where do I place a return?',
+    answer: (
+      <span>
+        Please email{' '}
+        <a
+          style={{ textDecoration: 'underline', fontWeight: 'bold' }}
+          href="mailto:msbell@msbellscreations.com"
+        >
+          msbell@msbellscreations.com
+        </a>{' '}
+        to start the return process.
+      </span>
+    ),
+  },
+  {
+    question: 'How can I contact customer support?',
+    answer: (
+      <span>
+        You can click on the “Contact Us” part of the website or email{' '}
+        <a
+          style={{ textDecoration: 'underline', fontWeight: 'bold' }}
+          href="mailto:msbell@msbellscreations.com"
+        >
+          msbell@msbellscreations.com
+        </a>{' '}
+        .
+      </span>
+    ),
+  },
+  {
+    question: '   Can I make a special order/bulk order',
+    answer: (
+      <span>
+        Yes, we do accept special orders and bulk orders. Please email us at{' '}
+        <a
+          style={{ textDecoration: 'underline', fontWeight: 'bold' }}
+          href="mailto:msbell@msbellscreations.com"
+        >
+          msbell@msbellscreations.com
+        </a>{' '}
+        .
+      </span>
+    ),
+  },
+].map((obj, index) => ({
   id: _mock.id(index),
-  question,
-  answer:
-    'Amazing experience i love it a lot. Thanks to the team that dreams come true, great! I appreciate there attitude and approach.',
+  question: obj.question,
+  answer: obj.answer,
 }));
 
 export const _faqsSupport = [

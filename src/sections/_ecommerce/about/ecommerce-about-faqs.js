@@ -47,8 +47,8 @@ export default function EcommerceAboutFaqs() {
           {_faqs.map((faq) => (
             <Accordion
               key={faq.id}
-              expanded={expanded === faq.question}
-              onChange={handleChangeExpanded(faq.question)}
+              expanded={expanded === faq.id}
+              onChange={handleChangeExpanded(faq.id)}
             >
               <AccordionSummary
                 sx={{
