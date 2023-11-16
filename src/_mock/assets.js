@@ -316,10 +316,10 @@ export const _postTitles = [
 // ----------------------------------------------------------------------
 
 export const _productNames = [
-  'Nike Air Force 1 NDESTRUKT',
-  'Foundations Matte Flip Flop',
-  'Nike Air Zoom Pegasus 37 A.I.R. Chaz Bear',
-  'Arizona Soft Footbed Sandal',
+  'Rose Petal Salve',
+  'Coffee Soap Bars- 1.5 OZ- 2 Bars',
+  'Eucalyptus Shower Steamers Pack: Eucalyptus Sinus Ease',
+  'Fresh Snow Soy Wax Candle 4 Oz',
   'Boston Soft Footbed Sandal',
   'Zoom Freak 2',
   'Gazelle Vintage low-top sneakers',
@@ -519,10 +519,10 @@ export const _sentences = [
 // ----------------------------------------------------------------------
 
 export const _descriptions = [
-  `Occaecati est et illo quibusdam accusamus qui. Incidunt aut et molestiae ut facere aut. Est quidem iusto praesentium excepturi harum nihil tenetur facilis. Ut omnis voluptates nihil accusantium doloribus eaque debitis.`,
-  `Atque eaque ducimus minima distinctio velit. Laborum et veniam officiis. Delectus ex saepe hic id laboriosam officia. Odit nostrum qui illum saepe debitis ullam. Laudantium beatae modi fugit ut. Dolores consequatur beatae nihil voluptates rem maiores.`,
-  `Rerum eius velit dolores. Explicabo ad nemo quibusdam. Voluptatem eum suscipit et ipsum et consequatur aperiam quia. Rerum nulla sequi recusandae illum velit quia quas. Et error laborum maiores cupiditate occaecati.`,
-  `Et non omnis qui. Qui sunt deserunt dolorem aut velit cumque adipisci aut enim. Nihil quis quisquam nesciunt dicta nobis ab aperiam dolorem repellat. Voluptates non blanditiis. Error et tenetur iste soluta cupiditate ratione perspiciatis et. Quibusdam aliquid nam sunt et quisquam non esse.`,
+  `This Rose Petal salve is handmade with organic ingredients and infused with the healing power of rose hips. Rose hips are the fruit of rose plants and they are packed with antioxidants, vitamins, fatty acids, and other beneficial compounds that can nourish and repair your skin. `,
+  `Do you love coffee? Do you wish you could smell like coffee all day long? If so, this handmade soap is perfect for you!. This soap is infused with coffee fragrance oil, giving it a delicious and inviting scent of freshly brewed coffee.`,
+  `Shower Steamers Variety Pack: Energizing Citrus & Eucalyptus Sinus Ease. Take your shower experience to a new level with these amazing shower steamers!`,
+  `Pure Soy Wax Candle Tin / Candles / Soy Candles /Fresh Snow / 4 oz Candle Tin / Made in TX. Luxury candle that smells like fresh linen. This smell is simply irresistible. One smell and you will be hooked!`,
   `Nihil ea sunt facilis praesentium atque. Ab animi alias sequi molestias aut velit ea. Sed possimus eos. Et est aliquid est voluptatem.`,
   `Non rerum modi. Accusamus voluptatem odit nihil in. Quidem et iusto numquam veniam culpa aperiam odio aut enim. Quae vel dolores. Pariatur est culpa veritatis aut dolorem.`,
   `Est enim et sit non impedit aperiam cumque animi. Aut eius impedit saepe blanditiis. Totam molestias magnam minima fugiat.`,

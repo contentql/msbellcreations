@@ -37,18 +37,14 @@ export default function EcommerceAboutFaqs() {
       <Grid container spacing={3} justifyContent="space-between" alignItems="center">
         <Grid xs={12} md={6} lg={6}>
           <Stack spacing={2} sx={{ mb: 5, textAlign: { xs: 'center', md: 'left' } }}>
-            <Typography variant="overline" color="text.disabled">
-              FAQS
-            </Typography>
-
             <Typography variant="h2">Frequently Asked Questions</Typography>
           </Stack>
 
           {_faqs.map((faq) => (
             <Accordion
               key={faq.id}
-              expanded={expanded === faq.question}
-              onChange={handleChangeExpanded(faq.question)}
+              expanded={expanded === faq.id}
+              onChange={handleChangeExpanded(faq.id)}
             >
               <AccordionSummary
                 sx={{
@@ -66,10 +62,7 @@ export default function EcommerceAboutFaqs() {
                   {faq.question}
                 </Typography>
 
-                <Iconify
-                  width={24}
-                  icon={expanded === faq.question ? 'carbon:subtract' : 'carbon:add'}
-                />
+                <Iconify width={24} icon={expanded === faq.id ? 'carbon:subtract' : 'carbon:add'} />
               </AccordionSummary>
 
               <AccordionDetails>{faq.answer}</AccordionDetails>

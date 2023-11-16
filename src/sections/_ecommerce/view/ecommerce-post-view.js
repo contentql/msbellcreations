@@ -2,43 +2,35 @@
 
 import { useState, useCallback } from 'react';
 
-import Fab from '@mui/material/Fab';
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import Popover from '@mui/material/Popover';
-import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
-import Grid from '@mui/material/Unstable_Grid2';
+import MenuItem from '@mui/material/MenuItem';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import { alpha, useTheme } from '@mui/material/styles';
 
 import { paths } from 'src/routes/paths';
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import { fDate } from 'src/utils/format-time';
 import Markdown from 'src/components/markdown';
-import { _socials, _coursePosts } from 'src/_mock';
-import { useResponsive } from 'src/hooks/use-responsive';
+import { _socials, _marketingPosts } from 'src/_mock';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 
 import PostTags from '../../blog/common/post-tags';
 import PostAuthor from '../../blog/common/post-author';
-import PostPrevAndNext from '../../blog/common/post-prev-and-next';
 import PostSocialsShare from '../../blog/common/post-socials-share';
-import ElearningLatestPosts from '../../blog/elearning/elearning-latest-posts';
+import BlogMarketingLatestPosts from '../../blog/marketing/marketing-latest-posts';
 
 // ----------------------------------------------------------------------
 
 export default function EcommercePostView() {
-  const theme = useTheme();
-
-  const mdUp = useResponsive('up', 'md');
-
   const { title, description, duration, createdAt, author, favorited, heroUrl, tags, content } =
-    _coursePosts[0];
+    _marketingPosts[0];
 
   const [favorite, setFavorite] = useState(favorited);
 
@@ -58,51 +50,30 @@ export default function EcommercePostView() {
 
   return (
     <>
-      <Divider />
+      <Image alt="hero" src={heroUrl} ratio="21/9" />
 
-      <Container sx={{ overflow: 'hidden' }}>
+      <Container>
         <CustomBreadcrumbs
+          sx={{ my: 3 }}
           links={[
             { name: 'Home', href: '/' },
-            { name: 'Blog', href: paths.eLearning.posts },
+            { name: 'Blog', href: paths.marketing.posts },
             { name: title },
           ]}
-          sx={{ my: 5 }}
         />
+      </Container>
 
-        <Stack
-          alignItems="center"
-          justifyContent="center"
-          sx={{ position: 'relative', borderRadius: 2, overflow: 'hidden' }}
-        >
-          <Fab
-            color="primary"
-            sx={{
-              zIndex: 9,
-              position: 'absolute',
-            }}
-          >
-            <Iconify icon="carbon:play" width={24} />
-          </Fab>
+      <Divider />
 
-          <Image
-            alt="hero"
-            src={heroUrl}
-            ratio={mdUp ? '21/9' : '16/9'}
-            overlay={`linear-gradient(to bottom, ${alpha(theme.palette.common.black, 0)} 0%, ${
-              theme.palette.common.black
-            } 75%)`}
-          />
-        </Stack>
-
+      <Container>
         <Grid container spacing={3} justifyContent={{ md: 'center' }}>
           <Grid xs={12} md={8}>
             <Stack
               spacing={3}
               sx={{
-                pb: 6,
                 textAlign: 'center',
-                pt: { xs: 6, md: 10 },
+                pt: { xs: 5, md: 10 },
+                pb: 5,
               }}
             >
               <Typography variant="body2" sx={{ color: 'text.disabled' }}>
@@ -112,12 +83,10 @@ export default function EcommercePostView() {
               <Typography variant="h2" component="h1">
                 {title}
               </Typography>
-
               <Typography variant="h5">{description}</Typography>
             </Stack>
 
             <Divider />
-
             <Stack direction="row" justifyContent="space-between" spacing={1.5} sx={{ py: 3 }}>
               <Avatar src={author.avatarUrl} sx={{ width: 48, height: 48 }} />
 
@@ -147,25 +116,20 @@ export default function EcommercePostView() {
 
             <Markdown content={content} firstLetter />
 
-            <PostTags tags={tags} />
+            {tags.length && <PostTags tags={tags} />}
 
             <PostSocialsShare />
 
             <Divider sx={{ mt: 8 }} />
 
             <PostAuthor author={author} />
-
-            <Divider />
-
-            <PostPrevAndNext prevPost={_coursePosts[1]} nextPost={_coursePosts[2]} />
           </Grid>
         </Grid>
       </Container>
 
       <Divider />
 
-      <ElearningLatestPosts posts={_coursePosts.slice(0, 3)} />
-
+      <BlogMarketingLatestPosts posts={_marketingPosts.slice(0, 4)} />
       <Popover
         open={!!open}
         onClose={handleClose}

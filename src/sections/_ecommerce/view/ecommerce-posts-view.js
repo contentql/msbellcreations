@@ -1,43 +1,41 @@
 'use client';
 
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Unstable_Grid2';
 
-import { _tags, _mock, _categories, _coursePosts } from 'src/_mock';
+import { _tags, _mock, _categories, _marketingPosts } from 'src/_mock';
 
 import PostSidebar from '../../blog/common/post-sidebar';
-import ElearningPosts from '../../blog/elearning/elearning-posts';
 import PostSearchMobile from '../../blog/common/post-search-mobile';
-import ElearningFeaturedPost from '../../blog/elearning/elearning-featured-post';
+import BlogMarketingPosts from '../../blog/marketing/marketing-posts';
+import BlogMarketingFeaturedPosts from '../../blog/marketing/marketing-featured-posts';
 
 // ----------------------------------------------------------------------
 
-export default function Ecommercepostsview() {
+export default function EcommercePostsView() {
   return (
     <>
       <PostSearchMobile />
-
-      <ElearningFeaturedPost post={_coursePosts[4]} />
-
+      <BlogMarketingFeaturedPosts posts={_marketingPosts.slice(0, 5)} />
       <Container
         sx={{
-          pt: 10,
+          mt: 10,
         }}
       >
-        <Grid container spacing={{ md: 8 }}>
+        <Grid container columnSpacing={{ xs: 0, md: 8 }}>
           <Grid xs={12} md={8}>
-            <ElearningPosts posts={_coursePosts} />
+            <BlogMarketingPosts posts={_marketingPosts} />
           </Grid>
 
           <Grid xs={12} md={4}>
             <PostSidebar
               popularTags={_tags}
               categories={_categories}
-              recentPosts={{ list: _coursePosts.slice(-4) }}
+              recentPosts={{ list: _marketingPosts.slice(-4) }}
               advertisement={{
                 title: 'Advertisement',
                 description: 'Duis leo. Donec orci lectus, aliquam ut, faucibus non',
-                imageUrl: _mock.image.course(10),
+                imageUrl: _mock.image.marketing(9),
                 path: '',
               }}
             />

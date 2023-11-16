@@ -23,13 +23,7 @@ import FilterShipping from './filter-shipping';
 
 const BRAND_OPTIONS = ['Apple', 'Samsung', 'Xiaomi', 'Honor'];
 
-const CATEGORY_OPTIONS = [
-  'Apple iPhone',
-  'Samsung Galaxy',
-  'Nike Air Max',
-  'Adidas Ultraboost',
-  'Sony PlayStation',
-];
+const CATEGORY_OPTIONS = ['Slave', 'Bar', 'Soap', 'Spray', 'Blend', 'Streamers', 'Inhaler'];
 
 const SHIPPING_OPTIONS = ['Fast', 'Saving', 'Free'];
 
@@ -167,8 +161,16 @@ export default function EcommerceFilters({ open, onClose }) {
           sx={{ mt: 2 }}
         />
       </Block>
+      <Block title="Price">
+        <FilterPrice
+          filterPrice={filters.filterPrice}
+          onChangeStartPrice={handleChangeStartPrice}
+          onChangeEndPrice={handleChangeEndPrice}
+          sx={{ mt: 2 }}
+        />
+      </Block>
 
-      <Block title="Brand">
+      {/* <Block title="Brand">
         <FilterBrand
           filterBrand={filters.filterBrand}
           onChangeBrand={handleChangeBrand}
@@ -212,7 +214,7 @@ export default function EcommerceFilters({ open, onClose }) {
           options={TAG_OPTIONS}
           sx={{ mt: 2 }}
         />
-      </Block>
+      </Block> */}
 
       <Button
         fullWidth

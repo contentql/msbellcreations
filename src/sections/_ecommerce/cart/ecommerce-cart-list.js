@@ -1,3 +1,5 @@
+// EcommerceCartList.js
+
 import PropTypes from 'prop-types';
 
 import Stack from '@mui/material/Stack';
@@ -6,9 +8,7 @@ import Scrollbar from 'src/components/scrollbar';
 
 import EcommerceCartItem from './ecommerce-cart-item';
 
-// ----------------------------------------------------------------------
-
-export default function EcommerceCartList({ products, wishlist = false }) {
+export default function EcommerceCartList({ products, onQuantityChange, onDelete }) {
   return (
     <Scrollbar>
       <Stack
@@ -25,11 +25,17 @@ export default function EcommerceCartList({ products, wishlist = false }) {
         <Stack sx={{ width: 120 }}>Qty</Stack>
         <Stack sx={{ width: 120 }}>Subtotal</Stack>
         <Stack sx={{ width: 36 }} />
-        {wishlist && <Stack sx={{ width: 36 }} />}
+        {onDelete && <Stack sx={{ width: 36 }} />} {/* Render only if onDelete is provided */}
       </Stack>
 
       {products.map((product) => (
-        <EcommerceCartItem key={product.id} product={product} wishlist={wishlist} />
+        <EcommerceCartItem
+          key={product.id}
+          product={product}
+          wishlist={false} // Adjust as needed
+          onQuantityChange={onQuantityChange}
+          onDelete={onDelete} // Pass the onDelete prop
+        />
       ))}
     </Scrollbar>
   );
@@ -37,5 +43,6 @@ export default function EcommerceCartList({ products, wishlist = false }) {
 
 EcommerceCartList.propTypes = {
   products: PropTypes.array,
-  wishlist: PropTypes.bool,
+  onQuantityChange: PropTypes.func.isRequired,
+  onDelete: PropTypes.func, // onDelete is now an optional prop
 };

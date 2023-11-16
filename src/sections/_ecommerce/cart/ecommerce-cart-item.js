@@ -1,4 +1,7 @@
+// EcommerceCartItem.js
+
 import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -9,9 +12,17 @@ import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import { fCurrency } from 'src/utils/format-number';
 
-// ----------------------------------------------------------------------
+export default function EcommerceCartItem({ product, wishlist, onQuantityChange, onDelete }) {
+  const [quantity, setQuantity] = useState(1);
 
-export default function EcommerceCartItem({ product, wishlist }) {
+  const handleQuantityChange = (event) => {
+    const newQuantity = parseInt(event.target.value, 10);
+    setQuantity(newQuantity);
+    onQuantityChange(product.id, newQuantity);
+  };
+
+  const totalAmount = quantity * product.price;
+
   return (
     <Stack
       direction="row"
@@ -50,6 +61,8 @@ export default function EcommerceCartItem({ product, wishlist }) {
           SelectProps={{
             native: true,
           }}
+          value={quantity}
+          onChange={handleQuantityChange}
           sx={{ width: 80 }}
         >
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((option) => (
@@ -60,9 +73,9 @@ export default function EcommerceCartItem({ product, wishlist }) {
         </TextField>
       </Stack>
 
-      <Stack sx={{ width: 120, typography: 'subtitle2' }}> {fCurrency(product.price)} </Stack>
+      <Stack sx={{ width: 120, typography: 'subtitle2' }}>{fCurrency(totalAmount)}</Stack>
 
-      <IconButton>
+      <IconButton onClick={() => onDelete(product.id)}>
         <Iconify icon="carbon:trash-can" />
       </IconButton>
 
@@ -77,9 +90,12 @@ export default function EcommerceCartItem({ product, wishlist }) {
 
 EcommerceCartItem.propTypes = {
   product: PropTypes.shape({
+    id: PropTypes.string,
     coverUrl: PropTypes.string,
     name: PropTypes.string,
     price: PropTypes.number,
   }),
   wishlist: PropTypes.bool,
+  onQuantityChange: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired, // Add the onDelete prop
 };

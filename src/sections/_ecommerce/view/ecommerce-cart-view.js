@@ -1,4 +1,7 @@
-'use client';
+"use client"
+
+
+import React, { useState, useEffect } from 'react';
 
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -13,9 +16,31 @@ import { RouterLink } from 'src/routes/components';
 import EcommerceCartList from '../cart/ecommerce-cart-list';
 import EcommerceCartSummary from '../cart/ecommerce-cart-summary';
 
-// ----------------------------------------------------------------------
-
 export default function EcommerceCartView() {
+  const [subtotal, setSubtotal] = useState(0);
+  const [products, setProducts] = useState(_products.slice(0, 4).map(product => ({ ...product, quantity: 1 }))); // Include quantity property
+
+  useEffect(() => {
+    const calculatedSubtotal = products.reduce((temp, ele) => temp + ele.price * ele.quantity, 0);
+    setSubtotal(calculatedSubtotal);
+    console.log(products)
+  }, [products]);
+
+  const handleQuantityChange = (productId, newQuantity) => {
+    const updatedProducts = products.map((product) =>
+      product.id === productId ? { ...product, quantity: newQuantity } : product
+    );
+    setProducts(updatedProducts);
+
+    const updatedSubtotal = updatedProducts.reduce((temp, ele) => temp + ele.price * ele.quantity, 0);
+    setSubtotal(updatedSubtotal);
+  };
+
+  const handleDelete = (productId) => {
+    const updatedProducts = products.filter((product) => product.id !== productId);
+    setProducts(updatedProducts);
+  };
+
   return (
     <Container
       sx={{
@@ -30,14 +55,19 @@ export default function EcommerceCartView() {
 
       <Grid container spacing={{ xs: 5, md: 8 }}>
         <Grid xs={12} md={8}>
-          <EcommerceCartList products={_products.slice(0, 4)} />
+          <EcommerceCartList
+            products={products}
+            onQuantityChange={handleQuantityChange}
+            onDelete={handleDelete}
+          />
         </Grid>
 
         <Grid xs={12} md={4}>
           <EcommerceCartSummary
-            tax={7}
-            total={357.09}
-            subtotal={89.09}
+            products={products} // Pass the updated products array
+            tax={2}
+            total={500} // You can set a default value or calculate it based on other factors
+            subtotal={subtotal}
             shipping={55.47}
             discount={16.17}
           />

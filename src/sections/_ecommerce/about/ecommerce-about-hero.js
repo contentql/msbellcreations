@@ -12,12 +12,29 @@ export default function EcommerceAboutHero() {
   return (
     <Box
       sx={{
-        py: { xs: 5, md: 10 },
+        py: { xs: 2, md: 5 },
         overflow: 'hidden',
-        bgcolor: 'primary.lighter',
       }}
     >
       <Container>
+        <Typography
+          variant="h2"
+          sx={{
+            textAlign: 'center',
+          }}
+        >
+          Ms. Bells Creations
+        </Typography>
+        <Typography
+          variant="body2"
+          sx={{
+            color: 'gray',
+            textAlign: 'center',
+            pb: { xs: 5, md: 10 },
+          }}
+        >
+          Created from all-natural materials and infused with essential oils.
+        </Typography>
         <Grid container spacing={{ xs: 8, md: 3 }} justifyContent="space-between">
           <Grid
             xs={12}
@@ -28,15 +45,21 @@ export default function EcommerceAboutHero() {
               textAlign: { xs: 'center', md: 'left' },
             }}
           >
-            <Typography variant="h1">Our Story</Typography>
+            <Typography variant="h3">Our Story</Typography>
 
-            <Typography sx={{ mt: 3, mb: 6 }}>
+            <Typography
+              sx={{
+                textAlign: { xs: 'left' },
+                mt: 3,
+                mb: 3,
+              }}
+            >
               Nora started this way of living when she had her first child in 1986 and she found a
               reason to follow her grandmother’s homeopathic remedies from her childhood. Ever since
               then she has been supplying family and friends with healthy, chemical free solutions
               to their everyday needs.
             </Typography>
-            <Typography>
+            <Typography sx={{ textAlign: { xs: 'left' } }}>
               In 2022, Nora decided to launch Ms. Bells Creations with the help of her daughter in
               law, Lindsey. They both posses a passion of bringing natural products into the homes
               of people everywhere.
@@ -70,12 +93,12 @@ export default function EcommerceAboutHero() {
               textAlign: { xs: 'center', md: 'left' },
             }}
           >
-            <Typography sx={{ mt: 1, mb: 2 }}>
+            <Typography sx={{ textAlign: { xs: 'left' }, mt: 1, mb: 2 }}>
               We often turn to our neighbor and wonder what do they have that will help with our
               pain or anxiety? Our Blends can help provide relief and they are created with natural
               ingredients so that you don’t have worry about harmful products hurting your family.
             </Typography>
-            <Typography sx={{ mt: 1, mb: 2 }}>
+            <Typography sx={{ textAlign: { xs: 'left' } }}>
               We want you to feel at home again with our products. Let us provide relief, in your
               busy lifestyles.
             </Typography>

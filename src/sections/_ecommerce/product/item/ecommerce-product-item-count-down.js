@@ -20,7 +20,12 @@ export default function EcommerceProductItemCountDown({ product, color = 'primar
   const theme = useTheme();
 
   return (
-    <Link component={RouterLink} href={paths.eCommerce.product} color="inherit" underline="none">
+    <Link
+      component={RouterLink}
+      href={`${paths.eCommerce.products}/${product.id}`}
+      color="inherit"
+      underline="none"
+    >
       <Stack
         spacing={3}
         sx={{
@@ -62,6 +67,7 @@ export default function EcommerceProductItemCountDown({ product, color = 'primar
 EcommerceProductItemCountDown.propTypes = {
   color: PropTypes.string,
   product: PropTypes.shape({
+    id: PropTypes.string,
     coverUrl: PropTypes.string,
     name: PropTypes.string,
     price: PropTypes.number,
