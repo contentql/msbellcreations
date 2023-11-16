@@ -1,6 +1,8 @@
 'use client';
 
-import Box from '@mui/material/Box';
+import React, { useState } from 'react';
+
+import Box from '@mui/material/Box'; // Add this import
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -11,11 +13,28 @@ import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 
-import EcommerceCartList from '../cart/ecommerce-cart-list';
-
-// ----------------------------------------------------------------------
+import EcommerceCartItem from '../cart/ecommerce-cart-item';
 
 export default function EcommerceWishlistView() {
+  const [wishlist, setWishlist] = useState(_products.slice(0, 4));
+
+  const calculateSubtotal = () => wishlist.reduce((total, product) => total + product.price * (product.quantity || 1), 0);
+ 
+
+  const handleQuantityChange = (productId, newQuantity) => {
+    const updatedWishlist = wishlist.map((product) =>
+      product.id === productId ? { ...product, quantity: newQuantity } : product
+    );
+    setWishlist(updatedWishlist);
+  };
+
+  const handleDelete = (productId) => {
+    const updatedWishlist = wishlist.filter((product) => product.id !== productId);
+    setWishlist(updatedWishlist);
+  };
+
+  const subtotal = calculateSubtotal();
+
   return (
     <Container
       sx={{
@@ -28,25 +47,34 @@ export default function EcommerceWishlistView() {
         Wishlist
       </Typography>
 
-      <EcommerceCartList wishlist products={_products.slice(0, 4)} />
+      {wishlist.map((product) => (
+        <EcommerceCartItem
+          key={product.id}
+          product={product}
+          onQuantityChange={handleQuantityChange}
+          onDelete={handleDelete}
+          wishlist
+        />
+      ))}
 
-      <Stack
-        direction={{ xs: 'column-reverse', sm: 'row' }}
-        alignItems={{ sm: 'center' }}
-        justifyContent={{ sm: 'space-between' }}
-        sx={{ mt: 3 }}
+      <Container
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          mt: 3,
+        }}
       >
         <Button
           component={RouterLink}
           href={paths.eCommerce.product}
           color="inherit"
           startIcon={<Iconify icon="carbon:chevron-left" />}
-          sx={{ mt: 3 }}
         >
           Continue Shopping
         </Button>
 
-        <Stack spacing={3} sx={{ minWidth: 240 }}>
+        <Box sx={{ minWidth: 240 }}>
           <Stack
             direction="row"
             alignItems="center"
@@ -54,7 +82,7 @@ export default function EcommerceWishlistView() {
             sx={{ typography: 'h6' }}
           >
             <Box component="span"> Subtotal</Box>
-            $58.07
+            {`$${subtotal.toFixed(2)}`}
           </Stack>
 
           <Button
@@ -67,8 +95,8 @@ export default function EcommerceWishlistView() {
           >
             Add to Cart
           </Button>
-        </Stack>
-      </Stack>
+        </Box>
+      </Container>
     </Container>
   );
 }

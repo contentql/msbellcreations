@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
+"use client"
 
+import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -12,10 +13,14 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 import { fPercent, fCurrency } from 'src/utils/format-number';
+import { useEffect } from 'react';
 
-// ----------------------------------------------------------------------
+export default function EcommerceCartSummary({ products, tax, shipping, discount }) {
+  // Calculate subtotal and total based on the updated products array
+  const subtotal = products.reduce((temp, ele) => temp + ele.price * ele.quantity, 0);
+  const total = subtotal + tax + shipping - discount;
 
-export default function EcommerceCartSummary({ tax, total, subtotal, shipping, discount }) {
+
   return (
     <Stack
       spacing={3}
@@ -30,11 +35,12 @@ export default function EcommerceCartSummary({ tax, total, subtotal, shipping, d
       <Stack spacing={2}>
         <Row label="Subtotal" value={fCurrency(subtotal)} />
 
-        <Row label="Shipping" value={fCurrency(shipping)} />
+        <Row label="Shipping" value={fCurrency(products.length === 0 ? 0 : shipping)}
+ />
 
-        <Row label="Discount (15%)" value={`-${fCurrency(discount)}`} />
+        <Row label="Discount (15%)" value={`-${fCurrency(products.length === 0 ? 0 : discount)}`} />
 
-        <Row label="Tax" value={fPercent(tax)} />
+        <Row label="Tax" value={fPercent(products.length === 0 ? 0 : tax)} />
       </Stack>
 
       <TextField
@@ -53,7 +59,7 @@ export default function EcommerceCartSummary({ tax, total, subtotal, shipping, d
 
       <Row
         label="Total"
-        value={fCurrency(total)}
+        value={fCurrency(products.length === 0 ? 0 : total)}
         sx={{
           typography: 'h6',
           '& span': { typography: 'h6' },
@@ -74,14 +80,11 @@ export default function EcommerceCartSummary({ tax, total, subtotal, shipping, d
 }
 
 EcommerceCartSummary.propTypes = {
+  products: PropTypes.array.isRequired,
   tax: PropTypes.number,
-  total: PropTypes.number,
   discount: PropTypes.number,
   shipping: PropTypes.number,
-  subtotal: PropTypes.number,
 };
-
-// ----------------------------------------------------------------------
 
 function Row({ label, value, sx, ...other }) {
   return (
