@@ -69,7 +69,7 @@ export default function Header({ headerOnDark }) {
           <Box sx={{ lineHeight: 0, position: 'relative' }}>
             <Logo />
 
-            <Link href="#">
+            {/* <Link href="#">
               <Label
                 color="info"
                 sx={{
@@ -85,7 +85,7 @@ export default function Header({ headerOnDark }) {
               >
                 v2.1.0
               </Label>
-            </Link>
+            </Link> */}
           </Box>
 
           {mdUp && <NavDesktop data={navConfig} />}

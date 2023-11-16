@@ -14,14 +14,12 @@ export default function EcommerceAboutHero() {
       sx={{
         py: { xs: 2, md: 5 },
         overflow: 'hidden',
-        bgcolor: 'primary.lighter',
       }}
     >
       <Container>
         <Typography
           variant="h2"
           sx={{
-            color: 'primary.main',
             textAlign: 'center',
           }}
         >
@@ -30,9 +28,9 @@ export default function EcommerceAboutHero() {
         <Typography
           variant="body2"
           sx={{
-            color: 'primary.darker',
+            color: 'gray',
             textAlign: 'center',
-            pb: { xs: 2, md: 4 },
+            pb: { xs: 5, md: 10 },
           }}
         >
           Created from all-natural materials and infused with essential oils.
@@ -51,7 +49,7 @@ export default function EcommerceAboutHero() {
 
             <Typography
               sx={{
-                textAlign: { xs: 'left', md: 'center' },
+                textAlign: { xs: 'left' },
                 mt: 3,
                 mb: 3,
               }}
@@ -61,7 +59,7 @@ export default function EcommerceAboutHero() {
               then she has been supplying family and friends with healthy, chemical free solutions
               to their everyday needs.
             </Typography>
-            <Typography sx={{ textAlign: { xs: 'left', md: 'center' } }}>
+            <Typography sx={{ textAlign: { xs: 'left' } }}>
               In 2022, Nora decided to launch Ms. Bells Creations with the help of her daughter in
               law, Lindsey. They both posses a passion of bringing natural products into the homes
               of people everywhere.
@@ -95,12 +93,12 @@ export default function EcommerceAboutHero() {
               textAlign: { xs: 'center', md: 'left' },
             }}
           >
-            <Typography sx={{ textAlign: { xs: 'left', md: 'center' }, mt: 1, mb: 2 }}>
+            <Typography sx={{ textAlign: { xs: 'left' }, mt: 1, mb: 2 }}>
               We often turn to our neighbor and wonder what do they have that will help with our
               pain or anxiety? Our Blends can help provide relief and they are created with natural
               ingredients so that you don’t have worry about harmful products hurting your family.
             </Typography>
-            <Typography sx={{ textAlign: { xs: 'left', md: 'center' } }}>
+            <Typography sx={{ textAlign: { xs: 'left' } }}>
               We want you to feel at home again with our products. Let us provide relief, in your
               busy lifestyles.
             </Typography>

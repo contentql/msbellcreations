@@ -14,47 +14,43 @@ import TextMaxLine from 'src/components/text-max-line';
 
 const CATEGORIES = [
   {
-    label: 'Men Clothes',
+    label: 'All',
     icon: '/assets/icons/ecommerce/ic_men_clothes.svg',
     path: '#',
   },
   {
-    label: 'Women Clothes',
+    label: 'Slave',
+    icon: '/assets/icons/ecommerce/ic_men_clothes.svg',
+    path: '#',
+  },
+  {
+    label: 'Bar',
     icon: '/assets/icons/ecommerce/ic_women_clothes.svg',
     path: '#',
   },
   {
-    label: 'Watches',
+    label: 'Soap',
     icon: '/assets/icons/ecommerce/ic_watches.svg',
     path: '#',
   },
   {
-    label: 'Home Appliances',
+    label: 'Spray',
     icon: '/assets/icons/ecommerce/ic_home_appliances.svg',
     path: '#',
   },
   {
-    label: 'Sport & Outdoor',
+    label: 'Blend',
     icon: '/assets/icons/ecommerce/ic_sport.svg',
     path: '#',
   },
   {
-    label: 'Books & Stationery',
+    label: 'Streamers',
     icon: '/assets/icons/ecommerce/ic_book.svg',
     path: '#',
   },
   {
-    label: 'Home & Living',
+    label: 'inhaler',
     icon: '/assets/icons/ecommerce/ic_home_living.svg',
-    path: '#',
-  },
-  { label: 'Health', icon: '/assets/icons/ecommerce/ic_health.svg', path: '#' },
-  { label: 'Mobile', icon: '/assets/icons/ecommerce/ic_mobile.svg', path: '#' },
-  { label: 'Laptop', icon: '/assets/icons/ecommerce/ic_laptop.svg', path: '#' },
-  { label: 'Tablet', icon: '/assets/icons/ecommerce/ic_tablet.svg', path: '#' },
-  {
-    label: 'Headphones',
-    icon: '/assets/icons/ecommerce/ic_headphones.svg',
     path: '#',
   },
 ];
