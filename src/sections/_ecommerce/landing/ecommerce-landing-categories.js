@@ -14,7 +14,7 @@ import TextMaxLine from 'src/components/text-max-line';
 
 const CATEGORIES = [
   {
-    label: 'All',
+    label: 'all',
     icon: '/assets/icons/ecommerce/sampleimage.png',
     path: '#',
   },
@@ -99,7 +99,10 @@ export default function EcommerceLandingCategories() {
               },
             }}
           >
-            <Link component={RouterLink} href={`${paths.eCommerce.products}/`}>
+            <Link
+              component={RouterLink}
+              href={`${paths.eCommerce.products}/?category=${category.label}`}
+            >
               <Box
                 sx={{
                   mb: 2,
