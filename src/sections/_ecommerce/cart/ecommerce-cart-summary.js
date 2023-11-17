@@ -1,9 +1,10 @@
-"use client"
+'use client';
 
 
 
 import PropTypes from 'prop-types';
 import React, { useState ,useEffect} from 'react';
+
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -30,6 +31,7 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
       acc + product.quantity * product.price
     , 0);
 
+
     // Update subtotal state
     setSubtotal(newSubtotal);
 
@@ -39,6 +41,7 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
     // Update total state
     setTotal(newTotal);
   }, [cartItems, shipping, discount, tax]);
+
 
   return (
     <Stack
@@ -54,7 +57,9 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
       <Stack spacing={2}>
         <Row label="Subtotal" value={fCurrency(subtotal)} />
 
+
         <Row label="Shipping" value={fCurrency(subtotal===0?0:shipping)} />
+
 
         <Row label={`Discount (${fPercent(discount)})`} value={`-${fCurrency(subtotal===0?0:discount)}`} />
 

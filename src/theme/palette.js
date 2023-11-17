@@ -71,6 +71,13 @@ const ERROR = {
   contrastText: '#FFFFFF',
 };
 
+// const HotDeal = {
+//   color1: '#eeeee4',
+//   color2: '#abdbe3',
+//   color3: '#eab676',
+//   color4: '#abdbe3',
+// };
+
 const COMMON = {
   common: {
     black: '#000000',
