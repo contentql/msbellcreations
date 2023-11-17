@@ -77,7 +77,7 @@ export default function EcommerceCartItem({ product, wishlist }) {
           value={product.quantity}
           onChange={handleQuantityChange}
         >
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((option) => (
+          {Array.from({length: 50}, (_, index) => index + 1).map((option) => (
             <option key={option} value={option}>
               {option}
             </option>
