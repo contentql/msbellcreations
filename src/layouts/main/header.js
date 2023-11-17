@@ -20,7 +20,9 @@ import { RouterLink } from 'src/routes/components';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { useOffSetTop } from 'src/hooks/use-off-set-top';
 
+import {useCart} from "../../app/store";
 import { HEADER } from '../config-layout';
+import {useWish} from "../../app/wishstore";
 import Searchbar from '../common/searchbar';
 import HeaderShadow from '../common/header-shadow';
 import SettingsButton from '../common/settings-button';
@@ -32,6 +34,8 @@ import { navConfig } from './config-navigation';
 // ----------------------------------------------------------------------
 
 export default function Header({ headerOnDark }) {
+  const {cartItems}=useCart();
+  const {wishItems}=useWish();
   const theme = useTheme();
 
   const offset = useOffSetTop();
@@ -92,7 +96,7 @@ export default function Header({ headerOnDark }) {
 
           <Stack spacing={2} direction="row" alignItems="center" justifyContent="flex-end">
             <Stack spacing={4} direction="row" alignItems="center">
-              <Badge badgeContent={2} color="info">
+              <Badge badgeContent={wishItems.length} color="info">
                 <IconButton
                   component={RouterLink}
                   href={paths.eCommerce.wishlist}
@@ -103,7 +107,7 @@ export default function Header({ headerOnDark }) {
                   <Iconify icon="carbon:favorite" width={24} />
                 </IconButton>
               </Badge>
-              <Badge badgeContent={4} color="error">
+              <Badge badgeContent={cartItems.length} color="error">
                 <IconButton
                   component={RouterLink}
                   href={paths.eCommerce.cart}

@@ -1,5 +1,7 @@
 'use client';
 
+import { useState,useEffect } from 'react';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -8,6 +10,7 @@ import Typography from '@mui/material/Typography';
 
 import { _products } from 'src/_mock';
 import { paths } from 'src/routes/paths';
+import { useWish } from 'src/app/wishstore';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 
@@ -16,6 +19,12 @@ import EcommerceCartList from '../cart/ecommerce-cart-list';
 // ----------------------------------------------------------------------
 
 export default function EcommerceWishlistView() {
+  const { wishItems} = useWish()
+  const [subtotal,setSub]=useState(0)
+  useEffect(()=>{
+    setSub(st=>wishItems.reduce((acc, item) => acc + item.price*item.quantity, 0))
+  },[wishItems])
+  
   return (
     <Container
       sx={{
@@ -28,7 +37,7 @@ export default function EcommerceWishlistView() {
         Wishlist
       </Typography>
 
-      <EcommerceCartList wishlist products={_products.slice(0, 4)} />
+      <EcommerceCartList wishlist={ true||false } products={ wishItems} />
 
       <Stack
         direction={{ xs: 'column-reverse', sm: 'row' }}
@@ -54,7 +63,7 @@ export default function EcommerceWishlistView() {
             sx={{ typography: 'h6' }}
           >
             <Box component="span"> Subtotal</Box>
-            $58.07
+           <>{subtotal.toFixed(2)}</>
           </Stack>
 
           <Button

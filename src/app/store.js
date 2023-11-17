@@ -20,6 +20,5 @@ export const useCart = create(persist((set) => ({
 }),
 {
     name: 'cart-items', // name of the item in the storage (must be unique)
-  
   },
 ));

@@ -4,6 +4,7 @@ import Fab from '@mui/material/Fab';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 
+import { useCart } from 'src/app/store';
 import Image from 'src/components/image';
 import Label from 'src/components/label';
 import { paths } from 'src/routes/paths';
@@ -13,16 +14,13 @@ import TextMaxLine from 'src/components/text-max-line';
 
 import ProductPrice from '../../common/product-price';
 import ProductRating from '../../common/product-rating';
-import { useCart } from 'src/app/store';
 
 // ----------------------------------------------------------------------
 
 export default function EcommerceProductViewListItem({ product, ...other }) {
-  const { addProduct } = useCart();
-  const handleAddToCart = () => {
-    // Call the addProduct function from the useCart hook to add the product to the cart
-    addProduct(product);
-  };
+  const { cartItems,addProduct,updateQuantity } = useCart();
+  
+ 
   return (
     <Stack
       direction="row"
@@ -49,11 +47,11 @@ export default function EcommerceProductViewListItem({ product, ...other }) {
       <Fab
         component={RouterLink}
         href={paths.eCommerce.product}
-        className="add-to-cart"
+        className="add-to-wish"
         color="primary"
         size="small"
         sx={{
-          right: 8,
+          right: 16,
           zIndex: 9,
           top: 8,
           opacity: 0,
@@ -64,10 +62,12 @@ export default function EcommerceProductViewListItem({ product, ...other }) {
               duration: theme.transitions.duration.shortest,
             }),
         }}
-        onClick={handleAddToCart}
+        
       >
         <Iconify icon="carbon:shopping-cart-plus" />
       </Fab>
+
+      
 
       <Image
         src={product.coverUrl}

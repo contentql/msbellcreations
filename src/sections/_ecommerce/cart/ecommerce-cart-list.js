@@ -4,15 +4,13 @@ import Stack from '@mui/material/Stack';
 
 import Scrollbar from 'src/components/scrollbar';
 
-import {useCart} from "../../../app/store"
-
 import EcommerceCartItem from './ecommerce-cart-item';
 
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceCartList({ products, wishlist = false }) {
-  const {cartItems}=useCart();
+export default function EcommerceCartList({ products, wishlist }) {
+
   return (
     <Scrollbar>
       <Stack
@@ -32,7 +30,7 @@ export default function EcommerceCartList({ products, wishlist = false }) {
         {wishlist && <Stack sx={{ width: 36 }} />}
       </Stack>
 
-      {cartItems.map((product) => (
+      {products.map((product) => (
         <EcommerceCartItem key={product.id} product={product} wishlist={wishlist} />
       ))}
     </Scrollbar>

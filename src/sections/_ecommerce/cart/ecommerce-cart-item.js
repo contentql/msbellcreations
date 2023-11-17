@@ -6,21 +6,29 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
+import { useCart } from 'src/app/store';
 import Image from 'src/components/image';
+import { useWish } from 'src/app/wishstore';
 import Iconify from 'src/components/iconify';
 import { fCurrency } from 'src/utils/format-number';
-import { useCart } from 'src/app/store';
 
 export default function EcommerceCartItem({ product, wishlist }) {
-  const { updateQuantity,deleteProduct } = useCart();
+  const { addProduct,updateQuantity,deleteProduct } = useCart();
+  const { wishupdateQuantity,wishdeleteProduct } = useWish();
 
-  const handleQuantityChange = (event) => {
-    const newQuantity = parseInt(event.target.value, 10);
-    updateQuantity(product.id, newQuantity);
-  };
+  const handleQuantityChange = (event) => 
+    wishlist ? wishupdateQuantity(product.id, parseInt(event.target.value, 10)) : updateQuantity(product.id, parseInt(event.target.value, 10));
+  
+  
 
-  const Handledelete=()=>{
-    deleteProduct(product.id)
+  const Handledelete = () => 
+     wishlist ? wishdeleteProduct(product.id) : deleteProduct(product.id);
+ 
+  
+
+  const wishtocart= (produc)=>{
+     addProduct(produc)
+    wishdeleteProduct(produc.id)
   }
 
   return (
@@ -82,7 +90,7 @@ export default function EcommerceCartItem({ product, wishlist }) {
       </IconButton>
 
       {wishlist && (
-        <IconButton>
+        <IconButton onClick={()=>{wishtocart(product)}}>
           <Iconify icon="carbon:shopping-cart-plus" />
         </IconButton>
       )}

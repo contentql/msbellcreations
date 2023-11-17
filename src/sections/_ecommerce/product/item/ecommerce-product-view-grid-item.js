@@ -16,14 +16,37 @@ import { RouterLink } from 'src/routes/components';
 import TextMaxLine from 'src/components/text-max-line';
 
 import { useCart } from "../../../../app/store";
+import { useWish } from '../../../../app/wishstore';
 import ProductPrice from '../../common/product-price';
 import ProductRating from '../../common/product-rating';
 // ----------------------------------------------------------------------
 
 export default function EcommerceProductViewGridItem({ product, sx, ...other }) {
-  const { cartitems, addProduct } = useCart();
+  const { cartItems, addProduct,updateQuantity } = useCart();
   const AddtoCart = () => {
-    addProduct(product);
+    const existingProduct = cartItems.find((item) => item.id === product.id);
+  
+    if (existingProduct) {
+      // If the product already exists in the cart, update its quantity
+      updateQuantity(product.id, existingProduct.quantity + 1);
+    } else {
+      // If the product is not in the cart, add it with quantity 1
+      addProduct({ ...product, quantity: 1 });
+    }
+  };
+  
+
+  const {  wishItems, wishaddProduct,wishupdateQuantity } = useWish();
+  const WishtoCart = () => {
+    const existingProduct = wishItems.find((item) => item.id === product.id);
+  
+    if (existingProduct) {
+      // If the product already exists in the cart, update its quantity
+      wishupdateQuantity(product.id, existingProduct.quantity + 1);
+    } else {
+      // If the product is not in the cart, add it with quantity 1
+      wishaddProduct({ ...product, quantity: 1 });
+    }
   };
  
     
@@ -72,6 +95,27 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
           }}
         >
           <Iconify icon="carbon:shopping-cart-plus" onClick={AddtoCart}/>
+        </Fab>
+        <Fab
+          // component={RouterLink}
+          // href={paths.eCommerce.product}
+          className="add-to-cart"
+          color="primary"
+          size="small"
+          sx={{
+            right: 8,
+            zIndex: 9,
+            bottom: 50,
+            opacity: 0,
+            position: 'absolute',
+            transition: (theme) =>
+              theme.transitions.create('opacity', {
+                easing: theme.transitions.easing.easeIn,
+                duration: theme.transitions.duration.shortest,
+              }),
+          }}
+        >
+          <Iconify icon="carbon:favorite" onClick={WishtoCart}/>
         </Fab>
 
         <Image
