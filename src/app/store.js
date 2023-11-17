@@ -1,7 +1,7 @@
 import {create} from "zustand";
-import { persist } from 'zustand/middleware';
+import { persist  } from 'zustand/middleware';
 
-export const useCart = persist(create((set) => ({
+export const useCart = create(persist((set) => ({
     cartItems: [],
     addProduct: (newProduct) =>
       set((state) => ({
@@ -17,4 +17,9 @@ export const useCart = persist(create((set) => ({
           product.id === productId ? { ...product, quantity } : product
         ),
       })),
-})));
+}),
+{
+    name: 'cart-items', // name of the item in the storage (must be unique)
+  
+  },
+));
