@@ -1,17 +1,19 @@
 'use client';
 
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer, toast } from 'react-toastify';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import 'react-toastify/dist/ReactToastify.css';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { toast, ToastContainer } from 'react-toastify';
 
-import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
+import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 
-import Label from 'src/components/label';
 import { paths } from 'src/routes/paths';
+import Label from 'src/components/label';
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
