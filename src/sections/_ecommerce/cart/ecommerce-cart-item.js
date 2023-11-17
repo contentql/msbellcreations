@@ -1,5 +1,9 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
+
+// EcommerceCartItem.js
+
 
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
