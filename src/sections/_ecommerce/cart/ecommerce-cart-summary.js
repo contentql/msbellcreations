@@ -1,8 +1,9 @@
-"use client"
+'use client';
 
 
 
 import PropTypes from 'prop-types';
+
 import React, { useState ,useEffect} from 'react';
 
 import Box from '@mui/material/Box';
@@ -23,7 +24,6 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
   const { cartItems } = useCart();
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
-
   useEffect(() => {
     // Calculate subtotal based on quantity and price of each item in the cart
     const newSubtotal = cartItems.reduce((acc, product) => 

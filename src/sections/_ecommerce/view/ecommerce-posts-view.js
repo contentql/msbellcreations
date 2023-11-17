@@ -16,9 +16,7 @@ export default function EcommercePostsView() {
   return (
     <>
       <PostSearchMobile />
-
       <BlogMarketingFeaturedPosts posts={_marketingPosts.slice(0, 5)} />
-
       <Container
         sx={{
           mt: 10,
