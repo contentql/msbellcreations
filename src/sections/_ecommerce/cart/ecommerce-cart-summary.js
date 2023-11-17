@@ -1,7 +1,7 @@
 'use client';
 
 import PropTypes from 'prop-types';
-import React, { useState ,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -22,14 +22,12 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
 
-<<<<<<<<< Temporary merge branch 1
-=========
   useEffect(() => {
     // Calculate subtotal based on quantity and price of each item in the cart
-    const newSubtotal = cartItems.reduce((acc, product) => 
-      acc + product.quantity * product.price
-    , 0);
-
+    const newSubtotal = cartItems.reduce(
+      (acc, product) => acc + product.quantity * product.price,
+      0
+    );
 
     // Update subtotal state
     setSubtotal(newSubtotal);
@@ -41,7 +39,6 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
     setTotal(newTotal);
   }, [cartItems, shipping, discount, tax]);
 
->>>>>>>>> Temporary merge branch 2
   return (
     <Stack
       spacing={3}
@@ -56,15 +53,15 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
       <Stack spacing={2}>
         <Row label="Subtotal" value={fCurrency(subtotal)} />
 
-<<<<<<<<< Temporary merge branch 1
-        <Row label="Shipping" value={fCurrency(products.length === 0 ? 0 : shipping)} />
-=========
-        <Row label="Shipping" value={fCurrency(subtotal===0?0:shipping)} />
->>>>>>>>> Temporary merge branch 2
+        <Row label="Shipping" value={fCurrency(cartItems.length === 0 ? 0 : shipping)} />
+        <Row label="Shipping" value={fCurrency(subtotal === 0 ? 0 : shipping)} />
 
-        <Row label={`Discount (${fPercent(discount)})`} value={`-${fCurrency(subtotal===0?0:discount)}`} />
+        <Row
+          label={`Discount (${fPercent(discount)})`}
+          value={`-${fCurrency(subtotal === 0 ? 0 : discount)}`}
+        />
 
-        <Row label="Tax" value={fPercent(subtotal===0?0:tax)} />
+        <Row label="Tax" value={fPercent(subtotal === 0 ? 0 : tax)} />
       </Stack>
 
       <TextField
@@ -83,7 +80,7 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
 
       <Row
         label="Total"
-        value={fCurrency(subtotal===0?0:total)}
+        value={fCurrency(subtotal === 0 ? 0 : total)}
         sx={{
           typography: 'h6',
           '& span': { typography: 'h6' },
@@ -108,7 +105,6 @@ EcommerceCartSummary.propTypes = {
   discount: PropTypes.number,
   shipping: PropTypes.number,
 };
-
 
 // ----------------------------------------------------------------------
 
