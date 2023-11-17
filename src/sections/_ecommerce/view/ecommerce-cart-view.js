@@ -1,7 +1,5 @@
-"use client"
+'use client';
 
-
-import React, { useState, useEffect } from 'react';
 
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -13,34 +11,19 @@ import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 
+import {useCart} from "../../../app/store";
 import EcommerceCartList from '../cart/ecommerce-cart-list';
 import EcommerceCartSummary from '../cart/ecommerce-cart-summary';
 
+// ----------------------------------------------------------------------
+
 export default function EcommerceCartView() {
-  const [subtotal, setSubtotal] = useState(0);
-  const [products, setProducts] = useState(_products.slice(0, 4).map(product => ({ ...product, quantity: 1 }))); // Include quantity property
+  const {cartItems}=useCart();
+  const subtotal = () => cartItems.reduce((acc, product) => 
+  acc + product.quantity * product.price
+, 0);
 
-  useEffect(() => {
-    const calculatedSubtotal = products.reduce((temp, ele) => temp + ele.price * ele.quantity, 0);
-    setSubtotal(calculatedSubtotal);
-    console.log(products)
-  }, [products]);
-
-  const handleQuantityChange = (productId, newQuantity) => {
-    const updatedProducts = products.map((product) =>
-      product.id === productId ? { ...product, quantity: newQuantity } : product
-    );
-    setProducts(updatedProducts);
-
-    const updatedSubtotal = updatedProducts.reduce((temp, ele) => temp + ele.price * ele.quantity, 0);
-    setSubtotal(updatedSubtotal);
-  };
-
-  const handleDelete = (productId) => {
-    const updatedProducts = products.filter((product) => product.id !== productId);
-    setProducts(updatedProducts);
-  };
-
+  
   return (
     <Container
       sx={{
@@ -55,19 +38,14 @@ export default function EcommerceCartView() {
 
       <Grid container spacing={{ xs: 5, md: 8 }}>
         <Grid xs={12} md={8}>
-          <EcommerceCartList
-            products={products}
-            onQuantityChange={handleQuantityChange}
-            onDelete={handleDelete}
-          />
+          <EcommerceCartList products={cartItems} />
         </Grid>
 
         <Grid xs={12} md={4}>
           <EcommerceCartSummary
-            products={products} // Pass the updated products array
-            tax={2}
-            total={500} // You can set a default value or calculate it based on other factors
-            subtotal={subtotal}
+            tax={7}
+            total={357.09}
+            subtotal={subtotal()}
             shipping={55.47}
             discount={16.17}
           />

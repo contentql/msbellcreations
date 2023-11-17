@@ -1,3 +1,6 @@
+"use client"
+
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
@@ -12,12 +15,19 @@ import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 import TextMaxLine from 'src/components/text-max-line';
 
+import { useCart } from "../../../../app/store";
 import ProductPrice from '../../common/product-price';
 import ProductRating from '../../common/product-rating';
-
 // ----------------------------------------------------------------------
 
 export default function EcommerceProductViewGridItem({ product, sx, ...other }) {
+  const { cartitems, addProduct } = useCart();
+  const AddtoCart = () => {
+    addProduct(product);
+  };
+ 
+    
+
   return (
     <Stack
       sx={{
@@ -43,8 +53,8 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
 
       <Box sx={{ position: 'relative', mb: 2 }}>
         <Fab
-          component={RouterLink}
-          href={paths.eCommerce.product}
+          // component={RouterLink}
+          // href={paths.eCommerce.product}
           className="add-to-cart"
           color="primary"
           size="small"
@@ -61,7 +71,7 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
               }),
           }}
         >
-          <Iconify icon="carbon:shopping-cart-plus" />
+          <Iconify icon="carbon:shopping-cart-plus" onClick={AddtoCart}/>
         </Fab>
 
         <Image

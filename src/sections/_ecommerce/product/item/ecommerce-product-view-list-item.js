@@ -13,10 +13,16 @@ import TextMaxLine from 'src/components/text-max-line';
 
 import ProductPrice from '../../common/product-price';
 import ProductRating from '../../common/product-rating';
+import { useCart } from 'src/app/store';
 
 // ----------------------------------------------------------------------
 
 export default function EcommerceProductViewListItem({ product, ...other }) {
+  const { addProduct } = useCart();
+  const handleAddToCart = () => {
+    // Call the addProduct function from the useCart hook to add the product to the cart
+    addProduct(product);
+  };
   return (
     <Stack
       direction="row"
@@ -58,6 +64,7 @@ export default function EcommerceProductViewListItem({ product, ...other }) {
               duration: theme.transitions.duration.shortest,
             }),
         }}
+        onClick={handleAddToCart}
       >
         <Iconify icon="carbon:shopping-cart-plus" />
       </Fab>

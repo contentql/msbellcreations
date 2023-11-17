@@ -1,7 +1,6 @@
-// EcommerceCartItem.js
-
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
@@ -10,17 +9,19 @@ import Typography from '@mui/material/Typography';
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import { fCurrency } from 'src/utils/format-number';
+import { useCart } from 'src/app/store';
 
-export default function EcommerceCartItem({ product, wishlist, onQuantityChange, onDelete }) {
-  const [quantity, setQuantity] = useState(1);
+export default function EcommerceCartItem({ product, wishlist }) {
+  const { updateQuantity,deleteProduct } = useCart();
 
   const handleQuantityChange = (event) => {
     const newQuantity = parseInt(event.target.value, 10);
-    setQuantity(newQuantity);
-    onQuantityChange(product.id, newQuantity);
+    updateQuantity(product.id, newQuantity);
   };
 
-  const totalAmount = quantity * product.price;
+  const Handledelete=()=>{
+    deleteProduct(product.id)
+  }
 
   return (
     <Stack
@@ -60,9 +61,9 @@ export default function EcommerceCartItem({ product, wishlist, onQuantityChange,
           SelectProps={{
             native: true,
           }}
-          value={quantity}
-          onChange={handleQuantityChange}
           sx={{ width: 80 }}
+          value={product.quantity}
+          onChange={handleQuantityChange}
         >
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((option) => (
             <option key={option} value={option}>
@@ -72,9 +73,11 @@ export default function EcommerceCartItem({ product, wishlist, onQuantityChange,
         </TextField>
       </Stack>
 
-      <Stack sx={{ width: 120, typography: 'subtitle2' }}>{fCurrency(totalAmount)}</Stack>
+      <Stack sx={{ width: 120, typography: 'subtitle2' }}>
+        {fCurrency(product.price * product.quantity)}
+      </Stack>
 
-      <IconButton onClick={() => onDelete(product.id)}>
+      <IconButton onClick={Handledelete}>
         <Iconify icon="carbon:trash-can" />
       </IconButton>
 
@@ -89,12 +92,11 @@ export default function EcommerceCartItem({ product, wishlist, onQuantityChange,
 
 EcommerceCartItem.propTypes = {
   product: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.string.isRequired,
     coverUrl: PropTypes.string,
     name: PropTypes.string,
     price: PropTypes.number,
+    quantity: PropTypes.number, // Make sure to include quantity in the propTypes
   }),
   wishlist: PropTypes.bool,
-  onQuantityChange: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired, // Add the onDelete prop
 };
