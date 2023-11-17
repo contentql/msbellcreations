@@ -1,14 +1,18 @@
 import PropTypes from 'prop-types';
 import { useState, useCallback } from 'react';
 
+import { Link } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
 
+import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
+import { CATEGORIES } from 'src/_mock/_products';
 import { useBoolean } from 'src/hooks/use-boolean';
+import { RouterLink } from 'src/routes/components';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import FilterTag from './filter-tag';
@@ -18,36 +22,33 @@ import FilterStock from './filter-stock';
 import FilterRating from './filter-rating';
 import FilterCategory from './filter-category';
 import FilterShipping from './filter-shipping';
-
 // ----------------------------------------------------------------------
 
 const BRAND_OPTIONS = ['Apple', 'Samsung', 'Xiaomi', 'Honor'];
-
-const CATEGORY_OPTIONS = ['Slave', 'Bar', 'Soap', 'Spray', 'Blend', 'Streamers', 'Inhaler'];
-
+const CATEGORY_OPTIONS = CATEGORIES;
 const SHIPPING_OPTIONS = ['Fast', 'Saving', 'Free'];
 
 const TAG_OPTIONS = ['Books and Media', 'Pet', 'Electronics', 'Food', 'Automotive and Industrial'];
 
 // ----------------------------------------------------------------------
 
-const defaultValues = {
-  filterBrand: [BRAND_OPTIONS[1]],
-  filterCategories: '',
-  filterRating: null,
-  filterStock: false,
-  filterShipping: [],
-  filterTag: [],
-  filterPrice: {
-    start: 0,
-    end: 0,
-  },
-};
+// const defaultValues = {
+//   filterBrand: [BRAND_OPTIONS[1]],
+//   filterCategories: '',
+//   filterRating: null,
+//   filterStock: false,
+//   filterShipping: [],
+//   filterTag: [],
+//   filterPrice: {
+//     start: 0,
+//     end: 0,
+//   },
+// };
 
-export default function EcommerceFilters({ open, onClose }) {
+export default function EcommerceFilters({ filters, setFilters, open, onClose }) {
   const mdUp = useResponsive('up', 'md');
 
-  const [filters, setFilters] = useState(defaultValues);
+  // const [filters, setFilters] = useState(defaultValues);
 
   const getSelected = (selectedItems, item) =>
     selectedItems.includes(item)
@@ -61,48 +62,48 @@ export default function EcommerceFilters({ open, onClose }) {
         filterCategories: name,
       });
     },
-    [filters]
+    [filters, setFilters]
   );
 
-  const handleChangeBrand = useCallback(
-    (name) => {
-      setFilters({
-        ...filters,
-        filterBrand: getSelected(filters.filterBrand, name),
-      });
-    },
-    [filters]
-  );
+  // const handleChangeBrand = useCallback(
+  //   (name) => {
+  //     setFilters({
+  //       ...filters,
+  //       filterBrand: getSelected(filters.filterBrand, name),
+  //     });
+  //   },
+  //   [filters]
+  // );
 
-  const handleChangeShipping = useCallback(
-    (name) => {
-      setFilters({
-        ...filters,
-        filterShipping: getSelected(filters.filterShipping, name),
-      });
-    },
-    [filters]
-  );
+  // const handleChangeShipping = useCallback(
+  //   (name) => {
+  //     setFilters({
+  //       ...filters,
+  //       filterShipping: getSelected(filters.filterShipping, name),
+  //     });
+  //   },
+  //   [filters]
+  // );
 
-  const handleChangeTag = useCallback(
-    (name) => {
-      setFilters({
-        ...filters,
-        filterTag: getSelected(filters.filterTag, name),
-      });
-    },
-    [filters]
-  );
+  // const handleChangeTag = useCallback(
+  //   (name) => {
+  //     setFilters({
+  //       ...filters,
+  //       filterTag: getSelected(filters.filterTag, name),
+  //     });
+  //   },
+  //   [filters]
+  // );
 
-  const handleChangeRating = useCallback(
-    (event) => {
-      setFilters({
-        ...filters,
-        filterRating: event.target.value,
-      });
-    },
-    [filters]
-  );
+  // const handleChangeRating = useCallback(
+  //   (event) => {
+  //     setFilters({
+  //       ...filters,
+  //       filterRating: event.target.value,
+  //     });
+  //   },
+  //   [filters]
+  // );
 
   const handleChangeStartPrice = useCallback(
     (event) => {
@@ -114,7 +115,7 @@ export default function EcommerceFilters({ open, onClose }) {
         },
       });
     },
-    [filters]
+    [filters, setFilters]
   );
 
   const handleChangeEndPrice = useCallback(
@@ -127,22 +128,28 @@ export default function EcommerceFilters({ open, onClose }) {
         },
       });
     },
-    [filters]
+    [filters, setFilters]
   );
 
-  const handleChangeStock = useCallback(
-    (event) => {
-      setFilters({
-        ...filters,
-        filterStock: event.target.checked,
-      });
-    },
-    [filters]
-  );
+  // const handleChangeStock = useCallback(
+  //   (event) => {
+  //     setFilters({
+  //       ...filters,
+  //       filterStock: event.target.checked,
+  //     });
+  //   },
+  //   [filters]
+  // );
 
   const handleClearAll = useCallback(() => {
-    setFilters(defaultValues);
-  }, []);
+    setFilters({
+      FilterCategory: '',
+      filterPrice: {
+        start: 0,
+        end: 0,
+      },
+    });
+  }, [setFilters]);
 
   const renderContent = (
     <Stack
@@ -216,16 +223,18 @@ export default function EcommerceFilters({ open, onClose }) {
         />
       </Block> */}
 
-      <Button
-        fullWidth
-        color="inherit"
-        size="large"
-        variant="contained"
-        startIcon={<Iconify icon="carbon:trash-can" />}
-        onClick={handleClearAll}
-      >
-        Clear All
-      </Button>
+      <Link component={RouterLink} href={paths.eCommerce.products}>
+        <Button
+          fullWidth
+          color="inherit"
+          size="large"
+          variant="contained"
+          startIcon={<Iconify icon="carbon:trash-can" />}
+          onClick={handleClearAll}
+        >
+          Clear All
+        </Button>
+      </Link>
     </Stack>
   );
 
@@ -254,6 +263,8 @@ export default function EcommerceFilters({ open, onClose }) {
 }
 
 EcommerceFilters.propTypes = {
+  filters: PropTypes.object,
+  setFilters: PropTypes.func,
   onClose: PropTypes.func,
   open: PropTypes.bool,
 };

@@ -29,32 +29,7 @@ const NAME = [
   'Allbirds Wool Runners',
 ];
 
-const CATEGORIES = [
-  'Electronics',
-  'Fashion and Apparel',
-  'Home and Garden',
-  'Beauty and Personal Care',
-  'Health and Wellness',
-  'Toys and Games',
-  'Sports and Outdoors',
-  'Baby and Kids',
-  'Automotive and Industrial',
-  'Pet Supplies',
-  'Food and Beverage',
-  'Office and School Supplies',
-  'Jewelry and Accessories',
-  'Arts and Crafts',
-  'Books and Media',
-  'Travel and Luggage',
-  'Gifts and Flowers',
-  'Musical Instruments',
-  'Party Supplies',
-  'Business and Industrial Supplies',
-  'Tools and Hardware',
-  'Electronics Accessories',
-  'Furniture and Decor',
-  'Computer and Software',
-];
+export const CATEGORIES = ['Slave', 'Bar', 'Soap', 'Spray', 'Blend', 'Streamers', 'Inhaler'];
 
 const DESCRIPTION = `
 <p>Aenean viverra rhoncus pede. Etiam feugiat lorem non metus. Quisque malesuada placerat nisl.</p>
@@ -132,15 +107,5 @@ export const _products = [...Array(24)].map((_, index) => ({
       _mock.number.price(4),
       _mock.number.price(5),
     ][index] || 0,
-  images: [
-    // _mock.image.product(1),
-    // _mock.image.product(2),
-    // _mock.image.product(3),
-    // _mock.image.product(4),
-    // _mock.image.product(5),
-    // _mock.image.product(6),
-    // _mock.image.product(7),
-    // _mock.image.product(8),
-    _mock.image.product(index),
-  ],
+  images: [_mock.image.product(index), _mock.image.product(index), _mock.image.product(index)],
 }));

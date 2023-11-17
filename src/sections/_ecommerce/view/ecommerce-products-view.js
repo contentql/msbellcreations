@@ -1,5 +1,6 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
@@ -16,6 +17,7 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 import { _products } from 'src/_mock';
 import Iconify from 'src/components/iconify';
+import { CATEGORIES } from 'src/_mock/_products';
 import { useBoolean } from 'src/hooks/use-boolean';
 
 import EcommerceFilters from '../product/filters/ecommerce-filters';
@@ -39,6 +41,16 @@ const SORT_OPTIONS = [
 
 export default function EcommerceProductsView() {
   const mobileOpen = useBoolean();
+
+  const searchParams = useSearchParams();
+
+  const [filters, setFilters] = useState({
+    filterCategories: searchParams.get('category') ? searchParams.get('category') : '',
+    filterPrice: {
+      start: searchParams.get('startPrice') ? searchParams.get('startPrice') : 0,
+      end: searchParams.get('endPrice') ? searchParams.get('endPrice') : 0,
+    },
+  });
 
   const [sort, setSort] = useState('latest');
 
@@ -64,6 +76,7 @@ export default function EcommerceProductsView() {
     setSort(event.target.value);
   }, []);
 
+  console.log('Filters', filters);
   return (
     <Container>
       <Stack
@@ -97,7 +110,12 @@ export default function EcommerceProductsView() {
         sx={{ mb: { xs: 8, md: 10 } }}
       >
         <Stack spacing={5} divider={<Divider sx={{ borderStyle: 'dashed' }} />}>
-          <EcommerceFilters open={mobileOpen.value} onClose={mobileOpen.onFalse} />
+          <EcommerceFilters
+            filters={filters}
+            setFilters={setFilters}
+            open={mobileOpen.value}
+            onClose={mobileOpen.onFalse}
+          />
           <EcommerceProductListBestSellers products={_products.slice(0, 3)} />
         </Stack>
 
@@ -137,7 +155,8 @@ export default function EcommerceProductsView() {
           <EcommerceProductList
             loading={loading.value}
             viewMode={viewMode}
-            products={_products.slice(0, 16)}
+            filter={filters}
+            products={_products}
           />
         </Box>
       </Stack>
