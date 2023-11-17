@@ -21,8 +21,6 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
   const { cartItems } = useCart();
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
-
-
   useEffect(() => {
     // Calculate subtotal based on quantity and price of each item in the cart
     const newSubtotal = cartItems.reduce((acc, product) => 
@@ -60,9 +58,12 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
         <Row label="Shipping" value={fCurrency(subtotal===0?0:shipping)} />
 
 
-        <Row label={`Discount (${fPercent(discount)})`} value={`-${fCurrency(subtotal===0?0:discount)}`} />
+        <Row
+          label={`Discount (${fPercent(discount)})`}
+          value={`-${fCurrency(subtotal === 0 ? 0 : discount)}`}
+        />
 
-        <Row label="Tax" value={fPercent(subtotal===0?0:tax)} />
+        <Row label="Tax" value={fPercent(subtotal === 0 ? 0 : tax)} />
       </Stack>
 
       <TextField
@@ -81,7 +82,7 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
 
       <Row
         label="Total"
-        value={fCurrency(subtotal===0?0:total)}
+        value={fCurrency(subtotal === 0 ? 0 : total)}
         sx={{
           typography: 'h6',
           '& span': { typography: 'h6' },
@@ -106,7 +107,6 @@ EcommerceCartSummary.propTypes = {
   discount: PropTypes.number,
   shipping: PropTypes.number,
 };
-
 
 // ----------------------------------------------------------------------
 

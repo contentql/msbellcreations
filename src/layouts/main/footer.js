@@ -143,7 +143,7 @@ export default function Footer() {
 
           <Grid xs={12} md={6}>
             {mdUp ? (
-              <Masonry columns={4} spacing={2} defaultColumns={4} defaultSpacing={2}>
+              <Masonry columns={2} spacing={4} defaultColumns={4} defaultSpacing={2}>
                 {renderLists.map((list) => (
                   <ListDesktop key={list.subheader} list={list} />
                 ))}
