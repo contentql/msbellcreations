@@ -53,7 +53,7 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
         <Row label="Subtotal" value={fCurrency(subtotal)} />
 
 
-        <Row label="Shipping" value={fCurrency(products.length === 0 ? 0 : shipping)} />
+        <Row label="Shipping" value={fCurrency(cartItems.length === 0 ? 0 : shipping)} />
 
         <Row label="Shipping" value={fCurrency(subtotal===0?0:shipping)} />
 
