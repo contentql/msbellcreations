@@ -22,8 +22,7 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
 
-<<<<<<<<< Temporary merge branch 1
-=========
+
   useEffect(() => {
     // Calculate subtotal based on quantity and price of each item in the cart
     const newSubtotal = cartItems.reduce((acc, product) => 
@@ -41,7 +40,6 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
     setTotal(newTotal);
   }, [cartItems, shipping, discount, tax]);
 
->>>>>>>>> Temporary merge branch 2
   return (
     <Stack
       spacing={3}
@@ -56,11 +54,11 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
       <Stack spacing={2}>
         <Row label="Subtotal" value={fCurrency(subtotal)} />
 
-<<<<<<<<< Temporary merge branch 1
+
         <Row label="Shipping" value={fCurrency(products.length === 0 ? 0 : shipping)} />
-=========
+
         <Row label="Shipping" value={fCurrency(subtotal===0?0:shipping)} />
->>>>>>>>> Temporary merge branch 2
+
 
         <Row label={`Discount (${fPercent(discount)})`} value={`-${fCurrency(subtotal===0?0:discount)}`} />
 
