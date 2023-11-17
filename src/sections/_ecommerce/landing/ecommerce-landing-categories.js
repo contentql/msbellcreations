@@ -15,7 +15,7 @@ import TextMaxLine from 'src/components/text-max-line';
 const CATEGORIES = [
   {
     label: 'All',
-    icon: '/assets/icons/ecommerce/ic_men_clothes.svg',
+    icon: '/assets/icons/ecommerce/sampleimage.png',
     path: '#',
   },
   {
