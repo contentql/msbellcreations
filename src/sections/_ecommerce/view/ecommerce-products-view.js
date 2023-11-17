@@ -45,12 +45,14 @@ export default function EcommerceProductsView() {
   const searchParams = useSearchParams();
 
   const [filters, setFilters] = useState({
-    filterCategories: searchParams.get('category') ? searchParams.get('category') : '',
+    filterCategories: searchParams.get('category') ? [searchParams.get('category')] : [],
     filterPrice: {
       start: searchParams.get('startPrice') ? searchParams.get('startPrice') : 0,
       end: searchParams.get('endPrice') ? searchParams.get('endPrice') : 0,
     },
   });
+
+  console.log('products:', filters.filterCategories);
 
   const [sort, setSort] = useState('latest');
 
