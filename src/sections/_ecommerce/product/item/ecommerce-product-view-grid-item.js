@@ -9,7 +9,9 @@ import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 
 import Label from 'src/components/label';
-import { ToastContainer, toast } from 'react-toastify';
+
+
+import toast, { Toaster } from 'react-hot-toast';
 
 import { paths } from 'src/routes/paths';
 import Image from 'src/components/image';
@@ -21,7 +23,7 @@ import { useCart } from "../../../../app/store";
 import { useWish } from '../../../../app/wishstore';
 import ProductPrice from '../../common/product-price';
 import ProductRating from '../../common/product-rating';
-import 'react-toastify/dist/ReactToastify.css';
+
 // ----------------------------------------------------------------------
 
 export default function EcommerceProductViewGridItem({ product, sx, ...other }) {
@@ -32,29 +34,31 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
     if (existingProduct) {
       updateQuantity(product.id, existingProduct.quantity + 1);
       const { quantity } = existingProduct; // Use existingProduct to get the correct quantity
-      toast.success(`${quantity+1} times added to cart`, {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        });
+      toast.success(`${quantity+1} times added to cart`)
+      // toast.success(`${quantity+1} times added to cart`, {
+      //   position: "bottom-right",
+      //   autoClose: 3000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "light",
+      //   });
     } else {
       
       addProduct({ ...product, quantity: 1 });
-      toast.success('1 item added to cart', {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        });
+      toast.success('1 item added to cart')
+      // toast.success('1 item added to cart', {
+      //   position: "bottom-right",
+      //   autoClose: 3000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "light",
+      //   });
     }
   };
   
@@ -65,33 +69,24 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
     const existingProduct = wishItems.find((item) => item.id === product.id);
   
     if (existingProduct) {
-
-
       wishupdateQuantity(product.id, existingProduct.quantity + 1);
-      const { quantity } = existingProduct; // Use existingProduct to get the correct quantity
-      toast.success(`${quantity+1} times added to wishlist`, {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        });
+      const { quantity } = existingProduct;
+      toast.success(`${quantity+1} times added to wishlist`)
+       // Use existingProduct to get the correct quantity
+      // toast.success(`${quantity+1} times added to wishlist`, {
+      //   position: "bottom-right",
+      //   autoClose: 3000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "light",
+      //   });
     } else {
       // If the product is not in the cart, add it with quantity 1
       wishaddProduct({ ...product, quantity: 1 });
-      toast.success('1 item added to wishlist', {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        });
+      toast.success('1 item added to wishlist')
       
     }
   };
@@ -194,18 +189,10 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
 
         <ProductRating ratingNumber={product.ratingNumber} label={`${product.sold} sold`} />
       </Stack>
-            <ToastContainer
-              position="bottom-right"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="light"
-      />
+      <Toaster
+  position="bottom-right"
+  reverseOrder={false}
+/>
     </Stack>
   );
 }

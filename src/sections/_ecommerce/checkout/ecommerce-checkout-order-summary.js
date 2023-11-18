@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 
+import { useState,useEffect } from 'react';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -15,18 +17,26 @@ import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import TextMaxLine from 'src/components/text-max-line';
 import { fPercent, fCurrency } from 'src/utils/format-number';
+import { useCart } from 'src/app/store';
 
 // ----------------------------------------------------------------------
 
 export default function EcommerceCheckoutOrderSummary({
   tax,
-  total,
+  tota,
   subtotal,
   shipping,
   discount,
   products,
   loading,
 }) {
+  const {cartItems}=useCart();
+
+  const [total, setTotal] = useState(0);
+  useEffect(() => {
+    setTotal(subtotal+shipping+tax-discount);
+  }, [cartItems]);
+
   return (
     <Stack
       spacing={3}
@@ -101,12 +111,14 @@ EcommerceCheckoutOrderSummary.propTypes = {
   shipping: PropTypes.number,
   subtotal: PropTypes.number,
   tax: PropTypes.number,
-  total: PropTypes.number,
+  tota: PropTypes.number,
 };
 
 // ----------------------------------------------------------------------
 
 function ProductItem({ product, ...other }) {
+  const {quantity}=product;
+  console.log(quantity)
   return (
     <Stack direction="row" alignItems="flex-start" {...other}>
       <Image
@@ -139,8 +151,8 @@ function ProductItem({ product, ...other }) {
           }}
           sx={{ width: 80 }}
         >
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((option) => (
-            <option key={option} value={option}>
+          {Array.from({ length: 50 }, (x, index) => index + 1).map((option) => (
+            <option key={option} value={quantity} selected={quantity}>
               {option}
             </option>
           ))}

@@ -17,8 +17,8 @@ import Iconify from 'src/components/iconify';
 import { fCurrency } from 'src/utils/format-number';
 
 export default function EcommerceCartItem({ product, wishlist }) {
-  const { addProduct,updateQuantity,deleteProduct } = useCart();
-  const { wishupdateQuantity,wishdeleteProduct } = useWish();
+  const { cartItems,addProduct,updateQuantity,deleteProduct } = useCart();
+  const { wishItems,wishupdateQuantity,wishdeleteProduct } = useWish();
 
   const handleQuantityChange = (event) => 
     wishlist ? wishupdateQuantity(product.id, parseInt(event.target.value, 10)) : updateQuantity(product.id, parseInt(event.target.value, 10));
@@ -30,10 +30,23 @@ export default function EcommerceCartItem({ product, wishlist }) {
  
   
 
-  const wishtocart= (produc)=>{
-     addProduct(produc)
-    wishdeleteProduct(produc.id)
-  }
+     const wishtocart = (product) => {
+      const existingProductInWishlist = wishItems.find((item) => item.id === product.id);
+      const existingProductInCart = cartItems.find((item) => item.id === product.id);
+    
+      if (existingProductInCart) {
+        // If the product is already in the cart, update its quantity
+        updateQuantity(existingProductInCart.id, existingProductInCart.quantity + existingProductInWishlist.quantity);
+      } else {
+        // If the product is not in the cart, add it with quantity 1
+        addProduct({ ...existingProductInWishlist, quantity: 1 });
+      }
+    
+      // Remove the product from the wishlist
+      wishdeleteProduct(product.id);
+    };
+    
+    
 
   return (
     <Stack
