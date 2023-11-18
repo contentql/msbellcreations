@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-
 import { useState,useEffect } from 'react';
 
 import Box from '@mui/material/Box';
@@ -13,11 +12,11 @@ import IconButton from '@mui/material/IconButton';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
+import { useCart } from 'src/app/store';
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import TextMaxLine from 'src/components/text-max-line';
 import { fPercent, fCurrency } from 'src/utils/format-number';
-import { useCart } from 'src/app/store';
 
 // ----------------------------------------------------------------------
 
@@ -35,6 +34,7 @@ export default function EcommerceCheckoutOrderSummary({
   const [total, setTotal] = useState(0);
   useEffect(() => {
     setTotal(subtotal+shipping+tax-discount);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItems]);
 
   return (
@@ -117,8 +117,8 @@ EcommerceCheckoutOrderSummary.propTypes = {
 // ----------------------------------------------------------------------
 
 function ProductItem({ product, ...other }) {
+  // eslint-disable-next-line react/prop-types
   const {quantity}=product;
-  console.log(quantity)
   return (
     <Stack direction="row" alignItems="flex-start" {...other}>
       <Image

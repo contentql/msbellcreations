@@ -3,8 +3,8 @@
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useState, useEffect } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -16,6 +16,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 import { _products } from 'src/_mock';
+import { useCart } from 'src/app/store';
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { useRouter } from 'src/routes/hooks';
@@ -28,7 +29,6 @@ import EcommerceCheckoutPaymentMethod from '../checkout/ecommerce-checkout-payme
 import EcommerceCheckoutShippingMethod from '../checkout/ecommerce-checkout-shipping-method';
 import EcommerceCheckoutPersonalDetails from '../checkout/ecommerce-checkout-personal-details';
 import EcommerceCheckoutShippingDetails from '../checkout/ecommerce-checkout-shipping-details';
-import { useCart } from 'src/app/store';
 // ----------------------------------------------------------------------
 
 const SHIPPING_OPTIONS = [
