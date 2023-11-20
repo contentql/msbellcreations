@@ -86,7 +86,7 @@ export const _products = [...Array(19)].map((_, index) => ({
   stock: 100,
   name: NAME[index],
   description: DESCRIPTION,
-  category: CATEGORIES[index],
+  category: CATEGORIES[index % 10],
   price: _mock.number.price(index),
   sold: _mock.number.nativeM(index),
   caption: _mock.description(index),

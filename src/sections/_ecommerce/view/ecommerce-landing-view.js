@@ -15,13 +15,18 @@ import EcommerceLandingFeaturedProducts from '../landing/ecommerce-landing-featu
 // ----------------------------------------------------------------------
 
 export default function EcommerceLandingView() {
+  const configData = {
+    products: {
+      hotDeals: true,
+    },
+  };
   return (
     <>
       <EcommerceLandingHero />
 
       <EcommerceLandingCategories />
 
-      <EcommerceLandingHotDealToday />
+      {configData.products.hotDeals && <EcommerceLandingHotDealToday />}
 
       <EcommerceLandingFeaturedProducts />
 
@@ -31,7 +36,7 @@ export default function EcommerceLandingView() {
 
       <EcommerceLandingPopularProducts />
 
-      <EcommerceLandingTopProducts />
+      {/* <EcommerceLandingTopProducts /> */}
 
       <EcommerceTestimonial testimonials={_testimonials} />
     </>
