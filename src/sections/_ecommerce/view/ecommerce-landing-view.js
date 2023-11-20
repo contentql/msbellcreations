@@ -1,6 +1,7 @@
 'use client';
 
 import { _testimonials } from 'src/_mock';
+import { _hotdeals } from 'src/_mock/_hotdeals';
 
 import EcommerceLandingHero from '../landing/ecommerce-landing-hero';
 import EcommerceTestimonial from '../testimonial/ecommerce-testimonial';
@@ -15,18 +16,13 @@ import EcommerceLandingFeaturedProducts from '../landing/ecommerce-landing-featu
 // ----------------------------------------------------------------------
 
 export default function EcommerceLandingView() {
-  const configData = {
-    products: {
-      hotDeals: true,
-    },
-  };
   return (
     <>
       <EcommerceLandingHero />
 
       <EcommerceLandingCategories />
 
-      {configData.products.hotDeals && <EcommerceLandingHotDealToday />}
+      {_hotdeals.products.HotDeals && <EcommerceLandingHotDealToday />}
 
       <EcommerceLandingFeaturedProducts />
 
