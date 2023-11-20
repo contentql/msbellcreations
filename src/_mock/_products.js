@@ -29,7 +29,7 @@ const NAME = [
   'Allbirds Wool Runners',
 ];
 
-export const CATEGORIES = ['Slave', 'Bar', 'Soap', 'Spray', 'Blend', 'Streamers', 'Inhaler'];
+export const CATEGORIES = ['Slave', 'Bar', 'Soap', 'Spray', 'Blend', 'Steamers', 'Inhaler'];
 
 const DESCRIPTION = `
 <p>Aenean viverra rhoncus pede. Etiam feugiat lorem non metus. Quisque malesuada placerat nisl.</p>
