@@ -87,7 +87,7 @@ export default function EcommerceProductView({ productId }) {
         </Grid>
       </Container>
 
-      <ReviewEcommerce />
+      {/* <ReviewEcommerce /> */}
     </>
   );
 }
