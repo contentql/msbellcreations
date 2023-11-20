@@ -12,6 +12,9 @@ import Typography from '@mui/material/Typography';
 
 import { _mock } from 'src/_mock';
 import Image from 'src/components/image';
+import { paths } from 'src/routes/paths';
+import { _products } from 'src/_mock/_products';
+import { RouterLink } from 'src/routes/components';
 
 import ProductColorPicker from '../common/product-color-picker';
 import ProductOptionPicker from '../common/product-option-picker';
@@ -19,34 +22,34 @@ import ProductCountdownBlock from '../common/product-countdown-block';
 
 // ----------------------------------------------------------------------
 
-const COLOR_OPTIONS = [
-  { label: '#FA541C', value: 'red' },
-  { label: '#754FFE', value: 'violet' },
-  { label: '#00B8D9', value: 'cyan' },
-  { label: '#36B37E', value: 'green' },
-];
+// const COLOR_OPTIONS = [
+//   { label: '#FA541C', value: 'red' },
+//   { label: '#754FFE', value: 'violet' },
+//   { label: '#00B8D9', value: 'cyan' },
+//   { label: '#36B37E', value: 'green' },
+// ];
 
-const MEMORY_OPTIONS = [
-  { label: '128GB', value: '128gb' },
-  { label: '256GB', value: '256gb' },
-  { label: '512GB', value: '512gb' },
-  { label: '1TB', value: '1tb' },
-];
+// const MEMORY_OPTIONS = [
+//   { label: '128GB', value: '128gb' },
+//   { label: '256GB', value: '256gb' },
+//   { label: '512GB', value: '512gb' },
+//   { label: '1TB', value: '1tb' },
+// ];
 
 // ----------------------------------------------------------------------
 
 export default function EcommerceLandingSpecialOffer() {
-  const [color, setColor] = useState('red');
+  // const [color, setColor] = useState('red');
 
-  const [memory, setMemory] = useState('128gb');
+  // const [memory, setMemory] = useState('128gb');
 
-  const handleChangeColor = useCallback((event) => {
-    setColor(event.target.value);
-  }, []);
+  // const handleChangeColor = useCallback((event) => {
+  //   setColor(event.target.value);
+  // }, []);
 
-  const handleChangeMemory = useCallback((event) => {
-    setMemory(event.target.value);
-  }, []);
+  // const handleChangeMemory = useCallback((event) => {
+  //   setMemory(event.target.value);
+  // }, []);
 
   return (
     <Container
@@ -70,21 +73,21 @@ export default function EcommerceLandingSpecialOffer() {
         gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }}
       >
         <SpecialOfferCountdown
-          label="New 2022"
-          name="Apple iPhone 14"
-          price="From $999"
+          label="New 2023"
+          name="Lavendar Goats Milk Soap"
+          price="$8"
           expired={add(new Date(), { days: 1, hours: 8 })}
         />
 
         <Box sx={{ borderRadius: 1.5, bgcolor: 'background.neutral' }}>
-          <Image src={_mock.image.product(4)} />
+          <Image src={_mock.image.product(0)} />
         </Box>
 
         <SpecialOfferBuyNow
-          color={color}
-          memory={memory}
-          onChangeColor={handleChangeColor}
-          onChangeMemory={handleChangeMemory}
+        // color={color}
+        // memory={memory}
+        // onChangeColor={handleChangeColor}
+        // onChangeMemory={handleChangeMemory}
         />
       </Box>
     </Container>
@@ -94,6 +97,8 @@ export default function EcommerceLandingSpecialOffer() {
 // ----------------------------------------------------------------------
 
 function SpecialOfferCountdown({ expired, label, name, price, sx, ...other }) {
+  const product = _products.slice(0, 1);
+  console.log('product name', product[0].name);
   return (
     <Stack
       alignItems="center"
@@ -112,7 +117,7 @@ function SpecialOfferCountdown({ expired, label, name, price, sx, ...other }) {
       </Typography>
 
       <Typography variant="h5" sx={{ mt: 1, mb: 3 }}>
-        {name}
+        {product[0].name}
       </Typography>
 
       <Typography
@@ -160,28 +165,39 @@ SpecialOfferCountdown.propTypes = {
 // ----------------------------------------------------------------------
 
 function SpecialOfferBuyNow({ color, memory, onChangeColor, onChangeMemory, ...other }) {
+  const product = _products.slice(0, 1);
+  console.log('product data', product);
   return (
     <Stack spacing={3} alignItems="flex-start" {...other}>
       <Stack spacing={1}>
-        <Typography variant="h4">Apple iPhone 14</Typography>
+        <Typography variant="h4">{product[0].name}</Typography>
 
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          While most people enjoy casino gambling, sports betting, lottery and bingo playing for the
-          fun.
+          Cayenne pepper is a hot and spicy herb that contains capsaicin, a compound that blocks the
+          pain signals from reaching your brain. Cayenne pepper can help reduce muscle, joint, and
+          nerve pain from various conditions, such as arthritis, shingles, back aches, fibromyalgia,
+          and diabetic neuropathy (123).
         </Typography>
       </Stack>
 
-      <Stack spacing={2}>
+      {/* <Stack spacing={2}>
         <Typography variant="subtitle2">Color</Typography>
         <ProductColorPicker value={color} onChange={onChangeColor} options={COLOR_OPTIONS} />
       </Stack>
-
+*/}
       <Stack spacing={2}>
-        <Typography variant="subtitle2">Memory</Typography>
-        <ProductOptionPicker value={memory} onChange={onChangeMemory} options={MEMORY_OPTIONS} />
+        <Typography variant="h4">Size</Typography>
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          Approx. 1 oz to .8 OZ in tin
+        </Typography>
       </Stack>
-
-      <Button size="large" color="inherit" variant="contained">
+      <Button
+        component={RouterLink}
+        href={`${paths.eCommerce.products}/${product[0].id}`}
+        size="large"
+        color="inherit"
+        variant="contained"
+      >
         Buy Now
       </Button>
     </Stack>
