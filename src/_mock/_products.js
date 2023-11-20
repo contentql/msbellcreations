@@ -3,30 +3,25 @@ import { _mock } from './_mock';
 // ----------------------------------------------------------------------
 
 const NAME = [
+  'Cayenne Pepper Salve',
   'Rose Petal Salve',
-  'Coffee Soap Bars',
-  'Eucalyptus Shower Steamers',
-  'Fresh Show Soy Wax Candle',
+  'Apple Pie Soap Bars ',
   'Lavendar Goats Milk Soap',
-  'Apple Pie Soap Bars',
-  'Tesla Model S',
-  'Amazon Echo',
-  'Google Pixel',
-  'Bose QuietComfort',
-  'Canon EOS',
-  'HP Spectre',
-  'LG OLED',
-  'Rolex Submariner',
-  'Chanel No.5',
-  'Louis Vuitton Speedy',
-  'Gucci Ace',
-  'Ray-Ban Aviator',
-  'Herschel Little America',
-  'Le Creuset Dutch Oven',
-  'Yeti Tumbler',
-  'Patagonia Nano Puff',
-  'Lululemon Align Leggings',
-  'Allbirds Wool Runners',
+  'Natural Bug Spray',
+  'Coffee Sopa Bars-1.5 OZ',
+  'Citrus Soap Goats milk',
+  'Barbershop Soap Bar',
+  'Sandalwood Soap Goats Milk',
+  'Eucalyptus Shower Steamers Pack: Eucalyptus Sinus Ease',
+  'Natural Headache Soother Blend',
+  'Allergy Relief Blend- Easy Breathing',
+  'Anxiety Stress Relief Blend',
+  'Pain Relief Blend',
+  'Fresh Snow Soy Wax Candle 4 Oz',
+  'Barbershop Soy Candle',
+  'Ray-Ban AviatorAnxiety Stress Relief Inhaler',
+  'Headache Soother Inhaler',
+  'Easy Breathing Relief Inhaler',
 ];
 
 export const CATEGORIES = ['Slave', 'Bar', 'Soap', 'Spray', 'Blend', 'Steamers', 'Inhaler'];
@@ -86,12 +81,12 @@ export const _productsCompare = [
   ]) || ['Super Retina XDR (OLED)', '', 'A14 Bionic', '', 'IP68', '2017'],
 }));
 
-export const _products = [...Array(24)].map((_, index) => ({
+export const _products = [...Array(19)].map((_, index) => ({
   id: _mock.id(index),
   stock: 100,
   name: NAME[index],
   description: DESCRIPTION,
-  category: CATEGORIES[index],
+  category: CATEGORIES[index % 10],
   price: _mock.number.price(index),
   sold: _mock.number.nativeM(index),
   caption: _mock.description(index),

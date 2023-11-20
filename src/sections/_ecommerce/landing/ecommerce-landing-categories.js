@@ -15,42 +15,42 @@ import TextMaxLine from 'src/components/text-max-line';
 const CATEGORIES = [
   {
     label: 'Slave',
-    icon: '/assets/images/categories/salve.png',
+    icon: '/assets/images/categories/slave.svg',
     path: '#',
   },
   {
     label: 'Bar',
-    icon: '/assets/images/categories/bars.png',
+    icon: '/assets/images/categories/bars.svg',
     path: '#',
   },
   {
     label: 'Soap',
-    icon: '/assets/images/categories/soap.png',
+    icon: '/assets/images/categories/soap-solid.svg',
     path: '#',
   },
   {
     label: 'Spray',
-    icon: '/assets/images/categories/spray.png',
+    icon: '/assets/images/categories/spray.svg',
     path: '#',
   },
   {
     label: 'Blend',
-    icon: '/assets/images/categories/blend.png',
+    icon: '/assets/images/categories/blend.svg',
     path: '#',
   },
   {
     label: 'Steamers',
-    icon: '/assets/images/categories/steamers.png',
+    icon: '/assets/images/categories/steamers.svg',
     path: '#',
   },
   {
-    label: 'inhaler',
-    icon: '/assets/images/categories/inhaler.png',
+    label: 'Inhaler',
+    icon: '/assets/images/categories/ihhaler.svg',
     path: '#',
   },
   {
     label: 'all',
-    icon: '/assets/images/categories/all.jpg',
+    icon: '/assets/images/categories/all.svg',
     path: '#',
   },
 ];

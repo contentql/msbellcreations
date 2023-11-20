@@ -1,6 +1,7 @@
 'use client';
 
 import { _testimonials } from 'src/_mock';
+import { _hotdeals } from 'src/_mock/_hotdeals';
 
 import EcommerceLandingHero from '../landing/ecommerce-landing-hero';
 import EcommerceTestimonial from '../testimonial/ecommerce-testimonial';
@@ -21,7 +22,7 @@ export default function EcommerceLandingView() {
 
       <EcommerceLandingCategories />
 
-      <EcommerceLandingHotDealToday />
+      {_hotdeals.products.HotDeals && <EcommerceLandingHotDealToday />}
 
       <EcommerceLandingFeaturedProducts />
 
@@ -31,7 +32,7 @@ export default function EcommerceLandingView() {
 
       <EcommerceLandingPopularProducts />
 
-      <EcommerceLandingTopProducts />
+      {/* <EcommerceLandingTopProducts /> */}
 
       <EcommerceTestimonial testimonials={_testimonials} />
     </>
