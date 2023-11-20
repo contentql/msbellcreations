@@ -1,55 +1,90 @@
-"use client"
+'use client';
 
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import 'react-toastify/dist/ReactToastify.css';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import toast, { Toaster } from 'react-hot-toast';
 
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 
-import Label from 'src/components/label';
 import { paths } from 'src/routes/paths';
+import Label from 'src/components/label';
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 import TextMaxLine from 'src/components/text-max-line';
 
-import { useCart } from "../../../../app/store";
+import { useCart } from '../../../../app/store';
 import { useWish } from '../../../../app/wishstore';
 import ProductPrice from '../../common/product-price';
 import ProductRating from '../../common/product-rating';
 // ----------------------------------------------------------------------
 
 export default function EcommerceProductViewGridItem({ product, sx, ...other }) {
-  const { cartItems, addProduct,updateQuantity } = useCart();
+  const { cartItems, addProduct, updateQuantity } = useCart();
   const AddtoCart = () => {
     const existingProduct = cartItems.find((item) => item.id === product.id);
-  
+
     if (existingProduct) {
-      // If the product already exists in the cart, update its quantity
       updateQuantity(product.id, existingProduct.quantity + 1);
+      const { quantity } = existingProduct; // Use existingProduct to get the correct quantity
+      toast.success(`${quantity + 1} times added to cart`);
+      // toast.success(`${quantity+1} times added to cart`, {
+      //   position: "bottom-right",
+      //   autoClose: 3000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "light",
+      //   });
     } else {
-      // If the product is not in the cart, add it with quantity 1
       addProduct({ ...product, quantity: 1 });
+      toast.success('1 item added to cart');
+      // toast.success('1 item added to cart', {
+      //   position: "bottom-right",
+      //   autoClose: 3000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "light",
+      //   });
     }
   };
-  
 
-  const {  wishItems, wishaddProduct,wishupdateQuantity } = useWish();
+  const { wishItems, wishaddProduct, wishupdateQuantity } = useWish();
   const WishtoCart = () => {
     const existingProduct = wishItems.find((item) => item.id === product.id);
-  
+
     if (existingProduct) {
-      // If the product already exists in the cart, update its quantity
       wishupdateQuantity(product.id, existingProduct.quantity + 1);
+      const { quantity } = existingProduct;
+      toast.success(`${quantity + 1} times added to wishlist`);
+      // Use existingProduct to get the correct quantity
+      // toast.success(`${quantity+1} times added to wishlist`, {
+      //   position: "bottom-right",
+      //   autoClose: 3000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "light",
+      //   });
     } else {
       // If the product is not in the cart, add it with quantity 1
       wishaddProduct({ ...product, quantity: 1 });
+      toast.success('1 item added to wishlist');
     }
   };
- 
-    
 
   return (
     <Stack
@@ -94,7 +129,7 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
               }),
           }}
         >
-          <Iconify icon="carbon:shopping-cart-plus" onClick={AddtoCart}/>
+          <Iconify icon="carbon:shopping-cart-plus" onClick={AddtoCart} />
         </Fab>
         <Fab
           // component={RouterLink}
@@ -115,7 +150,7 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
               }),
           }}
         >
-          <Iconify icon="carbon:favorite" onClick={WishtoCart}/>
+          <Iconify icon="carbon:favorite" onClick={WishtoCart} />
         </Fab>
 
         <Image
@@ -147,6 +182,7 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
 
         <ProductRating ratingNumber={product.ratingNumber} label={`${product.sold} sold`} />
       </Stack>
+      <Toaster position="bottom-right" reverseOrder={false} />
     </Stack>
   );
 }

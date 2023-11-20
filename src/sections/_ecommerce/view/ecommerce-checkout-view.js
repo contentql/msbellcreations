@@ -3,6 +3,7 @@
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
+import React, { useState, useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import Box from '@mui/material/Box';
@@ -15,6 +16,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 import { _products } from 'src/_mock';
+import { useCart } from 'src/app/store';
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { useRouter } from 'src/routes/hooks';
@@ -27,7 +29,6 @@ import EcommerceCheckoutPaymentMethod from '../checkout/ecommerce-checkout-payme
 import EcommerceCheckoutShippingMethod from '../checkout/ecommerce-checkout-shipping-method';
 import EcommerceCheckoutPersonalDetails from '../checkout/ecommerce-checkout-personal-details';
 import EcommerceCheckoutShippingDetails from '../checkout/ecommerce-checkout-shipping-details';
-
 // ----------------------------------------------------------------------
 
 const SHIPPING_OPTIONS = [
@@ -72,6 +73,27 @@ const PAYMENT_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function EcommerceCheckoutView() {
+
+  const { cartItems } = useCart();
+  const [subtotal, setSubtotal] = useState(0);
+  const [total, setTotal] = useState(0);
+  useEffect(() => {
+    // Calculate subtotal based on quantity and price of each item in the cart
+    const newSubtotal = cartItems.reduce(
+      (acc, product) => acc + product.quantity * product.price,
+      0
+    );
+
+    // Update subtotal state
+    setSubtotal(newSubtotal);
+
+    // Calculate the final total including tax, shipping, and discount
+    const newTotal = newSubtotal 
+
+    // Update total state
+    setTotal(newTotal);
+  }, [cartItems]);
+
   const router = useRouter();
 
   const formOpen = useBoolean();
@@ -189,11 +211,11 @@ export default function EcommerceCheckoutView() {
           <Grid xs={12} md={4}>
             <EcommerceCheckoutOrderSummary
               tax={7}
-              total={357.09}
-              subtotal={89.09}
+              total={0}
+              subtotal={subtotal}
               shipping={55.47}
               discount={16.17}
-              products={_products.slice(0, 3)}
+              products={cartItems}
               loading={isSubmitting}
             />
           </Grid>

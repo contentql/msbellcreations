@@ -18,7 +18,7 @@ function Logo({ single = false, sx }) {
 
   const fullLogo = (
     <p style={{ color: 'black', fontWeight: 'bold', fontFamily: 'serif', fontSize: '20px' }}>
-      ms. bells
+      ; ms. bells
     </p>
   );
 

@@ -1,9 +1,7 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
 // EcommerceCartItem.js
-
 
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -17,23 +15,34 @@ import Iconify from 'src/components/iconify';
 import { fCurrency } from 'src/utils/format-number';
 
 export default function EcommerceCartItem({ product, wishlist }) {
-  const { addProduct,updateQuantity,deleteProduct } = useCart();
-  const { wishupdateQuantity,wishdeleteProduct } = useWish();
+  const { cartItems, addProduct, updateQuantity, deleteProduct } = useCart();
+  const { wishItems, wishupdateQuantity, wishdeleteProduct } = useWish();
 
-  const handleQuantityChange = (event) => 
-    wishlist ? wishupdateQuantity(product.id, parseInt(event.target.value, 10)) : updateQuantity(product.id, parseInt(event.target.value, 10));
-  
-  
+  const handleQuantityChange = (event) =>
+    wishlist
+      ? wishupdateQuantity(product.id, parseInt(event.target.value, 10))
+      : updateQuantity(product.id, parseInt(event.target.value, 10));
 
-  const Handledelete = () => 
-     wishlist ? wishdeleteProduct(product.id) : deleteProduct(product.id);
- 
-  
+  const Handledelete = () => (wishlist ? wishdeleteProduct(product.id) : deleteProduct(product.id));
 
-  const wishtocart= (produc)=>{
-     addProduct(produc)
-    wishdeleteProduct(produc.id)
-  }
+  const wishtocart = (Product) => {
+    const existingProductInWishlist = wishItems.find((item) => item.id === Product.id);
+    const existingProductInCart = cartItems.find((item) => item.id === Product.id);
+
+    if (existingProductInCart) {
+      // If the product is already in the cart, update its quantity
+      updateQuantity(
+        existingProductInCart.id,
+        existingProductInCart.quantity + existingProductInWishlist.quantity
+      );
+    } else {
+      // If the product is not in the cart, add it with quantity 1
+      addProduct({ ...existingProductInWishlist, quantity: 1 });
+    }
+
+    // Remove the product from the wishlist
+    wishdeleteProduct(product.id);
+  };
 
   return (
     <Stack
@@ -77,7 +86,7 @@ export default function EcommerceCartItem({ product, wishlist }) {
           value={product.quantity}
           onChange={handleQuantityChange}
         >
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((option) => (
+          {Array.from({ length: 50 }, (_, index) => index + 1).map((option) => (
             <option key={option} value={option}>
               {option}
             </option>
@@ -94,7 +103,11 @@ export default function EcommerceCartItem({ product, wishlist }) {
       </IconButton>
 
       {wishlist && (
-        <IconButton onClick={()=>{wishtocart(product)}}>
+        <IconButton
+          onClick={() => {
+            wishtocart(product);
+          }}
+        >
           <Iconify icon="carbon:shopping-cart-plus" />
         </IconButton>
       )}
