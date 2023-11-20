@@ -15,8 +15,8 @@ import EcommerceProductViewGridItemSkeleton from '../item/ecommerce-product-view
 
 export default function EcommerceProductList({ loading, viewMode, products, filter }) {
   const FilterByCategory = (product) => {
-    if (filter.filterCategories === '' || filter.filterCategories === 'all') return true;
-    return product.category?.toLowerCase() === filter.filterCategories?.toLowerCase();
+    if (filter.filterCategories.length === 0) return true;
+    return filter.filterCategories?.includes(product?.category);
   };
 
   const FilterByStartingPrice = (product) => {
@@ -42,19 +42,17 @@ export default function EcommerceProductList({ loading, viewMode, products, filt
             md: 'repeat(4, 1fr)',
           }}
         >
-          {(loading
-            ? [...Array(16)]
-            : products
-                .filter(FilterByCategory)
-                .filter(FilterByStartingPrice)
-                .filter(FilterByEndPrice)
-          ).map((product, index) =>
-            product ? (
-              <EcommerceProductViewGridItem key={product.id} product={product} />
-            ) : (
-              <EcommerceProductViewGridItemSkeleton key={index} />
-            )
-          )}
+          {(loading ? [...Array(16)] : products)
+            .filter(FilterByCategory)
+            .filter(FilterByStartingPrice)
+            .filter(FilterByEndPrice)
+            .map((product, index) =>
+              product ? (
+                <EcommerceProductViewGridItem key={product.id} product={product} />
+              ) : (
+                <EcommerceProductViewGridItemSkeleton key={index} />
+              )
+            )}
         </Box>
       ) : (
         <Stack spacing={4}>

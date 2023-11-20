@@ -59,7 +59,7 @@ export default function EcommerceFilters({ filters, setFilters, open, onClose })
     (name) => {
       setFilters({
         ...filters,
-        filterCategories: name,
+        filterCategories: getSelected(filters.filterCategories, name),
       });
     },
     [filters, setFilters]
@@ -143,7 +143,7 @@ export default function EcommerceFilters({ filters, setFilters, open, onClose })
 
   const handleClearAll = useCallback(() => {
     setFilters({
-      FilterCategory: '',
+      filterCategories: [],
       filterPrice: {
         start: 0,
         end: 0,

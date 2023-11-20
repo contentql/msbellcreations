@@ -14,43 +14,43 @@ import TextMaxLine from 'src/components/text-max-line';
 
 const CATEGORIES = [
   {
-    label: 'all',
-    icon: '/assets/icons/ecommerce/sampleimage.png',
-    path: '#',
-  },
-  {
     label: 'Slave',
-    icon: '/assets/icons/ecommerce/ic_men_clothes.svg',
+    icon: '/assets/images/categories/salve.png',
     path: '#',
   },
   {
     label: 'Bar',
-    icon: '/assets/icons/ecommerce/ic_women_clothes.svg',
+    icon: '/assets/images/categories/bars.png',
     path: '#',
   },
   {
     label: 'Soap',
-    icon: '/assets/icons/ecommerce/ic_watches.svg',
+    icon: '/assets/images/categories/soap.png',
     path: '#',
   },
   {
     label: 'Spray',
-    icon: '/assets/icons/ecommerce/ic_home_appliances.svg',
+    icon: '/assets/images/categories/spray.png',
     path: '#',
   },
   {
     label: 'Blend',
-    icon: '/assets/icons/ecommerce/ic_sport.svg',
+    icon: '/assets/images/categories/blend.png',
     path: '#',
   },
   {
-    label: 'Streamers',
-    icon: '/assets/icons/ecommerce/ic_book.svg',
+    label: 'Steamers',
+    icon: '/assets/images/categories/steamers.png',
     path: '#',
   },
   {
     label: 'inhaler',
-    icon: '/assets/icons/ecommerce/ic_home_living.svg',
+    icon: '/assets/images/categories/inhaler.png',
+    path: '#',
+  },
+  {
+    label: 'all',
+    icon: '/assets/images/categories/all.jpg',
     path: '#',
   },
 ];
@@ -111,7 +111,7 @@ export default function EcommerceLandingCategories() {
                   borderRadius: '50%',
                 }}
               >
-                <Image src={category.icon} sx={{ width: 40, height: 40 }} />
+                <Image src={category.icon} sx={{ width: 60, height: 60 }} />
               </Box>
             </Link>
             <TextMaxLine variant="subtitle2" line={1}>
