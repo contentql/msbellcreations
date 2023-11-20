@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Pagination, { paginationClasses } from '@mui/material/Pagination';
 
 import { CATEGORIES } from 'src/_mock';
 
@@ -31,6 +30,7 @@ export default function EcommerceProductList({ loading, viewMode, products, filt
   };
   return (
     <>
+    
       {viewMode === 'grid' ? (
         <Box
           rowGap={4}
@@ -72,17 +72,7 @@ export default function EcommerceProductList({ loading, viewMode, products, filt
         </Stack>
       )}
 
-      <Pagination
-        count={10}
-        color="primary"
-        sx={{
-          mt: 10,
-          mb: 5,
-          [`& .${paginationClasses.ul}`]: {
-            justifyContent: 'center',
-          },
-        }}
-      />
+      
     </>
   );
 }

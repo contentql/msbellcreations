@@ -23,7 +23,6 @@ export default function EcommerceProductView({ productId }) {
   // console.log('id ', productId);
 
   const _mockProduct = _products.filter((product) => product.id === productId).at(0);
-  console.log(_mockProduct);
   useEffect(() => {
     const fakeLoading = async () => {
       await new Promise((resolve) => setTimeout(resolve, 500));
@@ -61,6 +60,7 @@ export default function EcommerceProductView({ productId }) {
 
           <Grid xs={12} md={6} lg={5}>
             <EcommerceProductDetailsInfo
+              productId={_mockProduct.id}
               name={_mockProduct.name}
               price={_mockProduct.price}
               caption={_mockProduct.caption}
