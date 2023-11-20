@@ -4,16 +4,13 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'react-toastify/dist/ReactToastify.css';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import toast, { Toaster } from 'react-hot-toast';
 
-import Fab from '@mui/material/Fab';
 import Box from '@mui/material/Box';
+import Fab from '@mui/material/Fab';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
-
-import Label from 'src/components/label';
-
-
-import toast, { Toaster } from 'react-hot-toast';
 
 import { paths } from 'src/routes/paths';
 import Label from 'src/components/label';
@@ -36,7 +33,7 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
     if (existingProduct) {
       updateQuantity(product.id, existingProduct.quantity + 1);
       const { quantity } = existingProduct; // Use existingProduct to get the correct quantity
-      toast.success(`${quantity+1} times added to cart`)
+      toast.success(`${quantity + 1} times added to cart`);
       // toast.success(`${quantity+1} times added to cart`, {
       //   position: "bottom-right",
       //   autoClose: 3000,
@@ -49,7 +46,7 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
       //   });
     } else {
       addProduct({ ...product, quantity: 1 });
-      toast.success('1 item added to cart')
+      toast.success('1 item added to cart');
       // toast.success('1 item added to cart', {
       //   position: "bottom-right",
       //   autoClose: 3000,
@@ -70,8 +67,8 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
     if (existingProduct) {
       wishupdateQuantity(product.id, existingProduct.quantity + 1);
       const { quantity } = existingProduct;
-      toast.success(`${quantity+1} times added to wishlist`)
-       // Use existingProduct to get the correct quantity
+      toast.success(`${quantity + 1} times added to wishlist`);
+      // Use existingProduct to get the correct quantity
       // toast.success(`${quantity+1} times added to wishlist`, {
       //   position: "bottom-right",
       //   autoClose: 3000,
@@ -85,8 +82,7 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
     } else {
       // If the product is not in the cart, add it with quantity 1
       wishaddProduct({ ...product, quantity: 1 });
-      toast.success('1 item added to wishlist')
-      
+      toast.success('1 item added to wishlist');
     }
   };
 
@@ -186,10 +182,7 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
 
         <ProductRating ratingNumber={product.ratingNumber} label={`${product.sold} sold`} />
       </Stack>
-      <Toaster
-  position="bottom-right"
-  reverseOrder={false}
-/>
+      <Toaster position="bottom-right" reverseOrder={false} />
     </Stack>
   );
 }
