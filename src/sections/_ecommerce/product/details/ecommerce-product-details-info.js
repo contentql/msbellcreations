@@ -8,6 +8,8 @@ import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
+import { _products } from 'src/_mock';
+import { useCart } from 'src/app/store';
 import { paths } from 'src/routes/paths';
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
@@ -15,8 +17,7 @@ import { RouterLink } from 'src/routes/components';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import ProductPrice from '../../common/product-price';
-import ProductColorPicker from '../../common/product-color-picker';
-import ProductOptionPicker from '../../common/product-option-picker';
+
 
 // ----------------------------------------------------------------------
 
@@ -37,6 +38,7 @@ const MEMORY_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function EcommerceProductDetailsInfo({
+  productId,
   name,
   price,
   ratingNumber,
@@ -45,6 +47,8 @@ export default function EcommerceProductDetailsInfo({
   caption,
 }) {
   const mdUp = useResponsive('up', 'md');
+
+  const [option,setOption]=useState(1);
 
   const [color, setColor] = useState('red');
 
@@ -57,6 +61,21 @@ export default function EcommerceProductDetailsInfo({
   const handleChangeMemory = useCallback((event) => {
     setMemory(event.target.value);
   }, []);
+
+  const { addProduct, updateQuantity, cartItems } = useCart();
+
+  
+
+  const addtocart = () => {
+    const existingProductInCart = cartItems.find((item) => item.id === productId);
+
+    if (existingProductInCart) {
+      updateQuantity(existingProductInCart.id, parseInt(existingProductInCart.quantity, 10) + parseInt(option, 10));
+    } else {
+      const _mockProduct = _products.filter((product) => product.id === productId).at(0);
+      addProduct({... _mockProduct, quantity: option });
+    }
+  };
 
   return (
     <>
@@ -84,26 +103,11 @@ export default function EcommerceProductDetailsInfo({
         </Typography>
       </Stack>
 
-      <Stack spacing={3} sx={{ my: 5 }}>
-        <Stack spacing={2}>
-          <Typography variant="subtitle2">Color</Typography>
-          <ProductColorPicker value={color} onChange={handleChangeColor} options={COLOR_OPTIONS} />
-        </Stack>
-
-        <Stack spacing={2}>
-          <Typography variant="subtitle2">Memory</Typography>
-          <ProductOptionPicker
-            value={memory}
-            onChange={handleChangeMemory}
-            options={MEMORY_OPTIONS}
-          />
-        </Stack>
-      </Stack>
-
-      <Stack spacing={2} direction={{ xs: 'column', md: 'row' }} alignItems={{ md: 'center' }}>
+      <Stack sx={{ my: 3 }} spacing={2} direction={{ xs: 'column', md: 'row' }} alignItems={{ md: 'center' }}>
         <TextField
           select
           hiddenLabel
+          onChange={(e)=>{setOption(e.target.value)}}
           SelectProps={{
             native: true,
           }}
@@ -112,7 +116,7 @@ export default function EcommerceProductDetailsInfo({
           }}
         >
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((option) => (
-            <option key={option} value={option}>
+            <option key={option} value={option} >
               {option}
             </option>
           ))}
@@ -127,6 +131,7 @@ export default function EcommerceProductDetailsInfo({
             color="inherit"
             variant="contained"
             startIcon={<Iconify icon="carbon:shopping-cart-plus" />}
+            onClick={addtocart}
           >
             Add to Cart
           </Button>
@@ -147,16 +152,9 @@ export default function EcommerceProductDetailsInfo({
       <Divider sx={{ borderStyle: 'dashed', my: 3 }} />
 
       <Stack spacing={3} direction="row" justifyContent={{ xs: 'center', md: 'unset' }}>
-        <Stack direction="row" alignItems="center" sx={{ typography: 'subtitle2' }}>
-          <Iconify icon="carbon:add-alt" sx={{ mr: 1 }} /> Compare
-        </Stack>
 
         <Stack direction="row" alignItems="center" sx={{ typography: 'subtitle2' }}>
-          <Iconify icon="carbon:favorite" sx={{ mr: 1 }} /> Compare
-        </Stack>
-
-        <Stack direction="row" alignItems="center" sx={{ typography: 'subtitle2' }}>
-          <Iconify icon="carbon:share" sx={{ mr: 1 }} /> Compare
+          <Iconify icon="carbon:share" sx={{ mr: 1 }} /> Share
         </Stack>
       </Stack>
     </>
@@ -164,6 +162,7 @@ export default function EcommerceProductDetailsInfo({
 }
 
 EcommerceProductDetailsInfo.propTypes = {
+  productId:PropTypes.string,
   caption: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.number,

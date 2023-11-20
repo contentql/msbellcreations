@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 // EcommerceCartItem.js
 
+import Link from 'next/link';
+
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
@@ -67,7 +69,10 @@ export default function EcommerceCartItem({ product, wishlist }) {
         />
 
         <Stack spacing={0.5} sx={{ p: 2 }}>
-          <Typography variant="subtitle2">{product.name}</Typography>
+        <Link href={`/e-commerce/products/${product.id}`}>
+  <Typography variant="subtitle2">{product.name}</Typography>
+</Link>
+
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             Color: Grey Space
           </Typography>

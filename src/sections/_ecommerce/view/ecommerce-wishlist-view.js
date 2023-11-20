@@ -1,6 +1,7 @@
 'use client';
 
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -9,6 +10,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 import { _products } from 'src/_mock';
+import { useCart } from 'src/app/store';
 import { paths } from 'src/routes/paths';
 import { useWish } from 'src/app/wishstore';
 import Iconify from 'src/components/iconify';
@@ -19,12 +21,37 @@ import EcommerceCartList from '../cart/ecommerce-cart-list';
 // ----------------------------------------------------------------------
 
 export default function EcommerceWishlistView() {
-  const { wishItems} = useWish()
-  const [subtotal,setSub]=useState(0)
-  useEffect(()=>{
-    setSub(st=>wishItems.reduce((acc, item) => acc + item.price*item.quantity, 0))
-  },[wishItems])
+  const { wishItems, wishdeleteProduct } = useWish();
+  const { cartItems, updateQuantity, addProduct } = useCart();
+  const [subtotal, setSub] = useState(0);
+  useEffect(() => {
+    setSub((st) => wishItems.reduce((acc, item) => acc + item.price * item.quantity, 0));
+  }, [wishItems]);
+
+  const Addtocart = () => {
+    if (wishItems.length !== 0) {
+      wishItems.forEach((wishlistItem) => {
+        const existingProductInCart = cartItems.find((item) => item.id === wishlistItem.id);
   
+        if (existingProductInCart) {
+          updateQuantity(
+            existingProductInCart.id,
+            existingProductInCart.quantity + wishlistItem.quantity
+          );
+        } else {
+          addProduct({ ...wishlistItem });
+        }
+      });
+  
+      wishItems.forEach((wishlistItem) => {
+        wishdeleteProduct(wishlistItem.id);
+      });
+    } else {
+      toast.error("Your wishlist is empty.Redirected to products page")
+    }
+  };
+  
+
   return (
     <Container
       sx={{
@@ -37,7 +64,21 @@ export default function EcommerceWishlistView() {
         Wishlist
       </Typography>
 
-      <EcommerceCartList wishlist={ true||false } products={ wishItems} />
+      {wishItems.length === 0 && (
+        <Stack sx={{ my: 20 }}>
+          
+          <Typography
+            variant="body2"
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            sx={{ typography: 'h6' }}
+          >
+            Your wishlist is empty.
+          </Typography>
+        </Stack>
+      )}
+      <EcommerceCartList wishlist={true || false} products={wishItems} />
 
       <Stack
         direction={{ xs: 'column-reverse', sm: 'row' }}
@@ -47,7 +88,7 @@ export default function EcommerceWishlistView() {
       >
         <Button
           component={RouterLink}
-          href={paths.eCommerce.product}
+          href={paths.eCommerce.products}
           color="inherit"
           startIcon={<Iconify icon="carbon:chevron-left" />}
           sx={{ mt: 3 }}
@@ -63,21 +104,27 @@ export default function EcommerceWishlistView() {
             sx={{ typography: 'h6' }}
           >
             <Box component="span"> Subtotal</Box>
-           <>{subtotal.toFixed(2)}</>
+            <>{subtotal.toFixed(2)}</>
           </Stack>
 
           <Button
-            component={RouterLink}
-            href={paths.eCommerce.cart}
-            size="large"
-            color="inherit"
-            variant="contained"
-            startIcon={<Iconify icon="carbon:shopping-cart-plus" />}
-          >
-            Add to Cart
-          </Button>
+  component={RouterLink}
+  href={wishItems.length ? paths.eCommerce.cart : paths.eCommerce.products}
+  size="large"
+  color="inherit"
+  variant="contained"
+  startIcon={<Iconify icon="carbon:shopping-cart-plus" />}
+  onClick={Addtocart}
+>
+  {wishItems.length!==0?"Add to Cart":"Go to Products"}
+</Button>
+
         </Stack>
       </Stack>
+      <Toaster
+  position="bottom-right"
+  reverseOrder={false}
+/>
     </Container>
   );
 }

@@ -143,7 +143,7 @@ export default function EcommerceProductsView() {
               ))}
             </ToggleButtonGroup>
 
-            <FormControl size="small" hiddenLabel sx={{ width: 120 }}>
+            {/* <FormControl size="small" hiddenLabel sx={{ width: 120 }}>
               <Select value={sort} onChange={handleChangeSort}>
                 {SORT_OPTIONS.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
@@ -151,7 +151,7 @@ export default function EcommerceProductsView() {
                   </MenuItem>
                 ))}
               </Select>
-            </FormControl>
+            </FormControl> */}
           </Stack>
 
           <EcommerceProductList
