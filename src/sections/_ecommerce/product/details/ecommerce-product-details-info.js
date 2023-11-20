@@ -115,9 +115,9 @@ export default function EcommerceProductDetailsInfo({
             minWidth: 100,
           }}
         >
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((option) => (
-            <option key={option} value={option} >
-              {option}
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((options) => (
+            <option key={options} value={options} >
+              {options}
             </option>
           ))}
         </TextField>
