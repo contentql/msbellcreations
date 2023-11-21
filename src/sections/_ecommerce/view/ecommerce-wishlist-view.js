@@ -1,7 +1,8 @@
 'use client';
 
+import Link from 'next/link';
+import { toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -32,7 +33,7 @@ export default function EcommerceWishlistView() {
     if (wishItems.length !== 0) {
       wishItems.forEach((wishlistItem) => {
         const existingProductInCart = cartItems.find((item) => item.id === wishlistItem.id);
-  
+
         if (existingProductInCart) {
           updateQuantity(
             existingProductInCart.id,
@@ -42,15 +43,14 @@ export default function EcommerceWishlistView() {
           addProduct({ ...wishlistItem });
         }
       });
-  
+
       wishItems.forEach((wishlistItem) => {
         wishdeleteProduct(wishlistItem.id);
       });
     } else {
-      toast.error("Your wishlist is empty.Redirected to products page")
+      toast.error('Your wishlist is empty.Redirected to products page');
     }
   };
-  
 
   return (
     <Container
@@ -66,15 +66,14 @@ export default function EcommerceWishlistView() {
 
       {wishItems.length === 0 && (
         <Stack sx={{ my: 20 }}>
-          
           <Typography
             variant="body2"
             direction="row"
             alignItems="center"
-            justifyContent="space-between"
-            sx={{ typography: 'h6' }}
+            justifyContent="center"
+            sx={{ typography: 'h6', display: 'flex' }}
           >
-            Your wishlist is empty.
+            <Link href={paths.eCommerce.products}> Your wishlistlist is empty </Link>
           </Typography>
         </Stack>
       )}
@@ -108,23 +107,18 @@ export default function EcommerceWishlistView() {
           </Stack>
 
           <Button
-  component={RouterLink}
-  href={wishItems.length ? paths.eCommerce.cart : paths.eCommerce.products}
-  size="large"
-  color="inherit"
-  variant="contained"
-  startIcon={<Iconify icon="carbon:shopping-cart-plus" />}
-  onClick={Addtocart}
->
-  {wishItems.length!==0?"Add to Cart":"Go to Products"}
-</Button>
-
+            component={RouterLink}
+            href={wishItems.length ? paths.eCommerce.cart : paths.eCommerce.products}
+            size="large"
+            color="inherit"
+            variant="contained"
+            startIcon={<Iconify icon="carbon:shopping-cart-plus" />}
+            onClick={Addtocart}
+          >
+            {wishItems.length !== 0 ? 'Add to Cart' : 'Go to Products'}
+          </Button>
         </Stack>
       </Stack>
-      <Toaster
-  position="bottom-right"
-  reverseOrder={false}
-/>
     </Container>
   );
 }

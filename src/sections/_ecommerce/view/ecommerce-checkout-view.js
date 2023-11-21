@@ -78,19 +78,13 @@ export default function EcommerceCheckoutView() {
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
   useEffect(() => {
-    // Calculate subtotal based on quantity and price of each item in the cart
     const newSubtotal = cartItems.reduce(
       (acc, product) => acc + product.quantity * product.price,
       0
     );
-
-    // Update subtotal state
     setSubtotal(newSubtotal);
-
-    // Calculate the final total including tax, shipping, and discount
     const newTotal = newSubtotal 
 
-    // Update total state
     setTotal(newTotal);
   }, [cartItems]);
 

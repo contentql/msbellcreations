@@ -119,6 +119,7 @@ EcommerceCheckoutOrderSummary.propTypes = {
 function ProductItem({ product, ...other }) {
   // eslint-disable-next-line react/prop-types
   const {quantity}=product;
+  const [qu,setqa]=useState(quantity)
   return (
     <Stack direction="row" alignItems="flex-start" {...other}>
       <Image
@@ -150,9 +151,12 @@ function ProductItem({ product, ...other }) {
             native: true,
           }}
           sx={{ width: 80 }}
+          value={qu}
+          onChange={(e)=>{setqa(e.target.value)}}
+
         >
           {Array.from({ length: 50 }, (x, index) => index + 1).map((option) => (
-            <option key={option} value={quantity} selected={quantity}>
+            <option key={option}  selected={quantity}>
               {option}
             </option>
           ))}

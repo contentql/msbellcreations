@@ -52,16 +52,12 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
       <Stack spacing={2}>
         <Row label="Subtotal" value={fCurrency(subtotal)} />
 
-
         <Row label="Shipping" value={fCurrency(cartItems.length === 0 ? 0 : shipping)} />
-
-
 
         <Row
           label={`Discount (${fPercent(discount)})`}
           value={`-${fCurrency(subtotal === 0 ? 0 : discount)}`}
         />
-       
 
         <Row label="Tax" value={fPercent(subtotal === 0 ? 0 : tax)} />
       </Stack>
@@ -82,7 +78,6 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
 
       <Row
         label="Total"
-        value={fCurrency(subtotal === 0 ? 0 : total)}
         value={fCurrency(subtotal === 0 ? 0 : total)}
         sx={{
           typography: 'h6',

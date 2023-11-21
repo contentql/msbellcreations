@@ -1,3 +1,5 @@
+import {ToastContainer} from "react-toastify"
+
 import EcommerceProductsView from 'src/sections/_ecommerce/view/ecommerce-products-view';
 
 // ----------------------------------------------------------------------
@@ -7,5 +9,8 @@ export const metadata = {
 };
 
 export default function EcommerceProductsPage() {
-  return <EcommerceProductsView />;
+  return <>
+   <ToastContainer />
+   <EcommerceProductsView />;
+  </>
 }
