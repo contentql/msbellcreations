@@ -84,6 +84,7 @@ export const pageLinks = [
       { title: 'About Us', path: paths.eCommerce.about },
       { title: 'post', path: paths.eCommerce.post },
       { title: 'posts', path: paths.eCommerce.posts },
+      { title: 'terms and conditions', path: paths.eCommerce.termsandconditions },
     ],
   },
   // {
@@ -108,6 +109,25 @@ export const pageLinks = [
   //     { title: 'Support', path: paths.support },
   //   ],
   // },
+];
+
+export const FooterLinks = [
+  {
+    subheader: 'Quick links',
+    items: [
+      { title: 'Home', path: paths.eCommerce.root },
+      { title: 'Products', path: paths.eCommerce.products },
+      { title: 'About Us', path: paths.eCommerce.about },
+      { title: 'posts', path: paths.eCommerce.posts },
+    ],
+  },
+  {
+    subheader: 'Legal',
+    items: [
+      { title: 'terms and conditions', path: paths.eCommerce.wishlist },
+      { title: 'Terms of use', path: paths.eCommerce.cart },
+    ],
+  },
 ];
 
 export const navConfig = [
