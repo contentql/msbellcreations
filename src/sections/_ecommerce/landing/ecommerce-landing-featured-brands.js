@@ -36,7 +36,7 @@ export default function EcommerceLandingFeaturedBrands() {
       <Grid container spacing={3}>
         <Grid xs={12} md={4}>
           <BrandInfo
-            logo={<Iconify icon="ri:apple-fill" width={40} />}
+            logo={<Iconify icon="fa6-solid:soap" width={40} />}
             name={_products.slice(0, 1)[0].name}
             description={_products.slice(0, 1)[0].caption}
             path="#"

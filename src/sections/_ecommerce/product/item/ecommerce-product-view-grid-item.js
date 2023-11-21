@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { toast, ToastContainer } from 'react-toastify';
 
+import { Button } from '@mui/base';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import Link from '@mui/material/Link';
@@ -66,7 +67,7 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
         draggable: true,
         progress: undefined,
         theme: 'light',
-         });
+      });
     }
   };
 
@@ -77,31 +78,31 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
     if (existingProduct) {
       wishupdateQuantity(product.id, existingProduct.quantity + 1);
       const { quantity } = existingProduct;
-      
+
       // Use existingProduct to get the correct quantity
-      toast.success(`${quantity+1} times added to wishlist`, {
-        position: "bottom-right",
+      toast.success(`${quantity + 1} times added to wishlist`, {
+        position: 'bottom-right',
         autoClose: 4000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
-        });
+        theme: 'light',
+      });
     } else {
       // If the product is not in the cart, add it with quantity 1
       wishaddProduct({ ...product, quantity: 1 });
       toast.success('1 item added to wishlist', {
-        position: "bottom-right",
+        position: 'bottom-right',
         autoClose: 4000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
-        });
+        theme: 'light',
+      });
     }
   };
 
@@ -129,53 +130,53 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
       )}
 
       <Box sx={{ position: 'relative', mb: 2 }}>
-        <div onClick={AddtoCart} >
-        <Fab
-          // component={RouterLink}
-          // href={paths.eCommerce.product}
-          className="add-to-cart"
-          color="primary"
-          size="small"
-          sx={{
-            right: 8,
-            zIndex: 9,
-            bottom: 8,
-            opacity: 0,
-            position: 'absolute',
-            transition: (theme) =>
-              theme.transitions.create('opacity', {
-                easing: theme.transitions.easing.easeIn,
-                duration: theme.transitions.duration.shortest,
-              }),
-          }}
-        >
-          <Iconify icon="carbon:shopping-cart-plus"  />
-        </Fab>
-        </div>
-        
-        <div onClick={WishtoCart}>
-        <Fab
-          // component={RouterLink}
-          // href={paths.eCommerce.product}
-          className="add-to-cart"
-          color="primary"
-          size="small"
-          sx={{
-            right: 8,
-            zIndex: 9,
-            bottom: 50,
-            opacity: 0,
-            position: 'absolute',
-            transition: (theme) =>
-              theme.transitions.create('opacity', {
-                easing: theme.transitions.easing.easeIn,
-                duration: theme.transitions.duration.shortest,
-              }),
-          }}
-        >
-          <Iconify icon="carbon:favorite" />
-        </Fab>
-        </div>
+        <Button onClick={AddtoCart}>
+          <Fab
+            // component={RouterLink}
+            // href={paths.eCommerce.product}
+            className="add-to-cart"
+            color="primary"
+            size="small"
+            sx={{
+              right: 8,
+              zIndex: 9,
+              bottom: 8,
+              opacity: 0,
+              position: 'absolute',
+              transition: (theme) =>
+                theme.transitions.create('opacity', {
+                  easing: theme.transitions.easing.easeIn,
+                  duration: theme.transitions.duration.shortest,
+                }),
+            }}
+          >
+            <Iconify icon="carbon:shopping-cart-plus" />
+          </Fab>
+        </Button>
+
+        <Button onClick={WishtoCart}>
+          <Fab
+            // component={RouterLink}
+            // href={paths.eCommerce.product}
+            className="add-to-cart"
+            color="primary"
+            size="small"
+            sx={{
+              right: 8,
+              zIndex: 9,
+              bottom: 50,
+              opacity: 0,
+              position: 'absolute',
+              transition: (theme) =>
+                theme.transitions.create('opacity', {
+                  easing: theme.transitions.easing.easeIn,
+                  duration: theme.transitions.duration.shortest,
+                }),
+            }}
+          >
+            <Iconify icon="carbon:favorite" />
+          </Fab>
+        </Button>
 
         <Image
           src={product.coverUrl}
@@ -206,7 +207,6 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
 
         <ProductRating ratingNumber={product.ratingNumber} label={`${product.sold} sold`} />
       </Stack>
-     
     </Stack>
   );
 }
