@@ -37,8 +37,8 @@ export default function EcommerceLandingFeaturedBrands() {
         <Grid xs={12} md={4}>
           <BrandInfo
             logo={<Iconify icon="ri:apple-fill" width={40} />}
-            name="Apple"
-            description=" While most people enjoy casino gambling, sports betting, lottery and bingo playing."
+            name={_products.slice(0, 1)[0].name}
+            description={_products.slice(0, 1)[0].caption}
             path="#"
             sx={{ height: 1 }}
           />
