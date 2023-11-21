@@ -1,7 +1,7 @@
 'use client';
 
+import { toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -17,6 +17,7 @@ import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 
 import EcommerceCartList from '../cart/ecommerce-cart-list';
+import Link from "next/link"
 
 // ----------------------------------------------------------------------
 
@@ -38,8 +39,10 @@ export default function EcommerceWishlistView() {
             existingProductInCart.id,
             existingProductInCart.quantity + wishlistItem.quantity
           );
+          
         } else {
           addProduct({ ...wishlistItem });
+          
         }
       });
   
@@ -67,16 +70,17 @@ export default function EcommerceWishlistView() {
       {wishItems.length === 0 && (
         <Stack sx={{ my: 20 }}>
           
-          <Typography
-            variant="body2"
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-            sx={{ typography: 'h6' }}
-          >
-            Your wishlist is empty.
-          </Typography>
-        </Stack>
+        <Typography
+          variant="body2"
+          direction="row"
+          alignItems="center"
+          justifyContent="center"
+          sx={{ typography: 'h6', display: 'flex' }}
+        >
+        <Link href={paths.eCommerce.products}> Your wishlistlist is empty </Link>
+
+        </Typography>
+      </Stack>
       )}
       <EcommerceCartList wishlist={true || false} products={wishItems} />
 
@@ -121,10 +125,7 @@ export default function EcommerceWishlistView() {
 
         </Stack>
       </Stack>
-      <Toaster
-  position="bottom-right"
-  reverseOrder={false}
-/>
+      
     </Container>
   );
 }

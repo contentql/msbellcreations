@@ -23,7 +23,7 @@ export default function EcommerceCartItem({ product, wishlist }) {
   const handleQuantityChange = (event) =>
     wishlist
       ? wishupdateQuantity(product.id, parseInt(event.target.value, 10))
-      : updateQuantity(product.id, parseInt(event.target.value, 10));
+      : updateQuantity(product.id, parseInt(event.target.value, 10))
 
   const Handledelete = () => (wishlist ? wishdeleteProduct(product.id) : deleteProduct(product.id));
 
@@ -32,17 +32,13 @@ export default function EcommerceCartItem({ product, wishlist }) {
     const existingProductInCart = cartItems.find((item) => item.id === Product.id);
 
     if (existingProductInCart) {
-      // If the product is already in the cart, update its quantity
       updateQuantity(
         existingProductInCart.id,
         existingProductInCart.quantity + existingProductInWishlist.quantity
       );
     } else {
-      // If the product is not in the cart, add it with quantity 1
       addProduct({ ...existingProductInWishlist, quantity: 1 });
     }
-
-    // Remove the product from the wishlist
     wishdeleteProduct(product.id);
   };
 
