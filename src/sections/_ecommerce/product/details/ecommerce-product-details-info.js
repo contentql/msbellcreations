@@ -73,7 +73,8 @@ export default function EcommerceProductDetailsInfo({
       updateQuantity(existingProductInCart.id, parseInt(existingProductInCart.quantity, 10) + parseInt(option, 10));
     } else {
       const _mockProduct = _products.filter((product) => product.id === productId).at(0);
-      addProduct({... _mockProduct, quantity: option });
+      addProduct(_mockProduct)
+      updateQuantity(_mockProduct.id,option );
     }
   };
 

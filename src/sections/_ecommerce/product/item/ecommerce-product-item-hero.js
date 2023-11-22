@@ -82,12 +82,14 @@ export default function EcommerceProductItemHero({ products,current }) {
 }
 
 EcommerceProductItemHero.propTypes = {
-  product: PropTypes.shape({
-    id: PropTypes.string,
-    caption: PropTypes.string,
-    coverUrl: PropTypes.string,
-    label: PropTypes.string,
-    title: PropTypes.string,
-  }),
-  current:PropTypes.number
+  products: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      caption: PropTypes.string,
+      coverUrl: PropTypes.string,
+      label: PropTypes.string,
+      title: PropTypes.string,
+    })
+  ),
+  current: PropTypes.number,
 };

@@ -32,7 +32,7 @@ export default function EcommerceLandingHero() {
       },
     }),
   });
-  const products=[_products[2],_products[3],_products[6],_products[5]]
+  const products=[_products[2],_products[3],_products[11],_products[6]]
 
   return (
     <Container
