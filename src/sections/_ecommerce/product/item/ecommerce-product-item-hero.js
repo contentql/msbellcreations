@@ -14,11 +14,12 @@ import TextMaxLine from 'src/components/text-max-line';
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceProductItemHero({ product }) {
+export default function EcommerceProductItemHero({ products,current }) {
   const theme = useTheme();
-
-  const { id, label, title, caption, coverUrl } = product;
-  // console.log('product:', product);
+  
+  const product = products[current];
+  
+  
   return (
     <Grid
       container
@@ -39,24 +40,25 @@ export default function EcommerceProductItemHero({ product }) {
           }}
         >
           <Label color="warning" sx={{ mb: 2 }}>
-            {label}
+            {product.label}
           </Label>
 
           <TextMaxLine variant="h3" sx={{ mb: 2 }}>
-            {title}
+            {product.name}
           </TextMaxLine>
 
           <TextMaxLine variant="body2" sx={{ mb: 5, color: 'text.secondary' }}>
-            {caption}
+            {product.caption}
           </TextMaxLine>
 
           <Button
             component={RouterLink}
-            href={`${paths.eCommerce.products}`}
+            href={`${paths.eCommerce.products}/${product.id}`}
             size="large"
             color="inherit"
             variant="contained"
             endIcon={<Iconify icon="carbon:chevron-right" />}
+           
           >
             Shop Now
           </Button>
@@ -65,7 +67,7 @@ export default function EcommerceProductItemHero({ product }) {
 
       <Grid xs={12} md={6}>
         <Image
-          src={coverUrl}
+          src={product.coverUrl}
           sx={{
             filter: `drop-shadow(20px 20px 24px ${alpha(theme.palette.common.black, 0.16)})`,
             maxWidth: 400,
@@ -79,11 +81,15 @@ export default function EcommerceProductItemHero({ product }) {
 }
 
 EcommerceProductItemHero.propTypes = {
-  product: PropTypes.shape({
-    id: PropTypes.string,
-    caption: PropTypes.string,
-    coverUrl: PropTypes.string,
-    label: PropTypes.string,
-    title: PropTypes.string,
-  }),
+  products: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name:PropTypes.string,
+      caption: PropTypes.string,
+      coverUrl: PropTypes.string,
+      label: PropTypes.string,
+      title: PropTypes.string,
+    })
+  ),
+  current: PropTypes.number,
 };

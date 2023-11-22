@@ -73,7 +73,8 @@ export default function EcommerceProductDetailsInfo({
       updateQuantity(existingProductInCart.id, parseInt(existingProductInCart.quantity, 10) + parseInt(option, 10));
     } else {
       const _mockProduct = _products.filter((product) => product.id === productId).at(0);
-      addProduct({... _mockProduct, quantity: option });
+      addProduct(_mockProduct)
+      updateQuantity(_mockProduct.id,option );
     }
   };
 
@@ -103,7 +104,7 @@ export default function EcommerceProductDetailsInfo({
         </Typography>
       </Stack>
 
-      <Stack sx={{ my: 3 }} spacing={2} direction={{ xs: 'column', md: 'row' }} alignItems={{ md: 'center' }}>
+      <Stack sx={{ my: 8 }} spacing={2} direction={{ xs: 'column', md: 'row' }} alignItems={{ md: 'center' }}>
         <TextField
           select
           hiddenLabel

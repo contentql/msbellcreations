@@ -13,7 +13,7 @@ export default function EcommerceCartList({ products, wishlist }) {
 
   return (
     <Scrollbar>
-      <Stack
+      {products.length!==0?<Stack
         direction="row"
         alignItems="center"
         sx={{
@@ -28,11 +28,11 @@ export default function EcommerceCartList({ products, wishlist }) {
         <Stack sx={{ width: 120 }}>Subtotal</Stack>
         <Stack sx={{ width: 36 }} />
         {wishlist && <Stack sx={{ width: 36 }} />}
-      </Stack>
+      </Stack>:""}
 
       {products.map((product) => (
         <EcommerceCartItem key={product.id} product={product} wishlist={wishlist} />
-      ))}
+      ))} 
     </Scrollbar>
   );
 }

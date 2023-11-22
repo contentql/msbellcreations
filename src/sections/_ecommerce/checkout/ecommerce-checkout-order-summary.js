@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { useState,useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -7,8 +6,8 @@ import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import { alpha } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
@@ -22,21 +21,15 @@ import { fPercent, fCurrency } from 'src/utils/format-number';
 
 export default function EcommerceCheckoutOrderSummary({
   tax,
-  tota,
+  total,
   subtotal,
   shipping,
   discount,
   products,
   loading,
 }) {
+
   const {cartItems}=useCart();
-
-  const [total, setTotal] = useState(0);
-  useEffect(() => {
-    setTotal(subtotal+shipping+tax-discount);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cartItems]);
-
   return (
     <Stack
       spacing={3}
@@ -50,8 +43,8 @@ export default function EcommerceCheckoutOrderSummary({
 
       {!!products?.length && (
         <>
-          {products.map((product) => (
-            <ProductItem key={product.id} product={product} />
+          {cartItems.map((product) => (
+            <ProductItem key={product.id} product={product}/>
           ))}
 
           <Divider sx={{ borderStyle: 'dashed' }} />
@@ -84,7 +77,7 @@ export default function EcommerceCheckoutOrderSummary({
 
       <Row
         label="Total"
-        value={fCurrency(total)}
+        value={fCurrency(subtotal+tax+shipping-discount)}
         sx={{
           typography: 'h6',
           '& span': { typography: 'h6' },
@@ -111,15 +104,23 @@ EcommerceCheckoutOrderSummary.propTypes = {
   shipping: PropTypes.number,
   subtotal: PropTypes.number,
   tax: PropTypes.number,
-  tota: PropTypes.number,
+  total: PropTypes.number,
 };
 
 // ----------------------------------------------------------------------
 
 function ProductItem({ product, ...other }) {
+  const {deleteProduct,updateQuantity}=useCart()
+  const HandleDelete=()=>{
+    // eslint-disable-next-line react/prop-types
+    deleteProduct(product.id)
+  }
+  const HandleChange=(e)=>{
+    // eslint-disable-next-line react/prop-types
+    updateQuantity(product.id,parseInt(e.target.value,10))
+  }
   // eslint-disable-next-line react/prop-types
   const {quantity}=product;
-  const [qu,setqa]=useState(quantity)
   return (
     <Stack direction="row" alignItems="flex-start" {...other}>
       <Image
@@ -151,19 +152,18 @@ function ProductItem({ product, ...other }) {
             native: true,
           }}
           sx={{ width: 80 }}
-          value={qu}
-          onChange={(e)=>{setqa(e.target.value)}}
-
+          onChange={HandleChange}
+          value={quantity}
         >
-          {Array.from({ length: 50 }, (x, index) => index + 1).map((option) => (
-            <option key={option}  selected={quantity}>
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((option) => (
+            <option key={option} value={option}>
               {option}
             </option>
           ))}
         </TextField>
       </Stack>
 
-      <IconButton>
+      <IconButton onClick={HandleDelete}>
         <Iconify icon="carbon:trash-can" />
       </IconButton>
     </Stack>
