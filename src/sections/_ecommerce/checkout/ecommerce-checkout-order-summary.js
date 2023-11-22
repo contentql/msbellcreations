@@ -155,7 +155,7 @@ function ProductItem({ product, ...other }) {
           onChange={HandleChange}
           value={quantity}
         >
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((option) => (
+          {Array.from({ length: 100 }, (_, index) => index + 1).map((option) => (
             <option key={option} value={option}>
               {option}
             </option>

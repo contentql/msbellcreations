@@ -204,7 +204,7 @@ export default function EcommerceCheckoutView() {
 
           <Grid xs={12} md={4}>
             <EcommerceCheckoutOrderSummary
-              tax={7}
+              tax={cartItems.length!==0?7:0}
               total={0}
               subtotal={subtotal}
               shipping={cartItems.length!==0?55.47:0}
