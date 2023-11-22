@@ -124,8 +124,8 @@ export const FooterLinks = [
   {
     subheader: 'Legal',
     items: [
-      { title: 'terms and conditions', path: paths.eCommerce.wishlist },
-      { title: 'Terms of use', path: paths.eCommerce.cart },
+      { title: 'Privacy policy.', path: paths.eCommerce.privacy },
+      { title: 'Terms of use', path: paths.eCommerce.terms },
     ],
   },
 ];

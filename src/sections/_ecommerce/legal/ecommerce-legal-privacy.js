@@ -39,7 +39,7 @@ const WhyCollectedData = [
 ];
 // ----------------------------------------------------------------------
 
-export default function MarketingServices() {
+export default function EcommerceLegalPrivacy() {
   return (
     <Container
       sx={{
