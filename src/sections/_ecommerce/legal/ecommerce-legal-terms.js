@@ -56,7 +56,7 @@ const StyledIcon = styled('div', {
 
 // ----------------------------------------------------------------------
 
-export default function MarketingAbout() {
+export default function EcommerceLegalTerms() {
   return (
     <Container
       sx={{
