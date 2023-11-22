@@ -4,9 +4,9 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import { useTheme } from '@mui/material/styles';
 
+import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 
-//
 import Image from '../../image';
 import TextMaxLine from '../../text-max-line';
 import Carousel, { useCarousel, CarouselDots, CarouselArrows } from '../../carousel';
@@ -44,7 +44,7 @@ export default function MenuCarousel({ products, numberShow, sx }) {
             <Box key={product.name} sx={{ px: 1, textAlign: 'center' }}>
               <Link
                 component={RouterLink}
-                href={product.path}
+                href={`${paths.eCommerce.products}/${product.id}`}
                 color="inherit"
                 underline="none"
                 sx={{
