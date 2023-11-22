@@ -18,7 +18,6 @@ export default function EcommerceProductItemHero({ products,current }) {
   const theme = useTheme();
   
   const product = products[current];
-  console.log(product)
   
   
   return (
@@ -85,6 +84,7 @@ EcommerceProductItemHero.propTypes = {
   products: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
+      name:PropTypes.string,
       caption: PropTypes.string,
       coverUrl: PropTypes.string,
       label: PropTypes.string,
