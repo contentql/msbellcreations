@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
 
@@ -18,6 +17,7 @@ import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 
 import EcommerceCartList from '../cart/ecommerce-cart-list';
+import Link from "next/link"
 
 // ----------------------------------------------------------------------
 
@@ -33,24 +33,27 @@ export default function EcommerceWishlistView() {
     if (wishItems.length !== 0) {
       wishItems.forEach((wishlistItem) => {
         const existingProductInCart = cartItems.find((item) => item.id === wishlistItem.id);
-
+  
         if (existingProductInCart) {
           updateQuantity(
             existingProductInCart.id,
             existingProductInCart.quantity + wishlistItem.quantity
           );
+          
         } else {
           addProduct({ ...wishlistItem });
+          
         }
       });
-
+  
       wishItems.forEach((wishlistItem) => {
         wishdeleteProduct(wishlistItem.id);
       });
     } else {
-      toast.error('Your wishlist is empty.Redirected to products page');
+      toast.error("Your wishlist is empty.Redirected to products page")
     }
   };
+  
 
   return (
     <Container
@@ -66,16 +69,18 @@ export default function EcommerceWishlistView() {
 
       {wishItems.length === 0 && (
         <Stack sx={{ my: 20 }}>
-          <Typography
-            variant="body2"
-            direction="row"
-            alignItems="center"
-            justifyContent="center"
-            sx={{ typography: 'h6', display: 'flex' }}
-          >
-            <Link href={paths.eCommerce.products}> Your wishlistlist is empty </Link>
-          </Typography>
-        </Stack>
+          
+        <Typography
+          variant="body2"
+          direction="row"
+          alignItems="center"
+          justifyContent="center"
+          sx={{ typography: 'h6', display: 'flex' }}
+        >
+        <Link href={paths.eCommerce.products}> Your wishlistlist is empty </Link>
+
+        </Typography>
+      </Stack>
       )}
       <EcommerceCartList wishlist={true || false} products={wishItems} />
 
@@ -107,18 +112,20 @@ export default function EcommerceWishlistView() {
           </Stack>
 
           <Button
-            component={RouterLink}
-            href={wishItems.length ? paths.eCommerce.cart : paths.eCommerce.products}
-            size="large"
-            color="inherit"
-            variant="contained"
-            startIcon={<Iconify icon="carbon:shopping-cart-plus" />}
-            onClick={Addtocart}
-          >
-            {wishItems.length !== 0 ? 'Add to Cart' : 'Go to Products'}
-          </Button>
+  component={RouterLink}
+  href={wishItems.length ? paths.eCommerce.cart : paths.eCommerce.products}
+  size="large"
+  color="inherit"
+  variant="contained"
+  startIcon={<Iconify icon="carbon:shopping-cart-plus" />}
+  onClick={Addtocart}
+>
+  {wishItems.length!==0?"Add to Cart":"Go to Products"}
+</Button>
+
         </Stack>
       </Stack>
+      
     </Container>
   );
 }
