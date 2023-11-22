@@ -1,12 +1,14 @@
 'use client';
 
 
+import { Stack } from '@mui/system';
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
 import { _products } from 'src/_mock';
+import Image from 'src/components/image';
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
@@ -36,7 +38,7 @@ export default function EcommerceCartView() {
         Shopping Cart
       </Typography>
 
-      <Grid container spacing={{ xs: 5, md: 8 }}>
+      {cartItems.length!==0?<Grid container spacing={{ xs: 5, md: 8 }}>
         <Grid xs={12} md={8}>
           <EcommerceCartList products={cartItems} />
         </Grid>
@@ -50,14 +52,19 @@ export default function EcommerceCartView() {
             discount={16.17}
           />
         </Grid>
-      </Grid>
+      </Grid>:<Stack alignItems="center"
+          justifyContent="center"
+          sx={{ typography: 'h6', display: 'flex' }}>
+            <Image src="/assets/images/empty-state/empty-cart.png"/>
+        </Stack>
+        }
 
       <Button
         component={RouterLink}
         href={paths.eCommerce.products}
         color="inherit"
         startIcon={<Iconify icon="carbon:chevron-left" />}
-        sx={{ mt: 3 }}
+        sx={{ mt: 5 }}
       >
         Continue Shopping
       </Button>

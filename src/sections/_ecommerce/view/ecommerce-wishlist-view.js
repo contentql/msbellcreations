@@ -1,5 +1,6 @@
 'use client';
 
+import Link from "next/link"
 import { toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
 
@@ -11,13 +12,13 @@ import Typography from '@mui/material/Typography';
 
 import { _products } from 'src/_mock';
 import { useCart } from 'src/app/store';
+import Image from 'src/components/image';
 import { paths } from 'src/routes/paths';
 import { useWish } from 'src/app/wishstore';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 
 import EcommerceCartList from '../cart/ecommerce-cart-list';
-import Link from "next/link"
 
 // ----------------------------------------------------------------------
 
@@ -63,12 +64,14 @@ export default function EcommerceWishlistView() {
         pb: { xs: 5, md: 10 },
       }}
     >
-      <Typography variant="h3" sx={{ mb: 5 }}>
+      <Typography variant="h3" sx={{ mb: 3 }}>
         Wishlist
       </Typography>
 
       {wishItems.length === 0 && (
-        <Stack sx={{ my: 20 }}>
+        <Stack alignItems="center"
+        justifyContent="center"
+        sx={{  display: 'flex' }}>
           
         <Typography
           variant="body2"
@@ -77,14 +80,15 @@ export default function EcommerceWishlistView() {
           justifyContent="center"
           sx={{ typography: 'h6', display: 'flex' }}
         >
-        <Link href={paths.eCommerce.products}> Your wishlistlist is empty </Link>
-
+        <Image src="/assets/images/empty-state/empty-wishlist.png" />
         </Typography>
+        <Link href={paths.eCommerce.products} sx={{ typography: 'h6',mt:10}}>Go to products page</Link>
+
       </Stack>
       )}
       <EcommerceCartList wishlist={true || false} products={wishItems} />
 
-      <Stack
+      {wishItems.length!==0?<Stack
         direction={{ xs: 'column-reverse', sm: 'row' }}
         alignItems={{ sm: 'center' }}
         justifyContent={{ sm: 'space-between' }}
@@ -124,8 +128,8 @@ export default function EcommerceWishlistView() {
 </Button>
 
         </Stack>
-      </Stack>
-      
+      </Stack>:""
+}
     </Container>
   );
 }

@@ -103,7 +103,7 @@ export default function EcommerceProductDetailsInfo({
         </Typography>
       </Stack>
 
-      <Stack sx={{ my: 3 }} spacing={2} direction={{ xs: 'column', md: 'row' }} alignItems={{ md: 'center' }}>
+      <Stack sx={{ my: 8 }} spacing={2} direction={{ xs: 'column', md: 'row' }} alignItems={{ md: 'center' }}>
         <TextField
           select
           hiddenLabel

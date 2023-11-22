@@ -207,8 +207,8 @@ export default function EcommerceCheckoutView() {
               tax={7}
               total={0}
               subtotal={subtotal}
-              shipping={55.47}
-              discount={16.17}
+              shipping={cartItems.length!==0?55.47:0}
+              discount={cartItems.length!==0?16.17:0}
               products={cartItems}
               loading={isSubmitting}
             />

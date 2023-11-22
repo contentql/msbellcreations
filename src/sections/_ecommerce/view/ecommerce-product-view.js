@@ -37,23 +37,10 @@ export default function EcommerceProductView({ productId }) {
 
   return (
     <>
-      <Container sx={{ overflow: 'hidden' }}>
-        <CustomBreadcrumbs
-          links={[
-            {
-              name: 'Home',
-            },
-            {
-              name: 'Mobile Phones',
-            },
-            {
-              name: 'Apple iPhone 14',
-            },
-          ]}
-          sx={{ my: 5 }}
-        />
+      <Container sx={{ overflow: 'hidden',mt:4 }}>
+        
 
-        <Grid container spacing={{ xs: 5, md: 8 }}>
+        <Grid container spacing={{ xs: 5, md: 8}}>
           <Grid xs={12} md={6} lg={7}>
             <EcommerceProductDetailsCarousel images={_mockProduct.images} />
           </Grid>
