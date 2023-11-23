@@ -19,6 +19,7 @@ import MenuCarousel from 'src/components/mega-menu/_common/menu-carousel';
 
 import { NavItem } from './nav-item';
 import { StyledMenu, StyledSubheader } from './styles';
+
 // ----------------------------------------------------------------------
 
 export default function NavList({ item }) {
@@ -66,7 +67,7 @@ export default function NavList({ item }) {
             <StyledMenu onMouseEnter={handleOpenMenu} onMouseLeave={menuOpen.onFalse}>
               <Grid container>
                 <Grid>
-                  <Box sx={{ borderRadius: 2, mx: '20px' }}>
+                  <Box>
                     <MenuCarousel products={_products} numberShow={8} />
                   </Box>
                   {/* <Box

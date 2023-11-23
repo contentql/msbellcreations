@@ -27,11 +27,11 @@ export default function NavList({ item }) {
         externalLink={externalLink}
       />
 
-      {!!item.children && (
+      {/* {!!item.children && (
         <Collapse in={listOpen.value} unmountOnExit>
           <NavSectionVertical data={item.children} />
         </Collapse>
-      )}
+      )} */}
     </>
   );
 }

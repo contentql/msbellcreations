@@ -25,7 +25,17 @@ export default function MenuCarousel({ products, numberShow, sx }) {
   });
 
   return (
-    <Box sx={{ position: 'relative', pt: 2, ...sx }}>
+    <Box
+      sx={{
+        backgroundColor: 'gray.500',
+        boxShadow: 3,
+        mx: 2,
+        position: 'relative',
+        borderRadius: 3,
+        pt: 5,
+        ...sx,
+      }}
+    >
       <CarouselArrows
         filled
         onNext={carousel.onNext}
