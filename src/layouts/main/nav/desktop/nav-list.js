@@ -8,12 +8,14 @@ import Stack from '@mui/material/Stack';
 import Portal from '@mui/material/Portal';
 import Grid from '@mui/material/Unstable_Grid2';
 
-import Image from 'src/components/image';
+import { _products } from 'src/_mock';
 import Label from 'src/components/label';
+import Image from 'src/components/image';
 import { usePathname } from 'src/routes/hooks';
-import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
+import { useBoolean } from 'src/hooks/use-boolean';
 import { useActiveLink } from 'src/routes/hooks/use-active-link';
+import MenuCarousel from 'src/components/mega-menu/_common/menu-carousel';
 
 import { NavItem } from './nav-item';
 import { StyledMenu, StyledSubheader } from './styles';
@@ -27,9 +29,9 @@ export default function NavList({ item }) {
 
   const active = useActiveLink(item.path, false);
 
-  const externalLink = item.path.includes('http');
+  // const externalLink = item.path.includes('http');
 
-  const mainList = item.children ? item.children.filter((list) => list.subheader !== 'Common') : [];
+  // const mainList = item.children ? item.children.filter((list) => list.subheader !== 'Common') : [];
 
   const commonList = item.children
     ? item.children.find((list) => list.subheader === 'Common')
@@ -54,7 +56,7 @@ export default function NavList({ item }) {
         item={item}
         active={active}
         open={menuOpen.value}
-        externalLink={externalLink}
+        // externalLink={externalLink}
         onMouseEnter={handleOpenMenu}
         onMouseLeave={menuOpen.onFalse}
       />
@@ -63,9 +65,12 @@ export default function NavList({ item }) {
         <Portal>
           <Fade in={menuOpen.value}>
             <StyledMenu onMouseEnter={handleOpenMenu} onMouseLeave={menuOpen.onFalse}>
-              <Grid container columns={15}>
-                <Grid xs={12}>
-                  <Box
+              <Grid container>
+                <Grid>
+                  <Box>
+                    <MenuCarousel products={_products} numberShow={8} />
+                  </Box>
+                  {/* <Box
                     gap={5}
                     display="grid"
                     gridTemplateColumns="repeat(5, 1fr)"
@@ -85,16 +90,16 @@ export default function NavList({ item }) {
                         isNew={list.isNew}
                       />
                     ))}
-                  </Box>
+                  </Box> */}
                 </Grid>
 
-                {commonList && (
+                {/* {commonList && (
                   <Grid xs={3}>
                     <Box sx={{ bgcolor: 'background.default', p: 5 }}>
                       <NavSubList subheader={commonList.subheader} items={commonList.items} />
                     </Box>
                   </Grid>
-                )}
+                )} */}
               </Grid>
             </StyledMenu>
           </Fade>

@@ -1,3 +1,4 @@
+import { _products } from 'src/_mock';
 import { paths } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
@@ -132,7 +133,12 @@ export const FooterLinks = [
 
 export const navConfig = [
   { title: 'Home', path: '/' },
-  { title: 'Products', path: paths.eCommerce.products },
+  {
+    title: 'Products',
+    path: paths.eCommerce.products,
+    children: _products,
+  },
+  // { title: 'Products', path: paths.eCommerce.products },
   { title: 'About Us', path: paths.eCommerce.about },
   { title: 'Blog', path: paths.eCommerce.posts },
   // {

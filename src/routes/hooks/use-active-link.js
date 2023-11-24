@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 export function useActiveLink(path, deep = true) {
   const pathname = usePathname();
 
-  const checkPath = path.startsWith('#');
+  const checkPath = path && path.startsWith('');
 
   const currentPath = path === '/' ? '/' : `${path}/`;
 
