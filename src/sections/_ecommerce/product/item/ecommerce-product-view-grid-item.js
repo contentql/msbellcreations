@@ -4,17 +4,19 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'react-toastify/dist/ReactToastify.css';
+import Carousel from 'react-material-ui-carousel'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { toast, ToastContainer } from 'react-toastify';
 
 import { Button } from '@mui/base';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
+import { Paper } from '@mui/material'
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 
-import { paths } from 'src/routes/paths';
 import Label from 'src/components/label';
+import { paths } from 'src/routes/paths';
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
@@ -129,7 +131,7 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
         </Label>
       )}
 
-      <Box sx={{ position: 'relative', mb: 2 }}>
+      <Box sx={{ position: 'relative', mb: 2,height:"100%" }}>
         <Button onClick={AddtoCart}>
           <Fab
             // component={RouterLink}
@@ -162,9 +164,9 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
             color="primary"
             size="small"
             sx={{
-              right: 8,
+              left:6,
               zIndex: 9,
-              bottom: 50,
+              top:30,
               opacity: 0,
               position: 'absolute',
               transition: (theme) =>
@@ -178,14 +180,24 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
           </Fab>
         </Button>
 
-        <Image
-          src={product.coverUrl}
-          sx={{
-            flexShrink: 0,
-            borderRadius: 1.5,
-            bgcolor: 'background.neutral',
-          }}
-        />
+       
+
+        <Carousel indicators={false} animation='slide' fullHeightHover="true">
+  {product.images.map((ele, id) => (
+    
+      <Image
+        src={ele}
+        loading="lazy"
+        sx={{
+          flexShrink: 0,
+          borderRadius: 1.5,
+          bgcolor: 'background.neutral',
+          height:"100%"
+        }}
+      />
+    
+  ))}
+</Carousel>
       </Box>
 
       <Stack spacing={0.5}>
