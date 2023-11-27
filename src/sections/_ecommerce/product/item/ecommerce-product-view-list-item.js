@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import Fab from '@mui/material/Fab';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
+import { toast } from 'react-toastify';
 
 import { useCart } from 'src/app/store';
+import { useWish } from 'src/app/wishstore';
 import Image from 'src/components/image';
 import Label from 'src/components/label';
 import { paths } from 'src/routes/paths';
@@ -14,11 +16,76 @@ import TextMaxLine from 'src/components/text-max-line';
 
 import ProductPrice from '../../common/product-price';
 import ProductRating from '../../common/product-rating';
+import { Button } from '@mui/base';
 
 // ----------------------------------------------------------------------
 
 export default function EcommerceProductViewListItem({ product, ...other }) {
   const { cartItems,addProduct,updateQuantity } = useCart();
+  //const { cartItems, addProduct, updateQuantity } = useCart();
+  const { wishItems, wishaddProduct, wishupdateQuantity } = useWish();
+
+  const AddtoCart = () => {
+    const existingProduct = cartItems.find((item) => item.id === product.id);
+
+    if (existingProduct) {
+      updateQuantity(product.id, existingProduct.quantity + 1);
+      const { quantity } = existingProduct;
+      toast.success(`${quantity + 1} times added to cart`, {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+    } else {
+      addProduct({ ...product, quantity: 1 });
+      toast.success('1 item added to cart', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+    }
+  };
+
+  const WishtoCart = () => {
+    const existingProduct = wishItems.find((item) => item.id === product.id);
+
+    if (existingProduct) {
+      wishupdateQuantity(product.id, existingProduct.quantity + 1);
+      const { quantity } = existingProduct;
+      toast.success(`${quantity + 1} times added to wishlist`, {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+    } else {
+      wishaddProduct({ ...product, quantity: 1 });
+      toast.success('1 item added to wishlist', {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+    }
+  };
   
  
   return (
@@ -109,6 +176,49 @@ export default function EcommerceProductViewListItem({ product, ...other }) {
           sx={{ typography: 'h6' }}
         />
       </Stack>
+      <Button onClick={AddtoCart}>
+          <Fab
+            className="add-to-cart"
+            color="primary"
+            size="small"
+            sx={{
+              right:  8,
+              zIndex: 9,
+              top: 8,
+              opacity: 0,
+              position: 'absolute',
+              transition: (theme) =>
+                theme.transitions.create('opacity', {
+                  easing: theme.transitions.easing.easeIn,
+                  duration: theme.transitions.duration.shortest,
+                }),
+            }}
+          >
+            <Iconify icon="carbon:shopping-cart-plus" />
+          </Fab>
+        </Button>
+
+        <Button onClick={WishtoCart}>
+          <Fab
+            className="add-to-cart"
+            color="primary"
+            size="small"
+            sx={{
+              right: 60,
+              zIndex: 9,
+              top: 8,
+              opacity: 0,
+              position: 'absolute',
+              transition: (theme) =>
+                theme.transitions.create('opacity', {
+                  easing: theme.transitions.easing.easeIn,
+                  duration: theme.transitions.duration.shortest,
+                }),
+            }}
+          >
+            <Iconify icon="carbon:favorite" />
+          </Fab>
+        </Button>
     </Stack>
   );
 }

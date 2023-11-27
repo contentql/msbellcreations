@@ -29,6 +29,7 @@ import EcommerceCheckoutPaymentMethod from '../checkout/ecommerce-checkout-payme
 import EcommerceCheckoutShippingMethod from '../checkout/ecommerce-checkout-shipping-method';
 import EcommerceCheckoutPersonalDetails from '../checkout/ecommerce-checkout-personal-details';
 import EcommerceCheckoutShippingDetails from '../checkout/ecommerce-checkout-shipping-details';
+import { useCheckout } from 'src/app/checkoutstore';
 // ----------------------------------------------------------------------
 
 const SHIPPING_OPTIONS = [
@@ -74,11 +75,11 @@ const PAYMENT_OPTIONS = [
 
 export default function EcommerceCheckoutView() {
 
-  const { cartItems } = useCart();
+  const {checkItems,deleteAll}=useCheckout();
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
   useEffect(() => {
-    const newSubtotal = cartItems.reduce(
+    const newSubtotal = checkItems.reduce(
       (acc, product) => acc + product.quantity * product.price,
       0
     );
@@ -86,7 +87,9 @@ export default function EcommerceCheckoutView() {
     const newTotal = newSubtotal 
 
     setTotal(newTotal);
-  }, [cartItems]);
+  }, [checkItems]);
+
+
 
   const router = useRouter();
 
@@ -140,6 +143,7 @@ export default function EcommerceCheckoutView() {
       reset();
       router.push(paths.eCommerce.orderCompleted);
       console.log('DATA', data);
+      deleteAll();
     } catch (error) {
       console.error(error);
     }
@@ -204,12 +208,12 @@ export default function EcommerceCheckoutView() {
 
           <Grid xs={12} md={4}>
             <EcommerceCheckoutOrderSummary
-              tax={7}
+              tax={checkItems.length!==0?7:0}
               total={0}
               subtotal={subtotal}
-              shipping={cartItems.length!==0?55.47:0}
-              discount={cartItems.length!==0?16.17:0}
-              products={cartItems}
+              shipping={checkItems.length!==0?55.47:0}
+              discount={checkItems.length!==0?16.17:0}
+              products={checkItems}
               loading={isSubmitting}
             />
           </Grid>
@@ -219,7 +223,6 @@ export default function EcommerceCheckoutView() {
   );
 }
 
-// ----------------------------------------------------------------------
 
 function StepLabel({ step, title }) {
   return (

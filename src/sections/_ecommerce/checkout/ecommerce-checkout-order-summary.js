@@ -10,11 +10,10 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
-
-import { useCart } from 'src/app/store';
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import TextMaxLine from 'src/components/text-max-line';
+import { useCheckout } from 'src/app/checkoutstore';
 import { fPercent, fCurrency } from 'src/utils/format-number';
 
 // ----------------------------------------------------------------------
@@ -29,7 +28,6 @@ export default function EcommerceCheckoutOrderSummary({
   loading,
 }) {
 
-  const {cartItems}=useCart();
   return (
     <Stack
       spacing={3}
@@ -43,7 +41,7 @@ export default function EcommerceCheckoutOrderSummary({
 
       {!!products?.length && (
         <>
-          {cartItems.map((product) => (
+          {products.map((product) => (
             <ProductItem key={product.id} product={product}/>
           ))}
 
@@ -90,6 +88,7 @@ export default function EcommerceCheckoutOrderSummary({
         color="inherit"
         type="submit"
         loading={loading}
+        onSubmit={()=>console.log("Hello")}
       >
         Order Now
       </LoadingButton>
@@ -110,14 +109,14 @@ EcommerceCheckoutOrderSummary.propTypes = {
 // ----------------------------------------------------------------------
 
 function ProductItem({ product, ...other }) {
-  const {deleteProduct,updateQuantity}=useCart()
+  const {checkdeleteProduct,checkupdateQuantity}=useCheckout()
   const HandleDelete=()=>{
     // eslint-disable-next-line react/prop-types
-    deleteProduct(product.id)
+    checkdeleteProduct(product.id)
   }
   const HandleChange=(e)=>{
     // eslint-disable-next-line react/prop-types
-    updateQuantity(product.id,parseInt(e.target.value,10))
+    checkupdateQuantity(product.id,parseInt(e.target.value,10))
   }
   // eslint-disable-next-line react/prop-types
   const {quantity}=product;

@@ -17,6 +17,7 @@ import { RouterLink } from 'src/routes/components';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import ProductPrice from '../../common/product-price';
+import { useCheckout } from 'src/app/checkoutstore';
 
 
 // ----------------------------------------------------------------------
@@ -63,7 +64,14 @@ export default function EcommerceProductDetailsInfo({
   }, []);
 
   const { addProduct, updateQuantity, cartItems } = useCart();
+  const {checkaddProducts,checkItems,checkupdateQuantity,deleteAll}=useCheckout();
 
+  const gotocheckout=async ()=>{
+    deleteAll()
+    const product = _products.find((item) => item.id === productId);
+    checkaddProducts(product)
+    checkupdateQuantity(product.id,  parseInt(option, 10));
+  }
   
 
   const addtocart = () => {
@@ -139,11 +147,12 @@ export default function EcommerceProductDetailsInfo({
 
           <Button
             component={RouterLink}
-            href={paths.eCommerce.cart}
+            href={paths.eCommerce.checkout}
             fullWidth={!mdUp}
             size="large"
             color="primary"
             variant="contained"
+            onClick={gotocheckout}
           >
             Buy Now
           </Button>
