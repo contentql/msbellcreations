@@ -61,13 +61,15 @@ export default function MenuCarousel({ products, numberShow, sx }) {
                   src={product.coverUrl}
                   ratio="1/1"
                   disabledEffect
-                  sx={{ borderRadius: 1, mb: 1 }}
+                  sx={{ borderRadius: 1, mb: 1, bgcolor: 'background.neutral' }}
                 />
 
-                <TextMaxLine variant="caption" sx={{ fontWeight: 'fontWeightSemiBold' }}>
+                <TextMaxLine variant="body2" sx={{ color: 'text.main' }}>
                   {product.name}
                 </TextMaxLine>
-                <TextMaxLine variant="button">{fCurrency(product.price)}</TextMaxLine>
+                <TextMaxLine variant="body2" sx={{ color: 'text.secondary' }}>
+                  {fCurrency(product.price)}
+                </TextMaxLine>
               </Link>
             </Box>
           ))}
