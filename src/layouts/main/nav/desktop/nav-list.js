@@ -67,8 +67,9 @@ export default function NavList({ item }) {
             <StyledMenu onMouseEnter={handleOpenMenu} onMouseLeave={menuOpen.onFalse}>
               <Grid container>
                 <Grid>
-                  <MenuCarousel products={item.children} numberShow={7} />
-
+                  <Box>
+                    <MenuCarousel products={_products} numberShow={8} />
+                  </Box>
                   {/* <Box
                     gap={5}
                     display="grid"
