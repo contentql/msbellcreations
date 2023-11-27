@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'react-toastify/dist/ReactToastify.css';
-import Carousel from 'react-material-ui-carousel'
+import SimpleImageSlider from "react-simple-image-slider";
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import { Button } from '@mui/base';
 import Box from '@mui/material/Box';
@@ -17,7 +17,6 @@ import Stack from '@mui/material/Stack';
 
 import Label from 'src/components/label';
 import { paths } from 'src/routes/paths';
-import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 import TextMaxLine from 'src/components/text-max-line';
@@ -29,6 +28,7 @@ import ProductRating from '../../common/product-rating';
 // ----------------------------------------------------------------------
 
 export default function EcommerceProductViewGridItem({ product, sx, ...other }) {
+  const [hover, sethover] = useState(false)
   const { cartItems, addProduct, updateQuantity } = useCart();
   const AddtoCart = () => {
     const existingProduct = cartItems.find((item) => item.id === product.id);
@@ -131,7 +131,7 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
         </Label>
       )}
 
-      <Box sx={{ position: 'relative', mb: 2,height:"100%" }}>
+      <Box sx={{ position: 'relative', mb: 2, height: "100%" }}>
         <Button onClick={AddtoCart}>
           <Fab
             // component={RouterLink}
@@ -164,9 +164,9 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
             color="primary"
             size="small"
             sx={{
-              left:6,
+              right: 60,
               zIndex: 9,
-              top:30,
+              bottom: 8,
               opacity: 0,
               position: 'absolute',
               transition: (theme) =>
@@ -179,25 +179,22 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
             <Iconify icon="carbon:favorite" />
           </Fab>
         </Button>
-
-       
-
-        <Carousel indicators={false} animation='slide' fullHeightHover="true">
-  {product.images.map((ele, id) => (
-    
-      <Image
-        src={ele}
-        loading="lazy"
-        sx={{
-          flexShrink: 0,
-          borderRadius: 1.5,
-          bgcolor: 'background.neutral',
-          height:"100%"
-        }}
-      />
-    
-  ))}
-</Carousel>
+        <div onMouseEnter={() => { sethover(true) }}
+          onMouseLeave={() => { sethover(false) }}>
+          <SimpleImageSlider
+            width={216.8}
+            height={216.8}
+            images={product.images}
+            showBullets={false}
+            showNavs={true}
+            bgColor={"#f4f6f8"}
+            navSize={30}
+            navMargin={5}
+            style={{ borderRadius: 10 }}
+            autoPlay={hover}
+            loop={true}
+          />
+        </div>
       </Box>
 
       <Stack spacing={0.5}>
