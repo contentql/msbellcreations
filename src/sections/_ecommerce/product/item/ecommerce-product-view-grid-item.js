@@ -1,17 +1,20 @@
-"use client"
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import React, { useEffect, useState } from 'react';
+'use client';
+
 import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
+import React, { useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import SimpleImageSlider from 'react-simple-image-slider';
-import { toast } from 'react-toastify';
 
 import { Button } from '@mui/base';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+import { paths } from 'src/routes/paths';
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
@@ -21,7 +24,6 @@ import { useCart } from '../../../../app/store';
 import { useWish } from '../../../../app/wishstore';
 import ProductPrice from '../../common/product-price';
 import ProductRating from '../../common/product-rating';
-import { paths } from 'src/routes/paths';
 
 const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
   const theme = useTheme();
@@ -93,11 +95,9 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
     }
   };
 
-  
   // useEffect(() => {
   //   console.log('rendered')
   // }, [hover])
-
 
   return (
     <Stack
@@ -134,6 +134,7 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
               bottom: 8,
               opacity: 0,
               position: 'absolute',
+              // eslint-disable-next-line no-shadow
               transition: (theme) =>
                 theme.transitions.create('opacity', {
                   easing: theme.transitions.easing.easeIn,
@@ -156,6 +157,7 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
               bottom: 8,
               opacity: 0,
               position: 'absolute',
+              // eslint-disable-next-line no-shadow
               transition: (theme) =>
                 theme.transitions.create('opacity', {
                   easing: theme.transitions.easing.easeIn,
@@ -166,24 +168,19 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
             <Iconify icon="carbon:favorite" />
           </Fab>
         </Button>
-        <div
-          onMouseEnter={() =>  setHover(true)}
-          onMouseLeave={() => {
-            setHover(false);
-          }}
-        >
+        <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
           <SimpleImageSlider
-            width={isMobile ? 140 : 216.8}
-            height={isMobile ? 140 : 216.8}
+            width={isMobile ? 140 : 190}
+            height={isMobile ? 140 : 190}
             images={product.images}
             showBullets={false}
-            showNavs={true}
-            bgColor={'#f4f6f8'}
+            showNavs={hover}
+            bgColor="#f4f6f8"
             navSize={30}
-            navMargin={5}
+            navMargin={2}
             style={{ borderRadius: 10 }}
             autoPlay={hover}
-            loop={true}
+            loop
             autoPlayDelay={1}
           />
         </div>
@@ -194,7 +191,11 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
           {product.category}
         </TextMaxLine>
 
-        <Link component={RouterLink} href={`${paths.eCommerce.products}/${product.id}`} color="inherit">
+        <Link
+          component={RouterLink}
+          href={`${paths.eCommerce.products}/${product.id}`}
+          color="inherit"
+        >
           <TextMaxLine variant="body2" line={1} sx={{ fontWeight: 'fontWeightMedium' }}>
             {product.name}
           </TextMaxLine>
@@ -217,6 +218,7 @@ EcommerceProductViewGridItem.propTypes = {
     price: PropTypes.number,
     category: PropTypes.string,
     coverUrl: PropTypes.string,
+    images: PropTypes.array,
     priceSale: PropTypes.number,
     ratingNumber: PropTypes.number,
   }),
