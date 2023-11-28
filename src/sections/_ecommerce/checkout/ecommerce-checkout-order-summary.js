@@ -10,10 +10,11 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
+
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
-import TextMaxLine from 'src/components/text-max-line';
 import { useCheckout } from 'src/app/checkoutstore';
+import TextMaxLine from 'src/components/text-max-line';
 import { fPercent, fCurrency } from 'src/utils/format-number';
 
 // ----------------------------------------------------------------------
@@ -27,7 +28,6 @@ export default function EcommerceCheckoutOrderSummary({
   products,
   loading,
 }) {
-
   return (
     <Stack
       spacing={3}
@@ -42,7 +42,7 @@ export default function EcommerceCheckoutOrderSummary({
       {!!products?.length && (
         <>
           {products.map((product) => (
-            <ProductItem key={product.id} product={product}/>
+            <ProductItem key={product.id} product={product} />
           ))}
 
           <Divider sx={{ borderStyle: 'dashed' }} />
@@ -75,7 +75,7 @@ export default function EcommerceCheckoutOrderSummary({
 
       <Row
         label="Total"
-        value={fCurrency(subtotal+tax+shipping-discount)}
+        value={fCurrency(subtotal + tax + shipping - discount)}
         sx={{
           typography: 'h6',
           '& span': { typography: 'h6' },
@@ -88,7 +88,7 @@ export default function EcommerceCheckoutOrderSummary({
         color="inherit"
         type="submit"
         loading={loading}
-        onSubmit={()=>console.log("Hello")}
+        onSubmit={() => console.log('Hello')}
       >
         Order Now
       </LoadingButton>
@@ -109,17 +109,17 @@ EcommerceCheckoutOrderSummary.propTypes = {
 // ----------------------------------------------------------------------
 
 function ProductItem({ product, ...other }) {
-  const {checkdeleteProduct,checkupdateQuantity}=useCheckout()
-  const HandleDelete=()=>{
+  const { checkdeleteProduct, checkupdateQuantity } = useCheckout();
+  const HandleDelete = () => {
     // eslint-disable-next-line react/prop-types
-    checkdeleteProduct(product.id)
-  }
-  const HandleChange=(e)=>{
+    checkdeleteProduct(product.id);
+  };
+  const HandleChange = (e) => {
     // eslint-disable-next-line react/prop-types
-    checkupdateQuantity(product.id,parseInt(e.target.value,10))
-  }
+    checkupdateQuantity(product.id, parseInt(e.target.value, 10));
+  };
   // eslint-disable-next-line react/prop-types
-  const {quantity}=product;
+  const { quantity } = product;
   return (
     <Stack direction="row" alignItems="flex-start" {...other}>
       <Image

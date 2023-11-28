@@ -22,6 +22,7 @@ import Iconify from 'src/components/iconify';
 import { useRouter } from 'src/routes/hooks';
 import { useBoolean } from 'src/hooks/use-boolean';
 import FormProvider from 'src/components/hook-form';
+import { useCheckout } from 'src/app/checkoutstore';
 
 import EcommerceCheckoutNewCardForm from '../checkout/ecommerce-checkout-new-card-form';
 import EcommerceCheckoutOrderSummary from '../checkout/ecommerce-checkout-order-summary';
@@ -29,7 +30,6 @@ import EcommerceCheckoutPaymentMethod from '../checkout/ecommerce-checkout-payme
 import EcommerceCheckoutShippingMethod from '../checkout/ecommerce-checkout-shipping-method';
 import EcommerceCheckoutPersonalDetails from '../checkout/ecommerce-checkout-personal-details';
 import EcommerceCheckoutShippingDetails from '../checkout/ecommerce-checkout-shipping-details';
-import { useCheckout } from 'src/app/checkoutstore';
 // ----------------------------------------------------------------------
 
 const SHIPPING_OPTIONS = [
@@ -74,8 +74,7 @@ const PAYMENT_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function EcommerceCheckoutView() {
-
-  const {checkItems,deleteAll}=useCheckout();
+  const { checkItems, deleteAll } = useCheckout();
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
   useEffect(() => {
@@ -84,12 +83,10 @@ export default function EcommerceCheckoutView() {
       0
     );
     setSubtotal(newSubtotal);
-    const newTotal = newSubtotal 
+    const newTotal = newSubtotal;
 
     setTotal(newTotal);
   }, [checkItems]);
-
-
 
   const router = useRouter();
 
@@ -208,11 +205,11 @@ export default function EcommerceCheckoutView() {
 
           <Grid xs={12} md={4}>
             <EcommerceCheckoutOrderSummary
-              tax={checkItems.length!==0?7:0}
+              tax={checkItems.length !== 0 ? 7 : 0}
               total={0}
               subtotal={subtotal}
-              shipping={checkItems.length!==0?55.47:0}
-              discount={checkItems.length!==0?16.17:0}
+              shipping={checkItems.length !== 0 ? 55.47 : 0}
+              discount={checkItems.length !== 0 ? 16.17 : 0}
               products={checkItems}
               loading={isSubmitting}
             />
@@ -222,7 +219,6 @@ export default function EcommerceCheckoutView() {
     </Container>
   );
 }
-
 
 function StepLabel({ step, title }) {
   return (

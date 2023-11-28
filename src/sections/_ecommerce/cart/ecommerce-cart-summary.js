@@ -15,11 +15,11 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { useCart } from 'src/app/store';
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
-import { fPercent, fCurrency } from 'src/utils/format-number';
 import { useCheckout } from 'src/app/checkoutstore';
+import { fPercent, fCurrency } from 'src/utils/format-number';
 
 export default function EcommerceCartSummary({ tax, shipping, discount }) {
-  const { cartItems,cartempty } = useCart();
+  const { cartItems, cartempty } = useCart();
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
   useEffect(() => {
@@ -39,13 +39,13 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
     setTotal(newTotal);
   }, [cartItems, shipping, discount, tax]);
 
-  const {deleteAll,addAll}=useCheckout()
+  const { deleteAll, addAll } = useCheckout();
 
-  const gotocheckout=()=>{
+  const gotocheckout = () => {
     deleteAll();
     cartempty();
-    addAll(cartItems)
-  }
+    addAll(cartItems);
+  };
 
   return (
     <Stack
