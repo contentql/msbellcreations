@@ -1,21 +1,21 @@
 'use client';
 
-import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-// eslint-disable-next-line import/no-extraneous-dependencies
+import { toast } from 'react-toastify';
+import React, { useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { toast, ToastContainer } from 'react-toastify';
+import SimpleImageSlider from 'react-simple-image-slider';
 
 import { Button } from '@mui/base';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { paths } from 'src/routes/paths';
 import Label from 'src/components/label';
-import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 import TextMaxLine from 'src/components/text-max-line';
@@ -24,27 +24,21 @@ import { useCart } from '../../../../app/store';
 import { useWish } from '../../../../app/wishstore';
 import ProductPrice from '../../common/product-price';
 import ProductRating from '../../common/product-rating';
-// ----------------------------------------------------------------------
 
-export default function EcommerceProductViewGridItem({ product, sx, ...other }) {
+const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const [hover, setHover] = useState(false);
   const { cartItems, addProduct, updateQuantity } = useCart();
+  const { wishItems, wishaddProduct, wishupdateQuantity } = useWish();
+
   const AddtoCart = () => {
     const existingProduct = cartItems.find((item) => item.id === product.id);
 
     if (existingProduct) {
       updateQuantity(product.id, existingProduct.quantity + 1);
-      const { quantity } = existingProduct; // Use existingProduct to get the correct quantity
-      // toast.success(`${quantity + 1} times added to cart`);
-      // toast.success(`${quantity+1} times added to cart`, {
-      //   position: "bottom-right",
-      //   autoClose: 3000,
-      //   hideProgressBar: false,
-      //   closeOnClick: true,
-      //   pauseOnHover: true,
-      //   draggable: true,
-      //   progress: undefined,
-      //   theme: "light",
-      //   });
+      const { quantity } = existingProduct;
       toast.success(`${quantity + 1} times added to cart`, {
         position: 'bottom-right',
         autoClose: 4000,
@@ -57,7 +51,6 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
       });
     } else {
       addProduct({ ...product, quantity: 1 });
-      // toast.success('1 item added to cart');
       toast.success('1 item added to cart', {
         position: 'bottom-right',
         autoClose: 4000,
@@ -71,15 +64,12 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
     }
   };
 
-  const { wishItems, wishaddProduct, wishupdateQuantity } = useWish();
   const WishtoCart = () => {
     const existingProduct = wishItems.find((item) => item.id === product.id);
 
     if (existingProduct) {
       wishupdateQuantity(product.id, existingProduct.quantity + 1);
       const { quantity } = existingProduct;
-
-      // Use existingProduct to get the correct quantity
       toast.success(`${quantity + 1} times added to wishlist`, {
         position: 'bottom-right',
         autoClose: 4000,
@@ -91,7 +81,6 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
         theme: 'light',
       });
     } else {
-      // If the product is not in the cart, add it with quantity 1
       wishaddProduct({ ...product, quantity: 1 });
       toast.success('1 item added to wishlist', {
         position: 'bottom-right',
@@ -105,6 +94,10 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
       });
     }
   };
+
+  // useEffect(() => {
+  //   console.log('rendered')
+  // }, [hover])
 
   return (
     <Stack
@@ -129,20 +122,19 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
         </Label>
       )}
 
-      <Box sx={{ position: 'relative', mb: 2 }}>
+      <Box sx={{ position: 'relative', mb: 2, height: isMobile ? 'auto' : '100%' }}>
         <Button onClick={AddtoCart}>
           <Fab
-            // component={RouterLink}
-            // href={paths.eCommerce.product}
             className="add-to-cart"
             color="primary"
             size="small"
             sx={{
-              right: 8,
+              right: isMobile ? 16 : 8,
               zIndex: 9,
               bottom: 8,
               opacity: 0,
               position: 'absolute',
+              // eslint-disable-next-line no-shadow
               transition: (theme) =>
                 theme.transitions.create('opacity', {
                   easing: theme.transitions.easing.easeIn,
@@ -156,17 +148,16 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
 
         <Button onClick={WishtoCart}>
           <Fab
-            // component={RouterLink}
-            // href={paths.eCommerce.product}
             className="add-to-cart"
             color="primary"
             size="small"
             sx={{
-              right: 8,
+              right: isMobile ? 64 : 60,
               zIndex: 9,
-              bottom: 50,
+              bottom: 8,
               opacity: 0,
               position: 'absolute',
+              // eslint-disable-next-line no-shadow
               transition: (theme) =>
                 theme.transitions.create('opacity', {
                   easing: theme.transitions.easing.easeIn,
@@ -177,15 +168,22 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
             <Iconify icon="carbon:favorite" />
           </Fab>
         </Button>
-
-        <Image
-          src={product.coverUrl}
-          sx={{
-            flexShrink: 0,
-            borderRadius: 1.5,
-            bgcolor: 'background.neutral',
-          }}
-        />
+        <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+          <SimpleImageSlider
+            width={isMobile ? 140 : 190}
+            height={isMobile ? 140 : 190}
+            images={product.images}
+            showBullets={false}
+            showNavs={hover}
+            bgColor="#f4f6f8"
+            navSize={30}
+            navMargin={2}
+            style={{ borderRadius: 10 }}
+            autoPlay={hover}
+            loop
+            autoPlayDelay={1}
+          />
+        </div>
       </Box>
 
       <Stack spacing={0.5}>
@@ -209,7 +207,7 @@ export default function EcommerceProductViewGridItem({ product, sx, ...other }) 
       </Stack>
     </Stack>
   );
-}
+};
 
 EcommerceProductViewGridItem.propTypes = {
   product: PropTypes.shape({
@@ -220,8 +218,11 @@ EcommerceProductViewGridItem.propTypes = {
     price: PropTypes.number,
     category: PropTypes.string,
     coverUrl: PropTypes.string,
+    images: PropTypes.array,
     priceSale: PropTypes.number,
     ratingNumber: PropTypes.number,
   }),
   sx: PropTypes.object,
 };
+
+export default EcommerceProductViewGridItem;
