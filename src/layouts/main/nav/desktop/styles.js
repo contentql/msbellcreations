@@ -63,9 +63,11 @@ export const StyledNavItem = styled(ListItemButton, {
 // ----------------------------------------------------------------------
 
 export const StyledMenu = styled(Paper)(({ theme }) => ({
-  top: 62,
-  width: '100%',
-  borderRadius: 0,
+  top: '33%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '86%',
+  borderRadius: '20px',
   position: 'fixed',
   zIndex: theme.zIndex.modal,
   boxShadow: theme.customShadows.dialog,

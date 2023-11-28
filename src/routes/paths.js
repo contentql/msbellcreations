@@ -59,6 +59,8 @@ export const paths = {
     post: `/e-commerce/post`,
     terms: '/e-commerce/terms',
     privacy: '/e-commerce/privacy',
+    return: '/e-commerce/return-policy',
+    contact: '/e-commerce/contact',
     account: {
       root: `/e-commerce/account`,
       personal: `/e-commerce/account/personal`,

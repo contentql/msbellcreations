@@ -120,6 +120,7 @@ export const FooterLinks = [
       { title: 'Products', path: paths.eCommerce.products },
       { title: 'About Us', path: paths.eCommerce.about },
       { title: 'posts', path: paths.eCommerce.posts },
+      { title: 'Contact', path: paths.eCommerce.contact },
     ],
   },
   {
@@ -127,6 +128,7 @@ export const FooterLinks = [
     items: [
       { title: 'Privacy policy.', path: paths.eCommerce.privacy },
       { title: 'Terms of use', path: paths.eCommerce.terms },
+      { title: 'Shipping & Return Policy', path: paths.eCommerce.return },
     ],
   },
 ];

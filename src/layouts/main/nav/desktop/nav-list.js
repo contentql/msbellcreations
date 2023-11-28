@@ -68,7 +68,7 @@ export default function NavList({ item }) {
               <Grid container>
                 <Grid>
                   <Box>
-                    <MenuCarousel products={_products} numberShow={8} />
+                    <MenuCarousel products={_products} numberShow={7} />
                   </Box>
                   {/* <Box
                     gap={5}
