@@ -30,17 +30,23 @@ export default function EcommerceCartItem({ product, wishlist }) {
   const wishtocart = (Product) => {
     const existingProductInWishlist = wishItems.find((item) => item.id === Product.id);
     const existingProductInCart = cartItems.find((item) => item.id === Product.id);
-
+  
     if (existingProductInCart) {
       updateQuantity(
         existingProductInCart.id,
         existingProductInCart.quantity + existingProductInWishlist.quantity
       );
     } else {
-      addProduct({ ...existingProductInWishlist, quantity: 1 });
+      addProduct({ ...existingProductInWishlist, quantity:1 });
+      updateQuantity(existingProductInWishlist.id,existingProductInWishlist.quantity)
     }
-    wishdeleteProduct(product.id);
+    wishdeleteProduct(Product.id);
   };
+  
+  
+  
+  
+  
 
   return (
     <Stack

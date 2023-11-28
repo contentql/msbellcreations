@@ -17,6 +17,12 @@ export const useCart = create(persist((set) => ({
           product.id === productId ? { ...product, quantity } : product
         ),
       })),
+      cartempty: () =>
+      set((state) => ({
+        cartItems: state.cartItems.filter(() =>
+          false
+        ),
+      })),
 }),
 {
     name: 'cart-items', // name of the item in the storage (must be unique)
