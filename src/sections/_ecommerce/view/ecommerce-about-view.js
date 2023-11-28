@@ -6,7 +6,6 @@ import EcommerceAboutHero from '../about/ecommerce-about-hero';
 import EcommerceAboutFaqs from '../about/ecommerce-about-faqs';
 import EcommerceAboutCoreValues from '../about/ecommerce-about-core-values';
 
-import EcommerceContactView from './ecommerce-contact-view';
 // ----------------------------------------------------------------------
 
 export default function EcommerceAboutView() {
@@ -15,7 +14,6 @@ export default function EcommerceAboutView() {
       <EcommerceAboutHero />
       <EcommerceAboutCoreValues />
       <EcommerceAboutFaqs />
-      <EcommerceContactView />
     </>
   );
 }
