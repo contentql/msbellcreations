@@ -13,6 +13,7 @@ import { StyledSubheader } from './styles';
 // ----------------------------------------------------------------------
 
 function NavSectionVertical({ data, config, sx, ...other }) {
+  console.log('mobile', data);
   return (
     <Stack sx={sx} {...other}>
       {data.map((group, index) => (
@@ -39,7 +40,6 @@ export default memo(NavSectionVertical);
 
 function Group({ subheader, items, config }) {
   const [open, setOpen] = useState(true);
-
   const handleToggle = useCallback(() => {
     setOpen((prev) => !prev);
   }, []);

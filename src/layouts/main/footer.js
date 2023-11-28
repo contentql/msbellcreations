@@ -22,7 +22,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
 import { useResponsive } from 'src/hooks/use-responsive';
 
-import { pageLinks, navConfig } from './config-navigation';
+import { pageLinks, navConfig, FooterLinks } from './config-navigation';
 
 // ----------------------------------------------------------------------
 
@@ -79,12 +79,12 @@ export default function Footer() {
                 <Logo />
 
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                  The starting point for your next project based on easy-to-customize Material-UI ©
-                  helps you build apps faster and better.
+                  Ms. Bells Creations SOAPS, CANDLES, AND MORE! Created from all-natural materials
+                  and infused with essential oils.
                 </Typography>
               </Stack>
 
-              <Stack spacing={1} alignItems="flex-start">
+              {/* <Stack spacing={1} alignItems="flex-start">
                 <Typography variant="h6">Community</Typography>
                 <Link variant="body2" sx={{ color: 'text.primary' }}>
                   Documentation
@@ -97,9 +97,9 @@ export default function Footer() {
                 <Link variant="body2" sx={{ color: 'text.primary' }}>
                   Contributing
                 </Link>
-              </Stack>
+              </Stack> */}
 
-              <Stack spacing={2}>
+              {/* <Stack spacing={2}>
                 <Stack spacing={1}>
                   <Typography variant="h6">Let’s stay in touch</Typography>
                   <Typography variant="caption" sx={{ color: 'text.secondary' }}>
@@ -121,36 +121,43 @@ export default function Footer() {
                     ),
                   }}
                 />
-              </Stack>
+              </Stack> */}
 
               <Stack spacing={2}>
                 <Typography variant="h6">Social</Typography>
-                <Stack direction="row" alignItems="center">
+                <Stack direction="row" alignItems="center" spacing={2}>
                   {_socials.map((social) => (
-                    <IconButton key={social.value} color="primary">
-                      <Iconify icon={social.icon} />
-                    </IconButton>
+                    <Link
+                      key={social.value}
+                      href={social?.path}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <IconButton key={social.value} size="24px" color="primary">
+                        <Iconify icon={social.icon} className="width-[24px]" />
+                      </IconButton>
+                    </Link>
                   ))}
                 </Stack>
               </Stack>
 
-              <Stack spacing={2}>
+              {/* <Stack spacing={2}>
                 <Typography variant="h6">Apps</Typography>
                 <AppStoreButton />
-              </Stack>
+              </Stack> */}
             </Stack>
           </Grid>
 
           <Grid xs={12} md={6}>
             {mdUp ? (
               <Masonry columns={2} spacing={4} defaultColumns={4} defaultSpacing={2}>
-                {renderLists.map((list) => (
+                {FooterLinks.map((list) => (
                   <ListDesktop key={list.subheader} list={list} />
                 ))}
               </Masonry>
             ) : (
               <Stack spacing={1.5}>
-                {renderLists.map((list) => (
+                {FooterLinks.map((list) => (
                   <ListMobile key={list.subheader} list={list} />
                 ))}
               </Stack>

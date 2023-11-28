@@ -519,13 +519,14 @@ export const _sentences = [
 // ----------------------------------------------------------------------
 
 export const _descriptions = [
-  `This Rose Petal salve is handmade with organic ingredients and infused with the healing power of rose hips. Rose hips are the fruit of rose plants and they are packed with antioxidants, vitamins, fatty acids, and other beneficial compounds that can nourish and repair your skin. `,
-  `Do you love coffee? Do you wish you could smell like coffee all day long? If so, this handmade soap is perfect for you!. This soap is infused with coffee fragrance oil, giving it a delicious and inviting scent of freshly brewed coffee.`,
-  `Shower Steamers Variety Pack: Energizing Citrus & Eucalyptus Sinus Ease. Take your shower experience to a new level with these amazing shower steamers!`,
-  `Pure Soy Wax Candle Tin / Candles / Soy Candles /Fresh Snow / 4 oz Candle Tin / Made in TX. Luxury candle that smells like fresh linen. This smell is simply irresistible. One smell and you will be hooked!`,
-  `Nihil ea sunt facilis praesentium atque. Ab animi alias sequi molestias aut velit ea. Sed possimus eos. Et est aliquid est voluptatem.`,
-  `Non rerum modi. Accusamus voluptatem odit nihil in. Quidem et iusto numquam veniam culpa aperiam odio aut enim. Quae vel dolores. Pariatur est culpa veritatis aut dolorem.`,
-  `Est enim et sit non impedit aperiam cumque animi. Aut eius impedit saepe blanditiis. Totam molestias magnam minima fugiat.`,
+  `Cayenne pepper is a hot and spicy herb that contains capsaicin, a compound that blocks the pain signals from reaching your brain. Cayenne pepper can help reduce muscle, joint, and nerve pain from various conditions.  `,
+  `This Rose Petal salve is handmade with organic ingredients and infused with the healing power of rose hips. Rose hips are the fruit of rose plants and they are packed with antioxidants, vitamins, fatty acids, and other beneficial compounds that can nourish and repair your skin. This salve can be used for a variety of skin issues, such as minor wounds, scars, dryness, inflammation, and aging signs. It can also be used as a hair conditioner, lip balm, cuticle oil or body moisturizer. It has a subtle floral scent and a smooth texture that melts into your skin.`,
+  `Using a Goat's Milk Soap Base and a wonderful cinnamon undertone, we crafted our Apple Pie Soap for the autumn season. Scents of freshly baked pies from Grandma's kitchen fill the air. Ms. Bell's Apple Pie Soap Bars are sure to transport you back to your early years!`,
+  `You'll love the fresh, uplifting fragrance of our Lavender Soap. The fragrance of jasmine and lavender smells intoxicating! Exiting the shower will leave you feeling revitalized and ready to take on the day.
+  Vitamin E has been shown to have moisturizing effects on the skin. Just try it now and see how it works for you!`,
+  `Finally, our Bug Away Spray is the answer you've been looking for. Its mild aroma of Lavender and Peppermint is naturally repellent to mosquitoes and other biting insects. 1 OZ spray bottle, fits perfectly in your pocket, purse or bag.`,
+  `Whether you use it in the morning, afternoon, or evening, this soap will make your day better. Don’t miss this opportunity to treat yourself or someone special to this luxurious coffee fragrance soap! `,
+  `Feel refreshed, recharged and ready for life's thrilling moments with our calming citrus soap! Made from natural ingredients and goats milk, start your day off with a squeaky clean feeling. Order today and start feeling the difference!`,
   `Unde a inventore et. Sed esse ut. Atque ducimus quibusdam fuga quas id qui fuga.`,
   `Eaque natus adipisci soluta nostrum dolorem. Nesciunt ipsum molestias ut aliquid natus ut omnis qui fugiat. Dolor et rem. Ut neque voluptatem blanditiis quasi ullam deleniti.`,
   `Nam et error exercitationem qui voluptate optio. Officia omnis qui accusantium ipsam qui. Quia sequi nulla perspiciatis optio vero omnis maxime omnis ipsum. Perspiciatis consequuntur asperiores veniam dolores.`,

@@ -2,11 +2,14 @@ import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
+import { Stack } from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 
+import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
+import { fCurrency } from 'src/utils/format-number';
+import ProductPrice from 'src/sections/_ecommerce/common/product-price';
 
-//
 import Image from '../../image';
 import TextMaxLine from '../../text-max-line';
 import Carousel, { useCarousel, CarouselDots, CarouselArrows } from '../../carousel';
@@ -15,7 +18,7 @@ import Carousel, { useCarousel, CarouselDots, CarouselArrows } from '../../carou
 
 export default function MenuCarousel({ products, numberShow, sx }) {
   const theme = useTheme();
-
+  console.log('price', products);
   const carousel = useCarousel({
     slidesToShow: numberShow,
     slidesToScroll: numberShow,
@@ -44,7 +47,7 @@ export default function MenuCarousel({ products, numberShow, sx }) {
             <Box key={product.name} sx={{ px: 1, textAlign: 'center' }}>
               <Link
                 component={RouterLink}
-                href={product.path}
+                href={`${paths.eCommerce.products}/${product.id}`}
                 color="inherit"
                 underline="none"
                 sx={{
@@ -64,6 +67,7 @@ export default function MenuCarousel({ products, numberShow, sx }) {
                 <TextMaxLine variant="caption" sx={{ fontWeight: 'fontWeightSemiBold' }}>
                   {product.name}
                 </TextMaxLine>
+                <TextMaxLine variant="button">{fCurrency(product.price)}</TextMaxLine>
               </Link>
             </Box>
           ))}

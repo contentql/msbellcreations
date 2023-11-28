@@ -19,11 +19,12 @@ export default function ProductCountdownBlock({ expired, hiddenLabel = false, sx
       justifyContent="center"
       sx={{
         typography: 'subtitle1',
+        paddingBottom: '16px',
         ...sx,
       }}
       {...other}
     >
-      {Number(days) > 0 && (
+      {/* {Number(days) > 0 && (
         <>
           <TimeBlock label="Days" value={days} hiddenLabel={hiddenLabel} />
           <Separator hiddenLabel={hiddenLabel} />
@@ -38,7 +39,7 @@ export default function ProductCountdownBlock({ expired, hiddenLabel = false, sx
 
       <Separator hiddenLabel={hiddenLabel} />
 
-      <TimeBlock label="Seconds" value={seconds} hiddenLabel={hiddenLabel} />
+      <TimeBlock label="Seconds" value={seconds} hiddenLabel={hiddenLabel} /> */}
     </Stack>
   );
 }

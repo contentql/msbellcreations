@@ -56,7 +56,7 @@ const StyledIcon = styled('div', {
 
 // ----------------------------------------------------------------------
 
-export default function MarketingAbout() {
+export default function EcommerceLegalTerms() {
   return (
     <Container
       sx={{
@@ -103,7 +103,7 @@ export default function MarketingAbout() {
             </Typography>
           </Stack>
           <Stack spacing={2} sx={{ pb: 2 }}>
-            <Typography>Age restriction</Typography>
+            <Typography variant="h4">Age restriction</Typography>
             <Typography>
               You must be at least 18 (eighteen) years of age before you can use this website. By
               using this website, you warrant that you are at least 18 years of age and you may

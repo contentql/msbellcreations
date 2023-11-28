@@ -1,3 +1,4 @@
+import { _products } from 'src/_mock';
 import { paths } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
@@ -84,6 +85,7 @@ export const pageLinks = [
       { title: 'About Us', path: paths.eCommerce.about },
       { title: 'post', path: paths.eCommerce.post },
       { title: 'posts', path: paths.eCommerce.posts },
+      { title: 'terms and conditions', path: paths.eCommerce.termsandconditions },
     ],
   },
   // {
@@ -110,9 +112,33 @@ export const pageLinks = [
   // },
 ];
 
+export const FooterLinks = [
+  {
+    subheader: 'Quick links',
+    items: [
+      { title: 'Home', path: paths.eCommerce.root },
+      { title: 'Products', path: paths.eCommerce.products },
+      { title: 'About Us', path: paths.eCommerce.about },
+      { title: 'posts', path: paths.eCommerce.posts },
+    ],
+  },
+  {
+    subheader: 'Legal',
+    items: [
+      { title: 'Privacy policy.', path: paths.eCommerce.privacy },
+      { title: 'Terms of use', path: paths.eCommerce.terms },
+    ],
+  },
+];
+
 export const navConfig = [
   { title: 'Home', path: '/' },
-  { title: 'Products', path: paths.eCommerce.products },
+  {
+    title: 'Products',
+    path: paths.eCommerce.products,
+    children: _products,
+  },
+  // { title: 'Products', path: paths.eCommerce.products },
   { title: 'About Us', path: paths.eCommerce.about },
   { title: 'Blog', path: paths.eCommerce.posts },
   // {

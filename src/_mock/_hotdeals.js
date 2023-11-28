@@ -1,5 +1,5 @@
 export const _hotdeals = {
   products: {
-    HotDeals: false,
+    HotDeals: true,
   },
 };

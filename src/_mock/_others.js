@@ -31,24 +31,28 @@ export const _socials = [
     label: 'FaceBook',
     icon: 'carbon:logo-facebook',
     color: '#1877F2',
+    path: 'https://www.facebook.com/MsBellsCreations/',
   },
   {
     value: 'instagram',
     label: 'Instagram',
     icon: 'carbon:logo-instagram',
     color: '#E02D69',
+    path: 'https://www.instagram.com/msbellscreations/',
   },
   {
     value: 'linkedin',
     label: 'Linkedin',
     icon: 'carbon:logo-linkedin',
     color: '#007EBB',
+    path: 'https://twitter.com/i/flow/login?redirect_after_login=%2Fmsbellscreatio1',
   },
   {
     value: 'twitter',
     label: 'Twitter',
     icon: 'carbon:logo-twitter',
     color: '#00AAEC',
+    path: 'https://twitter.com/i/flow/login?redirect_after_login=%2Fmsbellscreatio1',
   },
 ];
 
