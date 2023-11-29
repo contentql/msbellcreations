@@ -7,6 +7,7 @@ import { alpha } from '@mui/material/styles';
 import { paths } from 'src/routes/paths';
 import Image from 'src/components/image';
 import { RouterLink } from 'src/routes/components';
+import { useCheckout } from 'src/app/checkoutstore';
 import TextMaxLine from 'src/components/text-max-line';
 
 import ProductPrice from '../../common/product-price';
@@ -14,6 +15,11 @@ import ProductPrice from '../../common/product-price';
 // ----------------------------------------------------------------------
 
 export default function EcommerceProductItemFeaturedByBrand({ product, sx, ...other }) {
+  const { deleteAll, checkaddProducts } = useCheckout();
+  const addtocheckout = () => {
+    deleteAll();
+    checkaddProducts(product);
+  };
   return (
     <Stack
       spacing={2}
@@ -51,10 +57,11 @@ export default function EcommerceProductItemFeaturedByBrand({ product, sx, ...ot
         <Stack flexGrow={1} alignItems="flex-end" justifyContent="flex-end">
           <Button
             component={RouterLink}
-            href={paths.eCommerce.products}
+            href={paths.eCommerce.checkout}
             size="small"
             color="inherit"
             variant="contained"
+            onClick={addtocheckout}
           >
             Buy Now
           </Button>
