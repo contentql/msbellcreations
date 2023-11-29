@@ -31,21 +31,21 @@ const navigations = [
     path: paths.eCommerce.account.wishlist,
     icon: <Iconify icon="carbon:favorite" />,
   },
-  {
-    title: 'Vouchers',
-    path: paths.eCommerce.account.vouchers,
-    icon: <Iconify icon="carbon:cut-out" />,
-  },
+  // {
+  //   title: 'Vouchers',
+  //   path: paths.eCommerce.account.vouchers,
+  //   icon: <Iconify icon="carbon:cut-out" />,
+  // },
   {
     title: 'Orders',
     path: paths.eCommerce.account.orders,
     icon: <Iconify icon="carbon:document" />,
   },
-  {
-    title: 'Payment',
-    path: paths.eCommerce.account.payment,
-    icon: <Iconify icon="carbon:purchase" />,
-  },
+  // {
+  //   title: 'Payment',
+  //   path: paths.eCommerce.account.payment,
+  //   icon: <Iconify icon="carbon:purchase" />,
+  // },
 ];
 
 // ----------------------------------------------------------------------

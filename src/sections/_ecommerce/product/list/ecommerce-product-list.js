@@ -15,6 +15,8 @@ import EcommerceProductViewGridItemSkeleton from '../item/ecommerce-product-view
 export default function EcommerceProductList({ loading, viewMode, products, filter }) {
   const FilterByCategory = (product) => {
     if (filter.filterCategories.length === 0) return true;
+    if (filter.filterCategories?.includes('all') && filter.filterCategories.length === 1)
+      return true;
     return filter.filterCategories?.includes(product?.category);
   };
 
@@ -30,7 +32,6 @@ export default function EcommerceProductList({ loading, viewMode, products, filt
   };
   return (
     <>
-    
       {viewMode === 'grid' ? (
         <Box
           rowGap={4}
@@ -71,8 +72,6 @@ export default function EcommerceProductList({ loading, viewMode, products, filt
           )}
         </Stack>
       )}
-
-      
     </>
   );
 }

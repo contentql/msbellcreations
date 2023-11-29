@@ -12,7 +12,7 @@ import EcommerceProductItemBestSellers from '../product/item/ecommerce-product-i
 
 // ----------------------------------------------------------------------
 
-const TABS = ['Featured Products', 'Top Rated Products', 'Onsale Products'];
+const TABS = ['Featured Products'];
 
 // ----------------------------------------------------------------------
 
