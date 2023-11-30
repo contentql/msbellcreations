@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { useQuery } from 'react-query';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
@@ -34,6 +37,17 @@ const CORE_VALUES = [
 // ----------------------------------------------------------------------
 
 export default function EcommerceAboutCoreValues() {
+  const { data } = useQuery(['products'], () =>
+    fetch(process.env.NEXT_PUBLIC_APP_API_URL, {
+      method: 'GET',
+      // headers: {
+      //   // Authorization: `Bearer `,
+      // },
+    }).then((res) => res.json())
+  );
+
+  console.log('Data:', data);
+
   return (
     <Box
       sx={{

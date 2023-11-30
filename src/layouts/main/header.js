@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
@@ -20,10 +21,10 @@ import { RouterLink } from 'src/routes/components';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { useOffSetTop } from 'src/hooks/use-off-set-top';
 
-import {useCart} from "../../app/store";
+import { useCart } from '../../app/store';
 import { HEADER } from '../config-layout';
-import {useWish} from "../../app/wishstore";
 import Searchbar from '../common/searchbar';
+import { useWish } from '../../app/wishstore';
 import HeaderShadow from '../common/header-shadow';
 import SettingsButton from '../common/settings-button';
 
@@ -34,8 +35,8 @@ import { navConfig } from './config-navigation';
 // ----------------------------------------------------------------------
 
 export default function Header({ headerOnDark }) {
-  const {cartItems}=useCart();
-  const {wishItems}=useWish();
+  const { cartItems } = useCart();
+  const { wishItems } = useWish();
   const theme = useTheme();
 
   const offset = useOffSetTop();
@@ -118,6 +119,16 @@ export default function Header({ headerOnDark }) {
                   <Iconify icon="carbon:shopping-cart" width={24} />
                 </IconButton>
               </Badge>
+              <Link component={RouterLink} href={paths.loginBackground}>
+                <Button variant="contained" color="inherit">
+                  Login
+                </Button>
+              </Link>
+              <Link component={RouterLink} href={paths.registerBackground}>
+                <Button variant="contained" color="inherit">
+                  Register
+                </Button>
+              </Link>
               <IconButton
                 component={RouterLink}
                 href={paths.eCommerce.account.personal}
