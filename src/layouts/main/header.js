@@ -31,12 +31,14 @@ import SettingsButton from '../common/settings-button';
 import NavMobile from './nav/mobile';
 import NavDesktop from './nav/desktop';
 import { navConfig } from './config-navigation';
+import { useUserStore } from 'src/app/auth-store';
 
 // ----------------------------------------------------------------------
 
 export default function Header({ headerOnDark }) {
   const { cartItems } = useCart();
   const { wishItems } = useWish();
+  const {UserData}=useUserStore();
   const theme = useTheme();
 
   const offset = useOffSetTop();
@@ -97,7 +99,8 @@ export default function Header({ headerOnDark }) {
 
           <Stack spacing={2} direction="row" alignItems="center" justifyContent="flex-end">
             <Stack spacing={4} direction="row" alignItems="center">
-              <Badge badgeContent={wishItems.length} color="info">
+              {UserData.isLoggedIn?
+              (<><Badge badgeContent={wishItems.length} color="info">
                 <IconButton
                   component={RouterLink}
                   href={paths.eCommerce.wishlist}
@@ -118,18 +121,23 @@ export default function Header({ headerOnDark }) {
                 >
                   <Iconify icon="carbon:shopping-cart" width={24} />
                 </IconButton>
-              </Badge>
-              <Link component={RouterLink} href={paths.loginBackground}>
-                <Button variant="contained" color="inherit">
-                  Login
-                </Button>
-              </Link>
-              <Link component={RouterLink} href={paths.registerBackground}>
-                <Button variant="contained" color="inherit">
-                  Register
-                </Button>
-              </Link>
-              <IconButton
+              </Badge></>):''}
+              {UserData.isLoggedIn?(
+ ''
+): <>
+<Link component={RouterLink} href={paths.loginBackground}>
+  <Button variant="contained" color="inherit">
+    Login
+  </Button>
+</Link>
+<Link component={RouterLink} href={paths.registerBackground}>
+  <Button variant="contained" color="inherit">
+    Register
+  </Button>
+</Link>
+</>}
+
+              {UserData.isLoggedIn?(<IconButton
                 component={RouterLink}
                 href={paths.eCommerce.account.personal}
                 size="small"
@@ -137,7 +145,7 @@ export default function Header({ headerOnDark }) {
                 sx={{ p: 0 }}
               >
                 <Iconify icon="carbon:user" width={24} />
-              </IconButton>
+              </IconButton>):''}
             </Stack>
           </Stack>
 

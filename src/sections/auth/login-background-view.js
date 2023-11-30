@@ -18,11 +18,20 @@ import Iconify from 'src/components/iconify';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useUserStore } from 'src/app/auth-store';
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // ----------------------------------------------------------------------
 
 export default function LoginBackgroundView() {
   const passwordShow = useBoolean();
+  const [loginError, setLoginError] = useState('');
+  const updateUserData = useUserStore((store) => store?.updateUserData);
+  
+    const router = useRouter();
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('That is not an email'),
@@ -48,12 +57,54 @@ export default function LoginBackgroundView() {
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
-      console.log('DATA', data);
+      const { email: identifier, password } = data;
+      const response = await fetch('http://localhost:1337/api/auth/local' , {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ identifier, password }),
+      });
+      const resData = await response.json();
+
+      const { jwt } = resData;
+      localStorage.setItem('token', jwt);
+
+      if (response.ok) {
+        const userData = {
+          authToken: resData.jwt,
+          isLoggedIn: true,
+          ...resData.user,
+          ...resData.email,
+        };
+        updateUserData(userData);
+        router.push('/');
+      } else {
+        toast.error(resData.message[0].messages[0].message, {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+      }
     } catch (error) {
-      console.error(error);
+      toast.error("Invalid credentials", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+      setLoginError('Somthing went wrong');
     }
   });
 
@@ -150,6 +201,14 @@ export default function LoginBackgroundView() {
       </Divider>
 
       {renderSocials}
+      <ToastContainer
+  position="bottom-right"
+  autoClose={3000}
+  hideProgressBar={false}
+  closeOnClick
+  pauseOnHover
+  draggable
+/>
     </>
   );
 }

@@ -1,4 +1,5 @@
 import EcommerceCartView from 'src/sections/_ecommerce/view/ecommerce-cart-view';
+import ProtectedRoute from 'src/routes/components/protected-route';
 
 // ----------------------------------------------------------------------
 
@@ -7,5 +8,5 @@ export const metadata = {
 };
 
 export default function EcommerceCartPage() {
-  return <EcommerceCartView />;
+  return <ProtectedRoute><EcommerceCartView /></ProtectedRoute>;
 }

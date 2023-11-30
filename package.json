@@ -26,6 +26,7 @@
     "@mui/material": "^5.13.7",
     "@mui/system": "^5.13.7",
     "@mui/x-date-pickers": "^6.9.2",
+    "@strapi/provider-email-sendgrid": "^4.15.5",
     "autoprefixer": "^10.4.15",
     "date-fns": "^2.30.0",
     "framer-motion": "^10.12.18",
