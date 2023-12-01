@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import Badge from '@mui/material/Badge';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+import Badge from '@mui/material/Badge';
 import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import { useTheme } from '@mui/material/styles';
@@ -17,12 +17,13 @@ import Logo from 'src/components/logo';
 import { paths } from 'src/routes/paths';
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
+import { useUserStore } from 'src/app/auth-store';
 import { RouterLink } from 'src/routes/components';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { useOffSetTop } from 'src/hooks/use-off-set-top';
 
-import { useCart } from '../../app/store';
 import { HEADER } from '../config-layout';
+import { useCart } from '../../app/store';
 import Searchbar from '../common/searchbar';
 import { useWish } from '../../app/wishstore';
 import HeaderShadow from '../common/header-shadow';
@@ -31,7 +32,6 @@ import SettingsButton from '../common/settings-button';
 import NavMobile from './nav/mobile';
 import NavDesktop from './nav/desktop';
 import { navConfig } from './config-navigation';
-import { useUserStore } from 'src/app/auth-store';
 
 // ----------------------------------------------------------------------
 

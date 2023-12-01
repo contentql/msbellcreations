@@ -1,5 +1,5 @@
-import EcommerceCheckoutView from 'src/sections/_ecommerce/view/ecommerce-checkout-view';
 import ProtectedRoute from 'src/routes/components/protected-route';
+import EcommerceCheckoutView from 'src/sections/_ecommerce/view/ecommerce-checkout-view';
 
 // ----------------------------------------------------------------------
 
