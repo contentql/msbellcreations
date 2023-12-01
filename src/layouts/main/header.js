@@ -130,11 +130,6 @@ export default function Header({ headerOnDark }) {
     Login
   </Button>
 </Link>
-<Link component={RouterLink} href={paths.registerBackground}>
-  <Button variant="contained" color="inherit">
-    Register
-  </Button>
-</Link>
 </>}
 
               {UserData.isLoggedIn?(<IconButton

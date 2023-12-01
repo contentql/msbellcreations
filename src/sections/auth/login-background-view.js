@@ -68,6 +68,7 @@ export default function LoginBackgroundView() {
         body: JSON.stringify({ identifier, password }),
       });
       const resData = await response.json();
+      console.log(resData)
 
       const { jwt } = resData;
       localStorage.setItem('token', jwt);
@@ -76,8 +77,8 @@ export default function LoginBackgroundView() {
         const userData = {
           authToken: resData.jwt,
           isLoggedIn: true,
-          ...resData.user,
-          ...resData.email,
+          userName: resData.user.username,
+          email:resData.user.email,
         };
         updateUserData(userData);
         router.push('/');

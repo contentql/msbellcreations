@@ -19,6 +19,8 @@ import { RouterLink } from 'src/routes/components';
 import TextMaxLine from 'src/components/text-max-line';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { useUserStore } from 'src/app/auth-store';
+import { useCart } from 'src/app/store';
+import { useWish } from 'src/app/wishstore';
 import {useRouter} from "next/navigation"
 
 // ----------------------------------------------------------------------
@@ -54,6 +56,7 @@ const navigations = [
 // ----------------------------------------------------------------------
 
 export default function Nav({ open, onClose }) {
+  
   const {UserData,removeUserData}=useUserStore()
   const mdUp = useResponsive('up', 'md');
   const router=useRouter();

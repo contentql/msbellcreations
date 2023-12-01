@@ -17,6 +17,10 @@ export const useWish = create(persist((set) => ({
           product.id === productId ? { ...product, quantity } : product
         ),
       })),
+      wishempty: () =>
+      set((state) => ({
+        wishItems: state.wishItems.filter(() =>false),
+      })),  
 }),
 {
     name: 'wishlist-items', 

@@ -35,8 +35,6 @@ export default function RegisterBackgroundView() {
   const [loginError, setLoginError] = useState('');
   const [success, setSuccess] = useState(false);
 
-  // const userdata = useUserStore((store) => store?.UserData);
-
   const updateUserData = useUserStore((store) => store?.updateUserData);
 
   const RegisterSchema = Yup.object().shape({
@@ -76,8 +74,9 @@ const onSubmit = handleSubmit(async (user) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
     reset();
     console.log('DATA', user);
+    
 
-    const response = await fetch('http://localhost:1337/api/auth/local/register', {
+    const response = await fetch(process.env.NEXT_PUBLIC_STRAPI_URL, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
