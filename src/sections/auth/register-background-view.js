@@ -76,7 +76,7 @@ const onSubmit = handleSubmit(async (user) => {
     console.log('DATA', user);
     
 
-    const response = await fetch(process.env.NEXT_PUBLIC_STRAPI_URL, {
+    const response = await fetch(process.env.NEXT_PUBLIC_STRAPI_REGISTER_URL, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

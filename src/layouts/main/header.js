@@ -99,8 +99,7 @@ export default function Header({ headerOnDark }) {
 
           <Stack spacing={2} direction="row" alignItems="center" justifyContent="flex-end">
             <Stack spacing={4} direction="row" alignItems="center">
-              {UserData.isLoggedIn?
-              (<><Badge badgeContent={wishItems.length} color="info">
+              <Badge badgeContent={wishItems.length} color="info">
                 <IconButton
                   component={RouterLink}
                   href={paths.eCommerce.wishlist}
@@ -121,7 +120,7 @@ export default function Header({ headerOnDark }) {
                 >
                   <Iconify icon="carbon:shopping-cart" width={24} />
                 </IconButton>
-              </Badge></>):''}
+              </Badge>
               {UserData.isLoggedIn?(
  ''
 ): <>

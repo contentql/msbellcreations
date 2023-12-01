@@ -60,7 +60,7 @@ export default function LoginBackgroundView() {
 
     try {
       const { email: identifier, password } = data;
-      const response = await fetch('http://localhost:1337/api/auth/local' , {
+      const response = await fetch(process.env.NEXT_PUBLIC_STRAPI_LOGIN_URL , {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ export default function LoginBackgroundView() {
           email:resData.user.email,
         };
         updateUserData(userData);
-        router.push('/');
+        router.back();
       } else {
         toast.error(resData.message[0].messages[0].message, {
           position: "bottom-right",
