@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, useCallback } from 'react';
-
+import { useQuery } from 'react-query';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Select from '@mui/material/Select';
@@ -19,6 +19,7 @@ import { _products } from 'src/_mock';
 import Iconify from 'src/components/iconify';
 import { CATEGORIES } from 'src/_mock/_products';
 import { useBoolean } from 'src/hooks/use-boolean';
+import { useProducts } from 'src/app/products-store';
 
 import EcommerceFilters from '../product/filters/ecommerce-filters';
 import EcommerceProductList from '../product/list/ecommerce-product-list';
@@ -40,6 +41,18 @@ const SORT_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function EcommerceProductsView() {
+  const {prod,Productsadd} =useProducts()
+  useEffect(()=>{
+    console.log(prod)
+    
+  },[])
+  const { data } = useQuery(['products'], () =>
+    fetch(process.env.NEXT_PUBLIC_PODUCTS_API, {
+      method: 'GET',
+    }).then((res) => res.json())
+  );
+  // Productsadd(data?.data)
+  console.log('PRODUCTS IN PRODUCTS:', data?.data[0].category.label);
   const mobileOpen = useBoolean();
 
   const searchParams = useSearchParams();
@@ -158,7 +171,7 @@ export default function EcommerceProductsView() {
             loading={loading.value}
             viewMode={viewMode}
             filter={filters}
-            products={_products}
+            products={data?.data}
           />
         </Box>
       </Stack>

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState, useCallback } from 'react';
-
+import { useQuery } from 'react-query';
 import { Link } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
@@ -46,6 +46,15 @@ const TAG_OPTIONS = ['Books and Media', 'Pet', 'Electronics', 'Food', 'Automotiv
 // };
 
 export default function EcommerceFilters({ filters, setFilters, open, onClose }) {
+
+  const { data } = useQuery(['categories'], () =>
+  fetch(process.env.NEXT_PUBLIC_CATEGORIES_API, {
+    method: 'GET',
+  }).then((res) => res.json())
+);
+
+console.log("category data",data?.data)
+
   const mdUp = useResponsive('up', 'md');
 
   // const [filters, setFilters] = useState(defaultValues);

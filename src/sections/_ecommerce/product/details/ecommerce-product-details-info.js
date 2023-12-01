@@ -106,7 +106,7 @@ export default function EcommerceProductDetailsInfo({
       </Stack>
 
       <Stack spacing={2}>
-        <ProductPrice price={100} priceSale={priceSale} sx={{ typography: 'h5' }} />
+        <ProductPrice price={price} priceSale={priceSale} sx={{ typography: 'h5' }} />
 
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           {caption}

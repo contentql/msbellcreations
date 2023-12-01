@@ -122,14 +122,14 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
         </Label>
       )}
 
-      <Box sx={{ position: 'relative', mb: 2, height: isMobile ? 'auto' : '100%' }}>
+      <Box sx={{ position: 'relative',  mb: 2, height: isMobile ? 'auto' : '100%' }}>
         <Button onClick={AddtoCart}>
           <Fab
             className="add-to-cart"
             color="primary"
             size="small"
             sx={{
-              right: isMobile ? 16 : 8,
+              right: isMobile ? 30 : 8,
               zIndex: 9,
               bottom: 8,
               opacity: 0,
@@ -152,7 +152,7 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
             color="primary"
             size="small"
             sx={{
-              right: isMobile ? 64 : 60,
+              right: isMobile ? 74: 60,
               zIndex: 9,
               bottom: 8,
               opacity: 0,
@@ -178,7 +178,7 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
             bgColor="#f4f6f8"
             navSize={30}
             navMargin={2}
-            style={{ borderRadius: 10 }}
+            style={{ borderRadius: 10 ,overflow:"hidden"}}
             autoPlay={hover}
             loop
             autoPlayDelay={1}
@@ -188,7 +188,7 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
 
       <Stack spacing={0.5}>
         <TextMaxLine variant="caption" line={1} sx={{ color: 'text.disabled' }}>
-          {product.category}
+          {product.category.label}
         </TextMaxLine>
 
         <Link
