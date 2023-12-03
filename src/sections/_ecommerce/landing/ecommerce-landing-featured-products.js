@@ -10,7 +10,7 @@ import EcommerceProductItemCountDown from '../product/item/ecommerce-product-ite
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceLandingFeaturedProducts() {
+export default function EcommerceLandingFeaturedProducts({Featuredproducts}) {
   return (
     <Container
       sx={{
@@ -34,7 +34,7 @@ export default function EcommerceLandingFeaturedProducts() {
             display="grid"
             gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
           >
-            {_products.slice(1, 3).map((product, index) => (
+            {Featuredproducts?.slice(0, 2).map((product, index) => (
               <EcommerceProductItemCountDown
                 key={product.id}
                 product={product}
@@ -54,7 +54,7 @@ export default function EcommerceLandingFeaturedProducts() {
               lg: 'repeat(2, 1fr)',
             }}
           >
-            {_products.slice(4, 8).map((product) => (
+            {Featuredproducts?.slice(2).map((product) => (
               <EcommerceProductItemHot key={product.id} product={product} />
             ))}
           </Box>

@@ -45,7 +45,7 @@ export default function EcommerceProductList({ loading, viewMode, products, filt
         >
           {console.log("prds one",products)}
           {(loading ? [...Array(16)] : products)
-            .filter(FilterByCategory)
+            ?.filter(FilterByCategory)
             .filter(FilterByStartingPrice)
             .filter(FilterByEndPrice)
             .map((product, index) =>

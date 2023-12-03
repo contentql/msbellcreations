@@ -1,3 +1,5 @@
+import { useQuery } from 'react-query';
+
 import Box from '@mui/material/Box';
 import { Link } from '@mui/material';
 import Stack from '@mui/material/Stack';
@@ -5,15 +7,13 @@ import { alpha } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import { useQuery } from 'react-query';
-
 import Image from 'src/components/image';
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
+import { useProducts } from 'src/app/products-store';
 import TextMaxLine from 'src/components/text-max-line';
 
 // ----------------------------------------------------------------------
-
 
 const CATEGORIES = [
   {
@@ -62,15 +62,12 @@ const CATEGORIES = [
 
 export default function EcommerceLandingCategories() {
   const { data } = useQuery(['categories'], () =>
-fetch(process.env.NEXT_PUBLIC_CATEGORIES_API, {
-  method: 'GET',
-  // headers: {
-  //   // Authorization: `Bearer `,
-  // },
-}).then((res) => res.json())
-);  
+    fetch(process.env.NEXT_PUBLIC_CATEGORIES_API, {
+      method: 'GET',
+    }).then((res) => res.json())
+  );
 
-console.log("categories",data?.data)
+  console.log('categories', data?.data);
 
   return (
     <Container
@@ -125,7 +122,7 @@ console.log("categories",data?.data)
                   borderRadius: '50%',
                 }}
               >
-                <Image src={category.icon.url} sx={{objectFit: 'cover', width: 60, height: 60 }} />
+                <Image src={category.icon.url} sx={{ objectFit: 'cover', width: 60, height: 60 }} />
               </Box>
             </Link>
             <TextMaxLine variant="subtitle2" line={1}>

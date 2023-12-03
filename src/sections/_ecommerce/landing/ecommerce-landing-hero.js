@@ -1,4 +1,5 @@
 import Box from '@mui/material/Box';
+import { PropTypes } from '@mui/material';
 import Container from '@mui/material/Container';
 import { alpha, useTheme } from '@mui/material/styles';
 
@@ -10,7 +11,7 @@ import EcommerceProductItemHero from '../product/item/ecommerce-product-item-her
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceLandingHero() {
+export default function EcommerceLandingHero({Hero}) {
   const theme = useTheme();
 
   const carousel = useCarousel({
@@ -53,11 +54,26 @@ export default function EcommerceLandingHero() {
         }}
       >
         <Carousel ref={carousel.carouselRef} {...carousel.carouselSettings}>
-          {products.map((product) => (
-            <EcommerceProductItemHero key={product.id} products={products} current={carousel.currentIndex}/>
+          {Hero?.map((product) => (
+            <EcommerceProductItemHero key={product.id} products={Hero} current={carousel.currentIndex}/>
           ))}
         </Carousel>
       </Box>
     </Container>
   );
 }
+
+// EcommerceLandingHero.propTypes = {
+//   Hero: PropTypes.shape({
+//     id: PropTypes.string,
+//     name: PropTypes.string,
+//     sold: PropTypes.number,
+//     label: PropTypes.string,
+//     price: PropTypes.number,
+//     category: PropTypes.string,
+//     coverUrl: PropTypes.string,
+//     images: PropTypes.array,
+//     priceSale: PropTypes.number,
+//     ratingNumber: PropTypes.number,
+//   }),
+// };

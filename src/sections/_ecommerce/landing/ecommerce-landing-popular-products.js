@@ -3,6 +3,7 @@ import { useState, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
+import { PropTypes } from '@mui/material';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
@@ -16,7 +17,7 @@ const TABS = ['Featured Products'];
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceLandingPopularProducts() {
+export default function EcommerceLandingPopularProducts({PopularProducts}) {
   const [tab, setTab] = useState('Featured Products');
 
   const handleChangeTab = useCallback((event, newValue) => {
@@ -60,10 +61,14 @@ export default function EcommerceLandingPopularProducts() {
           md: 'repeat(4, 1fr)',
         }}
       >
-        {_products.slice(0, 8).map((product) => (
+        {PopularProducts?.map((product) => (
           <EcommerceProductItemBestSellers key={product.id} product={product} />
         ))}
       </Box>
     </Container>
   );
 }
+
+// EcommerceLandingPopularProducts.propTypes={
+//   PopularProducts: PropTypes.array,
+// }

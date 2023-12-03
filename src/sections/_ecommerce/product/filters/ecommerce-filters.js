@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
-import { useState, useCallback } from 'react';
 import { useQuery } from 'react-query';
+import { useState, useCallback } from 'react';
+
 import { Link } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
+import Drawer from '@mui/material/Drawer';
 import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
 
@@ -16,12 +17,12 @@ import { RouterLink } from 'src/routes/components';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import FilterTag from './filter-tag';
-import FilterBrand from './filter-brand';
 import FilterPrice from './filter-price';
+import FilterBrand from './filter-brand';
 import FilterStock from './filter-stock';
 import FilterRating from './filter-rating';
-import FilterCategory from './filter-category';
 import FilterShipping from './filter-shipping';
+import FilterCategory from './filter-category';
 // ----------------------------------------------------------------------
 
 const BRAND_OPTIONS = ['Apple', 'Samsung', 'Xiaomi', 'Honor'];
@@ -45,16 +46,7 @@ const TAG_OPTIONS = ['Books and Media', 'Pet', 'Electronics', 'Food', 'Automotiv
 //   },
 // };
 
-export default function EcommerceFilters({ filters, setFilters, open, onClose }) {
-
-  const { data } = useQuery(['categories'], () =>
-  fetch(process.env.NEXT_PUBLIC_CATEGORIES_API, {
-    method: 'GET',
-  }).then((res) => res.json())
-);
-
-console.log("category data",data?.data)
-
+export default function EcommerceFilters({ filters, setFilters, open, onClose, categories }) {
   const mdUp = useResponsive('up', 'md');
 
   // const [filters, setFilters] = useState(defaultValues);
@@ -173,7 +165,7 @@ console.log("category data",data?.data)
         <FilterCategory
           filterCategories={filters.filterCategories}
           onChangeCategories={handleChangeCategories}
-          options={CATEGORY_OPTIONS}
+          options={categories}
           sx={{ mt: 2 }}
         />
       </Block>
@@ -276,6 +268,7 @@ EcommerceFilters.propTypes = {
   setFilters: PropTypes.func,
   onClose: PropTypes.func,
   open: PropTypes.bool,
+  categories: PropTypes.array,
 };
 
 // ----------------------------------------------------------------------

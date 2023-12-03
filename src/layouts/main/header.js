@@ -1,28 +1,29 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import Badge from '@mui/material/Badge';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+import Badge from '@mui/material/Badge';
 import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import { useTheme } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 
-import { bgBlur } from 'src/theme/css';
 import Logo from 'src/components/logo';
-import { paths } from 'src/routes/paths';
+import { bgBlur } from 'src/theme/css';
 import Label from 'src/components/label';
+import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
-import { useResponsive } from 'src/hooks/use-responsive';
 import { useOffSetTop } from 'src/hooks/use-off-set-top';
+import { useResponsive } from 'src/hooks/use-responsive';
 
-import { useCart } from '../../app/store';
 import { HEADER } from '../config-layout';
+import { useCart } from '../../app/store';
 import Searchbar from '../common/searchbar';
 import { useWish } from '../../app/wishstore';
 import HeaderShadow from '../common/header-shadow';
@@ -38,6 +39,14 @@ export default function Header({ headerOnDark }) {
   const { cartItems } = useCart();
   const { wishItems } = useWish();
   const theme = useTheme();
+
+  const { data } = useQuery(['products'], () =>
+    fetch(process.env.NEXT_PUBLIC_PODUCTS_API, {
+      method: 'GET',
+    }).then((res) => res.json())
+  );
+
+  console.log("products header",data)
 
   const offset = useOffSetTop();
 
@@ -93,7 +102,7 @@ export default function Header({ headerOnDark }) {
             </Link> */}
           </Box>
 
-          {mdUp && <NavDesktop data={navConfig} />}
+          {mdUp && <NavDesktop products={data?.data} data={navConfig} />}
 
           <Stack spacing={2} direction="row" alignItems="center" justifyContent="flex-end">
             <Stack spacing={4} direction="row" alignItems="center">

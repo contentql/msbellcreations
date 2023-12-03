@@ -2,6 +2,7 @@ import { add } from 'date-fns';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+import { PropTypes } from '@mui/material';
 import Container from '@mui/material/Container';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
@@ -15,7 +16,7 @@ import EcommerceProductItemHot from '../product/item/ecommerce-product-item-hot'
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceLandingHotDealToday() {
+export default function EcommerceLandingHotDealToday({Hotdeals}) {
   const theme = useTheme();
 
   const mdUp = useResponsive('up', 'md');
@@ -95,7 +96,7 @@ export default function EcommerceLandingHotDealToday() {
       </Stack>
 
       <Carousel ref={carousel.carouselRef} {...carousel.carouselSettings}>
-        {_products.map((product) => (
+        {Hotdeals?.map((product) => (
           <Box
             key={product.id}
             sx={{
@@ -110,3 +111,15 @@ export default function EcommerceLandingHotDealToday() {
     </Container>
   );
 }
+// EcommerceLandingHotDealToday.propTypes={
+//   Hotdeals: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.string,
+//       name:PropTypes.string,
+//       caption: PropTypes.string,
+//       coverUrl: PropTypes.string,
+//       label: PropTypes.string,
+//       title: PropTypes.string,
+//     })
+//   ),
+// }

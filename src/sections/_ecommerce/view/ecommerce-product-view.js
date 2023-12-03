@@ -3,8 +3,9 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
-import Grid from '@mui/material/Unstable_Grid2';
+
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Unstable_Grid2';
 
 import { _products } from 'src/_mock';
 import { useBoolean } from 'src/hooks/use-boolean';

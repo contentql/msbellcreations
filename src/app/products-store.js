@@ -1,13 +1,9 @@
 import { create } from "zustand";
 
-
 export const useProducts = create((set) => ({
-  prod: [{}],
+  prod: [],
   Productsadd: (newProducts) =>
     set((state) => ({
-        products: [...state.prod, newProducts],
+      prod: newProducts, 
     })),
-  
-}),
-
-);
+}));

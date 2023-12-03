@@ -1,8 +1,9 @@
 'use client';
 
+import { useQuery } from 'react-query';
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, useCallback } from 'react';
-import { useQuery } from 'react-query';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Select from '@mui/material/Select';
@@ -41,18 +42,23 @@ const SORT_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function EcommerceProductsView() {
-  const {prod,Productsadd} =useProducts()
-  useEffect(()=>{
-    console.log(prod)
-    
-  },[])
+  const { prod, Productsadd } = useProducts();
+
   const { data } = useQuery(['products'], () =>
     fetch(process.env.NEXT_PUBLIC_PODUCTS_API, {
       method: 'GET',
     }).then((res) => res.json())
   );
-  // Productsadd(data?.data)
+  //  Productsadd(data?.data)
   console.log('PRODUCTS IN PRODUCTS:', data?.data[0].category.label);
+
+  const { data: category } = useQuery(['categories'], () =>
+    fetch(process.env.NEXT_PUBLIC_CATEGORIES_API, {
+      method: 'GET',
+    }).then((res) => res.json())
+  );
+
+  console.log('categorys', category);
   const mobileOpen = useBoolean();
 
   const searchParams = useSearchParams();
@@ -128,6 +134,7 @@ export default function EcommerceProductsView() {
           <EcommerceFilters
             filters={filters}
             setFilters={setFilters}
+            categories={category?.data}
             open={mobileOpen.value}
             onClose={mobileOpen.onFalse}
           />
