@@ -56,13 +56,17 @@ const navigations = [
 // ----------------------------------------------------------------------
 
 export default function Nav({ open, onClose }) {
-  
+
   const {UserData,removeUserData}=useUserStore()
+  const { wishempty} =useWish()
+  const {cartempty}=useCart()
   const mdUp = useResponsive('up', 'md');
   const router=useRouter();
   const logout=()=>{
     console.log("logout")
     removeUserData();
+    wishempty();
+    cartempty();
     router.push('/')
   }
 
