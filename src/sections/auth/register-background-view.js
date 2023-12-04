@@ -1,28 +1,41 @@
 'use client';
 
 import * as Yup from 'yup';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import 'react-toastify/dist/ReactToastify.css';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { toast,ToastContainer } from 'react-toastify';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
-import { useBoolean } from 'src/hooks/use-boolean';
+import { useUserStore } from 'src/app/auth-store';
 import { RouterLink } from 'src/routes/components';
+import { useBoolean } from 'src/hooks/use-boolean';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
+
+
 
 // ----------------------------------------------------------------------
 
 export default function RegisterBackgroundView() {
+  const router=useRouter();
   const passwordShow = useBoolean();
+
+  const [loginError, setLoginError] = useState('');
+  const [success, setSuccess] = useState(false);
+
+  const updateUserData = useUserStore((store) => store?.updateUserData);
 
   const RegisterSchema = Yup.object().shape({
     fullName: Yup.string()
@@ -56,15 +69,72 @@ export default function RegisterBackgroundView() {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = handleSubmit(async (data) => {
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
-      console.log('DATA', data);
-    } catch (error) {
-      console.error(error);
+const onSubmit = handleSubmit(async (user) => {
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    reset();
+    console.log('DATA', user);
+    
+
+    const response = await fetch(process.env.NEXT_PUBLIC_STRAPI_REGISTER_URL, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: user.fullName,
+        email: user.email,
+        password: user.password
+      })
+    });
+
+    const resData = await response.json();
+    const { jwt } = resData;
+    localStorage.setItem('token', jwt);
+
+    
+    if (response.ok) {
+      const userData = {
+        authToken: resData.jwt,
+        userName: resData.user.username,
+        isLoggedIn: resData.user.confirmed,
+        email:resData.user.email
+      };
+
+      updateUserData(userData);
+      setSuccess(true);
+      toast.success('Successfully registered!!', {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+      router.push('/')
+    } else if (response.status === 400) {
+      setLoginError(resData.error.message);
+      toast.error(resData.error.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    } else {
+      setLoginError('An error occured, plese try again');
     }
-  });
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 
   const renderHead = (
     <div>
@@ -108,6 +178,7 @@ export default function RegisterBackgroundView() {
         <RHFTextField name="fullName" label="Full Name" />
 
         <RHFTextField name="email" label="Email address" />
+        
 
         <RHFTextField
           name="password"
@@ -149,7 +220,14 @@ export default function RegisterBackgroundView() {
         >
           Register
         </LoadingButton>
-
+        <ToastContainer
+  position="bottom-right"
+  autoClose={3000}
+  hideProgressBar={false}
+  closeOnClick
+  pauseOnHover
+  draggable
+/>
         <Typography variant="caption" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
           {`I agree to `}
           <Link color="text.primary" href="#" underline="always">

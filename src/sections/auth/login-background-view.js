@@ -1,28 +1,37 @@
 'use client';
 
 import * as Yup from 'yup';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import 'react-toastify/dist/ReactToastify.css';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { toast,ToastContainer } from 'react-toastify';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
-import { useBoolean } from 'src/hooks/use-boolean';
+import { useUserStore } from 'src/app/auth-store';
 import { RouterLink } from 'src/routes/components';
+import { useBoolean } from 'src/hooks/use-boolean';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
 export default function LoginBackgroundView() {
   const passwordShow = useBoolean();
+  const [loginError, setLoginError] = useState('');
+  const updateUserData = useUserStore((store) => store?.updateUserData);
+  
+    const router = useRouter();
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('That is not an email'),
@@ -48,12 +57,55 @@ export default function LoginBackgroundView() {
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
-      console.log('DATA', data);
+      const { email: identifier, password } = data;
+      const response = await fetch(process.env.NEXT_PUBLIC_STRAPI_LOGIN_URL , {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ identifier, password }),
+      });
+      const resData = await response.json();
+      console.log(resData)
+
+      const { jwt } = resData;
+      localStorage.setItem('token', jwt);
+
+      if (response.ok) {
+        const userData = {
+          authToken: resData.jwt,
+          isLoggedIn: true,
+          userName: resData.user.username,
+          email:resData.user.email,
+        };
+        updateUserData(userData);
+        router.back();
+      } else {
+        toast.error(resData.message[0].messages[0].message, {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+      }
     } catch (error) {
-      console.error(error);
+      toast.error("Invalid credentials", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+      setLoginError('Somthing went wrong');
     }
   });
 
@@ -150,6 +202,14 @@ export default function LoginBackgroundView() {
       </Divider>
 
       {renderSocials}
+      <ToastContainer
+  position="bottom-right"
+  autoClose={3000}
+  hideProgressBar={false}
+  closeOnClick
+  pauseOnHover
+  draggable
+/>
     </>
   );
 }

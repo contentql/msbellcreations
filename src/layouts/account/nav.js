@@ -1,4 +1,6 @@
+
 import PropTypes from 'prop-types';
+import {useRouter} from "next/navigation"
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
@@ -11,9 +13,12 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemButton from '@mui/material/ListItemButton';
 
 import { _mock } from 'src/_mock';
+import { useCart } from 'src/app/store';
 import { paths } from 'src/routes/paths';
+import { useWish } from 'src/app/wishstore';
 import Iconify from 'src/components/iconify';
 import { useActiveLink } from 'src/routes/hooks';
+import { useUserStore } from 'src/app/auth-store';
 import { RouterLink } from 'src/routes/components';
 import TextMaxLine from 'src/components/text-max-line';
 import { useResponsive } from 'src/hooks/use-responsive';
@@ -51,7 +56,19 @@ const navigations = [
 // ----------------------------------------------------------------------
 
 export default function Nav({ open, onClose }) {
+
+  const {UserData,removeUserData}=useUserStore()
+  const { wishempty} =useWish()
+  const {cartempty}=useCart()
   const mdUp = useResponsive('up', 'md');
+  const router=useRouter();
+  const logout=()=>{
+    console.log("logout")
+    removeUserData();
+    wishempty();
+    cartempty();
+    router.push('/')
+  }
 
   const renderContent = (
     <Stack
@@ -84,10 +101,10 @@ export default function Nav({ open, onClose }) {
 
         <Stack spacing={0.5}>
           <TextMaxLine variant="subtitle1" line={1}>
-            Jayvion Simon
+            {UserData.userName}
           </TextMaxLine>
           <TextMaxLine variant="body2" line={1} sx={{ color: 'text.secondary' }}>
-            nannie_abernathy70@yahoo.com
+           {UserData.email}
           </TextMaxLine>
         </Stack>
       </Stack>
@@ -109,8 +126,9 @@ export default function Nav({ open, onClose }) {
             height: 44,
             borderRadius: 1,
           }}
+          onClick={logout}
         >
-          <ListItemIcon>
+          <ListItemIcon >
             <Iconify icon="carbon:logout" />
           </ListItemIcon>
           <ListItemText
