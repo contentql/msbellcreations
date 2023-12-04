@@ -18,6 +18,7 @@ import { bgBlur } from 'src/theme/css';
 import Label from 'src/components/label';
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
+import { useUserStore } from 'src/app/auth-store';
 import { RouterLink } from 'src/routes/components';
 import { useOffSetTop } from 'src/hooks/use-off-set-top';
 import { useResponsive } from 'src/hooks/use-responsive';
@@ -38,6 +39,7 @@ import { navConfig } from './config-navigation';
 export default function Header({ headerOnDark }) {
   const { cartItems } = useCart();
   const { wishItems } = useWish();
+  const {UserData}=useUserStore();
   const theme = useTheme();
 
   const { data } = useQuery(['products'], () =>
@@ -128,17 +130,17 @@ export default function Header({ headerOnDark }) {
                   <Iconify icon="carbon:shopping-cart" width={24} />
                 </IconButton>
               </Badge>
-              <Link component={RouterLink} href={paths.loginBackground}>
-                <Button variant="contained" color="inherit">
-                  Login
-                </Button>
-              </Link>
-              <Link component={RouterLink} href={paths.registerBackground}>
-                <Button variant="contained" color="inherit">
-                  Register
-                </Button>
-              </Link>
-              <IconButton
+              {UserData.isLoggedIn?(
+ ''
+): <>
+<Link component={RouterLink} href={paths.loginBackground}>
+  <Button variant="contained" color="inherit">
+    Login
+  </Button>
+</Link>
+</>}
+
+              {UserData.isLoggedIn?(<IconButton
                 component={RouterLink}
                 href={paths.eCommerce.account.personal}
                 size="small"
@@ -146,7 +148,7 @@ export default function Header({ headerOnDark }) {
                 sx={{ p: 0 }}
               >
                 <Iconify icon="carbon:user" width={24} />
-              </IconButton>
+              </IconButton>):''}
             </Stack>
           </Stack>
 

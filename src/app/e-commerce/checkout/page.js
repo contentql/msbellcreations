@@ -1,3 +1,4 @@
+import ProtectedRoute from 'src/routes/components/protected-route';
 import EcommerceCheckoutView from 'src/sections/_ecommerce/view/ecommerce-checkout-view';
 
 // ----------------------------------------------------------------------
@@ -7,5 +8,5 @@ export const metadata = {
 };
 
 export default function EcommerceCheckoutPage() {
-  return <EcommerceCheckoutView />;
+  return <ProtectedRoute><EcommerceCheckoutView /></ProtectedRoute>;
 }
