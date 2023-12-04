@@ -6,7 +6,7 @@ import NavList from './nav-list';
 
 // ----------------------------------------------------------------------
 
-export default function NavDesktop({ data, sx }) {
+export default function NavDesktop({products, data, sx }) {
   return (
     <Stack
       component="nav"
@@ -18,13 +18,14 @@ export default function NavDesktop({ data, sx }) {
       }}
     >
       {data.map((link) => (
-        <NavList key={link.title} item={link} />
+        <NavList products={products} key={link.title} item={link} />
       ))}
     </Stack>
   );
 }
 
 NavDesktop.propTypes = {
+  products:PropTypes.array,
   data: PropTypes.array,
   sx: PropTypes.object,
 };

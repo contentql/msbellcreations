@@ -2,9 +2,10 @@
 
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
 
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Unstable_Grid2';
 
 import { _products } from 'src/_mock';
 import { useBoolean } from 'src/hooks/use-boolean';
@@ -21,8 +22,15 @@ import EcommerceProductDetailsDescription from '../product/details/ecommerce-pro
 export default function EcommerceProductView({ productId }) {
   const loading = useBoolean(true);
   // console.log('id ', productId);
+  const { data } = useQuery(['products'], () =>
+    fetch(process.env.NEXT_PUBLIC_PODUCTS_API, {
+      method: 'GET',
+    }).then((res) => res.json())
+  );
 
-  const _mockProduct = _products.filter((product) => product.id === productId).at(0);
+  console.log("ck",data?.data)
+  const _mockProduct = data?.data.filter((product) => product.id.toString() === productId.toString()).at(0);
+  console.log("mock product",_mockProduct)
   useEffect(() => {
     const fakeLoading = async () => {
       await new Promise((resolve) => setTimeout(resolve, 500));
@@ -42,7 +50,7 @@ export default function EcommerceProductView({ productId }) {
 
         <Grid container spacing={{ xs: 5, md: 8}}>
           <Grid xs={12} md={6} lg={7}>
-            <EcommerceProductDetailsCarousel images={_mockProduct.images} />
+          <EcommerceProductDetailsCarousel images={_mockProduct.images} /> 
           </Grid>
 
           <Grid xs={12} md={6} lg={5}>
@@ -62,13 +70,13 @@ export default function EcommerceProductView({ productId }) {
           <Grid xs={12} md={6} lg={7}>
             <EcommerceProductDetailsDescription
               description={_mockProduct.description}
-              specifications={[
-                { label: 'Category', value: 'Mobile' },
-                { label: 'Manufacturer', value: 'Apple' },
-                { label: 'Warranty', value: '12 Months' },
-                { label: 'Serial number', value: '358607726380311' },
-                { label: 'Ships From', value: 'United States' },
-              ]}
+              // specifications={[
+              //   { label: 'Category', value: 'Mobile' },
+              //   { label: 'Manufacturer', value: 'Apple' },
+              //   { label: 'Warranty', value: '12 Months' },
+              //   { label: 'Serial number', value: '358607726380311' },
+              //   { label: 'Ships From', value: 'United States' },
+              // ]}
             />
           </Grid>
         </Grid>

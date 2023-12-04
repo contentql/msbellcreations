@@ -23,30 +23,25 @@ export default function EcommerceCartItem({ product, wishlist }) {
   const handleQuantityChange = (event) =>
     wishlist
       ? wishupdateQuantity(product.id, parseInt(event.target.value, 10))
-      : updateQuantity(product.id, parseInt(event.target.value, 10))
+      : updateQuantity(product.id, parseInt(event.target.value, 10));
 
   const Handledelete = () => (wishlist ? wishdeleteProduct(product.id) : deleteProduct(product.id));
 
   const wishtocart = (Product) => {
     const existingProductInWishlist = wishItems.find((item) => item.id === Product.id);
     const existingProductInCart = cartItems.find((item) => item.id === Product.id);
-  
+
     if (existingProductInCart) {
       updateQuantity(
         existingProductInCart.id,
         existingProductInCart.quantity + existingProductInWishlist.quantity
       );
     } else {
-      addProduct({ ...existingProductInWishlist, quantity:1 });
-      updateQuantity(existingProductInWishlist.id,existingProductInWishlist.quantity)
+      addProduct({ ...existingProductInWishlist, quantity: 1 });
+      updateQuantity(existingProductInWishlist.id, existingProductInWishlist.quantity);
     }
     wishdeleteProduct(Product.id);
   };
-  
-  
-  
-  
-  
 
   return (
     <Stack
@@ -60,7 +55,7 @@ export default function EcommerceCartItem({ product, wishlist }) {
     >
       <Stack direction="row" alignItems="center" flexGrow={1}>
         <Image
-          src={product.coverUrl}
+          src={product.coverUrl.url}
           sx={{
             width: 80,
             height: 80,
@@ -71,13 +66,9 @@ export default function EcommerceCartItem({ product, wishlist }) {
         />
 
         <Stack spacing={0.5} sx={{ p: 2 }}>
-        <Link href={`/e-commerce/products/${product.id}`}>
-  <Typography variant="subtitle2">{product.name}</Typography>
-</Link>
-
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Color: Grey Space
-          </Typography>
+          <Link href={`/e-commerce/products/${product.id}`}>
+            <Typography variant="subtitle2">{product.name}</Typography>
+          </Link>
         </Stack>
       </Stack>
 

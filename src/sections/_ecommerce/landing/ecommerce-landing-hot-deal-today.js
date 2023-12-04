@@ -1,4 +1,5 @@
 import { add } from 'date-fns';
+import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -15,7 +16,7 @@ import EcommerceProductItemHot from '../product/item/ecommerce-product-item-hot'
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceLandingHotDealToday() {
+export default function EcommerceLandingHotDealToday({Hotdeals}) {
   const theme = useTheme();
 
   const mdUp = useResponsive('up', 'md');
@@ -95,7 +96,7 @@ export default function EcommerceLandingHotDealToday() {
       </Stack>
 
       <Carousel ref={carousel.carouselRef} {...carousel.carouselSettings}>
-        {_products.map((product) => (
+        {Hotdeals?.map((product) => (
           <Box
             key={product.id}
             sx={{
@@ -109,4 +110,7 @@ export default function EcommerceLandingHotDealToday() {
       </Carousel>
     </Container>
   );
+}
+EcommerceLandingHotDealToday.propTypes={
+  Hotdeals: PropTypes.array,
 }

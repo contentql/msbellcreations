@@ -1,5 +1,6 @@
 'use client';
 
+import { useQuery } from 'react-query';
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, useCallback } from 'react';
 
@@ -19,6 +20,7 @@ import { _products } from 'src/_mock';
 import Iconify from 'src/components/iconify';
 import { CATEGORIES } from 'src/_mock/_products';
 import { useBoolean } from 'src/hooks/use-boolean';
+import { useProducts } from 'src/app/products-store';
 
 import EcommerceFilters from '../product/filters/ecommerce-filters';
 import EcommerceProductList from '../product/list/ecommerce-product-list';
@@ -40,8 +42,24 @@ const SORT_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function EcommerceProductsView() {
-  const mobileOpen = useBoolean();
+  const { prod, Productsadd } = useProducts();
 
+  const { data } = useQuery(['products'], () =>
+    fetch(process.env.NEXT_PUBLIC_PODUCTS_API, {
+      method: 'GET',
+    }).then((res) => res.json())
+  );
+ 
+  const { data: category } = useQuery(['categories'], () =>
+    fetch(process.env.NEXT_PUBLIC_CATEGORIES_API, {
+      method: 'GET',
+    }).then((res) => res.json())
+  );
+
+  console.log('categorys', category);
+  const mobileOpen = useBoolean();
+  const Bestsellers=data?.data.sort((a,b)=>b.sold-a.sold).slice(0,4)
+  console.log("best",Bestsellers)
   const searchParams = useSearchParams();
 
   const [filters, setFilters] = useState({
@@ -115,10 +133,11 @@ export default function EcommerceProductsView() {
           <EcommerceFilters
             filters={filters}
             setFilters={setFilters}
+            categories={category?.data}
             open={mobileOpen.value}
             onClose={mobileOpen.onFalse}
           />
-          <EcommerceProductListBestSellers products={_products.slice(0, 3)} />
+          <EcommerceProductListBestSellers products={Bestsellers} />
         </Stack>
 
         <Box
@@ -158,7 +177,7 @@ export default function EcommerceProductsView() {
             loading={loading.value}
             viewMode={viewMode}
             filter={filters}
-            products={_products}
+            products={data?.data}
           />
         </Box>
       </Stack>

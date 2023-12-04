@@ -1,5 +1,9 @@
+/* eslint-disable react/prop-types */
+
 'use client';
 
+import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
 import { useState, useCallback } from 'react';
 
 import Stack from '@mui/material/Stack';
@@ -28,13 +32,23 @@ import BlogMarketingLatestPosts from '../../blog/marketing/marketing-latest-post
 
 // ----------------------------------------------------------------------
 
-export default function EcommercePostView() {
+export default function EcommercePostView({blogId}) {
   const { title, description, duration, createdAt, author, favorited, heroUrl, tags, content } =
     _marketingPosts[0];
 
   const [favorite, setFavorite] = useState(favorited);
 
   const [open, setOpen] = useState(null);
+
+  const { data:blogs } = useQuery(['blogs'], () =>
+    fetch(process.env.NEXT_PUBLIC_BLOGS_API, {
+      method: 'GET',
+    }).then((res) => res.json())
+  );
+
+  const blog = blogs?.data.filter((product) => product.id.toString() === blogId.toString()).at(0);
+
+  console.log("post ",blog)
 
   const handleOpen = useCallback((event) => {
     setOpen(event.currentTarget);
@@ -50,7 +64,7 @@ export default function EcommercePostView() {
 
   return (
     <>
-      <Image alt="hero" src={heroUrl} ratio="21/9" />
+      <Image alt="hero" src={blog.coverUrl.url} ratio="21/9" />
 
       <Container>
         <CustomBreadcrumbs
@@ -77,17 +91,17 @@ export default function EcommercePostView() {
               }}
             >
               <Typography variant="body2" sx={{ color: 'text.disabled' }}>
-                {duration}
+                {blog.duration}
               </Typography>
 
               <Typography variant="h2" component="h1">
-                {title}
+                {blog.title}
               </Typography>
               <Typography variant="h5">{description}</Typography>
             </Stack>
 
             <Divider />
-            <Stack direction="row" justifyContent="space-between" spacing={1.5} sx={{ py: 3 }}>
+            {/* <Stack direction="row" justifyContent="space-between" spacing={1.5} sx={{ py: 3 }}>
               <Avatar src={author.avatarUrl} sx={{ width: 48, height: 48 }} />
 
               <Stack spacing={0.5} flexGrow={1}>
@@ -110,7 +124,7 @@ export default function EcommercePostView() {
                   checkedIcon={<Iconify icon="carbon:favorite-filled" />}
                 />
               </Stack>
-            </Stack>
+            </Stack> */}
 
             <Divider sx={{ mb: 6 }} />
 
@@ -151,4 +165,9 @@ export default function EcommercePostView() {
       </Popover>
     </>
   );
+}
+
+EcommercePostView.propTypes={
+  // eslint-disable-next-line react/no-unused-prop-types
+  blog: PropTypes.object,
 }

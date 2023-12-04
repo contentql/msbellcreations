@@ -16,7 +16,7 @@ export default function EcommerceProductDetailsDescription({ description, specif
         py: { xs: 5, md: 10 },
       }}
     >
-      <Stack spacing={2}>
+      {/* <Stack spacing={2}>
         <Typography variant="h6"> Specifications </Typography>
 
         {specifications.map((row) => (
@@ -33,7 +33,7 @@ export default function EcommerceProductDetailsDescription({ description, specif
             <Box component="span">{row.value}</Box>
           </Stack>
         ))}
-      </Stack>
+      </Stack> */}
 
       <Stack spacing={2}>
         <Typography variant="h6"> Description </Typography>

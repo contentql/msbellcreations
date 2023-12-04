@@ -67,7 +67,7 @@ export default function EcommerceProductItemHero({ products,current }) {
 
       <Grid xs={12} md={6}>
         <Image
-          src={product.coverUrl}
+          src={product.coverUrl.url}
           sx={{
             filter: `drop-shadow(20px 20px 24px ${alpha(theme.palette.common.black, 0.16)})`,
             maxWidth: 400,

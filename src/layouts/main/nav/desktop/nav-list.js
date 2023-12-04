@@ -22,7 +22,7 @@ import { StyledMenu, StyledSubheader } from './styles';
 
 // ----------------------------------------------------------------------
 
-export default function NavList({ item }) {
+export default function NavList({ products, item }) {
   const pathname = usePathname();
 
   const menuOpen = useBoolean();
@@ -68,7 +68,7 @@ export default function NavList({ item }) {
               <Grid container>
                 <Grid>
                   <Box>
-                    <MenuCarousel products={_products} numberShow={7} />
+                    <MenuCarousel products={products} numberShow={7} />
                   </Box>
                   {/* <Box
                     gap={5}
@@ -110,6 +110,7 @@ export default function NavList({ item }) {
 }
 
 NavList.propTypes = {
+  products:PropTypes.array,
   item: PropTypes.shape({
     children: PropTypes.array,
     path: PropTypes.string,

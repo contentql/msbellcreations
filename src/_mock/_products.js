@@ -24,7 +24,7 @@ const NAME = [
   'Easy Breathing Relief Inhaler',
 ];
 
-export const CATEGORIES = ['Slave', 'Bar', 'Soap', 'Spray', 'Blend', 'Steamers', 'Inhaler'];
+export const CATEGORIES = ['Salve', 'Bar', 'Soap', 'Spray', 'Blend', 'Steamers', 'Inhaler'];
 
 const DESCRIPTION = `
 <p>Aenean viverra rhoncus pede. Etiam feugiat lorem non metus. Quisque malesuada placerat nisl.</p>

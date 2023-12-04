@@ -17,7 +17,7 @@ export default function EcommerceProductList({ loading, viewMode, products, filt
     if (filter.filterCategories.length === 0) return true;
     if (filter.filterCategories?.includes('all') && filter.filterCategories.length === 1)
       return true;
-    return filter.filterCategories?.includes(product?.category);
+    return filter.filterCategories?.includes(product?.category.label);
   };
 
   const FilterByStartingPrice = (product) => {
@@ -43,8 +43,9 @@ export default function EcommerceProductList({ loading, viewMode, products, filt
             md: 'repeat(4, 1fr)',
           }}
         >
+          {console.log("prds one",products)}
           {(loading ? [...Array(16)] : products)
-            .filter(FilterByCategory)
+            ?.filter(FilterByCategory)
             .filter(FilterByStartingPrice)
             .filter(FilterByEndPrice)
             .map((product, index) =>

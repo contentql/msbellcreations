@@ -1,7 +1,9 @@
 'use client';
 
-import Container from '@mui/material/Container';
+import { useQuery } from 'react-query';
+
 import Grid from '@mui/material/Unstable_Grid2';
+import Container from '@mui/material/Container';
 
 import { _tags, _mock, _categories, _marketingPosts } from 'src/_mock';
 
@@ -13,21 +15,30 @@ import BlogMarketingFeaturedPosts from '../../blog/marketing/marketing-featured-
 // ----------------------------------------------------------------------
 
 export default function EcommercePostsView() {
+
+  const { data:blogs } = useQuery(['blogs'], () =>
+    fetch(process.env.NEXT_PUBLIC_BLOGS_API, {
+      method: 'GET',
+    }).then((res) => res.json())
+  );
+
+  console.log("blog data",blogs)
+ 
   return (
     <>
       <PostSearchMobile />
-      <BlogMarketingFeaturedPosts posts={_marketingPosts.slice(0, 5)} />
+      <BlogMarketingFeaturedPosts posts={blogs?.data} />
       <Container
         sx={{
           mt: 10,
         }}
       >
-        <Grid container columnSpacing={{ xs: 0, md: 8 }}>
+        
           <Grid xs={12} md={8}>
             <BlogMarketingPosts posts={_marketingPosts} />
           </Grid>
 
-          <Grid xs={12} md={4}>
+          {/* <Grid xs={12} md={4}>
             <PostSidebar
               popularTags={_tags}
               categories={_categories}
@@ -39,8 +50,7 @@ export default function EcommercePostsView() {
                 path: '',
               }}
             />
-          </Grid>
-        </Grid>
+          </Grid> */}
       </Container>
     </>
   );

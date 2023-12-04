@@ -7,16 +7,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import SimpleImageSlider from 'react-simple-image-slider';
 
 import { Button } from '@mui/base';
-import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
+import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import { paths } from 'src/routes/paths';
 import Label from 'src/components/label';
+import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
+import Image from 'src/components/image/image';
 import { RouterLink } from 'src/routes/components';
 import TextMaxLine from 'src/components/text-max-line';
 
@@ -122,14 +123,14 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
         </Label>
       )}
 
-      <Box sx={{ position: 'relative', mb: 2, height: isMobile ? 'auto' : '100%' }}>
+      <Box sx={{ position: 'relative',  mb: 2, height: isMobile ? 'auto' : '100%' }}>
         <Button onClick={AddtoCart}>
           <Fab
             className="add-to-cart"
             color="primary"
             size="small"
             sx={{
-              right: isMobile ? 16 : 8,
+              right: isMobile ? 30 : 8,
               zIndex: 9,
               bottom: 8,
               opacity: 0,
@@ -152,7 +153,7 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
             color="primary"
             size="small"
             sx={{
-              right: isMobile ? 64 : 60,
+              right: isMobile ? 74: 60,
               zIndex: 9,
               bottom: 8,
               opacity: 0,
@@ -168,7 +169,19 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
             <Iconify icon="carbon:favorite" />
           </Fab>
         </Button>
-        <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+        <Image
+          src={product.coverUrl.url}
+          sx={{
+            flexShrink: 0,
+            borderRadius: 1.5,
+            bgcolor: 'background.neutral',
+          }}
+        />
+        {/* <Box  sx={{
+            flexShrink: 0,
+            borderRadius: 1.5,
+            bgcolor: 'background.neutral',
+          }} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
           <SimpleImageSlider
             width={isMobile ? 140 : 190}
             height={isMobile ? 140 : 190}
@@ -178,17 +191,17 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
             bgColor="#f4f6f8"
             navSize={30}
             navMargin={2}
-            style={{ borderRadius: 10 }}
+            style={{ borderRadius: 10 ,overflow:"hidden"}}
             autoPlay={hover}
             loop
             autoPlayDelay={1}
           />
-        </div>
+        </Box> */}
       </Box>
 
       <Stack spacing={0.5}>
         <TextMaxLine variant="caption" line={1} sx={{ color: 'text.disabled' }}>
-          {product.category}
+          {product.category.label}
         </TextMaxLine>
 
         <Link

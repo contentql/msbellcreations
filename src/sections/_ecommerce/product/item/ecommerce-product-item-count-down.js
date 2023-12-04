@@ -44,7 +44,7 @@ export default function EcommerceProductItemCountDown({ product, color = 'primar
         }}
       >
         <Image
-          src={product.coverUrl}
+          src={product.coverUrl.url}
           sx={{
             filter: `drop-shadow(20px 20px 24px ${alpha(theme.palette.common.black, 0.16)})`,
           }}

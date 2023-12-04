@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
 import { useState, useCallback } from 'react';
 
 import Stack from '@mui/material/Stack';
@@ -8,10 +9,9 @@ import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-import { _products } from 'src/_mock';
 import { useCart } from 'src/app/store';
-import { paths } from 'src/routes/paths';
 import Label from 'src/components/label';
+import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 import { useCheckout } from 'src/app/checkoutstore';
@@ -20,6 +20,7 @@ import { useResponsive } from 'src/hooks/use-responsive';
 import ProductPrice from '../../common/product-price';
 
 // ----------------------------------------------------------------------
+
 
 const COLOR_OPTIONS = [
   { label: '#FA541C', value: 'red' },
@@ -46,6 +47,13 @@ export default function EcommerceProductDetailsInfo({
   priceSale,
   caption,
 }) {
+
+  const { data } = useQuery(['products'], () =>
+  fetch(process.env.NEXT_PUBLIC_PODUCTS_API, {
+    method: 'GET',
+  }).then((res) => res.json())
+);
+const _products=data?.data
   const mdUp = useResponsive('up', 'md');
 
   const [option, setOption] = useState(1);
@@ -106,7 +114,7 @@ export default function EcommerceProductDetailsInfo({
       </Stack>
 
       <Stack spacing={2}>
-        <ProductPrice price={100} priceSale={priceSale} sx={{ typography: 'h5' }} />
+        <ProductPrice price={price} priceSale={priceSale} sx={{ typography: 'h5' }} />
 
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           {caption}

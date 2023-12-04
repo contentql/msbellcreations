@@ -58,7 +58,7 @@ export default function MenuCarousel({ products, numberShow, sx }) {
               >
                 <Image
                   alt={product.coverUrl}
-                  src={product.coverUrl}
+                  src={product.coverUrl.url}
                   ratio="1/1"
                   disabledEffect
                   sx={{ borderRadius: 1, mb: 1, bgcolor: 'background.neutral' }}

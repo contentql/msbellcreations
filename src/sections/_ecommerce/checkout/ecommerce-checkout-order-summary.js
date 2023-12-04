@@ -28,6 +28,8 @@ export default function EcommerceCheckoutOrderSummary({
   products,
   loading,
 }) {
+
+  console.log("checkout products",products)
   return (
     <Stack
       spacing={3}
@@ -123,7 +125,7 @@ function ProductItem({ product, ...other }) {
   return (
     <Stack direction="row" alignItems="flex-start" {...other}>
       <Image
-        src={product.coverUrl}
+        src={product.coverUrl.url}
         sx={{
           mr: 2,
           width: 64,

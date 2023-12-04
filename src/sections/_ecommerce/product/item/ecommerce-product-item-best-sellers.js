@@ -35,7 +35,7 @@ export default function EcommerceProductItemBestSellers({ product, ...other }) {
         {...other}
       >
         <Image
-          src={product.coverUrl}
+          src={product.coverUrl.url}
           sx={{
             width: 80,
             height: 80,
