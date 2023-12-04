@@ -49,9 +49,7 @@ export default function EcommerceProductsView() {
       method: 'GET',
     }).then((res) => res.json())
   );
-  //  Productsadd(data?.data)
-  console.log('PRODUCTS IN PRODUCTS:', data?.data[0].category.label);
-
+ 
   const { data: category } = useQuery(['categories'], () =>
     fetch(process.env.NEXT_PUBLIC_CATEGORIES_API, {
       method: 'GET',
@@ -60,7 +58,8 @@ export default function EcommerceProductsView() {
 
   console.log('categorys', category);
   const mobileOpen = useBoolean();
-
+  const Bestsellers=data?.data.sort((a,b)=>b.sold-a.sold).slice(0,4)
+  console.log("best",Bestsellers)
   const searchParams = useSearchParams();
 
   const [filters, setFilters] = useState({
@@ -138,7 +137,7 @@ export default function EcommerceProductsView() {
             open={mobileOpen.value}
             onClose={mobileOpen.onFalse}
           />
-          <EcommerceProductListBestSellers products={_products.slice(0, 3)} />
+          <EcommerceProductListBestSellers products={Bestsellers} />
         </Stack>
 
         <Box

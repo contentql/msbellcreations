@@ -12,7 +12,7 @@ export default function EcommerceProductListBestSellers({ products }) {
     <Stack spacing={3}>
       <Typography variant="h6">Best Sellers</Typography>
 
-      {products.slice(0, 8).map((product) => (
+      {products?.map((product) => (
         <EcommerceProductItemBestSellers key={product.id} product={product} />
       ))}
     </Stack>

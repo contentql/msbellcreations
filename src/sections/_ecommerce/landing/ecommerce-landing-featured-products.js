@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -62,4 +64,8 @@ export default function EcommerceLandingFeaturedProducts({Featuredproducts}) {
       </Grid>
     </Container>
   );
+}
+
+EcommerceLandingFeaturedProducts.propTypes={
+  Featuredproducts:PropTypes.array,
 }

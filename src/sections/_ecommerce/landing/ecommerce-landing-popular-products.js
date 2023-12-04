@@ -1,9 +1,9 @@
+import PropTypes from 'prop-types';
 import { useState, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import { PropTypes } from '@mui/material';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
@@ -39,7 +39,7 @@ export default function EcommerceLandingPopularProducts({PopularProducts}) {
         Popular Products
       </Typography>
 
-      <Tabs
+      {/* <Tabs
         value={tab}
         scrollButtons="auto"
         variant="scrollable"
@@ -50,9 +50,10 @@ export default function EcommerceLandingPopularProducts({PopularProducts}) {
         {TABS.map((category) => (
           <Tab key={category} value={category} label={category} />
         ))}
-      </Tabs>
+      </Tabs> */}
 
       <Box
+      sx={{ my: 5 }}
         gap={3}
         display="grid"
         gridTemplateColumns={{
@@ -69,6 +70,6 @@ export default function EcommerceLandingPopularProducts({PopularProducts}) {
   );
 }
 
-// EcommerceLandingPopularProducts.propTypes={
-//   PopularProducts: PropTypes.array,
-// }
+EcommerceLandingPopularProducts.propTypes={
+  PopularProducts: PropTypes.array,
+}

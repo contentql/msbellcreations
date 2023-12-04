@@ -22,10 +22,13 @@ import EcommerceProductDetailsDescription from '../product/details/ecommerce-pro
 export default function EcommerceProductView({ productId }) {
   const loading = useBoolean(true);
   // console.log('id ', productId);
-  const {data}=useQuery('products',()=>fetch(process.env.NEXT_PUBLIC_PODUCTS_API,{
-    method:"GET"
-  }).then((res) => res.json()))
+  const { data } = useQuery(['products'], () =>
+    fetch(process.env.NEXT_PUBLIC_PODUCTS_API, {
+      method: 'GET',
+    }).then((res) => res.json())
+  );
 
+  console.log("ck",data?.data)
   const _mockProduct = data?.data.filter((product) => product.id.toString() === productId.toString()).at(0);
   console.log("mock product",_mockProduct)
   useEffect(() => {
@@ -67,13 +70,13 @@ export default function EcommerceProductView({ productId }) {
           <Grid xs={12} md={6} lg={7}>
             <EcommerceProductDetailsDescription
               description={_mockProduct.description}
-              specifications={[
-                { label: 'Category', value: 'Mobile' },
-                { label: 'Manufacturer', value: 'Apple' },
-                { label: 'Warranty', value: '12 Months' },
-                { label: 'Serial number', value: '358607726380311' },
-                { label: 'Ships From', value: 'United States' },
-              ]}
+              // specifications={[
+              //   { label: 'Category', value: 'Mobile' },
+              //   { label: 'Manufacturer', value: 'Apple' },
+              //   { label: 'Warranty', value: '12 Months' },
+              //   { label: 'Serial number', value: '358607726380311' },
+              //   { label: 'Ships From', value: 'United States' },
+              // ]}
             />
           </Grid>
         </Grid>

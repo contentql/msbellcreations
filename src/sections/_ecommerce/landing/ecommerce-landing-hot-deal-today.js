@@ -1,8 +1,8 @@
 import { add } from 'date-fns';
+import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import { PropTypes } from '@mui/material';
 import Container from '@mui/material/Container';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
@@ -111,15 +111,6 @@ export default function EcommerceLandingHotDealToday({Hotdeals}) {
     </Container>
   );
 }
-// EcommerceLandingHotDealToday.propTypes={
-//   Hotdeals: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.string,
-//       name:PropTypes.string,
-//       caption: PropTypes.string,
-//       coverUrl: PropTypes.string,
-//       label: PropTypes.string,
-//       title: PropTypes.string,
-//     })
-//   ),
-// }
+EcommerceLandingHotDealToday.propTypes={
+  Hotdeals: PropTypes.array,
+}

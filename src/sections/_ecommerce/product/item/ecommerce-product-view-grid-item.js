@@ -7,16 +7,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import SimpleImageSlider from 'react-simple-image-slider';
 
 import { Button } from '@mui/base';
-import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
+import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-import { paths } from 'src/routes/paths';
 import Label from 'src/components/label';
+import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
+import Image from 'src/components/image/image';
 import { RouterLink } from 'src/routes/components';
 import TextMaxLine from 'src/components/text-max-line';
 
@@ -168,7 +169,19 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
             <Iconify icon="carbon:favorite" />
           </Fab>
         </Button>
-        <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+        <Image
+          src={product.coverUrl.url}
+          sx={{
+            flexShrink: 0,
+            borderRadius: 1.5,
+            bgcolor: 'background.neutral',
+          }}
+        />
+        {/* <Box  sx={{
+            flexShrink: 0,
+            borderRadius: 1.5,
+            bgcolor: 'background.neutral',
+          }} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
           <SimpleImageSlider
             width={isMobile ? 140 : 190}
             height={isMobile ? 140 : 190}
@@ -183,7 +196,7 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
             loop
             autoPlayDelay={1}
           />
-        </div>
+        </Box> */}
       </Box>
 
       <Stack spacing={0.5}>

@@ -1,5 +1,6 @@
+import PropTypes from 'prop-types';
+
 import Box from '@mui/material/Box';
-import { PropTypes } from '@mui/material';
 import Container from '@mui/material/Container';
 import { alpha, useTheme } from '@mui/material/styles';
 
@@ -63,17 +64,6 @@ export default function EcommerceLandingHero({Hero}) {
   );
 }
 
-// EcommerceLandingHero.propTypes = {
-//   Hero: PropTypes.shape({
-//     id: PropTypes.string,
-//     name: PropTypes.string,
-//     sold: PropTypes.number,
-//     label: PropTypes.string,
-//     price: PropTypes.number,
-//     category: PropTypes.string,
-//     coverUrl: PropTypes.string,
-//     images: PropTypes.array,
-//     priceSale: PropTypes.number,
-//     ratingNumber: PropTypes.number,
-//   }),
-// };
+EcommerceLandingHero.propTypes={
+  Hero:PropTypes.array,
+}

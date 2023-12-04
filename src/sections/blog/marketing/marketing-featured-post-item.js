@@ -23,7 +23,7 @@ export default function MarketingFeaturedPostItem({ post }) {
       }}
       sx={{ bgcolor: 'background.default', borderRadius: 2 }}
     >
-      <Image src={post.coverUrl} alt={post.title} sx={{ flexGrow: 1, height: { md: 560 } }} />
+      <Image src={post.coverUrl.url} alt={post.title} sx={{ flexGrow: 1, height: { md: 560 } }} />
 
       <Stack
         justifyContent="space-between"
@@ -36,7 +36,7 @@ export default function MarketingFeaturedPostItem({ post }) {
         <Stack spacing={1}>
           <PostTimeBlock createdAt={fDate(post.createdAt)} duration={post.duration} />
 
-          <Link component={RouterLink} href={paths.marketing.post} color="inherit" variant="h3">
+          <Link component={RouterLink} href={`${paths.eCommerce.posts}/${post.id}`} color="inherit" variant="h3">
             {post.title}
           </Link>
 
@@ -45,10 +45,10 @@ export default function MarketingFeaturedPostItem({ post }) {
           </TextMaxLine>
         </Stack>
 
-        <Stack direction="row" alignItems="center" sx={{ pt: 2, typography: 'body2' }}>
+        {/* <Stack direction="row" alignItems="center" sx={{ pt: 2, typography: 'body2' }}>
           <Avatar src={post.author.avatarUrl} sx={{ mr: 1 }} />
           {post.author.name}
-        </Stack>
+        </Stack> */}
       </Stack>
     </Stack>
   );
@@ -56,6 +56,7 @@ export default function MarketingFeaturedPostItem({ post }) {
 
 MarketingFeaturedPostItem.propTypes = {
   post: PropTypes.shape({
+    id:PropTypes.string,
     title: PropTypes.string,
     coverUrl: PropTypes.string,
     duration: PropTypes.string,
