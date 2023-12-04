@@ -22,12 +22,12 @@ export default function MarketingPosts({ posts }) {
           },
         }}
       >
-        {posts.slice(0, 8).map((post) => (
+        {posts?.map((post) => (
           <MarketingPostItem key={post.id} post={post} />
         ))}
       </Box>
 
-      <Pagination
+      {/* <Pagination
         count={10}
         color="primary"
         sx={{
@@ -36,7 +36,7 @@ export default function MarketingPosts({ posts }) {
             justifyContent: 'center',
           },
         }}
-      />
+      /> */}
     </>
   );
 }
