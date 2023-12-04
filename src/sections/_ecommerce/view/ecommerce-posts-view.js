@@ -35,7 +35,7 @@ export default function EcommercePostsView() {
       >
         
           <Grid xs={12} md={8}>
-            <BlogMarketingPosts posts={_marketingPosts} />
+            <BlogMarketingPosts posts={blogs?.data} />
           </Grid>
 
           {/* <Grid xs={12} md={4}>

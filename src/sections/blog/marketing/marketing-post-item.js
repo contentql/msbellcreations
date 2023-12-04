@@ -30,7 +30,7 @@ export default function MarketingPostItem({ post }) {
     >
       <m.div variants={varHover(1.25)} transition={varTranHover()}>
         <Image
-          src={post.coverUrl}
+          src={post.coverUrl.url}
           alt={post.title}
           ratio="3/4"
           overlay={`linear-gradient(to top, ${alpha(theme.palette.common.black, 0)} 0%, ${
@@ -56,15 +56,15 @@ export default function MarketingPostItem({ post }) {
             sx={{ color: 'inherit', opacity: 0.72 }}
           />
 
-          <Link component={RouterLink} href={paths.marketing.post} sx={{ color: 'common.white' }}>
+          <Link component={RouterLink} href={`${paths.eCommerce.posts}/${post.id}`} sx={{ color: 'common.white' }}>
             <TextMaxLine variant="h4">{post.title}</TextMaxLine>
           </Link>
         </Stack>
 
-        <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
+        {/* <Stack direction="row" alignItems="center" sx={{ typography: 'body2' }}>
           <Avatar src={post.author.avatarUrl} sx={{ mr: 1 }} />
           {post.author.name}
-        </Stack>
+        </Stack> */}
       </Stack>
     </Stack>
   );
@@ -72,6 +72,7 @@ export default function MarketingPostItem({ post }) {
 
 MarketingPostItem.propTypes = {
   post: PropTypes.shape({
+    id:PropTypes.string,
     title: PropTypes.string,
     coverUrl: PropTypes.string,
     duration: PropTypes.string,

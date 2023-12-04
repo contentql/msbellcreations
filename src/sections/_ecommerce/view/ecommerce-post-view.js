@@ -47,6 +47,7 @@ export default function EcommercePostView({blogId}) {
   );
 
   const blog = blogs?.data.filter((product) => product.id.toString() === blogId.toString()).at(0);
+  const LatestPosts=blogs?.data.sort((a,b)=>b.createdAt-a.createdAt).slice(0,4)
 
   console.log("post ",blog)
 
@@ -128,7 +129,7 @@ export default function EcommercePostView({blogId}) {
 
             <Divider sx={{ mb: 6 }} />
 
-            <Markdown content={content} firstLetter />
+            <Markdown content={blog.content} firstLetter />
 
             {tags.length && <PostTags tags={tags} />}
 
@@ -143,7 +144,7 @@ export default function EcommercePostView({blogId}) {
 
       <Divider />
 
-      <BlogMarketingLatestPosts posts={_marketingPosts.slice(0, 4)} />
+      <BlogMarketingLatestPosts posts={LatestPosts} />
       <Popover
         open={!!open}
         onClose={handleClose}
