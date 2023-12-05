@@ -7,6 +7,8 @@ import { useTheme } from '@mui/material/styles';
 
 import { RouterLink } from 'src/routes/components';
 
+import Image from '../image';
+
 // ----------------------------------------------------------------------
 
 function Logo({ single = false, sx }) {
@@ -17,9 +19,8 @@ function Logo({ single = false, sx }) {
   const singleLogo = <img style={{ minWidth: '200px' }} src="./assets/images/logo.png" alt="" />;
 
   const fullLogo = (
-    <p style={{ color: 'black', fontWeight: 'bold', fontFamily: 'serif', fontSize: '20px' }}>
-      ms.bellscreations
-    </p>
+    <img src="./assets/logo/large.svg" alt="hello"/>
+
   );
 
   return (
@@ -32,7 +33,8 @@ function Logo({ single = false, sx }) {
     >
       <Box
         sx={{
-          width: single ? 90 : 75,
+          width: single ? 64 : 200,
+         
           lineHeight: 0,
           cursor: 'pointer',
           display: 'inline-flex',

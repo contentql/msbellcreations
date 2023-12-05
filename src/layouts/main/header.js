@@ -39,7 +39,7 @@ import { navConfig } from './config-navigation';
 export default function Header({ headerOnDark }) {
   const { cartItems } = useCart();
   const { wishItems } = useWish();
-  const {UserData}=useUserStore();
+  const { UserData } = useUserStore();
   const theme = useTheme();
 
   const { data } = useQuery(['products'], () =>
@@ -48,7 +48,7 @@ export default function Header({ headerOnDark }) {
     }).then((res) => res.json())
   );
 
-  console.log("products header",data)
+  console.log('products header', data);
 
   const offset = useOffSetTop();
 
@@ -82,7 +82,7 @@ export default function Header({ headerOnDark }) {
         <Container
           sx={{ height: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
         >
-          <Box sx={{ lineHeight: 0, position: 'relative' }}>
+          <Box sx={{ lineHeight:0, position: 'relative', width:"15%"}}>
             <Logo />
 
             {/* <Link href="#">
@@ -130,25 +130,31 @@ export default function Header({ headerOnDark }) {
                   <Iconify icon="carbon:shopping-cart" width={24} />
                 </IconButton>
               </Badge>
-              {UserData.isLoggedIn?(
- ''
-): <>
-<Link component={RouterLink} href={paths.loginBackground}>
-  <Button variant="contained" color="inherit">
-    Login
-  </Button>
-</Link>
-</>}
+              {UserData.isLoggedIn ? (
+                ''
+              ) : (
+                <>
+                  <Link component={RouterLink} href={paths.loginBackground}>
+                    <Button variant="contained" color="inherit">
+                      Login
+                    </Button>
+                  </Link>
+                </>
+              )}
 
-              {UserData.isLoggedIn?(<IconButton
-                component={RouterLink}
-                href={paths.eCommerce.account.personal}
-                size="small"
-                color="inherit"
-                sx={{ p: 0 }}
-              >
-                <Iconify icon="carbon:user" width={24} />
-              </IconButton>):''}
+              {UserData.isLoggedIn ? (
+                <IconButton
+                  component={RouterLink}
+                  href={paths.eCommerce.account.personal}
+                  size="small"
+                  color="inherit"
+                  sx={{ p: 0 }}
+                >
+                  <Iconify icon="carbon:user" width={24} />
+                </IconButton>
+              ) : (
+                ''
+              )}
             </Stack>
           </Stack>
 

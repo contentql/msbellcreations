@@ -19,8 +19,9 @@ import Typography from '@mui/material/Typography';
 import { _products } from 'src/_mock';
 import { useCart } from 'src/app/store';
 import { paths } from 'src/routes/paths';
-import Iconify from 'src/components/iconify';
 import { useRouter } from 'src/routes/hooks';
+import Iconify from 'src/components/iconify';
+import { useUserStore } from 'src/app/auth-store';
 import { useBoolean } from 'src/hooks/use-boolean';
 import FormProvider from 'src/components/hook-form';
 import { useCheckout } from 'src/app/checkoutstore';
@@ -29,9 +30,10 @@ import EcommerceCheckoutNewCardForm from '../checkout/ecommerce-checkout-new-car
 import EcommerceCheckoutOrderSummary from '../checkout/ecommerce-checkout-order-summary';
 import EcommerceCheckoutPaymentMethod from '../checkout/ecommerce-checkout-payment-method';
 import EcommerceCheckoutShippingMethod from '../checkout/ecommerce-checkout-shipping-method';
+import EcommerceCheckoutShippingDetails from '../checkout/ecommerce-checkout-shipping-details';
 import EcommerceCheckoutPersonalDetails from '../checkout/ecommerce-checkout-personal-details';
 import EcommerceCheckoutBuildingDetails from '../checkout/ecommerce-checkout-building-details';
-import EcommerceCheckoutShippingDetails from '../checkout/ecommerce-checkout-shipping-details';
+
 // ----------------------------------------------------------------------
 
 const SHIPPING_OPTIONS = [
@@ -76,6 +78,7 @@ const PAYMENT_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function EcommerceCheckoutView() {
+  const {UserData}=useUserStore()
   const { checkItems, deleteAll } = useCheckout();
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
@@ -109,28 +112,28 @@ export default function EcommerceCheckoutView() {
   });
 
   const defaultValues = {
-    firstName: 'Jayvion',
-    lastName: 'Simon',
-    emailAddress: 'nannie_abernathy70@yahoo.com',
-    phoneNumber: '365-374-4961',
-    password: '',
-    confirmPassword: '',
+    firstName: UserData.userName.split(' ')[0],
+    lastName: UserData.userName.split(' ')[1],
+    emailAddress: UserData.email,
+    phoneNumber: '',
+    // password: '',
+    // confirmPassword: '',
     streetAddress: '',
     city: '',
     country: 'United States',
     zipCode: '',
     ShippingstreetAddress: '',
-    Shippinghcity: '',
+    Shippingcity: '',
     Shippingcountry: 'United States',
     ShippingzipCode: '',
-    shipping: 'free',
-    paymentMethods: 'mastercard',
-    newCard: {
-      cardNumber: '',
-      cardHolder: '',
-      expirationDate: '',
-      ccv: '',
-    },
+    // shipping: 'free',
+    // paymentMethods: 'mastercard',
+    // newCard: {
+    //   cardNumber: '',
+    //   cardHolder: '',
+    //   expirationDate: '',
+    //   ccv: '',
+    // },
   };
 
   const methods = useForm({
@@ -149,11 +152,33 @@ export default function EcommerceCheckoutView() {
   };
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
+      const response = await fetch(process.env.NEXT_PUBLIC_ORDERS_API, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+           "Authorization":`Bearer ${UserData.authToken}`
+        },
+        body: JSON.stringify({
+         firstName:data.firstName,
+         lastName:data.lastName,
+         emailAddress:data.emailAddress,
+         phoneNumber:data.phoneNumber,
+         streetAddress:data.streetAddress,
+         country:data.country,
+         city:data.city,
+         Shippingcity:data.Shippingcity,
+         Shippingcountry:data.Shippingcountry,
+        ShippingzipCode:data.ShippingzipCode,
+        ShippingstreetAddress:data.ShippingstreetAddress,
+        zipCode:data.zipCode
+        }),
+      });
+      const resData = await response.json();
+      // await new Promise((resolve) => setTimeout(resolve, 500));
+      // reset();
       router.push(paths.eCommerce.orderCompleted);
-      console.log('DATA', data);
-      deleteAll();
+       console.log('DATA', data);
+      // deleteAll();
     } catch (error) {
       console.error(error);
     }
