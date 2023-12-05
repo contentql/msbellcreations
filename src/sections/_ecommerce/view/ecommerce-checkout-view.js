@@ -9,6 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Switch from '@mui/material/Switch';
 import Divider from '@mui/material/Divider';
 import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -29,6 +30,7 @@ import EcommerceCheckoutOrderSummary from '../checkout/ecommerce-checkout-order-
 import EcommerceCheckoutPaymentMethod from '../checkout/ecommerce-checkout-payment-method';
 import EcommerceCheckoutShippingMethod from '../checkout/ecommerce-checkout-shipping-method';
 import EcommerceCheckoutPersonalDetails from '../checkout/ecommerce-checkout-personal-details';
+import EcommerceCheckoutBuildingDetails from '../checkout/ecommerce-checkout-building-details';
 import EcommerceCheckoutShippingDetails from '../checkout/ecommerce-checkout-shipping-details';
 // ----------------------------------------------------------------------
 
@@ -77,6 +79,7 @@ export default function EcommerceCheckoutView() {
   const { checkItems, deleteAll } = useCheckout();
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
+  const [switchChecked, setSwitchChecked] = useState(false);
   useEffect(() => {
     const newSubtotal = checkItems.reduce(
       (acc, product) => acc + product.quantity * product.price,
@@ -100,6 +103,9 @@ export default function EcommerceCheckoutView() {
     streetAddress: Yup.string().required('Street address is required'),
     city: Yup.string().required('City is required'),
     zipCode: Yup.string().required('Zip code is required'),
+    ShippingstreetAddress: Yup.string().required('Street address is required'),
+    Shippingcity: Yup.string().required('City is required'),
+    ShippingzipCode: Yup.string().required('Zip code is required'),
   });
 
   const defaultValues = {
@@ -113,6 +119,10 @@ export default function EcommerceCheckoutView() {
     city: '',
     country: 'United States',
     zipCode: '',
+    ShippingstreetAddress: '',
+    Shippinghcity: '',
+    Shippingcountry: 'United States',
+    ShippingzipCode: '',
     shipping: 'free',
     paymentMethods: 'mastercard',
     newCard: {
@@ -134,6 +144,9 @@ export default function EcommerceCheckoutView() {
     formState: { isSubmitting },
   } = methods;
 
+  const handleSwitchChange = () => {
+    setSwitchChecked(!switchChecked);
+  };
   const onSubmit = handleSubmit(async (data) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
@@ -168,16 +181,28 @@ export default function EcommerceCheckoutView() {
               </div>
 
               <div>
-                <StepLabel title="Shipping Details" step="2" />
+                <Box sx={{ display: 'flex', direction: 'row', justifyContent: 'space-between' }}>
+                  <StepLabel title="Building Details" step="2" />
+                  <Box>
+                    <span>same as Building address</span>
+                    <Switch
+                      inputProps={{ 'aria-label': 'Basic Switch' }}
+                      checked={switchChecked}
+                      onChange={handleSwitchChange}
+                    />
+                  </Box>
+                </Box>
                 <EcommerceCheckoutShippingDetails />
               </div>
 
-              <div>
-                <StepLabel title="Shipping Method" step="3" />
-                <EcommerceCheckoutShippingMethod options={SHIPPING_OPTIONS} />
-              </div>
+              {!switchChecked && (
+                <div>
+                  <StepLabel title="Shipping Details" step="3" />
+                  <EcommerceCheckoutBuildingDetails />
+                </div>
+              )}
 
-              <div>
+              {/* <div>
                 <StepLabel title="Payment Method" step="4" />
 
                 <EcommerceCheckoutPaymentMethod options={PAYMENT_OPTIONS} />
@@ -199,7 +224,7 @@ export default function EcommerceCheckoutView() {
                 <Collapse in={formOpen.value} unmountOnExit>
                   <EcommerceCheckoutNewCardForm />
                 </Collapse>
-              </div>
+              </div> */}
             </Stack>
           </Grid>
 

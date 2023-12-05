@@ -9,6 +9,8 @@ import Markdown from 'src/components/markdown';
 // ----------------------------------------------------------------------
 
 export default function EcommerceProductDetailsDescription({ description, specifications }) {
+
+  
   return (
     <Stack
       spacing={4}

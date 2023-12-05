@@ -122,7 +122,7 @@ export default function EcommerceLandingCategories() {
                   borderRadius: '50%',
                 }}
               >
-                <Image src={category.icon.url} sx={{ objectFit: 'cover', width: 60, height: 60 }} />
+                <Image src={category.icon.url} sx={{ objectFit: 'contain', width: 60, height: 60 }} />
               </Box>
             </Link>
             <TextMaxLine variant="subtitle2" line={1}>

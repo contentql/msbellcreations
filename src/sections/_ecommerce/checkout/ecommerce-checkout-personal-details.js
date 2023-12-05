@@ -16,7 +16,7 @@ export default function EcommerceCheckoutPersonalDetails() {
 
   return (
     <>
-      <Stack direction="row" flexWrap="wrap" alignItems="center" spacing={1} sx={{ mb: 4 }}>
+      {/* <Stack direction="row" flexWrap="wrap" alignItems="center" spacing={1} sx={{ mb: 4 }}>
         <Typography variant="subtitle2">Sign in with:</Typography>
 
         <Button
@@ -34,7 +34,7 @@ export default function EcommerceCheckoutPersonalDetails() {
         <Button color="inherit" variant="outlined" startIcon={<Iconify icon="carbon:email" />}>
           Continue with Email
         </Button>
-      </Stack>
+      </Stack> */}
 
       <Box
         rowGap={2.5}
@@ -50,7 +50,7 @@ export default function EcommerceCheckoutPersonalDetails() {
 
         <RHFTextField name="phoneNumber" label="Phone Number" />
 
-        <RHFTextField
+        {/* <RHFTextField
           name="password"
           label="Password"
           type={passwordShow.value ? 'text' : 'password'}
@@ -78,7 +78,7 @@ export default function EcommerceCheckoutPersonalDetails() {
               </InputAdornment>
             ),
           }}
-        />
+        /> */}
       </Box>
     </>
   );
