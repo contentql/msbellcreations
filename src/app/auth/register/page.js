@@ -1,4 +1,5 @@
 import RegisterBackgroundView from 'src/sections/auth/register-background-view';
+
 import {Rend} from "./render"
 
 // ----------------------------------------------------------------------

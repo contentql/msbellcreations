@@ -1,4 +1,5 @@
 import LoginBackgroundView from 'src/sections/auth/login-background-view';
+
 import {Rend} from "./render"
 
 // ----------------------------------------------------------------------

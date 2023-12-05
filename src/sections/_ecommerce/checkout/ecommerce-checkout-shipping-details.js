@@ -2,7 +2,6 @@ import Box from '@mui/material/Box';
 
 import { countries } from 'src/assets/data';
 import Iconify from 'src/components/iconify';
-import { Switch } from '@mui/base';
 import { RHFTextField, RHFAutocomplete } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
