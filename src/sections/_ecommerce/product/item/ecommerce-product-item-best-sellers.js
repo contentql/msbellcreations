@@ -44,7 +44,7 @@ export default function EcommerceProductItemBestSellers({ product, ...other }) {
             bgcolor: 'background.neutral',
           }}
         />
-
+  
         <Stack spacing={0.5}>
           <TextMaxLine variant="body2" line={1} sx={{ fontWeight: 'fontWeightMedium' }}>
             {product.name}
