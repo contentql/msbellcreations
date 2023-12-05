@@ -1,8 +1,12 @@
 'use client';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
+import axios from 'axios';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
+import 'react-toastify/dist/ReactToastify.css';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { toast, ToastContainer } from 'react-toastify';
 
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
@@ -13,6 +17,7 @@ import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
+// import { toastSettings } from '../../states/toast-settings';
 
 // ----------------------------------------------------------------------
 
@@ -37,9 +42,43 @@ export default function ForgotPasswordView() {
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
+    const { email } = data;
+    // console.log(email);
+
     try {
-      reset();
-      console.log('DATA', data);
+      // Request API.
+
+      axios
+        .post(process.env.NEXT_PUBLIC_FORGET_PASSWORD_URL, {
+          email, // user's email
+        })
+        .then((response) => {
+          console.log('Your user received an email');
+          toast.success('Email sent successfully', {
+            position: 'bottom-right',
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          });
+          reset();
+        })
+        .catch((error) => {
+          console.log('An error occurred:', error.response);
+          toast.error('Somthing went wrong', {
+            position: 'bottom-right',
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          });
+        });
     } catch (error) {
       console.error(error);
     }
@@ -80,7 +119,7 @@ export default function ForgotPasswordView() {
 
       <Link
         component={RouterLink}
-        href={paths.loginCover}
+        href={paths.loginBackground}
         color="inherit"
         variant="subtitle2"
         sx={{
@@ -91,8 +130,9 @@ export default function ForgotPasswordView() {
         }}
       >
         <Iconify icon="carbon:chevron-left" width={16} sx={{ mr: 1 }} />
-        Return to sign in
+        Return to sign in!
       </Link>
+      <ToastContainer />
     </>
   );
 }

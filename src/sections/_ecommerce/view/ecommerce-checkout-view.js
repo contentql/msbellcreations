@@ -172,13 +172,13 @@ export default function EcommerceCheckoutView() {
                 <EcommerceCheckoutShippingDetails />
               </div>
 
-              <div>
+              {/* <div>
                 <StepLabel title="Shipping Method" step="3" />
                 <EcommerceCheckoutShippingMethod options={SHIPPING_OPTIONS} />
-              </div>
+              </div> */}
 
               <div>
-                <StepLabel title="Payment Method" step="4" />
+                <StepLabel title="Payment Method" step="3" />
 
                 <EcommerceCheckoutPaymentMethod options={PAYMENT_OPTIONS} />
 

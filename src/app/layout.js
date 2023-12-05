@@ -14,7 +14,7 @@ import { SettingsDrawer, SettingsProvider } from 'src/components/settings';
 // ----------------------------------------------------------------------
 
 export const metadata = {
-  title: 'CQL Design UI Kit',
+  title: 'msbellcreations',
   description:
     'The CQL Design is built on top of MUI, a powerful library that provides flexible, customizable, and easy-to-use components.',
   keywords: 'react,material,kit,application,dashboard,admin,template',

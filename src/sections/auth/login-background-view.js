@@ -1,19 +1,19 @@
 'use client';
 
 import * as Yup from 'yup';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import 'react-toastify/dist/ReactToastify.css';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { toast,ToastContainer } from 'react-toastify';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
@@ -26,10 +26,14 @@ import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
+
+
 export default function LoginBackgroundView() {
   const passwordShow = useBoolean();
   const [loginError, setLoginError] = useState('');
-  const updateUserData = useUserStore((store) => store?.updateUserData);
+  // const  = useUserStore((store) => store?.updateUserData);
+  const {updateUserData,UserData}=useUserStore()
+
   
     const router = useRouter();
 
@@ -81,7 +85,7 @@ export default function LoginBackgroundView() {
           email:resData.user.email,
         };
         updateUserData(userData);
-        router.back();
+        router.push("/");
       } else {
         toast.error(resData.message[0].messages[0].message, {
           position: "bottom-right",
@@ -191,25 +195,26 @@ export default function LoginBackgroundView() {
 
   return (
     <>
-      {renderHead}
+    {renderHead}
 
-      {renderForm}
+{renderForm}
 
-      <Divider>
-        <Typography variant="body2" sx={{ color: 'text.disabled' }}>
-          or continue with
-        </Typography>
-      </Divider>
+<Divider>
+  <Typography variant="body2" sx={{ color: 'text.disabled' }}>
+    or continue with
+  </Typography>
+</Divider>
 
-      {renderSocials}
-      <ToastContainer
-  position="bottom-right"
-  autoClose={3000}
-  hideProgressBar={false}
-  closeOnClick
-  pauseOnHover
-  draggable
+{renderSocials}
+<ToastContainer
+position="bottom-right"
+autoClose={3000}
+hideProgressBar={false}
+closeOnClick
+pauseOnHover
+draggable
 />
-    </>
+</>
+    
   );
 }

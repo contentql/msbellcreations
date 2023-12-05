@@ -1,11 +1,12 @@
 import LoginBackgroundView from 'src/sections/auth/login-background-view';
+import {Rend} from "./render"
 
 // ----------------------------------------------------------------------
 
 export const metadata = {
-  title: 'Login Background',
+  title: 'Login',
 };
 
 export default function LoginBackgroundPage() {
-  return <LoginBackgroundView />;
+  return <Rend><LoginBackgroundView /></Rend>;
 }
