@@ -1,8 +1,10 @@
 'use client';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import axios from 'axios';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
+import 'react-toastify/dist/ReactToastify.css';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -15,7 +17,6 @@ import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
-import 'react-toastify/dist/ReactToastify.css';
 // import { toastSettings } from '../../states/toast-settings';
 
 // ----------------------------------------------------------------------
