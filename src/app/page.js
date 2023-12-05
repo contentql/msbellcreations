@@ -4,7 +4,7 @@ import EcommerceLandingView from 'src/sections/_ecommerce/view/ecommerce-landing
 // ----------------------------------------------------------------------
 
 export const metadata = {
-  title: 'The starting point for your next project',
+  title: 'Ms Bell Creations',
 };
 
 export default function HomePage() {
