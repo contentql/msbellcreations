@@ -54,17 +54,26 @@ export default function VerifyView() {
         sx={{ mb: 5, width: 96, height: 96, mx: 'auto' }}
       />
 
-      <Typography variant="h3">Check Your Email</Typography>
+      <Typography variant="h2">Email verfication</Typography>
 
-      <Typography variant="body2" sx={{ mt: 2, mb: 5, color: 'text.secondary' }}>
-        We have emailed a 6-digit confirmation code to acb@domain, please enter the code in below
-        box to verify your email.
+      <Typography variant="h4" sx={{ mt: 2, mb: 2, color: 'green' }}>
+        Your email verfication was successfull.
+      </Typography>
+
+      <Typography variant="body" sx={{ mt: 1, mb: 5, color: 'text-secondary' }}>
+      *You can close this window and proceed to 
+      <Link sx={{ ml: 1}} component={RouterLink} href={paths.loginBackground}>
+        
+        login
+        
+      </Link>
+        
       </Typography>
 
       <FormProvider methods={methods} onSubmit={onSubmit}>
         <Stack spacing={3}>
-          <RHFCode name="code" />
-
+          {/* <RHFCode name="code" /> */}
+          {/* 
           <LoadingButton
             fullWidth
             size="large"
@@ -75,18 +84,18 @@ export default function VerifyView() {
             sx={{ mt: 3 }}
           >
             Verify
-          </LoadingButton>
+          </LoadingButton> */}
         </Stack>
       </FormProvider>
 
-      <Typography variant="body2" align="center" sx={{ mt: 3 }}>
+      {/* <Typography variant="body2" align="center" sx={{ mt: 3 }}>
         {`Don’t have a code? `}
         <Link variant="subtitle2" underline="none">
           Resend code
         </Link>
-      </Typography>
+      </Typography> */}
 
-      <Link
+      {/* <Link
         component={RouterLink}
         href={paths.loginCover}
         color="inherit"
@@ -100,7 +109,8 @@ export default function VerifyView() {
       >
         <Iconify icon="carbon:chevron-left" width={16} sx={{ mr: 1 }} />
         Return to sign in
-      </Link>
+      </Link> */}
+
     </>
   );
 }

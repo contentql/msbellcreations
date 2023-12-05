@@ -1,4 +1,5 @@
 import EcommerceAccountOrdersView from 'src/sections/_ecommerce/view/ecommerce-account-orders-view';
+import ProtectedRoute from 'src/routes/components/protected-route';
 
 // ----------------------------------------------------------------------
 
@@ -7,5 +8,5 @@ export const metadata = {
 };
 
 export default function EcommerceAccountOrdersPage() {
-  return <EcommerceAccountOrdersView />;
+  return <ProtectedRoute><EcommerceAccountOrdersView /></ProtectedRoute>;
 }
