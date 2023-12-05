@@ -62,12 +62,12 @@ export default function Nav({ open, onClose }) {
   const {cartempty}=useCart()
   const mdUp = useResponsive('up', 'md');
   const router=useRouter();
-  const logout=()=>{
+  const logout=async ()=>{
     console.log("logout")
-    removeUserData();
+    await router.push('/')
+    await removeUserData();
     wishempty();
     cartempty();
-    router.push('/')
   }
 
   const renderContent = (

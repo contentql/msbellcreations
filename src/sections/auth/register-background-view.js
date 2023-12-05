@@ -2,6 +2,7 @@
 
 import * as Yup from 'yup';
 import { useState } from 'react';
+import { useMutation } from 'react-query';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,10 +11,11 @@ import { toast,ToastContainer } from 'react-toastify';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
+import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
@@ -36,6 +38,8 @@ export default function RegisterBackgroundView() {
   const [success, setSuccess] = useState(false);
 
   const updateUserData = useUserStore((store) => store?.updateUserData);
+
+
 
   const RegisterSchema = Yup.object().shape({
     fullName: Yup.string()
@@ -88,6 +92,7 @@ const onSubmit = handleSubmit(async (user) => {
         password: user.password
       })
     });
+    
 
     const resData = await response.json();
     const { jwt } = resData;
@@ -114,7 +119,7 @@ const onSubmit = handleSubmit(async (user) => {
         progress: undefined,
         theme: "light",
         });
-      router.push('/')
+     // router.push('/')
     } else if (response.status === 400) {
       setLoginError(resData.error.message);
       toast.error(resData.error.message, {
@@ -242,19 +247,35 @@ const onSubmit = handleSubmit(async (user) => {
     </FormProvider>
   );
 
-  return (
+return (
     <>
-      {renderHead}
-
-      {renderForm}
-
-      <Divider>
-        <Typography variant="body2" sx={{ color: 'text.disabled' }}>
-          or continue with
-        </Typography>
-      </Divider>
-
-      {renderSocials}
+      {success ? (
+        <Alert severity="success">
+          <Typography variant="h6"> verification link sent to regestered email.</Typography>
+          <br />
+          Please verify your email before try{'  '}
+          <Link
+            component={RouterLink}
+            href={paths.loginBackground}
+            variant="subtitle2"
+            color="primary"
+          >
+            Login
+          </Link>
+        </Alert>
+      ) : (
+        <>
+          {' '}
+          {renderHead}
+          {renderForm}
+          {/* <Divider>
+            <Typography variant="body2" sx={{ color: 'text.disabled' }}>
+              or continue with
+            </Typography>
+          </Divider> */}
+          {/* {renderSocials} */}
+        </>
+      )}
     </>
   );
 }

@@ -1,11 +1,13 @@
 import RegisterBackgroundView from 'src/sections/auth/register-background-view';
 
+import {Rend} from "./render"
+
 // ----------------------------------------------------------------------
 
 export const metadata = {
-  title: 'Register Background',
+  title: 'Register',
 };
 
 export default function RegisterBackgroundPage() {
-  return <RegisterBackgroundView />;
+  return <Rend><RegisterBackgroundView /></Rend>;
 }
