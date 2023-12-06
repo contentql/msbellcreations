@@ -1,12 +1,13 @@
 'use client';
+
+import * as Yup from 'yup';
+import { useQuery } from 'react-query';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast,ToastContainer } from 'react-toastify';
-import { useQuery } from 'react-query';
-import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller } from 'react-hook-form';
-import Box from '@mui/material/Box';
 
+import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -16,10 +17,10 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { countries } from 'src/assets/data';
 import Iconify from 'src/components/iconify';
-import { useBoolean } from 'src/hooks/use-boolean';
-import FormProvider, { RHFSelect, RHFTextField, RHFAutocomplete } from 'src/components/hook-form';
 import { useUserStore } from 'src/app/auth-store';
+import { useBoolean } from 'src/hooks/use-boolean';
 import { SplashScreen } from 'src/components/loading-screen';
+import FormProvider, { RHFSelect, RHFTsextField, RHFAutocomplete } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
@@ -95,7 +96,7 @@ export default function EcommerceAccountPersonalView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_USERS_API}/${UserData.id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/users/${UserData.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -19,13 +19,13 @@ import EcommerceLandingFeaturedProducts from '../landing/ecommerce-landing-featu
 
 export default function EcommerceLandingView() {
   const { data } = useQuery(['products'], () =>
-    fetch(process.env.NEXT_PUBLIC_URL+"api/products?populate=*", {
+    fetch(process.env.NEXT_PUBLIC_STRAPI_URL+"api/products?populate=*", {
       method: 'GET',
     }).then((res) => res.json())
   );
 
   const { data: configuration } = useQuery(['configuration'], () =>
-    fetch(process.env.NEXT_PUBLIC_CONFIGURATION_API, {
+    fetch(process.env.NEXT_PUBLIC_STRAPI_URL+"api/configuration", {
       method: 'GET',
     }).then((res) => res.json())
   );

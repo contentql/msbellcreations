@@ -16,7 +16,6 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { NAV } from '../../../config-layout';
 
 import NavList from './nav-list';
-import Mlogo from 'src/components/logo/Mlogo';
 
 // ----------------------------------------------------------------------
 

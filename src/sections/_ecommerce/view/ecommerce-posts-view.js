@@ -17,7 +17,7 @@ import BlogMarketingFeaturedPosts from '../../blog/marketing/marketing-featured-
 export default function EcommercePostsView() {
 
   const { data:blogs } = useQuery(['blogs'], () =>
-    fetch(process.env.NEXT_PUBLIC_URL+"api/blogs?populate=*", {
+    fetch(process.env.NEXT_PUBLIC_STRAPI_URL+"api/blogs?populate=*", {
       method: 'GET',
     }).then((res) => res.json())
   );

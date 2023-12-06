@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import MainLayout from 'src/layouts/main';
 
+import MainLayout from 'src/layouts/main';
 import EcommercePostView from 'src/sections/_ecommerce/view/ecommerce-post-view';
 
 // ----------------------------------------------------------------------

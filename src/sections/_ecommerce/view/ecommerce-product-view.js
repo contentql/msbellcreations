@@ -23,7 +23,7 @@ export default function EcommerceProductView({ productId }) {
   const loading = useBoolean(true);
   // console.log('id ', productId);
   const { data } = useQuery(['products'], () =>
-    fetch(process.env.NEXT_PUBLIC_URL+"api/products?populate=*", {
+    fetch(process.env.NEXT_PUBLIC_STRAPI_URL+"api/products?populate=*", {
       method: 'GET',
     }).then((res) => res.json())
   );

@@ -1,3 +1,4 @@
+import MainLayout from 'src/layouts/main';
 import EcommerceLegalReturnPolicy from 'src/sections/_ecommerce/legal/ecommerce-legal-return-policy';
 
 export const metadata = {
@@ -5,5 +6,5 @@ export const metadata = {
 };
 
 export default function EcommerceProductPage() {
-  return <EcommerceLegalReturnPolicy />;
+  return <MainLayout><EcommerceLegalReturnPolicy /></MainLayout>;
 }

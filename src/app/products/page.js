@@ -1,6 +1,6 @@
 import {ToastContainer} from "react-toastify"
-import MainLayout from "src/layouts/main";
 
+import MainLayout from "src/layouts/main";
 import EcommerceProductsView from 'src/sections/_ecommerce/view/ecommerce-products-view';
 
 // ----------------------------------------------------------------------

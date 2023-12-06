@@ -45,13 +45,13 @@ export default function EcommerceProductsView() {
   const { prod, Productsadd } = useProducts();
 
   const { data } = useQuery(['products'], () =>
-    fetch(process.env.NEXT_PUBLIC_URL+"api/products?populate=*", {
+    fetch(process.env.NEXT_PUBLIC_STRAPI_URL+"api/products?populate=*", {
       method: 'GET',
     }).then((res) => res.json())
   );
  
   const { data: category } = useQuery(['categories'], () =>
-    fetch(process.env.NEXT_PUBLIC_URL+"api/categories?populate=*", {
+    fetch(process.env.NEXT_PUBLIC_STRAPI_URL+"api/categories?populate=*", {
       method: 'GET',
     }).then((res) => res.json())
   );

@@ -1,3 +1,4 @@
+import MainLayout from 'src/layouts/main';
 import EcommerceLegalTerms from 'src/sections/_ecommerce/legal/ecommerce-legal-terms';
 
 export const metadata = {
@@ -5,5 +6,5 @@ export const metadata = {
 };
 
 export default function EcommerceTermsPage() {
-  return <EcommerceLegalTerms />;
+  return <MainLayout><EcommerceLegalTerms /></MainLayout>;
 }

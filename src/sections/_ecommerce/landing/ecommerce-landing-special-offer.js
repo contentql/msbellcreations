@@ -94,6 +94,18 @@ export default function EcommerceLandingSpecialOffer({specialOffer}) {
   );
 }
 
+  EcommerceLandingSpecialOffer.propTypes = {
+    specialOffer: PropTypes.shape({
+      coverUrl: PropTypes.shape({
+        url: PropTypes.string,
+      }),
+      lable: PropTypes.string,
+      name: PropTypes.string,
+      price: PropTypes.string,
+    }),
+  };
+
+
 // ----------------------------------------------------------------------
 
 function SpecialOfferCountdown({ expired, label, name, price, sx, ...other }) {

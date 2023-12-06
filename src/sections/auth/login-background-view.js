@@ -5,8 +5,8 @@ import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import 'react-toastify/dist/ReactToastify.css';
-import { toast, ToastContainer } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { toast, ToastContainer } from 'react-toastify';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
@@ -60,7 +60,7 @@ export default function LoginBackgroundView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       const { email: identifier, password } = data;
-      const response = await fetch(process.env.NEXT_PUBLIC_URL+"api/auth/local/" , {
+      const response = await fetch(process.env.NEXT_PUBLIC_STRAPI_URL+"api/auth/local/" , {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
