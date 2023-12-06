@@ -5,8 +5,8 @@ import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import 'react-toastify/dist/ReactToastify.css';
-import { toast,ToastContainer } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { toast, ToastContainer } from 'react-toastify';
 
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
@@ -26,16 +26,13 @@ import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
-
-
 export default function LoginBackgroundView() {
   const passwordShow = useBoolean();
   const [loginError, setLoginError] = useState('');
   // const  = useUserStore((store) => store?.updateUserData);
-  const {updateUserData,UserData}=useUserStore()
+  const { updateUserData, UserData } = useUserStore();
 
-  
-    const router = useRouter();
+  const router = useRouter();
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('That is not an email'),
@@ -61,10 +58,9 @@ export default function LoginBackgroundView() {
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
-
     try {
       const { email: identifier, password } = data;
-      const response = await fetch(process.env.NEXT_PUBLIC_URL+"api/auth/local/" , {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/auth/local`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -72,43 +68,51 @@ export default function LoginBackgroundView() {
         body: JSON.stringify({ identifier, password }),
       });
       const resData = await response.json();
-      console.log(resData)
+      console.log(resData);
 
       const { jwt } = resData;
       localStorage.setItem('token', jwt);
-
+      console.log('user data', resData);
       if (response.ok) {
         const userData = {
+          id: resData.user.id,
           authToken: resData.jwt,
           isLoggedIn: true,
           userName: resData.user.username,
-          email:resData.user.email,
+          email: resData.user.email,
+          birthday: resData.user.birthday,
+          zipCode: resData.user.zipCode,
+          city: resData.user.city,
+          country: resData.user.country,
+          streetAddress: resData.user.streetAddress,
+          phoneNumber: resData.user.phoneNumber,
+          gender: resData.user.gender,
         };
         updateUserData(userData);
-        router.push("/");
+        router.push('/');
       } else {
         toast.error(resData.message[0].messages[0].message, {
-          position: "bottom-right",
+          position: 'bottom-right',
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
-          });
+          theme: 'light',
+        });
       }
     } catch (error) {
-      toast.error("Invalid credentials", {
-        position: "bottom-right",
+      toast.error('Invalid credentials', {
+        position: 'bottom-right',
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
-        });
+        theme: 'light',
+      });
       setLoginError('Somthing went wrong');
     }
   });
@@ -195,26 +199,25 @@ export default function LoginBackgroundView() {
 
   return (
     <>
-    {renderHead}
+      {renderHead}
 
-{renderForm}
+      {renderForm}
 
-<Divider>
-  <Typography variant="body2" sx={{ color: 'text.disabled' }}>
-    or continue with
-  </Typography>
-</Divider>
+      <Divider>
+        <Typography variant="body2" sx={{ color: 'text.disabled' }}>
+          or continue with
+        </Typography>
+      </Divider>
 
-{renderSocials}
-<ToastContainer
-position="bottom-right"
-autoClose={3000}
-hideProgressBar={false}
-closeOnClick
-pauseOnHover
-draggable
-/>
-</>
-    
+      {renderSocials}
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
+    </>
   );
 }

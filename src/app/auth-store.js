@@ -4,10 +4,18 @@ import { persist } from 'zustand/middleware';
 const store = persist(
   (set) => ({
     UserData: {
+      id:"",
       authToken: '',
       userName: '',
       isLoggedIn: false,
-      email:''
+      email:'',
+      zipCode:'',
+      birthday:'',
+      city:'',
+      country:'',
+      streetAddress:'',
+      phoneNumber:'',
+      gender:''
     },
     updateUserData: (userData) => {
       set(() => ({
@@ -25,6 +33,7 @@ const store = persist(
           authToken: '',
           userName: '',
           isLoggedIn: false,
+          email:'',
         },
       }));
     },

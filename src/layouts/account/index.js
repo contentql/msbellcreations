@@ -24,7 +24,7 @@ export default function AccountLayout({ children }) {
   return (
     <>
       {mdUp ? (
-        <Container sx={{ my: 5 }}>
+        <Container sx={{ mt: 15 }}>
           <Typography variant="h3">Account</Typography>
         </Container>
       ) : (
@@ -35,7 +35,7 @@ export default function AccountLayout({ children }) {
             borderBottom: (theme) => `solid 1px ${theme.palette.divider}`,
           }}
         >
-          <Container>
+          <Container sx={{mt:8}}>
             <Button
               size="small"
               color="inherit"

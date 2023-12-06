@@ -1,3 +1,4 @@
+import MainLayout from 'src/layouts/main';
 import EcommerceAccountPaymentView from 'src/sections/_ecommerce/view/ecommerce-account-payment-view';
 
 // ----------------------------------------------------------------------

@@ -38,7 +38,7 @@ import ProductCountdownBlock from '../common/product-countdown-block';
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceLandingSpecialOffer() {
+export default function EcommerceLandingSpecialOffer({specialOffer}) {
   // const [color, setColor] = useState('red');
 
   // const [memory, setMemory] = useState('128gb');
@@ -73,30 +73,29 @@ export default function EcommerceLandingSpecialOffer() {
         gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }}
       >
         <SpecialOfferCountdown
-          label="New 2023"
-          name="Lavendar Goats Milk Soap"
-          price="$8"
-          expired={add(new Date(), { days: 1, hours: 8 })}
+         specialOffer={specialOffer}
         />
 
         <Box sx={{ borderRadius: 1.5, bgcolor: 'background.neutral' }}>
-          <Image src={_mock.image.product(0)} />
+          <Image src={specialOffer?.coverUrl.url} />
         </Box>
 
         <SpecialOfferBuyNow
-        // color={color}
-        // memory={memory}
-        // onChangeColor={handleChangeColor}
-        // onChangeMemory={handleChangeMemory}
+        specialOffer={specialOffer}
         />
       </Box>
     </Container>
   );
 }
 
+  EcommerceLandingSpecialOffer.propTypes = {
+    specialOffer: PropTypes.object,
+  };
+
+
 // ----------------------------------------------------------------------
 
-function SpecialOfferCountdown({ expired, label, name, price, sx, ...other }) {
+function SpecialOfferCountdown({ specialOffer, sx, ...other }) {
   const product = _products.slice(0, 1);
   console.log('product name', product[0].name);
   return (
@@ -113,11 +112,11 @@ function SpecialOfferCountdown({ expired, label, name, price, sx, ...other }) {
       {...other}
     >
       <Typography variant="overline" sx={{ color: 'primary.main' }}>
-        {label}
+        {specialOffer?.label}
       </Typography>
 
       <Typography variant="h5" sx={{ mt: 1, mb: 3 }}>
-        {product[0].name}
+        {specialOffer?.name}
       </Typography>
 
       <Typography
@@ -129,16 +128,11 @@ function SpecialOfferCountdown({ expired, label, name, price, sx, ...other }) {
           border: (theme) => `solid 1px ${alpha(theme.palette.grey[500], 0.24)}`,
         }}
       >
-        {price}
+        ${specialOffer?.price}
       </Typography>
 
       <Divider sx={{ borderStyle: 'dashed', my: 3, width: 1 }} />
-
-      <Typography variant="body2" sx={{ mb: 2 }}>
-        Deal ends in:
-      </Typography>
-
-      <ProductCountdownBlock
+      {/* <ProductCountdownBlock
         expired={expired}
         sx={{
           '& .value': {
@@ -149,34 +143,28 @@ function SpecialOfferCountdown({ expired, label, name, price, sx, ...other }) {
           '& .label': { color: 'text.secondary' },
           '& .separator': { color: 'inherit' },
         }}
-      />
+      /> */}
     </Stack>
   );
 }
 
 SpecialOfferCountdown.propTypes = {
-  sx: PropTypes.object,
-  name: PropTypes.string,
-  label: PropTypes.string,
-  price: PropTypes.string,
-  expired: PropTypes.instanceOf(Date),
+  specialOffer:PropTypes.object,
+  sx:PropTypes.string,
 };
 
 // ----------------------------------------------------------------------
 
-function SpecialOfferBuyNow({ color, memory, onChangeColor, onChangeMemory, ...other }) {
+function SpecialOfferBuyNow({ specialOffer }) {
   const product = _products.slice(0, 1);
   console.log('product data', product);
   return (
-    <Stack spacing={3} alignItems="flex-start" {...other}>
+    <Stack spacing={3} alignItems="flex-start" >
       <Stack spacing={1}>
-        <Typography variant="h4">{product[0].name}</Typography>
+        <Typography variant="h4">{specialOffer?.name}</Typography>
 
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Cayenne pepper is a hot and spicy herb that contains capsaicin, a compound that blocks the
-          pain signals from reaching your brain. Cayenne pepper can help reduce muscle, joint, and
-          nerve pain from various conditions, such as arthritis, shingles, back aches, fibromyalgia,
-          and diabetic neuropathy (123).
+         {specialOffer?.caption}
         </Typography>
       </Stack>
 
@@ -186,14 +174,14 @@ function SpecialOfferBuyNow({ color, memory, onChangeColor, onChangeMemory, ...o
       </Stack>
 */}
       <Stack spacing={2}>
-        <Typography variant="h4">Size</Typography>
+        {/* <Typography variant="h4">Size</Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           Approx. 1 oz to .8 OZ in tin
-        </Typography>
+        </Typography> */}
       </Stack>
       <Button
         component={RouterLink}
-        href={`${paths.eCommerce.products}/${product[0].id}`}
+        href={`${paths.eCommerce.products}/${specialOffer?.id}`}
         size="large"
         color="inherit"
         variant="contained"
@@ -205,8 +193,5 @@ function SpecialOfferBuyNow({ color, memory, onChangeColor, onChangeMemory, ...o
 }
 
 SpecialOfferBuyNow.propTypes = {
-  color: PropTypes.string,
-  memory: PropTypes.string,
-  onChangeColor: PropTypes.func,
-  onChangeMemory: PropTypes.func,
+ specialOffer:PropTypes.object,
 };

@@ -80,7 +80,7 @@ const onSubmit = handleSubmit(async (user) => {
     console.log('DATA', user);
     
 
-    const response = await fetch(process.env.NEXT_PUBLIC_URL+'api/auth/local/register', {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/auth/local/register`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -101,10 +101,17 @@ const onSubmit = handleSubmit(async (user) => {
     
     if (response.ok) {
       const userData = {
+        id:resData.user.id,
         authToken: resData.jwt,
         userName: resData.user.username,
         isLoggedIn: resData.user.confirmed,
-        email:resData.user.email
+        email:resData.user.email,
+        zipCode: resData.user.zipCode,
+          city: resData.user.city,
+          country: resData.user.country,
+          streetAddress: resData.user.streetAddress,
+          phoneNumber: resData.user.phoneNumber,
+          gender: resData.user.gender,
       };
 
       updateUserData(userData);

@@ -1,8 +1,11 @@
 'use client';
 
 import * as Yup from 'yup';
+import { useQuery } from 'react-query';
+import 'react-toastify/dist/ReactToastify.css';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller } from 'react-hook-form';
+import { toast, ToastContainer } from 'react-toastify';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -14,7 +17,9 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { countries } from 'src/assets/data';
 import Iconify from 'src/components/iconify';
+import { useUserStore } from 'src/app/auth-store';
 import { useBoolean } from 'src/hooks/use-boolean';
+import { SplashScreen } from 'src/components/loading-screen';
 import FormProvider, { RHFSelect, RHFTextField, RHFAutocomplete } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
@@ -25,7 +30,7 @@ const GENDER_OPTIONS = ['Male', 'Female', 'Other'];
 
 export default function EcommerceAccountPersonalView() {
   const passwordShow = useBoolean();
-
+  const { UserData, updateUserData } = useUserStore();
   const EcommerceAccountPersonalSchema = Yup.object().shape({
     firstName: Yup.string().required('First name is required'),
     lastName: Yup.string().required('Last name is required'),
@@ -38,20 +43,42 @@ export default function EcommerceAccountPersonalView() {
     zipCode: Yup.string().required('Zip code is required'),
   });
 
+  // const { data, isLoading } = useQuery(
+  //   ['user'],
+  //   async () =>
+  //     await fetch(`${process.env.NEXT_PUBLIC_USERS_API}/${UserData.id}`, {
+  //       method: 'GET',
+  //     }).then((res) => res.json())
+  // );
+
+  // if (!isLoading && data) {
+  //   console.log("diff",data)
+  //   const userData = {
+  //     // userName: data.username,
+  //     // email: data.email,
+  //     birthday: data.birthday,
+  //     zipCode: data.zipCode,
+  //     city: data.city,
+  //     country: data.country,
+  //     streetAddress: data.streetAddress,
+  //     phoneNumber: data.phoneNumber,
+  //     gender: data.gender,
+  //   };
+  //   updateUserData(userData)};
+
+  console.log('user data in Userdata', UserData);
+
   const defaultValues = {
-    firstName: 'Jayvion',
+    firstName: UserData?.userName,
     lastName: 'Simon',
-    emailAddress: 'nannie_abernathy70@yahoo.com',
-    phoneNumber: '365-374-4961',
-    birthday: null,
-    gender: 'Male',
-    streetAddress: '',
-    zipCode: '',
-    city: '',
-    country: 'United States',
-    oldPassword: '',
-    newPassword: '',
-    confirmNewPassword: '',
+    emailAddress: UserData?.email,
+    phoneNumber: UserData?.phoneNumber,
+    // birthday: UserData?.birthday,
+    gender: UserData?.gender,
+    streetAddress: UserData.streetAddress,
+    zipCode: UserData?.zipCode,
+    city: UserData.city,
+    country: UserData.country,
   };
 
   const methods = useForm({
@@ -67,10 +94,47 @@ export default function EcommerceAccountPersonalView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
-      console.log('DATA', data);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_STRAPI_URL}api/users/${UserData.id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${UserData.authToken}`,
+          },
+          body: JSON.stringify({
+            phoneNumber: data.phoneNumber,
+            gender: data.gender,
+            country: data.country,
+            streetAddress: data.streetAddress,
+            birthday: data.birthday,
+            zipCode: data.zipCode,
+            city: data.city,
+          }),
+        }
+      );
+      toast.success('details saved Successfully', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+      const resData = await response.json();
     } catch (error) {
+      toast.error('error please try again', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
       console.error(error);
     }
   });
@@ -95,7 +159,7 @@ export default function EcommerceAccountPersonalView() {
 
         <RHFTextField name="phoneNumber" label="Phone Number" />
 
-        <Controller
+        {/* <Controller
           name="birthday"
           render={({ field, fieldState: { error } }) => (
             <DatePicker
@@ -110,7 +174,7 @@ export default function EcommerceAccountPersonalView() {
               value={field.value}
             />
           )}
-        />
+        /> */}
 
         <RHFSelect native name="gender" label="Gender">
           {GENDER_OPTIONS.map((option) => (
@@ -119,88 +183,50 @@ export default function EcommerceAccountPersonalView() {
             </option>
           ))}
         </RHFSelect>
-
-        <RHFTextField name="streetAddress" label="Street Address" />
-
-        <RHFTextField name="zipCode" label="Zip Code" />
-
-        <RHFTextField name="city" label="City" />
-
-        <RHFAutocomplete
-          name="country"
-          label="Country"
-          options={countries.map((country) => country.label)}
-          getOptionLabel={(option) => option}
-          renderOption={(props, option) => {
-            const { code, label, phone } = countries.filter(
-              (country) => country.label === option
-            )[0];
-
-            if (!label) {
-              return null;
-            }
-
-            return (
-              <li {...props} key={label}>
-                <Iconify
-                  key={label}
-                  icon={`circle-flags:${code.toLowerCase()}`}
-                  width={28}
-                  sx={{ mr: 1 }}
-                />
-                {label} ({code}) +{phone}
-              </li>
-            );
-          }}
-        />
       </Box>
-
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
       <Stack spacing={3} sx={{ my: 5 }}>
-        <Typography variant="h5"> Change Password </Typography>
+        <Typography variant="h5"> Billing Address </Typography>
 
         <Stack spacing={2.5}>
-          <RHFTextField
-            name="oldPassword"
-            label="Old Password"
-            type={passwordShow.value ? 'text' : 'password'}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={passwordShow.onToggle} edge="end">
-                    <Iconify icon={passwordShow.value ? 'carbon:view' : 'carbon:view-off'} />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
+          <RHFTextField name="streetAddress" label="Street Address" />
 
-          <RHFTextField
-            name="newPassword"
-            label="New Password"
-            type={passwordShow.value ? 'text' : 'password'}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={passwordShow.onToggle} edge="end">
-                    <Iconify icon={passwordShow.value ? 'carbon:view' : 'carbon:view-off'} />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
+          <RHFTextField name="zipCode" label="Zip Code" />
 
-          <RHFTextField
-            name="confirmNewPassword"
-            label="Confirm New Password"
-            type={passwordShow.value ? 'text' : 'password'}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={passwordShow.onToggle} edge="end">
-                    <Iconify icon={passwordShow.value ? 'carbon:view' : 'carbon:view-off'} />
-                  </IconButton>
-                </InputAdornment>
-              ),
+          <RHFTextField name="city" label="City" />
+
+          <RHFAutocomplete
+            name="country"
+            label="Country"
+            options={countries.map((country) => country.label)}
+            getOptionLabel={(option) => option}
+            renderOption={(props, option) => {
+              const { code, label, phone } = countries.filter(
+                (country) => country.label === option
+              )[0];
+
+              if (!label) {
+                return null;
+              }
+
+              return (
+                <li {...props} key={label}>
+                  <Iconify
+                    key={label}
+                    icon={`circle-flags:${code.toLowerCase()}`}
+                    width={28}
+                    sx={{ mr: 1 }}
+                  />
+                  {label} ({code}) +{phone}
+                </li>
+              );
             }}
           />
         </Stack>
@@ -213,7 +239,7 @@ export default function EcommerceAccountPersonalView() {
         variant="contained"
         loading={isSubmitting}
       >
-        Save Changes
+        Save Details
       </LoadingButton>
     </FormProvider>
   );

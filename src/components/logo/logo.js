@@ -9,6 +9,8 @@ import { RouterLink } from 'src/routes/components';
 
 import Image from '../image';
 
+import Mlogo from './Mlogo';
+
 // ----------------------------------------------------------------------
 
 function Logo({ single = false, sx }) {
@@ -16,10 +18,10 @@ function Logo({ single = false, sx }) {
 
   const PRIMARY_MAIN = theme.palette.primary.main;
 
-  const singleLogo = <img style={{ minWidth: '200px' }} src="./assets/images/logo.png" alt="" />;
+  const singleLogo = <img style={{ maxHeight: '20px' ,}} src="./assets/images/logo.png" alt="" />;
 
   const fullLogo = (
-    <img src="./assets/logo/large.svg" alt="hello"/>
+    <img src="./assets/icons/MainLogo.svg" alt="hello"/>
 
   );
 
@@ -34,14 +36,13 @@ function Logo({ single = false, sx }) {
       <Box
         sx={{
           width: single ? 64 : 200,
-         
           lineHeight: 0,
           cursor: 'pointer',
           display: 'inline-flex',
           ...sx,
         }}
       >
-        {single ? singleLogo : fullLogo}
+        {single ? <Mlogo/> : <Mlogo/>}
       </Box>
     </Link>
   );

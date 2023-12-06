@@ -1,3 +1,4 @@
+import MainLayout from 'src/layouts/main';
 import EcommerceLegalPrivacy from 'src/sections/_ecommerce/legal/ecommerce-legal-privacy';
 
 export const metadata = {
@@ -5,5 +6,5 @@ export const metadata = {
 };
 
 export default function EcommercePrivacyPage() {
-  return <EcommerceLegalPrivacy />;
+  return <MainLayout><EcommerceLegalPrivacy /></MainLayout>;
 }

@@ -16,6 +16,7 @@ import Button, { buttonClasses } from '@mui/material/Button';
 
 import { _socials } from 'src/_mock';
 import Logo from 'src/components/logo';
+import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
 import { usePathname } from 'src/routes/hooks';
 import { useBoolean } from 'src/hooks/use-boolean';
@@ -76,8 +77,7 @@ export default function Footer() {
           <Grid xs={12} md={4}>
             <Stack spacing={{ xs: 3, md: 5 }}>
               <Stack alignItems="flex-start" spacing={3}>
-                <Logo />
-
+                <Image src="/assets/images/footer.svg" alt="" sx={{width:"300pxpx",height:"80px"}}/>
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                   Ms. Bells Creations SOAPS, CANDLES, AND MORE! Created from all-natural materials
                   and infused with essential oils.

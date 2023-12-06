@@ -18,37 +18,41 @@ import EcommerceLandingFeaturedProducts from '../landing/ecommerce-landing-featu
 // ----------------------------------------------------------------------
 
 export default function EcommerceLandingView() {
-
-  
   const { data } = useQuery(['products'], () =>
-    fetch(process.env.NEXT_PUBLIC_URL+"api/products?populate=*", {
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products?populate=*`, {
       method: 'GET',
     }).then((res) => res.json())
   );
 
-  const PopularProducts=data?.data.sort((a,b)=>b.sold-a.sold).slice(0,8);
- console.log("popular porducts:",PopularProducts)
-  const Herodata=data?.data.filter((item)=>item.home)
-  const Hotdeals=data?.data.filter((item)=>item.hot_deals)
-  const Featuredproducts=data?.data.filter((item)=>item.featured_products)
-  const specialOffer=data?.data.filter((item)=>item.special_offer).at(0);
+  const { data: configuration } = useQuery(['configuration'], () =>
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/configuration?populate=*`,{
+      method: 'GET',
+    }).then((res) => res.json())
+  );
+  console.log('configuration', configuration);
+  const PopularProducts = data?.data.sort((a, b) => b.sold - a.sold).slice(0, 8);
+  console.log('popular porducts:', PopularProducts);
+  const Herodata = data?.data.filter((item) => item.home);
+  const Hotdeals = data?.data.filter((item) => item.hot_deals);
+  const Featuredproducts = data?.data.filter((item) => item.featured_products);
+  const specialOffer = data?.data.filter((item) => item.special_offer).at(0);
 
-  console.log("filtered data",Herodata,Hotdeals,Featuredproducts,specialOffer)
+  console.log('filtered data', Herodata, Hotdeals, Featuredproducts, specialOffer);
   return (
     <>
-      <EcommerceLandingHero Hero={Herodata}/>
+      {configuration?.data.Hero?<EcommerceLandingHero Hero={Herodata} />:null}  
 
       <EcommerceLandingCategories />
 
-      {_hotdeals.products.HotDeals && <EcommerceLandingHotDealToday Hotdeals={Hotdeals} />}
+      {configuration?.data.hot_deals?<EcommerceLandingHotDealToday Hotdeals={Hotdeals} />:null}
 
-      <EcommerceLandingFeaturedProducts Featuredproducts={Featuredproducts}/>
+      {configuration?.data.featured_products?<EcommerceLandingFeaturedProducts Featuredproducts={Featuredproducts} />:null}
 
-      {/* <EcommerceLandingSpecialOffer  specialOffer={specialOffer}/> */}
+      <EcommerceLandingSpecialOffer  specialOffer={specialOffer}/>
 
       {/* <EcommerceLandingFeaturedBrands /> */}
 
-      <EcommerceLandingPopularProducts PopularProducts={PopularProducts} />
+      {configuration?.data.popular_products? <EcommerceLandingPopularProducts PopularProducts={PopularProducts} />:null}
 
       {/* <EcommerceLandingTopProducts /> */}
 

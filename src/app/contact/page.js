@@ -1,5 +1,5 @@
+import MainLayout from 'src/layouts/main';
 import EcommerceContactView from 'src/sections/_ecommerce/view/ecommerce-contact-view';
-
 // ----------------------------------------------------------------------
 
 export const metadata = {
@@ -7,5 +7,5 @@ export const metadata = {
 };
 
 export default function EcommerceContactPage() {
-  return <EcommerceContactView />;
+  return <MainLayout><EcommerceContactView /></MainLayout>;
 }

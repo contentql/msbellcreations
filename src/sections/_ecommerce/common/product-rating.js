@@ -24,11 +24,11 @@ export default function ProductRating({ ratingNumber, label, ...other }) {
         }}
       />
 
-      {label && (
+      {/* {label && (
         <Typography variant="caption" sx={{ color: 'text.disabled' }}>
           {label}
         </Typography>
-      )}
+      )} */}
     </Stack>
   );
 }
