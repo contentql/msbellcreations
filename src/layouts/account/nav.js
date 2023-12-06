@@ -85,18 +85,7 @@ export default function Nav({ open, onClose }) {
       <Stack spacing={2} sx={{ p: 3, pb: 2 }}>
         <Stack spacing={2} direction="row" alignItems="center">
           <Avatar src={_mock.image.avatar(0)} sx={{ width: 64, height: 64 }} />
-          <Stack
-            direction="row"
-            alignItems="center"
-            sx={{
-              typography: 'caption',
-              cursor: 'pointer',
-              '&:hover': { opacity: 0.72 },
-            }}
-          >
-            <Iconify icon="carbon:edit" sx={{ mr: 1 }} />
-            Change photo
-          </Stack>
+         
         </Stack>
 
         <Stack spacing={0.5}>

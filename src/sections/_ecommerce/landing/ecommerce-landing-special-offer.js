@@ -38,7 +38,7 @@ import ProductCountdownBlock from '../common/product-countdown-block';
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceLandingSpecialOffer() {
+export default function EcommerceLandingSpecialOffer({specialOffer}) {
   // const [color, setColor] = useState('red');
 
   // const [memory, setMemory] = useState('128gb');
@@ -73,14 +73,14 @@ export default function EcommerceLandingSpecialOffer() {
         gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }}
       >
         <SpecialOfferCountdown
-          label="New 2023"
-          name="Lavendar Goats Milk Soap"
-          price="$8"
+          label={specialOffer.lable}
+          name={specialOffer.name}
+          price={specialOffer.price}
           expired={add(new Date(), { days: 1, hours: 8 })}
         />
 
         <Box sx={{ borderRadius: 1.5, bgcolor: 'background.neutral' }}>
-          <Image src={_mock.image.product(0)} />
+          <Image src={specialOffer.coverUrl.url} />
         </Box>
 
         <SpecialOfferBuyNow
@@ -133,11 +133,6 @@ function SpecialOfferCountdown({ expired, label, name, price, sx, ...other }) {
       </Typography>
 
       <Divider sx={{ borderStyle: 'dashed', my: 3, width: 1 }} />
-
-      <Typography variant="body2" sx={{ mb: 2 }}>
-        Deal ends in:
-      </Typography>
-
       <ProductCountdownBlock
         expired={expired}
         sx={{
