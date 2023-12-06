@@ -1,3 +1,4 @@
+import MainLayout from 'src/layouts/main';
 import EcommerceAccountWishlistView from 'src/sections/_ecommerce/view/ecommerce-account-wishlist-view';
 
 // ----------------------------------------------------------------------
@@ -7,5 +8,5 @@ export const metadata = {
 };
 
 export default function EcommerceAccountWishlistPage() {
-  return <EcommerceAccountWishlistView />;
+  return <MainLayout><EcommerceAccountWishlistView /></MainLayout>;
 }

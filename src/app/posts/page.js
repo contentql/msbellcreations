@@ -1,3 +1,4 @@
+import MainLayout from 'src/layouts/main';
 import Ecommercepostsview from 'src/sections/_ecommerce/view/ecommerce-posts-view';
 // ----------------------------------------------------------------------
 
@@ -6,5 +7,5 @@ export const metadata = {
 };
 
 export default function EcommercePostsPage() {
-  return <Ecommercepostsview />;
+  return <MainLayout><Ecommercepostsview /></MainLayout>;
 }

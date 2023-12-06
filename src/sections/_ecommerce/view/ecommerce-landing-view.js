@@ -21,7 +21,7 @@ export default function EcommerceLandingView() {
 
   
   const { data } = useQuery(['products'], () =>
-    fetch(process.env.NEXT_PUBLIC_PODUCTS_API, {
+    fetch(process.env.NEXT_PUBLIC_URL+"api/products?populate=*", {
       method: 'GET',
     }).then((res) => res.json())
   );

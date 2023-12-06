@@ -62,7 +62,7 @@ const CATEGORIES = [
 
 export default function EcommerceLandingCategories() {
   const { data } = useQuery(['categories'], () =>
-    fetch(process.env.NEXT_PUBLIC_CATEGORIES_API, {
+    fetch(process.env.NEXT_PUBLIC_URL+"api/categories?populate=*", {
       method: 'GET',
     }).then((res) => res.json())
   );

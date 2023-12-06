@@ -7,5 +7,5 @@ export const metadata = {
 };
 
 export default function EcommerceAccountVouchersPage() {
-  return <EcommerceAccountVouchersView />;
+  return <MainLayout><EcommerceAccountVouchersView /></MainLayout>;
 }

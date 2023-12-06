@@ -49,7 +49,7 @@ export default function ForgotPasswordView() {
       // Request API.
 
       axios
-        .post(process.env.NEXT_PUBLIC_FORGET_PASSWORD_URL, {
+        .post(process.env.NEXT_PUBLIC_URL+"api/auth/forgot-password", {
           email, // user's email
         })
         .then((response) => {

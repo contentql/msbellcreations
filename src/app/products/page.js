@@ -1,4 +1,5 @@
 import {ToastContainer} from "react-toastify"
+import MainLayout from "src/layouts/main";
 
 import EcommerceProductsView from 'src/sections/_ecommerce/view/ecommerce-products-view';
 
@@ -11,6 +12,6 @@ export const metadata = {
 export default function EcommerceProductsPage() {
   return <>
    <ToastContainer />
-   <EcommerceProductsView />;
+   <MainLayout><EcommerceProductsView /></MainLayout>;
   </>
 }

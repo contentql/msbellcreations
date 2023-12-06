@@ -1,3 +1,4 @@
+import MainLayout from 'src/layouts/main';
 import EcommerceAboutView from 'src/sections/_ecommerce/view/ecommerce-about-view';
 
 // ----------------------------------------------------------------------
@@ -7,5 +8,5 @@ export const metadata = {
 };
 
 export default function EcommerceCartPage() {
-  return <EcommerceAboutView />;
+  return <MainLayout><EcommerceAboutView /></MainLayout>;
 }

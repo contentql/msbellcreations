@@ -70,7 +70,7 @@ export default function ChangePassword() {
     try {
       // Request API.
       axios
-        .post(process.env.NEXT_PUBLIC_RESET_PASSWORD_URL, {
+        .post(process.env.NEXT_PUBLIC_URL+"api/auth/reset-password", {
           code, // code contained in the reset link of step 3.
           password,
           passwordConfirmation: confirmPassword,

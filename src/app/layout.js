@@ -11,6 +11,7 @@ import ProgressBar from 'src/components/progress-bar';
 import MotionLazy from 'src/components/animate/motion-lazy';
 import { ReactQueryProvider } from 'src/utils/ReactQueryProvider';
 import { SettingsDrawer, SettingsProvider } from 'src/components/settings';
+import MainLayout from 'src/layouts/main';
 // ----------------------------------------------------------------------
 
 export const metadata = {
@@ -62,7 +63,9 @@ export default function RootLayout({ children }) {
                 <MotionLazy>
                   <ProgressBar />
                   <SettingsDrawer />
+                  
                   {children}
+                  
                 </MotionLazy>
               </ThemeProvider>
             </SettingsProvider>
