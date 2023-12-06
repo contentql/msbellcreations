@@ -11,19 +11,72 @@ import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 
 import EcommerceCartList from '../cart/ecommerce-cart-list';
+import { useWish } from 'src/app/wishstore';
+import Link from 'next/link';
+import Image from 'src/components/image/image';
+import { useCart } from 'src/app/store';
+import { useState,useEffect } from 'react';
 
 // ----------------------------------------------------------------------
 
 export default function EcommerceAccountWishlistView() {
+  const {wishItems, wishdeleteProduct}=useWish();
+  const { cartItems, updateQuantity, addProduct } = useCart();
+  const [subtotal, setSub] = useState(0);
+  useEffect(() => {
+    setSub((st) => wishItems.reduce((acc, item) => acc + item.price * item.quantity, 0));
+  }, [wishItems]);
+
+  const Addtocart = () => {
+    if (wishItems.length !== 0) {
+      wishItems.forEach((wishlistItem) => {
+        const existingProductInCart = cartItems.find((item) => item.id === wishlistItem.id);
+
+        if (existingProductInCart) {
+          updateQuantity(
+            existingProductInCart.id,
+            existingProductInCart.quantity + wishlistItem.quantity
+          );
+        } else {
+          addProduct({ ...wishlistItem });
+          updateQuantity(wishlistItem.id, wishlistItem.quantity);
+        }
+      });
+
+      wishItems.forEach((wishlistItem) => {
+        wishdeleteProduct(wishlistItem.id);
+      });
+    } else {
+      toast.error('Your wishlist is empty.Redirected to products page');
+    }
+  };
+
   return (
     <>
       <Typography variant="h5" sx={{ mb: 3 }}>
         Wishlist
       </Typography>
 
-      <EcommerceCartList wishlist products={_products.slice(0, 4)} />
+      <EcommerceCartList wishlist products={wishItems} />
 
-      <Stack alignItems={{ sm: 'flex-end' }} sx={{ mt: 3 }}>
+      {wishItems.length === 0 && (
+        <Stack alignItems="center" justifyContent="center" sx={{ display: 'flex' }}>
+          <Typography
+            variant="body2"
+            direction="row"
+            alignItems="center"
+            justifyContent="center"
+            sx={{ typography: 'h6', display: 'flex' }}
+          >
+            <Image src="/assets/images/empty-state/empty-wishlist.png" />
+          </Typography>
+          <Link href={paths.eCommerce.products} sx={{ typography: 'h6', mt: 10 }}>
+            Go to products page
+          </Link>
+        </Stack>
+      )}
+
+{wishItems.length !== 0 && <Stack alignItems={{ sm: 'flex-end' }} sx={{ mt: 3 }}>
         <Stack spacing={3} sx={{ minWidth: 240 }}>
           <Stack
             direction="row"
@@ -32,9 +85,9 @@ export default function EcommerceAccountWishlistView() {
             sx={{ typography: 'h6' }}
           >
             <Box component="span"> Subtotal</Box>
-            $58.07
+            {subtotal}
           </Stack>
-
+ 
           <Button
             component={RouterLink}
             href={paths.eCommerce.cart}
@@ -42,11 +95,12 @@ export default function EcommerceAccountWishlistView() {
             color="inherit"
             variant="contained"
             startIcon={<Iconify icon="carbon:shopping-cart-plus" />}
+            onClick={Addtocart}
           >
-            Add to Cart
+             {wishItems.length !== 0 ? 'Add to Cart' : 'Go to Products'}
           </Button>
         </Stack>
-      </Stack>
+      </Stack>}
     </>
   );
 }

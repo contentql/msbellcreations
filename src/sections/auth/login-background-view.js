@@ -60,7 +60,7 @@ export default function LoginBackgroundView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       const { email: identifier, password } = data;
-      const response = await fetch(process.env.NEXT_PUBLIC_STRAPI_LOGIN_URL, {
+      const response = await fetch(process.env.NEXT_PUBLIC_URL+"api/auth/local/" , {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

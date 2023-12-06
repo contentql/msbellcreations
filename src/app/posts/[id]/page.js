@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import MainLayout from 'src/layouts/main';
 
 import EcommercePostView from 'src/sections/_ecommerce/view/ecommerce-post-view';
 
@@ -9,7 +10,7 @@ export const metadata = {
 };
 
 export default function EcommerceProductPage({ params }) {
-  return <EcommercePostView blogId={params.id} />;
+  return <MainLayout><EcommercePostView blogId={params.id} /></MainLayout>;
 }
 
 EcommerceProductPage.propTypes = {

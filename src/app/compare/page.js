@@ -1,3 +1,4 @@
+import MainLayout from 'src/layouts/main';
 import EcommerceCompareView from 'src/sections/_ecommerce/view/ecommerce-compare-view';
 
 // ----------------------------------------------------------------------
@@ -7,5 +8,5 @@ export const metadata = {
 };
 
 export default function EcommerceComparePage() {
-  return <EcommerceCompareView />;
+  return <MainLayout><EcommerceCompareView /></MainLayout>;
 }
