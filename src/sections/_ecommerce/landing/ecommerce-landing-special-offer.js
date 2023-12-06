@@ -150,6 +150,7 @@ function SpecialOfferCountdown({ specialOffer, sx, ...other }) {
 
 SpecialOfferCountdown.propTypes = {
   specialOffer:PropTypes.object,
+  sx:PropTypes.string,
 };
 
 // ----------------------------------------------------------------------
@@ -192,8 +193,5 @@ function SpecialOfferBuyNow({ specialOffer }) {
 }
 
 SpecialOfferBuyNow.propTypes = {
-  color: PropTypes.string,
-  memory: PropTypes.string,
-  onChangeColor: PropTypes.func,
-  onChangeMemory: PropTypes.func,
+ specialOffer:PropTypes.object,
 };

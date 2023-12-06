@@ -12,8 +12,8 @@ import Typography from '@mui/material/Typography';
 
 import { _products } from 'src/_mock';
 import { useCart } from 'src/app/store';
-import { useWish } from 'src/app/wishstore';
 import { paths } from 'src/routes/paths';
+import { useWish } from 'src/app/wishstore';
 import Iconify from 'src/components/iconify';
 import Image from 'src/components/image/image';
 import { RouterLink } from 'src/routes/components';
