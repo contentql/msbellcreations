@@ -21,7 +21,7 @@ function Logo({ single = false, sx }) {
   const singleLogo = <img style={{ maxHeight: '20px' ,}} src="./assets/images/logo.png" alt="" />;
 
   const fullLogo = (
-    <img src="./assets/logo/large.svg" alt="hello"/>
+    <img src="./assets/icons/MainLogo.svg" alt="hello"/>
 
   );
 

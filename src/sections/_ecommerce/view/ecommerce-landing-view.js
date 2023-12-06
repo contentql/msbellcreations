@@ -19,13 +19,13 @@ import EcommerceLandingFeaturedProducts from '../landing/ecommerce-landing-featu
 
 export default function EcommerceLandingView() {
   const { data } = useQuery(['products'], () =>
-    fetch(process.env.NEXT_PUBLIC_STRAPI_URL+"api/products?populate=*", {
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products?populate=*`, {
       method: 'GET',
     }).then((res) => res.json())
   );
 
   const { data: configuration } = useQuery(['configuration'], () =>
-    fetch(process.env.NEXT_PUBLIC_STRAPI_URL+"api/configuration", {
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/configuration?populate=*`,{
       method: 'GET',
     }).then((res) => res.json())
   );
@@ -48,7 +48,7 @@ export default function EcommerceLandingView() {
 
       {configuration?.data.featured_products?<EcommerceLandingFeaturedProducts Featuredproducts={Featuredproducts} />:null}
 
-      {/* <EcommerceLandingSpecialOffer  specialOffer={specialOffer}/> */}
+      <EcommerceLandingSpecialOffer  specialOffer={specialOffer}/>
 
       {/* <EcommerceLandingFeaturedBrands /> */}
 

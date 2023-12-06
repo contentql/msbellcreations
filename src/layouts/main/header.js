@@ -43,7 +43,7 @@ export default function Header({ headerOnDark }) {
   const theme = useTheme();
 
   const { data } = useQuery(['products'], () =>
-    fetch(process.env.NEXT_PUBLIC_STRAPI_URL+"api/products?populate=*", {
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products?populate=*`,  {
       method: 'GET',
     }).then((res) => res.json())
   );
@@ -106,7 +106,7 @@ export default function Header({ headerOnDark }) {
 
           {mdUp && <NavDesktop products={data?.data} data={navConfig} />}
 
-          <Stack spacing={2} direction="row" alignItems="center" justifyContent="flex-end">
+          <Stack spacing={4} direction="row" alignItems="center" justifyContent="flex-end">
               <Badge badgeContent={wishItems.length} color="info">
                 <IconButton
                   component={RouterLink}

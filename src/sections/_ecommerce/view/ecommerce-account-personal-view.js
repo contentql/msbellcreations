@@ -3,7 +3,7 @@
 import * as Yup from 'yup';
 import { useQuery } from 'react-query';
 import 'react-toastify/dist/ReactToastify.css';
-import { toast,ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller } from 'react-hook-form';
 
@@ -20,7 +20,7 @@ import Iconify from 'src/components/iconify';
 import { useUserStore } from 'src/app/auth-store';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { SplashScreen } from 'src/components/loading-screen';
-import FormProvider, { RHFSelect, RHFTsextField, RHFAutocomplete } from 'src/components/hook-form';
+import FormProvider, { RHFSelect, RHFTextField, RHFAutocomplete } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
@@ -50,8 +50,6 @@ export default function EcommerceAccountPersonalView() {
   //       method: 'GET',
   //     }).then((res) => res.json())
   // );
-
-  
 
   // if (!isLoading && data) {
   //   console.log("diff",data)
@@ -96,46 +94,47 @@ export default function EcommerceAccountPersonalView() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/users/${UserData.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${UserData.authToken}`,
-        },
-        body: JSON.stringify({
-          phoneNumber: data.phoneNumber,
-          gender: data.gender,
-          country: data.country,
-          streetAddress: data.streetAddress,
-          birthday: data.birthday,
-          zipCode: data.zipCode,
-          city: data.city,
-        }),
-        
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_STRAPI_URL}api/users/${UserData.id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${UserData.authToken}`,
+          },
+          body: JSON.stringify({
+            phoneNumber: data.phoneNumber,
+            gender: data.gender,
+            country: data.country,
+            streetAddress: data.streetAddress,
+            birthday: data.birthday,
+            zipCode: data.zipCode,
+            city: data.city,
+          }),
+        }
+      );
       toast.success('details saved Successfully', {
-        position: "bottom-right",
+        position: 'bottom-right',
         autoClose: 3000,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
-        });
+        theme: 'light',
+      });
       const resData = await response.json();
-      
     } catch (error) {
       toast.error('error please try again', {
-        position: "bottom-right",
+        position: 'bottom-right',
         autoClose: 3000,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
-        });
+        theme: 'light',
+      });
       console.error(error);
     }
   });
@@ -176,7 +175,7 @@ export default function EcommerceAccountPersonalView() {
             />
           )}
         /> */}
-       
+
         <RHFSelect native name="gender" label="Gender">
           {GENDER_OPTIONS.map((option) => (
             <option key={option} value={option}>
@@ -186,13 +185,13 @@ export default function EcommerceAccountPersonalView() {
         </RHFSelect>
       </Box>
       <ToastContainer
-  position="bottom-right"
-  autoClose={3000}
-  hideProgressBar={false}
-  closeOnClick
-  pauseOnHover
-  draggable
-/>
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
       <Stack spacing={3} sx={{ my: 5 }}>
         <Typography variant="h5"> Billing Address </Typography>
 
