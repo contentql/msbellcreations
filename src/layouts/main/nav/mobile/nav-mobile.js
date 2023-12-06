@@ -16,6 +16,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { NAV } from '../../../config-layout';
 
 import NavList from './nav-list';
+import Mlogo from 'src/components/logo/Mlogo';
 
 // ----------------------------------------------------------------------
 
@@ -33,7 +34,7 @@ export default function NavMobile({ data }) {
 
   return (
     <>
-      <IconButton onClick={mobileOpen.onTrue} sx={{ ml: 1, color: 'inherit' }}>
+      <IconButton onClick={mobileOpen.onTrue} sx={{ color: 'inherit' }}>
         <Iconify icon="carbon:menu" />
       </IconButton>
 
@@ -48,8 +49,7 @@ export default function NavMobile({ data }) {
         }}
       >
         <Scrollbar>
-          <Logo sx={{ mx: 2.5, my: 3 }} />
-
+          <Logo />
           <List component="nav" disablePadding>
             {data.map((link) => (
               <NavList key={link.title} item={link} />

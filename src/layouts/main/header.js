@@ -107,7 +107,6 @@ export default function Header({ headerOnDark }) {
           {mdUp && <NavDesktop products={data?.data} data={navConfig} />}
 
           <Stack spacing={2} direction="row" alignItems="center" justifyContent="flex-end">
-            <Stack spacing={4} direction="row" alignItems="center">
               <Badge badgeContent={wishItems.length} color="info">
                 <IconButton
                   component={RouterLink}
@@ -155,10 +154,10 @@ export default function Header({ headerOnDark }) {
               ) : (
                 ''
               )}
-            </Stack>
-          </Stack>
+        
 
           {!mdUp && <NavMobile data={navConfig} />}
+          </Stack>
         </Container>
       </Toolbar>
 

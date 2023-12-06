@@ -116,13 +116,16 @@ export default function EcommerceLandingCategories() {
             >
               <Box
                 sx={{
-                  mb: 2,
-                  p: 1.5,
-                  bgcolor: 'background.neutral',
-                  borderRadius: '50%',
+                  // mb: 2,
+                  // p: 1.5,
+                  // bgcolor: 'background.neutral',
+                  // borderRadius: '50%',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}
               >
-                <Image src={category.icon.url} sx={{ objectFit: 'contain', width: 60, height: 60 }} />
+                <Image src={category.icon.url} sx={{ objectFit: 'cover', width: '20%', height: '20%' }} />
               </Box>
             </Link>
             <TextMaxLine variant="subtitle2" line={1}>

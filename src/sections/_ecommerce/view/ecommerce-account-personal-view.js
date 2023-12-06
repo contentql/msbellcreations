@@ -1,10 +1,12 @@
 'use client';
-
+import 'react-toastify/dist/ReactToastify.css';
+import { toast,ToastContainer } from 'react-toastify';
 import { useQuery } from 'react-query';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller } from 'react-hook-form';
 import Box from '@mui/material/Box';
+
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -108,10 +110,31 @@ export default function EcommerceAccountPersonalView() {
           zipCode: data.zipCode,
           city: data.city,
         }),
+        
       });
+      toast.success('details saved Successfully', {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
       const resData = await response.json();
-      console.log('user', resData);
+      
     } catch (error) {
+      toast.error('error please try again', {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
       console.error(error);
     }
   });
@@ -136,7 +159,7 @@ export default function EcommerceAccountPersonalView() {
 
         <RHFTextField name="phoneNumber" label="Phone Number" />
 
-        <Controller
+        {/* <Controller
           name="birthday"
           render={({ field, fieldState: { error } }) => (
             <DatePicker
@@ -151,8 +174,8 @@ export default function EcommerceAccountPersonalView() {
               value={field.value}
             />
           )}
-        />
-
+        /> */}
+       
         <RHFSelect native name="gender" label="Gender">
           {GENDER_OPTIONS.map((option) => (
             <option key={option} value={option}>
@@ -161,7 +184,14 @@ export default function EcommerceAccountPersonalView() {
           ))}
         </RHFSelect>
       </Box>
-
+      <ToastContainer
+  position="bottom-right"
+  autoClose={3000}
+  hideProgressBar={false}
+  closeOnClick
+  pauseOnHover
+  draggable
+/>
       <Stack spacing={3} sx={{ my: 5 }}>
         <Typography variant="h5"> Billing Address </Typography>
 

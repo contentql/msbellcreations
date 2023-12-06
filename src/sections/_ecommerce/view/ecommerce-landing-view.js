@@ -44,19 +44,19 @@ export default function EcommerceLandingView() {
 
       <EcommerceLandingCategories />
 
-      {configuration?.data.Hero?<EcommerceLandingHotDealToday Hotdeals={Hotdeals} />:null}
+      {configuration?.data.hot_deals?<EcommerceLandingHotDealToday Hotdeals={Hotdeals} />:null}
 
-      {configuration?.data.Hero?<EcommerceLandingFeaturedProducts Featuredproducts={Featuredproducts} />:null}
+      {configuration?.data.featured_products?<EcommerceLandingFeaturedProducts Featuredproducts={Featuredproducts} />:null}
 
       {/* <EcommerceLandingSpecialOffer  specialOffer={specialOffer}/> */}
 
       {/* <EcommerceLandingFeaturedBrands /> */}
 
-      {configuration?.data.Hero? <EcommerceLandingPopularProducts PopularProducts={PopularProducts} />:null}
+      {configuration?.data.popular_products? <EcommerceLandingPopularProducts PopularProducts={PopularProducts} />:null}
 
       {/* <EcommerceLandingTopProducts /> */}
 
-      {configuration?.data.Hero?<EcommerceTestimonial testimonials={_testimonials} />:null}
+      <EcommerceTestimonial testimonials={_testimonials} />
     </>
   );
 }

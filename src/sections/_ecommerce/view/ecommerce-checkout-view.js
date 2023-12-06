@@ -206,10 +206,15 @@ export default function EcommerceCheckoutView() {
               </div>
 
               <div>
+              <StepLabel title="Building Details" step="2" />
+                <EcommerceCheckoutShippingDetails />
+              </div>
+
+                <div>
                 <Box sx={{ display: 'flex', direction: 'row', justifyContent: 'space-between' }}>
-                  <StepLabel title="Building Details" step="2" />
+                <StepLabel title="Shipping Details" step="3" />
                   <Box>
-                    <span>same as Building address</span>
+                    <span>same as Billing address</span>
                     <Switch
                       inputProps={{ 'aria-label': 'Basic Switch' }}
                       checked={switchChecked}
@@ -217,15 +222,8 @@ export default function EcommerceCheckoutView() {
                     />
                   </Box>
                 </Box>
-                <EcommerceCheckoutShippingDetails />
-              </div>
-
-              {!switchChecked && (
-                <div>
-                  <StepLabel title="Shipping Details" step="3" />
                   <EcommerceCheckoutBuildingDetails />
                 </div>
-              )}
 
               {/* <div>
                 <StepLabel title="Payment Method" step="4" />
