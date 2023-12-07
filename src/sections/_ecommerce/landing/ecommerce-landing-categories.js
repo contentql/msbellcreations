@@ -62,7 +62,8 @@ const CATEGORIES = [
 
 export default function EcommerceLandingCategories() {
   const { data } = useQuery(['categories'], () =>
-    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/categories?populate=*`, {
+
+    fetch( `${process.env.NEXT_PUBLIC_STRAPI_URL}api/categories?populate=*`, {
       method: 'GET',
     }).then((res) => res.json())
   );
@@ -125,6 +126,7 @@ export default function EcommerceLandingCategories() {
                   alignItems: 'center',
                 }}
               >
+
                 <Box
                   // sx={{
                   //   display: 'flex',
@@ -134,6 +136,7 @@ export default function EcommerceLandingCategories() {
                 >
                   <Image src={category.icon.url} sx={{ objectFit: 'contain', height: '50px' }} />
                 </Box>
+
               </Box>
             </Link>
             <TextMaxLine variant="subtitle2" line={1}>

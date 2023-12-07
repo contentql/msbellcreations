@@ -74,6 +74,7 @@ export default function EcommerceAccountPersonalView() {
     phoneNumber: UserData?.phoneNumber,
     // birthday: UserData?.birthday,
     gender: UserData?.gender?UserData.gender:"male",
+
     streetAddress: UserData.streetAddress,
     zipCode: UserData?.zipCode,
     city: UserData.city,
