@@ -110,7 +110,6 @@ export default function EcommerceCheckoutView() {
     Shippingcity: Yup.string().required('City is required'),
     ShippingzipCode: Yup.string().required('Zip code is required'),
   });
-  console.log("user",UserData)
    console.log("checkout items",checkItems)
   const defaultValues = {
     firstName: UserData.userName.split(' ')[0],

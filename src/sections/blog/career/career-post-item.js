@@ -28,7 +28,7 @@ export default function CareerPostItem({ post, index }) {
       }}
     >
       {!noImage && (
-        <Image src={post.coverUrl} alt={post.title} ratio={smallImage ? '4/3' : '1/1'} />
+        <Image src={post.coverUrl.url} alt={post.title}  />
       )}
 
       <Stack
@@ -49,9 +49,9 @@ export default function CareerPostItem({ post, index }) {
           }}
         />
 
-        <Link
+        <Link className='line-clamp-1'
           component={RouterLink}
-          href={paths.career.post}
+          href={`${paths.eCommerce.posts}/${post.id}`}
           color="inherit"
           variant="h5"
           sx={{
@@ -63,7 +63,7 @@ export default function CareerPostItem({ post, index }) {
           {post.title}
         </Link>
 
-        <Typography
+        <Typography className='line-clamp-3'
           variant="body2"
           sx={{
             color: 'text.secondary',
@@ -75,7 +75,7 @@ export default function CareerPostItem({ post, index }) {
           {post.description}
         </Typography>
 
-        <Stack
+        {/* <Stack
           direction="row"
           alignItems="center"
           sx={{
@@ -88,7 +88,7 @@ export default function CareerPostItem({ post, index }) {
         >
           <Avatar src={post.author?.avatarUrl} sx={{ mr: 1 }} />
           {post.author?.name}
-        </Stack>
+        </Stack> */}
       </Stack>
     </Stack>
   );
@@ -97,6 +97,7 @@ export default function CareerPostItem({ post, index }) {
 CareerPostItem.propTypes = {
   index: PropTypes.number,
   post: PropTypes.shape({
+    id:PropTypes.string,
     title: PropTypes.string,
     coverUrl: PropTypes.string,
     duration: PropTypes.string,

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Pagination, { paginationClasses } from '@mui/material/Pagination';
 
+import CareerPostItem from '../career/career-post-item';
+
 import MarketingPostItem from './marketing-post-item';
 
 // ----------------------------------------------------------------------
@@ -23,7 +25,7 @@ export default function MarketingPosts({ posts }) {
         }}
       >
         {posts?.map((post) => (
-          <MarketingPostItem key={post.id} post={post} />
+          <CareerPostItem key={post.id} post={post} />
         ))}
       </Box>
 
