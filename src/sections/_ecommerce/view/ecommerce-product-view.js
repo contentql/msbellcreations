@@ -4,10 +4,11 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
 
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
+import Container from '@mui/material/Container';
 
 import { _products } from 'src/_mock';
+import { paths } from 'src/routes/paths';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { SplashScreen } from 'src/components/loading-screen';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
@@ -28,9 +29,8 @@ export default function EcommerceProductView({ productId }) {
     }).then((res) => res.json())
   );
 
-  console.log("ck",data?.data)
   const _mockProduct = data?.data.filter((product) => product.id.toString() === productId.toString()).at(0);
-  console.log("mock product",_mockProduct)
+
   useEffect(() => {
     const fakeLoading = async () => {
       await new Promise((resolve) => setTimeout(resolve, 500));
@@ -45,12 +45,22 @@ export default function EcommerceProductView({ productId }) {
 
   return (
     <>
+    <Container>
+        <CustomBreadcrumbs
+          sx={{ my: 3 }}
+          links={[
+            { name: 'Home', href: '/' },
+            { name: 'Products', href: paths.eCommerce.products},
+            { name: _mockProduct?.name},
+          ]}
+        />
+      </Container>
       <Container sx={{ overflow: 'hidden',mt:4 }}>
         
 
         <Grid container spacing={{ xs: 5, md: 8}}>
           <Grid xs={12} md={6} lg={7}>
-          <EcommerceProductDetailsCarousel images={_mockProduct.images} /> 
+          <EcommerceProductDetailsCarousel images={_mockProduct?.images} /> 
           </Grid>
 
           <Grid xs={12} md={6} lg={5}>

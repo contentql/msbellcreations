@@ -37,7 +37,7 @@ export default function MarketingLatestPostItem({ post }) {
           ratio="3/4"
           overlay={`linear-gradient(to top, ${alpha(theme.palette.common.black, 0)} 0%, ${
             theme.palette.common.black
-          } 75%)`}
+          } 180%)`}
         />
       </m.div>
 

@@ -1,6 +1,8 @@
 import * as Yup from 'yup';
-import { useForm, Controller } from 'react-hook-form';
+import 'react-toastify/dist/ReactToastify.css';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm, Controller } from 'react-hook-form';
+import { toast, ToastContainer } from 'react-toastify';
 
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -46,10 +48,45 @@ export default function ContactForm() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
-      console.log('DATA', data);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_STRAPI_URL}api/contacts`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+            phoneNumber: data.phoneNumber,
+            subject: data.subject,
+            message: data.message,
+          }),
+        }
+      );
+      toast.success('details saved Successfully', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+      const resData = await response.json();
     } catch (error) {
+      toast.error('error please try again', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
       console.error(error);
     }
   });
