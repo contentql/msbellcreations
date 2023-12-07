@@ -17,9 +17,9 @@ export default function MapPopup({ office, onClose, lat, lng }) {
     (event) => {
       event.stopPropagation();
       onClose();
-      console.log('lat-lng', lat, lng);
+      
     },
-    [lat, lng, onClose]
+    [onClose]
   );
 
   return (

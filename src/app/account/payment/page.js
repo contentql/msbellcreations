@@ -8,5 +8,5 @@ export const metadata = {
 };
 
 export default function EcommerceAccountPaymentPage() {
-  return <MainLayout><EcommerceAccountPaymentView /></MainLayout>;
+  return <EcommerceAccountPaymentView />;
 }

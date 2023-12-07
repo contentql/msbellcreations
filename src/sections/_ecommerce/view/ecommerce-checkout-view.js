@@ -1,11 +1,11 @@
 'use client';
-
+ 
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import React, { useState, useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
-
+ 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -15,7 +15,7 @@ import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-
+ 
 import { _products } from 'src/_mock';
 import { useCart } from 'src/app/store';
 import { paths } from 'src/routes/paths';
@@ -25,7 +25,7 @@ import { useUserStore } from 'src/app/auth-store';
 import { useBoolean } from 'src/hooks/use-boolean';
 import FormProvider from 'src/components/hook-form';
 import { useCheckout } from 'src/app/checkoutstore';
-
+ 
 import EcommerceCheckoutNewCardForm from '../checkout/ecommerce-checkout-new-card-form';
 import EcommerceCheckoutOrderSummary from '../checkout/ecommerce-checkout-order-summary';
 import EcommerceCheckoutPaymentMethod from '../checkout/ecommerce-checkout-payment-method';
@@ -33,9 +33,9 @@ import EcommerceCheckoutShippingMethod from '../checkout/ecommerce-checkout-ship
 import EcommerceCheckoutShippingDetails from '../checkout/ecommerce-checkout-shipping-details';
 import EcommerceCheckoutPersonalDetails from '../checkout/ecommerce-checkout-personal-details';
 import EcommerceCheckoutBuildingDetails from '../checkout/ecommerce-checkout-building-details';
-
+ 
 // ----------------------------------------------------------------------
-
+ 
 const SHIPPING_OPTIONS = [
   {
     label: 'Free',
@@ -56,7 +56,7 @@ const SHIPPING_OPTIONS = [
     price: 20,
   },
 ];
-
+ 
 const PAYMENT_OPTIONS = [
   {
     label: 'Paypal',
@@ -74,9 +74,9 @@ const PAYMENT_OPTIONS = [
     description: '**** **** **** 6789',
   },
 ];
-
+ 
 // ----------------------------------------------------------------------
-
+ 
 export default function EcommerceCheckoutView() {
   const {UserData}=useUserStore()
   const { checkItems, deleteAll } = useCheckout();
@@ -90,14 +90,14 @@ export default function EcommerceCheckoutView() {
     );
     setSubtotal(newSubtotal);
     const newTotal = newSubtotal;
-
+ 
     setTotal(newTotal);
   }, [checkItems]);
-
+ 
   const router = useRouter();
-
+ 
   const formOpen = useBoolean();
-
+ 
   const EcommerceCheckoutSchema = Yup.object().shape({
     firstName: Yup.string().required('First name is required'),
     lastName: Yup.string().required('Last name is required'),
@@ -118,10 +118,10 @@ export default function EcommerceCheckoutView() {
     phoneNumber: '',
     // password: '',
     // confirmPassword: '',
-    streetAddress: '',
-    city: '',
-    country: 'United States',
-    zipCode: '',
+    streetAddress: UserData?.streetAddress ? UserData?.streetAddress:"",
+    city: UserData?.city ? UserData?.city:"",
+    country: UserData?.country ? UserData?.country:"",
+    zipCode: UserData?.zipCode ? UserData?.zipCode:"",
     ShippingstreetAddress: '',
     Shippingcity: '',
     Shippingcountry: 'United States',
@@ -135,22 +135,23 @@ export default function EcommerceCheckoutView() {
     //   ccv: '',
     // },
   };
-
+ 
   const methods = useForm({
     resolver: yupResolver(EcommerceCheckoutSchema),
     defaultValues,
   });
-
+ 
   const {
     reset,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
-
+ 
   const handleSwitchChange = () => {
     setSwitchChecked(!switchChecked);
   };
   const onSubmit = handleSubmit(async (data) => {
+    console.log("Data",data)
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/orders`, {
         method: 'POST',
@@ -184,7 +185,7 @@ export default function EcommerceCheckoutView() {
       console.error(error);
     }
   });
-
+ 
   return (
     <Container
       sx={{
@@ -196,7 +197,7 @@ export default function EcommerceCheckoutView() {
       <Typography variant="h3" sx={{ mb: 5 }}>
         Checkout
       </Typography>
-
+ 
       <FormProvider methods={methods} onSubmit={onSubmit}>
         <Grid container spacing={{ xs: 5, md: 8 }}>
           <Grid xs={12} md={8}>
@@ -205,12 +206,13 @@ export default function EcommerceCheckoutView() {
                 <StepLabel title="Personal Details" step="1" />
                 <EcommerceCheckoutPersonalDetails />
               </div>
-
+ 
               <div>
               <StepLabel title="Building Details" step="2" />
-                <EcommerceCheckoutShippingDetails />
+              <EcommerceCheckoutShippingDetails />
+             
               </div>
-
+ 
                 <div>
                 <Box sx={{ display: 'flex', direction: 'row', justifyContent: 'space-between' }}>
                 <StepLabel title="Shipping Details" step="3" />
@@ -223,16 +225,18 @@ export default function EcommerceCheckoutView() {
                     />
                   </Box>
                 </Box>
-                  <EcommerceCheckoutBuildingDetails />
+              
+                <EcommerceCheckoutBuildingDetails switchChecked={switchChecked}/>   
+                
                 </div>
-
+ 
               {/* <div>
                 <StepLabel title="Payment Method" step="4" />
-
+ 
                 <EcommerceCheckoutPaymentMethod options={PAYMENT_OPTIONS} />
 
                 <Divider sx={{ my: 3 }} />
-
+ 
                 <Stack alignItems="flex-end">
                   <Button
                     color={formOpen.value ? 'error' : 'inherit'}
@@ -244,14 +248,14 @@ export default function EcommerceCheckoutView() {
                     {formOpen.value ? 'Cancel' : 'Add New Card'}
                   </Button>
                 </Stack>
-
+ 
                 <Collapse in={formOpen.value} unmountOnExit>
                   <EcommerceCheckoutNewCardForm />
                 </Collapse>
               </div> */}
             </Stack>
           </Grid>
-
+ 
           <Grid xs={12} md={4}>
             <EcommerceCheckoutOrderSummary
               tax={checkItems.length !== 0 ? 7 : 0}
@@ -268,7 +272,7 @@ export default function EcommerceCheckoutView() {
     </Container>
   );
 }
-
+ 
 function StepLabel({ step, title }) {
   return (
     <Stack direction="row" alignItems="center" sx={{ mb: 3, typography: 'h6' }}>
@@ -293,7 +297,7 @@ function StepLabel({ step, title }) {
     </Stack>
   );
 }
-
+ 
 StepLabel.propTypes = {
   step: PropTypes.string,
   title: PropTypes.string,

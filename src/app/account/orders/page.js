@@ -8,5 +8,5 @@ export const metadata = {
 };
 
 export default function EcommerceAccountOrdersPage() {
-  return <ProtectedRoute><MainLayout><EcommerceAccountOrdersView /></MainLayout></ProtectedRoute>;
+  return <ProtectedRoute><EcommerceAccountOrdersView /></ProtectedRoute>;
 }

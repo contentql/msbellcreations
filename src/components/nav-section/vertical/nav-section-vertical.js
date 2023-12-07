@@ -13,7 +13,7 @@ import { StyledSubheader } from './styles';
 // ----------------------------------------------------------------------
 
 function NavSectionVertical({ data, config, sx, ...other }) {
-  console.log('mobile', data);
+ 
   return (
     <Stack sx={sx} {...other}>
       {data.map((group, index) => (
