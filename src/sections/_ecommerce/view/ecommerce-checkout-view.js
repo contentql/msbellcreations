@@ -227,7 +227,7 @@ export default function EcommerceCheckoutView() {
                   </Box>
                 </Box>
               
-                <EcommerceCheckoutBuildingDetails switchChecked={switchChecked}/>    { /* Shipping Details*/}
+                <EcommerceCheckoutBuildingDetails switchChecked={switchChecked}/>   
                 
                 </div>
  

@@ -2,8 +2,8 @@
 
 import PropTypes from 'prop-types';
 
-import AccountLayout from 'src/layouts/account';
 import MainLayout from 'src/layouts/main';
+import AccountLayout from 'src/layouts/account';
 
 // ----------------------------------------------------------------------
 

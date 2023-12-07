@@ -19,7 +19,7 @@ export default function MapPopup({ office, onClose, lat, lng }) {
       onClose();
       
     },
-    [lat, lng, onClose]
+    [onClose]
   );
 
   return (

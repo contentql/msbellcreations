@@ -1,3 +1,5 @@
+import { PropTypes } from 'prop-types';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -11,7 +13,7 @@ import { RHFTextField } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceCheckoutPersonalDetails({data,setData}) {
+export default function EcommerceCheckoutPersonalDetails() {
   const passwordShow = useBoolean();
 
   return (
@@ -83,3 +85,4 @@ export default function EcommerceCheckoutPersonalDetails({data,setData}) {
     </>
   );
 }
+
