@@ -66,7 +66,7 @@ export default function EcommerceAccountPersonalView() {
   //   };
   //   updateUserData(userData)};
 
-  console.log('user data in Userdata', UserData);
+
 
   const defaultValues = {
     firstName: UserData?.userName,
@@ -184,14 +184,7 @@ export default function EcommerceAccountPersonalView() {
           ))}
         </RHFSelect>
       </Box>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        closeOnClick
-        pauseOnHover
-        draggable
-      />
+     
       <Stack spacing={3} sx={{ my: 5 }}>
         <Typography variant="h5"> Billing Address </Typography>
 
@@ -241,6 +234,14 @@ export default function EcommerceAccountPersonalView() {
       >
         Save Details
       </LoadingButton>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
     </FormProvider>
   );
 }
