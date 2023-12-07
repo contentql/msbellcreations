@@ -1,11 +1,11 @@
 import Box from '@mui/material/Box';
-
+ 
 import { countries } from 'src/assets/data';
 import Iconify from 'src/components/iconify';
 import { RHFTextField, RHFAutocomplete } from 'src/components/hook-form';
-
+ 
 // ----------------------------------------------------------------------
-
+ 
 export default function EcommerceCheckoutBuildingDetails() {
   return (
     <Box
@@ -15,11 +15,11 @@ export default function EcommerceCheckoutBuildingDetails() {
       gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
     >
       <RHFTextField name="ShippingstreetAddress" label="Street address" />
-
+ 
       <RHFTextField name="ShippingzipCode" label="ZIP Code" />
-
+ 
       <RHFTextField name="Shippingcity" label="City" />
-
+ 
       <RHFAutocomplete
         name="Shippingcountry"
         label="Country"
@@ -27,11 +27,11 @@ export default function EcommerceCheckoutBuildingDetails() {
         getOptionLabel={(option) => option}
         renderOption={(props, option) => {
           const { code, label, phone } = countries.filter((country) => country.label === option)[0];
-
+ 
           if (!label) {
             return null;
           }
-
+ 
           return (
             <li {...props} key={label}>
               <Iconify

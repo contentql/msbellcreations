@@ -11,7 +11,7 @@ import { RHFTextField } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceCheckoutPersonalDetails() {
+export default function EcommerceCheckoutPersonalDetails({data,setData}) {
   const passwordShow = useBoolean();
 
   return (
