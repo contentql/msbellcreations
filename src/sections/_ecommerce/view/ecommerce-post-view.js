@@ -65,15 +65,15 @@ export default function EcommercePostView({blogId}) {
 
   return (
     <>
-      <Image alt="hero" src={blog.coverUrl.url} ratio="21/9" />
+      <Image alt="hero" src={blog?.coverUrl.url} ratio="21/9" />
 
       <Container>
         <CustomBreadcrumbs
           sx={{ my: 3 }}
           links={[
             { name: 'Home', href: '/' },
-            { name: 'Blog', href: paths.marketing.posts },
-            { name: title },
+            { name: 'Blog', href: paths.eCommerce.posts},
+            { name: blog.title },
           ]}
         />
       </Container>
@@ -133,11 +133,11 @@ export default function EcommercePostView({blogId}) {
 
             {tags.length && <PostTags tags={tags} />}
 
-            <PostSocialsShare />
+            {/* <PostSocialsShare /> */}
 
             <Divider sx={{ mt: 8 }} />
 
-            <PostAuthor author={author} />
+            {/* <PostAuthor author={author} /> */}
           </Grid>
         </Grid>
       </Container>
@@ -163,7 +163,7 @@ export default function EcommercePostView({blogId}) {
             Share via {social.label}
           </MenuItem>
         ))}
-      </Popover>
+      </Popover>  
     </>
   );
 }

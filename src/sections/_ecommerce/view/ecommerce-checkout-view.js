@@ -110,7 +110,7 @@ export default function EcommerceCheckoutView() {
     Shippingcity: Yup.string().required('City is required'),
     ShippingzipCode: Yup.string().required('Zip code is required'),
   });
-
+   console.log("checkout items",checkItems)
   const defaultValues = {
     firstName: UserData.userName.split(' ')[0],
     lastName: UserData.userName.split(' ')[1],
@@ -152,7 +152,7 @@ export default function EcommerceCheckoutView() {
   };
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_ORDERS_API, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -170,7 +170,8 @@ export default function EcommerceCheckoutView() {
          Shippingcountry:data.Shippingcountry,
         ShippingzipCode:data.ShippingzipCode,
         ShippingstreetAddress:data.ShippingstreetAddress,
-        zipCode:data.zipCode
+        zipCode:data.zipCode,
+        product:checkItems
         }),
       });
       const resData = await response.json();

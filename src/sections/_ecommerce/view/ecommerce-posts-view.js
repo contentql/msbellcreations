@@ -2,8 +2,9 @@
 
 import { useQuery } from 'react-query';
 
-import Grid from '@mui/material/Unstable_Grid2';
+import { Box } from '@mui/material/Box';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Unstable_Grid2';
 
 import { _tags, _mock, _categories, _marketingPosts } from 'src/_mock';
 
@@ -22,10 +23,10 @@ export default function EcommercePostsView() {
     }).then((res) => res.json())
   );
 
-  console.log("blog data",blogs)
+
  
   return (
-    <>
+<Container sx={{mb:{xs:"50px",md:"150px"}}}>
       <PostSearchMobile />
       <BlogMarketingFeaturedPosts posts={blogs?.data} />
       <Container
@@ -52,6 +53,6 @@ export default function EcommercePostsView() {
             />
           </Grid> */}
       </Container>
-    </>
+      </Container>
   );
 }

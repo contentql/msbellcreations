@@ -46,7 +46,7 @@ export default function EcommerceCheckoutPersonalDetails() {
 
         <RHFTextField name="lastName" label="Last Name" />
 
-        <RHFTextField name="emailAddress" label="Email Address" />
+        <RHFTextField name="emailAddress" label="Email Address" InputProps={{ readOnly: true }} />
 
         <RHFTextField name="phoneNumber" label="Phone Number" />
 

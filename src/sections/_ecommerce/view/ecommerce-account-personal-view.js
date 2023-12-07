@@ -36,7 +36,6 @@ export default function EcommerceAccountPersonalView() {
     lastName: Yup.string().required('Last name is required'),
     emailAddress: Yup.string().required('Email address is required'),
     phoneNumber: Yup.string().required('Phone number is required'),
-    birthday: Yup.mixed().nullable().required('Birthday is required'),
     gender: Yup.string().required('Gender is required'),
     streetAddress: Yup.string().required('Street address is required'),
     city: Yup.string().required('City is required'),
@@ -74,7 +73,7 @@ export default function EcommerceAccountPersonalView() {
     emailAddress: UserData?.email,
     phoneNumber: UserData?.phoneNumber,
     // birthday: UserData?.birthday,
-    gender: UserData?.gender,
+    gender: UserData?.gender?UserData.gender:"male",
     streetAddress: UserData.streetAddress,
     zipCode: UserData?.zipCode,
     city: UserData.city,
@@ -93,6 +92,7 @@ export default function EcommerceAccountPersonalView() {
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
+    console.log("api data",data)
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_STRAPI_URL}api/users/${UserData.id}`,
@@ -107,7 +107,6 @@ export default function EcommerceAccountPersonalView() {
             gender: data.gender,
             country: data.country,
             streetAddress: data.streetAddress,
-            birthday: data.birthday,
             zipCode: data.zipCode,
             city: data.city,
           }),
@@ -155,7 +154,7 @@ export default function EcommerceAccountPersonalView() {
 
         <RHFTextField name="lastName" label="Last Name" />
 
-        <RHFTextField name="emailAddress" label="Email Address" />
+        <RHFTextField name="emailAddress" label="Email Address" InputProps={{ readOnly: true }}/>
 
         <RHFTextField name="phoneNumber" label="Phone Number" />
 

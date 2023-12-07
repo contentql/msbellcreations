@@ -35,7 +35,7 @@ export default function MarketingPostItem({ post }) {
           ratio="3/4"
           overlay={`linear-gradient(to top, ${alpha(theme.palette.common.black, 0)} 0%, ${
             theme.palette.common.black
-          } 75%)`}
+          } 180%)`}
         />
       </m.div>
 
@@ -56,7 +56,7 @@ export default function MarketingPostItem({ post }) {
             sx={{ color: 'inherit', opacity: 0.72 }}
           />
 
-          <Link component={RouterLink} href={`${paths.eCommerce.posts}/${post.id}`} sx={{ color: 'common.white' }}>
+          <Link component={RouterLink} href={`${paths.eCommerce.posts}/${post.id}`} sx={{ color: 'white' }}>
             <TextMaxLine variant="h4">{post.title}</TextMaxLine>
           </Link>
         </Stack>
