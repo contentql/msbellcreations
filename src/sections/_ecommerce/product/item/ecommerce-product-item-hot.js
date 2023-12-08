@@ -87,11 +87,11 @@ export default function EcommerceProductItemHot({ product, hotProduct = false, s
 EcommerceProductItemHot.propTypes = {
   hotProduct: PropTypes.bool,
   product: PropTypes.shape({
-    id: PropTypes.string,
-    coverUrl: PropTypes.string,
+    id: PropTypes.number,
+    coverUrl: PropTypes.object,
     name: PropTypes.string,
     price: PropTypes.number,
-    sold: PropTypes.number,
+    sold: PropTypes.string,
     stock: PropTypes.number,
   }),
   sx: PropTypes.object,

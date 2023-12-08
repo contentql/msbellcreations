@@ -56,10 +56,8 @@ export default function EcommerceProductsView() {
     }).then((res) => res.json())
   );
 
-  console.log('categorys', category);
   const mobileOpen = useBoolean();
   const Bestsellers=data?.data.sort((a,b)=>b.sold-a.sold).slice(0,4)
-  console.log("best",Bestsellers)
   const searchParams = useSearchParams();
 
   const [filters, setFilters] = useState({
@@ -69,8 +67,6 @@ export default function EcommerceProductsView() {
       end: searchParams.get('endPrice') ? searchParams.get('endPrice') : 0,
     },
   });
-
-  console.log('products:', filters.filterCategories);
 
   const [sort, setSort] = useState('latest');
 
@@ -96,7 +92,6 @@ export default function EcommerceProductsView() {
     setSort(event.target.value);
   }, []);
 
-  console.log('Filters', filters);
   return (
     <Container>
       <Stack

@@ -48,7 +48,6 @@ export default function Header({ headerOnDark }) {
     }).then((res) => res.json())
   );
 
-  console.log('products header', data);
 
   const offset = useOffSetTop();
 

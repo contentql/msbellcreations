@@ -61,12 +61,12 @@ export default function EcommerceProductItemBestSellers({ product, ...other }) {
 
 EcommerceProductItemBestSellers.propTypes = {
   product: PropTypes.shape({
-    id: PropTypes.string,
-    coverUrl: PropTypes.string,
+    id: PropTypes.number,
+    coverUrl: PropTypes.object,
     name: PropTypes.string,
     price: PropTypes.number,
     priceSale: PropTypes.number,
-    sold: PropTypes.number,
+    sold: PropTypes.string,
     ratingNumber: PropTypes.number,
   }),
 };

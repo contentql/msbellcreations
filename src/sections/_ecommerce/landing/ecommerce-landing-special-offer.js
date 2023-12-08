@@ -1,6 +1,6 @@
-import { add } from 'date-fns';
+
 import PropTypes from 'prop-types';
-import { useState, useCallback } from 'react';
+
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -16,9 +16,6 @@ import { paths } from 'src/routes/paths';
 import { _products } from 'src/_mock/_products';
 import { RouterLink } from 'src/routes/components';
 
-import ProductColorPicker from '../common/product-color-picker';
-import ProductOptionPicker from '../common/product-option-picker';
-import ProductCountdownBlock from '../common/product-countdown-block';
 
 // ----------------------------------------------------------------------
 
@@ -97,7 +94,7 @@ export default function EcommerceLandingSpecialOffer({specialOffer}) {
 
 function SpecialOfferCountdown({ specialOffer, sx, ...other }) {
   const product = _products.slice(0, 1);
-  console.log('product name', product[0].name);
+  
   return (
     <Stack
       alignItems="center"
@@ -157,7 +154,7 @@ SpecialOfferCountdown.propTypes = {
 
 function SpecialOfferBuyNow({ specialOffer }) {
   const product = _products.slice(0, 1);
-  console.log('product data', product);
+  
   return (
     <Stack spacing={3} alignItems="flex-start" >
       <Stack spacing={1}>

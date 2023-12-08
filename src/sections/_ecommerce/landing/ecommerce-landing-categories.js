@@ -68,7 +68,7 @@ export default function EcommerceLandingCategories() {
     }).then((res) => res.json())
   );
 
-  console.log('categories', data?.data);
+
 
   return (
     <Container
