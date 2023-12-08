@@ -14,7 +14,7 @@ import PostTimeBlock from '../common/post-time-block';
 
 // ----------------------------------------------------------------------
 
-export default function CareerPostItem({ post, index }) {
+export default function    CareerPostItem({ post, index }) {
   const noImage = index === 1 || index === 4;
 
   const smallImage = index === 2 || index === 7;

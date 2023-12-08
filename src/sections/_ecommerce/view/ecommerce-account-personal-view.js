@@ -42,14 +42,20 @@ export default function EcommerceAccountPersonalView() {
     zipCode: Yup.string().required('Zip code is required'),
   });
 
-  // const { data, isLoading } = useQuery(
-  //   ['user'],
-  //   async () =>
-  //     await fetch(`${process.env.NEXT_PUBLIC_USERS_API}/${UserData.id}`, {
-  //       method: 'GET',
-  //     }).then((res) => res.json())
-  // );
+  const { data:user, isLoading } = useQuery(
+    ['user'],
+     () =>
+       fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/users/${UserData.id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+           "Authorization":`Bearer ${UserData.authToken}`
+        },
+      }).then((res) => res.json())
+  );
 
+  console.log("userdata",user)
+ 
   // if (!isLoading && data) {
   //   console.log("diff",data)
   //   const userData = {
@@ -63,17 +69,18 @@ export default function EcommerceAccountPersonalView() {
   //     phoneNumber: data.phoneNumber,
   //     gender: data.gender,
   //   };
-  //   updateUserData(userData)};
 
+ 
 
+  console.log('user data in Userdata', UserData);
 
   const defaultValues = {
-    firstName: UserData?.userName,
-    lastName: 'Simon',
+    firstName: UserData?.userName.split(" ")[0],
+    lastName: UserData?.userName.split(" ")[1],
     emailAddress: UserData?.email,
     phoneNumber: UserData?.phoneNumber,
     // birthday: UserData?.birthday,
-    gender: UserData?.gender?UserData.gender:"male",
+    gender: UserData?.gender ? UserData.gender : 'male',
 
     streetAddress: UserData.streetAddress,
     zipCode: UserData?.zipCode,
@@ -93,7 +100,12 @@ export default function EcommerceAccountPersonalView() {
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log("api data",data)
+    updateUserData({...UserData,phoneNumber: data.phoneNumber,gender: data.gender,
+      country: data.country,
+      streetAddress: data.streetAddress,
+      zipCode: data.zipCode,
+      city: data.city})
+    console.log('api data', data);
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_STRAPI_URL}api/users/${UserData.id}`,
@@ -124,6 +136,7 @@ export default function EcommerceAccountPersonalView() {
         theme: 'light',
       });
       const resData = await response.json();
+      console.log("Rahaman",resData,UserData)
     } catch (error) {
       toast.error('error please try again', {
         position: 'bottom-right',
@@ -155,7 +168,7 @@ export default function EcommerceAccountPersonalView() {
 
         <RHFTextField name="lastName" label="Last Name" />
 
-        <RHFTextField name="emailAddress" label="Email Address" InputProps={{ readOnly: true }}/>
+        <RHFTextField name="emailAddress" label="Email Address" InputProps={{ readOnly: true }} />
 
         <RHFTextField name="phoneNumber" label="Phone Number" />
 
@@ -184,7 +197,14 @@ export default function EcommerceAccountPersonalView() {
           ))}
         </RHFSelect>
       </Box>
-     
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
       <Stack spacing={3} sx={{ my: 5 }}>
         <Typography variant="h5"> Billing Address </Typography>
 
@@ -234,14 +254,6 @@ export default function EcommerceAccountPersonalView() {
       >
         Save Details
       </LoadingButton>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        closeOnClick
-        pauseOnHover
-        draggable
-      />
     </FormProvider>
   );
 }
