@@ -1,11 +1,11 @@
 'use client';
- 
+
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import React, { useState, useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
- 
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -15,27 +15,27 @@ import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
- 
+
 import { _products } from 'src/_mock';
 import { useCart } from 'src/app/store';
 import { paths } from 'src/routes/paths';
-import { useRouter } from 'src/routes/hooks';
 import Iconify from 'src/components/iconify';
+import { useRouter } from 'src/routes/hooks';
 import { useUserStore } from 'src/app/auth-store';
 import { useBoolean } from 'src/hooks/use-boolean';
-import FormProvider from 'src/components/hook-form';
 import { useCheckout } from 'src/app/checkoutstore';
- 
+import FormProvider from 'src/components/hook-form';
+
 import EcommerceCheckoutNewCardForm from '../checkout/ecommerce-checkout-new-card-form';
 import EcommerceCheckoutOrderSummary from '../checkout/ecommerce-checkout-order-summary';
 import EcommerceCheckoutPaymentMethod from '../checkout/ecommerce-checkout-payment-method';
+import EcommerceCheckoutBillingDetails from '../checkout/ecommerce-checkout-billing-details'
 import EcommerceCheckoutShippingMethod from '../checkout/ecommerce-checkout-shipping-method';
 import EcommerceCheckoutShippingDetails from '../checkout/ecommerce-checkout-shipping-details';
 import EcommerceCheckoutPersonalDetails from '../checkout/ecommerce-checkout-personal-details';
-import EcommerceCheckoutBillingDetails from '../checkout/ecommerce-checkout-billing-details';
- 
+
 // ----------------------------------------------------------------------
- 
+
 const SHIPPING_OPTIONS = [
   {
     label: 'Free',
@@ -56,7 +56,7 @@ const SHIPPING_OPTIONS = [
     price: 20,
   },
 ];
- 
+
 const PAYMENT_OPTIONS = [
   {
     label: 'Paypal',
@@ -74,11 +74,11 @@ const PAYMENT_OPTIONS = [
     description: '**** **** **** 6789',
   },
 ];
- 
+
 // ----------------------------------------------------------------------
- 
+
 export default function EcommerceCheckoutView() {
-  const {UserData}=useUserStore()
+  const { UserData } = useUserStore();
   const { checkItems, deleteAll } = useCheckout();
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
@@ -90,14 +90,14 @@ export default function EcommerceCheckoutView() {
     );
     setSubtotal(newSubtotal);
     const newTotal = newSubtotal;
- 
+
     setTotal(newTotal);
   }, [checkItems]);
- 
+
   const router = useRouter();
- 
+
   const formOpen = useBoolean();
- 
+
   const EcommerceCheckoutSchema = Yup.object().shape({
     firstName: Yup.string().required('First name is required'),
     lastName: Yup.string().required('Last name is required'),
@@ -118,10 +118,10 @@ export default function EcommerceCheckoutView() {
     phoneNumber: '',
     // password: '',
     // confirmPassword: '',
-    streetAddress: UserData?.streetAddress ? UserData?.streetAddress:"",
-    city: UserData?.city ? UserData?.city:"",
-    country: UserData?.country ? UserData?.country:"",
-    zipCode: UserData?.zipCode ? UserData?.zipCode:"",
+    streetAddress: UserData?.streetAddress ? UserData?.streetAddress : '',
+    city: UserData?.city ? UserData?.city : '',
+    country: UserData?.country ? UserData?.country : '',
+    zipCode: UserData?.zipCode ? UserData?.zipCode : '',
     ShippingstreetAddress: '',
     Shippingcity: '',
     Shippingcountry: 'United States',
@@ -135,36 +135,31 @@ export default function EcommerceCheckoutView() {
     //   ccv: '',
     // },
   };
- 
+
   const methods = useForm({
     resolver: yupResolver(EcommerceCheckoutSchema),
     defaultValues,
   });
- 
+
   const {
     reset,
     handleSubmit,
     formState: { isSubmitting },
     setValue,
-    getValues
+    getValues,
   } = methods;
- 
-
 
   const handleSwitchChange = () => {
-
-    if(!switchChecked)
-    {
-    setValue("ShippingstreetAddress",getValues("streetAddress"))
-    setValue("ShippingzipCode",getValues("zipCode"))
-    setValue("Shippingcity",getValues("city"))
-    setValue("Shippingcountry",getValues("country"))
-    }
-    else{
-      setValue("ShippingstreetAddress",getValues(""))
-      setValue("ShippingzipCode",getValues(""))
-      setValue("Shippingcity",getValues(""))
-      setValue("Shippingcountry","United States")
+    if (!switchChecked) {
+      setValue('ShippingstreetAddress', getValues('streetAddress'));
+      setValue('ShippingzipCode', getValues('zipCode'));
+      setValue('Shippingcity', getValues('city'));
+      setValue('Shippingcountry', getValues('country'));
+    } else {
+      setValue('ShippingstreetAddress', getValues(''));
+      setValue('ShippingzipCode', getValues(''));
+      setValue('Shippingcity', getValues(''));
+      setValue('Shippingcountry', 'United States');
     }
     setSwitchChecked(!switchChecked);
   };
@@ -174,35 +169,35 @@ export default function EcommerceCheckoutView() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-           "Authorization":`Bearer ${UserData.authToken}`
+          Authorization: `Bearer ${UserData.authToken}`,
         },
         body: JSON.stringify({
-         firstName:data.firstName,
-         lastName:data.lastName,
-         emailAddress:data.emailAddress,
-         phoneNumber:data.phoneNumber,
-         streetAddress:data.streetAddress,
-         country:data.country,
-         city:data.city,
-         Shippingcity:data.Shippingcity,
-         Shippingcountry:data.Shippingcountry,
-        ShippingzipCode:data.ShippingzipCode,
-        ShippingstreetAddress:data.ShippingstreetAddress,
-        zipCode:data.zipCode,
-        product:checkItems
+          firstName: data.firstName,
+          lastName: data.lastName,
+          emailAddress: data.emailAddress,
+          phoneNumber: data.phoneNumber,
+          streetAddress: data.streetAddress,
+          country: data.country,
+          city: data.city,
+          Shippingcity: data.Shippingcity,
+          Shippingcountry: data.Shippingcountry,
+          ShippingzipCode: data.ShippingzipCode,
+          ShippingstreetAddress: data.ShippingstreetAddress,
+          zipCode: data.zipCode,
+          product: checkItems,
         }),
       });
       const resData = await response.json();
       // await new Promise((resolve) => setTimeout(resolve, 500));
       // reset();
       router.push(paths.eCommerce.orderCompleted);
-       console.log('DATA', data);
+      console.log('DATA', data);
       // deleteAll();
     } catch (error) {
       console.error(error);
     }
   });
- 
+
   return (
     <Container
       sx={{
@@ -214,7 +209,7 @@ export default function EcommerceCheckoutView() {
       <Typography variant="h3" sx={{ mb: 5 }}>
         Checkout
       </Typography>
- 
+
       <FormProvider methods={methods} onSubmit={onSubmit}>
         <Grid container spacing={{ xs: 5, md: 8 }}>
           <Grid xs={12} md={8}>
@@ -223,31 +218,28 @@ export default function EcommerceCheckoutView() {
                 <StepLabel title="Personal Details" step="1" />
                 <EcommerceCheckoutPersonalDetails />
               </div>
- 
+
               <div>
-              <StepLabel title="Building Details" step="2" />
-              <EcommerceCheckoutShippingDetails />
-             
+                <StepLabel title="Building Details" step="2" />
+                <EcommerceCheckoutShippingDetails />
               </div>
- 
-                <div>
+
+              <div>
                 <Box sx={{ display: 'flex', direction: 'row', justifyContent: 'space-between' }}>
-                <StepLabel title="Shipping Details" step="3" />
+                  <StepLabel title="Shipping Details" step="3" />
                   <Box>
                     <span>same as Billing address</span>
                     <Switch
                       inputProps={{ 'aria-label': 'Basic Switch' }}
                       checked={switchChecked}
                       onChange={handleSwitchChange}
-
                     />
                   </Box>
                 </Box>
-              
-                <EcommerceCheckoutBillingDetails switchChecked={switchChecked}/>   
-                
-                </div>
- 
+
+                <EcommerceCheckoutBillingDetails switchChecked={switchChecked} />
+              </div>
+
               {/* <div>
                 <StepLabel title="Payment Method" step="4" />
  
@@ -273,7 +265,7 @@ export default function EcommerceCheckoutView() {
               </div> */}
             </Stack>
           </Grid>
- 
+
           <Grid xs={12} md={4}>
             <EcommerceCheckoutOrderSummary
               tax={checkItems.length !== 0 ? 7 : 0}
@@ -290,7 +282,7 @@ export default function EcommerceCheckoutView() {
     </Container>
   );
 }
- 
+
 function StepLabel({ step, title }) {
   return (
     <Stack direction="row" alignItems="center" sx={{ mb: 3, typography: 'h6' }}>
@@ -315,7 +307,7 @@ function StepLabel({ step, title }) {
     </Stack>
   );
 }
- 
+
 StepLabel.propTypes = {
   step: PropTypes.string,
   title: PropTypes.string,

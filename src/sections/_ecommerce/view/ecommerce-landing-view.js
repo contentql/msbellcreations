@@ -2,6 +2,8 @@
 
 import { useQuery } from 'react-query';
 
+import Box from '@mui/material/Box';
+
 import { _testimonials } from 'src/_mock';
 import { _hotdeals } from 'src/_mock/_hotdeals';
 
@@ -25,7 +27,7 @@ export default function EcommerceLandingView() {
   );
 
   const { data: configuration } = useQuery(['configuration'], () =>
-    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/configuration?populate=*`,{
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/configuration?populate=*`, {
       method: 'GET',
     }).then((res) => res.json())
   );
@@ -38,24 +40,32 @@ export default function EcommerceLandingView() {
   const specialOffer = data?.data.filter((item) => item.special_offer).at(0);
 
   return (
-    <>
-      {configuration?.data.Hero?<EcommerceLandingHero Hero={Herodata} />:null}  
+    <Box sx={{mt:"30px"}}>
+      {configuration?.data.Hero ? <EcommerceLandingHero Hero={Herodata} /> : null}
 
       <EcommerceLandingCategories />
 
-      {configuration?.data.hot_deals?<EcommerceLandingHotDealToday Hotdeals={Hotdeals} />:null}
+      {configuration?.data.hot_deals ? <EcommerceLandingHotDealToday Hotdeals={Hotdeals} /> : null}
 
-      {configuration?.data.featured_products?<EcommerceLandingFeaturedProducts Featuredproducts={Featuredproducts} />:null}
+      {configuration?.data.featured_products ? (
+        <EcommerceLandingFeaturedProducts Featuredproducts={Featuredproducts} />
+      ) : null}
 
-      <EcommerceLandingSpecialOffer  specialOffer={specialOffer}/>
+
+      {configuration?.data.special_offer?<EcommerceLandingSpecialOffer  specialOffer={specialOffer}/>:null}
+
 
       {/* <EcommerceLandingFeaturedBrands /> */}
 
-      {configuration?.data.popular_products? <EcommerceLandingPopularProducts PopularProducts={PopularProducts} />:null}
+      {configuration?.data.popular_products ? (
+        <EcommerceLandingPopularProducts PopularProducts={PopularProducts} />
+      ) : null}
 
       {/* <EcommerceLandingTopProducts /> */}
 
-      <EcommerceTestimonial testimonials={_testimonials} />
-    </>
+
+      {configuration?.data.testimonials?<EcommerceTestimonial testimonials={_testimonials} />:null}
+    </Box>
+
   );
 }

@@ -48,24 +48,21 @@ export default function ContactForm() {
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_STRAPI_URL}api/contacts`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            firstName: data.firstName,
-            lastName: data.lastName,
-            email: data.email,
-            phoneNumber: data.phoneNumber,
-            subject: data.subject,
-            message: data.message,
-          }),
-        }
-      );
-      toast.success('details saved Successfully', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/contacts`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          phoneNumber: data.phoneNumber,
+          subject: data.subject,
+          message: data.message,
+        }),
+      });
+      toast.success('Thank you for contacting us', {
         position: 'bottom-right',
         autoClose: 3000,
         hideProgressBar: true,
@@ -77,7 +74,7 @@ export default function ContactForm() {
       });
       const resData = await response.json();
     } catch (error) {
-      toast.error('error please try again', {
+      toast.error('error, please try again', {
         position: 'bottom-right',
         autoClose: 3000,
         hideProgressBar: true,
@@ -166,6 +163,14 @@ export default function ContactForm() {
       >
         Send Request
       </LoadingButton>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
     </FormProvider>
   );
 }
