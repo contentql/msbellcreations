@@ -18,6 +18,7 @@ import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 import { useCheckout } from 'src/app/checkoutstore';
 import { useResponsive } from 'src/hooks/use-responsive';
+import { SplashScreen } from 'src/components/loading-screen';
 
 import ProductPrice from '../../common/product-price';
 
@@ -48,7 +49,7 @@ export default function EcommerceProductDetailsInfo({
   priceSale,
   caption,
 }) {
-  const { data } = useQuery(['products'], () =>
+  const { data,isLoading } = useQuery(['products'], () =>
     fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products/${productId}`, {
       method: 'GET',
     }).then((res) => res.json())
@@ -95,7 +96,9 @@ export default function EcommerceProductDetailsInfo({
       updateQuantity(_mockProduct.id, option);
     }
   };
-
+if(isLoading){
+  return <SplashScreen/>
+}
   return (
     <>
       <Label color="success" sx={{ mb: 3 }}>
