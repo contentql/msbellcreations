@@ -13,6 +13,8 @@ import { RouterLink } from 'src/routes/components';
 import { useResponsive } from 'src/hooks/use-responsive';
 import Carousel, { useCarousel, CarouselDots, CarouselArrows } from 'src/components/carousel';
 
+import CareerPostItem from '../career/career-post-item';
+
 import MarketingLatestPostItem from './marketing-latest-post-item';
 
 // ----------------------------------------------------------------------
@@ -81,7 +83,7 @@ export default function MarketingLatestPosts({ posts }) {
                   py: { xs: 8, md: 10 },
                 }}
               >
-                <MarketingLatestPostItem post={post} />
+                <CareerPostItem post={post} />
               </Box>
             ))}
           </Carousel>
