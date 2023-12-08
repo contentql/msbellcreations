@@ -4,10 +4,13 @@ import Box from '@mui/material/Box';
 import { countries } from 'src/assets/data';
 import Iconify from 'src/components/iconify';
 import { RHFTextField, RHFAutocomplete } from 'src/components/hook-form';
+import { useEffect } from 'react';
  
 // ----------------------------------------------------------------------
  
-export default function EcommerceCheckoutBuildingDetails() {
+export default function EcommerceCheckoutBillingDetails({switchChecked}) {
+ 
+  
   return (
     <Box
       rowGap={2.5}
@@ -15,15 +18,17 @@ export default function EcommerceCheckoutBuildingDetails() {
       display="grid"
       gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
     >
-      <RHFTextField name="ShippingstreetAddress" label="Street address" />
+
+      <RHFTextField name={"ShippingstreetAddress"} label="Street address" disabled={switchChecked}/>
  
-      <RHFTextField name="ShippingzipCode" label="ZIP Code" />
+      <RHFTextField name={"ShippingzipCode"} label="ZIP Code" disabled={switchChecked}/>
  
-      <RHFTextField name="Shippingcity" label="City" />
+      <RHFTextField name={"Shippingcity"} label="City" disabled={switchChecked}/>
  
       <RHFAutocomplete
-        name="Shippingcountry"
+        name={"Shippingcountry"}
         label="Country"
+        disabled={switchChecked}
         options={countries.map((country) => country.label)}
         getOptionLabel={(option) => option}
         renderOption={(props, option) => {

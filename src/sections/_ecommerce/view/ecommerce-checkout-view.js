@@ -32,7 +32,7 @@ import EcommerceCheckoutPaymentMethod from '../checkout/ecommerce-checkout-payme
 import EcommerceCheckoutShippingMethod from '../checkout/ecommerce-checkout-shipping-method';
 import EcommerceCheckoutShippingDetails from '../checkout/ecommerce-checkout-shipping-details';
 import EcommerceCheckoutPersonalDetails from '../checkout/ecommerce-checkout-personal-details';
-import EcommerceCheckoutBuildingDetails from '../checkout/ecommerce-checkout-building-details';
+import EcommerceCheckoutBillingDetails from '../checkout/ecommerce-checkout-billing-details';
  
 // ----------------------------------------------------------------------
  
@@ -110,7 +110,7 @@ export default function EcommerceCheckoutView() {
     Shippingcity: Yup.string().required('City is required'),
     ShippingzipCode: Yup.string().required('Zip code is required'),
   });
-   console.log("checkout items",checkItems)
+
   const defaultValues = {
     firstName: UserData.userName.split(' ')[0],
     lastName: UserData.userName.split(' ')[1],
@@ -145,13 +145,30 @@ export default function EcommerceCheckoutView() {
     reset,
     handleSubmit,
     formState: { isSubmitting },
+    setValue,
+    getValues
   } = methods;
  
+
+
   const handleSwitchChange = () => {
+
+    if(!switchChecked)
+    {
+    setValue("ShippingstreetAddress",getValues("streetAddress"))
+    setValue("ShippingzipCode",getValues("zipCode"))
+    setValue("Shippingcity",getValues("city"))
+    setValue("Shippingcountry",getValues("country"))
+    }
+    else{
+      setValue("ShippingstreetAddress",getValues(""))
+      setValue("ShippingzipCode",getValues(""))
+      setValue("Shippingcity",getValues(""))
+      setValue("Shippingcountry","United States")
+    }
     setSwitchChecked(!switchChecked);
   };
   const onSubmit = handleSubmit(async (data) => {
-    console.log("Data",data)
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/orders`, {
         method: 'POST',
@@ -222,11 +239,12 @@ export default function EcommerceCheckoutView() {
                       inputProps={{ 'aria-label': 'Basic Switch' }}
                       checked={switchChecked}
                       onChange={handleSwitchChange}
+
                     />
                   </Box>
                 </Box>
               
-                <EcommerceCheckoutBuildingDetails switchChecked={switchChecked}/>   
+                <EcommerceCheckoutBillingDetails switchChecked={switchChecked}/>   
                 
                 </div>
  

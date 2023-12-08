@@ -35,7 +35,8 @@ function Logo({ single = false, sx }) {
     >
       <Box
         sx={{
-          width: single ? 64 : 200,
+          height: {xs: 80, md: 1},
+          width: single ? {xs:20,md: 64} : 200,
           lineHeight: 0,
           cursor: 'pointer',
           display: 'inline-flex',

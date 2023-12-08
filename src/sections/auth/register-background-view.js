@@ -75,9 +75,9 @@ export default function RegisterBackgroundView() {
 
 const onSubmit = handleSubmit(async (user) => {
   try {
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    reset();
-    console.log('DATA', user);
+    // await new Promise((resolve) => setTimeout(resolve, 500));
+    // reset();
+    // console.log('DATA', user);
     
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/auth/local/register`, {
