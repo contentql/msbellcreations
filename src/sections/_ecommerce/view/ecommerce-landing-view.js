@@ -52,7 +52,9 @@ export default function EcommerceLandingView() {
         <EcommerceLandingFeaturedProducts Featuredproducts={Featuredproducts} />
       ) : null}
 
-      <EcommerceLandingSpecialOffer specialOffer={specialOffer} />
+
+      {configuration?.data.special_offer?<EcommerceLandingSpecialOffer  specialOffer={specialOffer}/>:null}
+
 
       {/* <EcommerceLandingFeaturedBrands /> */}
 
@@ -62,7 +64,9 @@ export default function EcommerceLandingView() {
 
       {/* <EcommerceLandingTopProducts /> */}
 
-      <EcommerceTestimonial testimonials={_testimonials} />
+
+      {configuration?.data.testimonials?<EcommerceTestimonial testimonials={_testimonials} />:null}
     </Box>
+
   );
 }

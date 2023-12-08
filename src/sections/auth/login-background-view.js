@@ -33,6 +33,7 @@ export default function LoginBackgroundView() {
   const { updateUserData, UserData } = useUserStore();
 
   const router = useRouter();
+  
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('That is not an email'),
@@ -203,13 +204,13 @@ export default function LoginBackgroundView() {
 
       {renderForm}
 
-      <Divider>
+      {/* <Divider>
         <Typography variant="body2" sx={{ color: 'text.disabled' }}>
           or continue with
         </Typography>
-      </Divider>
+      </Divider> */}
 
-      {renderSocials}
+      {/* {renderSocials} */}
       <ToastContainer
         position="bottom-right"
         autoClose={3000}
