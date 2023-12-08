@@ -1,10 +1,12 @@
 
+import { useEffect } from 'react';
+ import { PropTypes } from 'prop-types';
+
 import Box from '@mui/material/Box';
- 
+
 import { countries } from 'src/assets/data';
 import Iconify from 'src/components/iconify';
 import { RHFTextField, RHFAutocomplete } from 'src/components/hook-form';
-import { useEffect } from 'react';
  
 // ----------------------------------------------------------------------
  
@@ -19,14 +21,14 @@ export default function EcommerceCheckoutBillingDetails({switchChecked}) {
       gridTemplateColumns={{ xs: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
     >
 
-      <RHFTextField name={"ShippingstreetAddress"} label="Street address" disabled={switchChecked}/>
+      <RHFTextField name="ShippingstreetAddress" label="Street address" disabled={switchChecked}/>
  
-      <RHFTextField name={"ShippingzipCode"} label="ZIP Code" disabled={switchChecked}/>
+      <RHFTextField name="ShippingzipCode" label="ZIP Code" disabled={switchChecked}/>
  
-      <RHFTextField name={"Shippingcity"} label="City" disabled={switchChecked}/>
+      <RHFTextField name="Shippingcity" label="City" disabled={switchChecked}/>
  
       <RHFAutocomplete
-        name={"Shippingcountry"}
+        name="Shippingcountry"
         label="Country"
         disabled={switchChecked}
         options={countries.map((country) => country.label)}
@@ -53,4 +55,7 @@ export default function EcommerceCheckoutBillingDetails({switchChecked}) {
       />
     </Box>
   );
+}
+EcommerceCheckoutBillingDetails.propTypes={
+  switchChecked:PropTypes.bool,
 }

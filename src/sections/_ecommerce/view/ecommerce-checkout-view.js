@@ -19,20 +19,20 @@ import Typography from '@mui/material/Typography';
 import { _products } from 'src/_mock';
 import { useCart } from 'src/app/store';
 import { paths } from 'src/routes/paths';
-import { useRouter } from 'src/routes/hooks';
 import Iconify from 'src/components/iconify';
+import { useRouter } from 'src/routes/hooks';
 import { useUserStore } from 'src/app/auth-store';
 import { useBoolean } from 'src/hooks/use-boolean';
-import FormProvider from 'src/components/hook-form';
 import { useCheckout } from 'src/app/checkoutstore';
+import FormProvider from 'src/components/hook-form';
  
 import EcommerceCheckoutNewCardForm from '../checkout/ecommerce-checkout-new-card-form';
 import EcommerceCheckoutOrderSummary from '../checkout/ecommerce-checkout-order-summary';
 import EcommerceCheckoutPaymentMethod from '../checkout/ecommerce-checkout-payment-method';
+import EcommerceCheckoutBillingDetails from '../checkout/ecommerce-checkout-billing-details';
 import EcommerceCheckoutShippingMethod from '../checkout/ecommerce-checkout-shipping-method';
 import EcommerceCheckoutShippingDetails from '../checkout/ecommerce-checkout-shipping-details';
 import EcommerceCheckoutPersonalDetails from '../checkout/ecommerce-checkout-personal-details';
-import EcommerceCheckoutBillingDetails from '../checkout/ecommerce-checkout-billing-details';
  
 // ----------------------------------------------------------------------
  
