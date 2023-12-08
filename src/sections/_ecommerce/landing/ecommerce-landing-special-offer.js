@@ -1,7 +1,6 @@
 
 import PropTypes from 'prop-types';
 
-
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -11,8 +10,8 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 import { _mock } from 'src/_mock';
-import Image from 'src/components/image';
 import { paths } from 'src/routes/paths';
+import Image from 'src/components/image';
 import { _products } from 'src/_mock/_products';
 import { RouterLink } from 'src/routes/components';
 
