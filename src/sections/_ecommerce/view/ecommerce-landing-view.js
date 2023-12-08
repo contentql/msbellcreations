@@ -66,7 +66,7 @@ export default function EcommerceLandingView() {
 
 
       {configuration?.data.testimonials?<EcommerceTestimonial testimonials={_testimonials} />:null}
-    </>
+    </Box>
 
   );
 }
