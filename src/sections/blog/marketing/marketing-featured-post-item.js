@@ -34,7 +34,7 @@ export default function MarketingFeaturedPostItem({ post }) {
         }}
       >
         <Stack spacing={1}>
-          <PostTimeBlock createdAt={fDate(post.createdAt)} duration={post.duration} />
+          <PostTimeBlock createdAt={post?.createdDate?post.createdDate:fDate(post.createdAt)} duration={post.duration} />
 
           <Link component={RouterLink} href={`${paths.eCommerce.posts}/${post.id}`} color="inherit" variant="h3">
             {post.title}
@@ -62,6 +62,7 @@ MarketingFeaturedPostItem.propTypes = {
     duration: PropTypes.string,
     description: PropTypes.string,
     createdAt: PropTypes.instanceOf(Date),
+    createdDate:PropTypes.instanceOf(Date),
     author: PropTypes.shape({
       avatarUrl: PropTypes.string,
       name: PropTypes.string,

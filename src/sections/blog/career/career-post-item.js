@@ -42,7 +42,7 @@ export default function    CareerPostItem({ post, index }) {
         }}
       >
         <PostTimeBlock
-          createdAt={fDate(post.createdAt)}
+          createdAt={post?.createdDate?post.createdDate:fDate(post.createdAt)}
           duration={post.duration}
           sx={{
             ...(noImage && { color: 'grey.500' }),
@@ -103,6 +103,7 @@ CareerPostItem.propTypes = {
     duration: PropTypes.string,
     description: PropTypes.string,
     createdAt: PropTypes.instanceOf(Date),
+    createdDate:PropTypes.instanceOf(Date),
     author: PropTypes.shape({
       avatarUrl: PropTypes.string,
       name: PropTypes.string,

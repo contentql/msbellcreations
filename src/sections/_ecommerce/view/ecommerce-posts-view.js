@@ -27,8 +27,8 @@ export default function EcommercePostsView() {
  
   return (
 <Container sx={{mb:{xs:"50px",md:"150px"}}}>
-      <PostSearchMobile />
-      <BlogMarketingFeaturedPosts posts={blogs?.data} />
+      {/* <PostSearchMobile /> */}
+      <BlogMarketingFeaturedPosts posts={blogs?.data.slice(0,5)} />
       <Container
         sx={{
           mt: 10,
