@@ -43,7 +43,7 @@ export default function EcommerceProductList({ loading, viewMode, products, filt
             md: 'repeat(4, 1fr)',
           }}
         >
-          {console.log("prds one",products)}
+       
           {(loading ? [...Array(16)] : products)
             ?.filter(FilterByCategory)
             .filter(FilterByStartingPrice)

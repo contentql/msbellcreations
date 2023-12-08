@@ -115,7 +115,7 @@ export default function EcommerceCheckoutView() {
     firstName: UserData.userName.split(' ')[0],
     lastName: UserData.userName.split(' ')[1],
     emailAddress: UserData.email,
-    phoneNumber: '',
+    phoneNumber: UserData?.phoneNumber? UserData.phoneNumber:'',
     // password: '',
     // confirmPassword: '',
     streetAddress: UserData?.streetAddress ? UserData?.streetAddress : '',

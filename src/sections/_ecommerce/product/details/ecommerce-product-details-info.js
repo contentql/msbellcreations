@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
 import { useState, useCallback } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { WhatsappShareButton } from 'react-share';
 
 import Stack from '@mui/material/Stack';
 import Rating from '@mui/material/Rating';
@@ -10,8 +12,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import { useCart } from 'src/app/store';
-import Label from 'src/components/label';
 import { paths } from 'src/routes/paths';
+import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 import { useCheckout } from 'src/app/checkoutstore';
@@ -20,7 +22,6 @@ import { useResponsive } from 'src/hooks/use-responsive';
 import ProductPrice from '../../common/product-price';
 
 // ----------------------------------------------------------------------
-
 
 const COLOR_OPTIONS = [
   { label: '#FA541C', value: 'red' },
@@ -47,13 +48,13 @@ export default function EcommerceProductDetailsInfo({
   priceSale,
   caption,
 }) {
-
   const { data } = useQuery(['products'], () =>
-  fetch(process.env.NEXT_PUBLIC_PODUCTS_API, {
-    method: 'GET',
-  }).then((res) => res.json())
-);
-const _products=data?.data
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products/${productId}`, {
+      method: 'GET',
+    }).then((res) => res.json())
+  );
+
+  const _products = data?.data;
   const mdUp = useResponsive('up', 'md');
 
   const [option, setOption] = useState(1);
@@ -75,7 +76,7 @@ const _products=data?.data
 
   const gotocheckout = async () => {
     deleteAll();
-    const product = _products.find((item) => item.id === productId);
+    const product = _products?.find((item) => item.id === productId);
     checkaddProducts(product);
     checkupdateQuantity(product.id, parseInt(option, 10));
   };
@@ -178,20 +179,26 @@ const _products=data?.data
       <Divider sx={{ borderStyle: 'dashed', my: 3 }} />
 
       <Stack spacing={3} direction="row" justifyContent={{ xs: 'center', md: 'unset' }}>
-        <Stack direction="row" alignItems="center" sx={{ typography: 'subtitle2' }}>
-          <Iconify icon="carbon:share" sx={{ mr: 1 }} /> Share
-        </Stack>
+        <WhatsappShareButton
+          url={window.location.href}
+          title={name}
+          separator=":: "
+        >
+          <Stack direction="row" alignItems="center" sx={{ typography: 'subtitle2' }}>
+            <Iconify icon="carbon:share" sx={{ mr: 1 }} /> Share
+          </Stack>
+        </WhatsappShareButton>
       </Stack>
     </>
   );
 }
 
 EcommerceProductDetailsInfo.propTypes = {
-  productId: PropTypes.string,
+  productId: PropTypes.number,
   caption: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.number,
   priceSale: PropTypes.number,
   ratingNumber: PropTypes.number,
-  totalReviews: PropTypes.number,
+  totalReviews: PropTypes.string,
 };

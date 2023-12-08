@@ -24,12 +24,13 @@ export default function EcommerceProductView({ productId }) {
   const loading = useBoolean(true);
   // console.log('id ', productId);
   const { data } = useQuery(['products'], () =>
-    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/categories?populate=*`, {
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products?populate=*`, {
       method: 'GET',
     }).then((res) => res.json())
   );
 
   const _mockProduct = data?.data.filter((product) => product.id.toString() === productId.toString()).at(0);
+  
 
   useEffect(() => {
     const fakeLoading = async () => {
@@ -65,13 +66,13 @@ export default function EcommerceProductView({ productId }) {
 
           <Grid xs={12} md={6} lg={5}>
             <EcommerceProductDetailsInfo
-              productId={_mockProduct.id}
-              name={_mockProduct.name}
-              price={_mockProduct.price}
-              caption={_mockProduct.caption}
-              priceSale={_mockProduct.priceSale}
-              ratingNumber={_mockProduct.ratingNumber}
-              totalReviews={_mockProduct.totalReviews}
+              productId={_mockProduct?.id}
+              name={_mockProduct?.name}
+              price={_mockProduct?.price}
+              caption={_mockProduct?.caption}
+              priceSale={_mockProduct?.priceSale}
+              ratingNumber={_mockProduct?.ratingNumber}
+              totalReviews={_mockProduct?.totalReviews}
             />
           </Grid>
         </Grid>
@@ -79,7 +80,7 @@ export default function EcommerceProductView({ productId }) {
         <Grid container columnSpacing={{ md: 8 }}>
           <Grid xs={12} md={6} lg={7}>
             <EcommerceProductDetailsDescription
-              description={_mockProduct.description}
+              description={_mockProduct?.description}
               // specifications={[
               //   { label: 'Category', value: 'Mobile' },
               //   { label: 'Manufacturer', value: 'Apple' },

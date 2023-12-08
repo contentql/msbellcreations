@@ -67,8 +67,8 @@ export default function EcommerceProductItemCountDown({ product, color = 'primar
 EcommerceProductItemCountDown.propTypes = {
   color: PropTypes.string,
   product: PropTypes.shape({
-    id: PropTypes.string,
-    coverUrl: PropTypes.string,
+    id: PropTypes.number,
+    coverUrl: PropTypes.object,
     name: PropTypes.string,
     price: PropTypes.number,
   }),

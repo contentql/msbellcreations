@@ -75,7 +75,7 @@ export default function MarketingLatestPosts({ posts }) {
           rightButtonProps={{ sx: { right: { xs: 0, md: -40 } } }}
         >
           <Carousel ref={carousel.carouselRef} {...carousel.carouselSettings}>
-            {posts.map((post) => (
+            {posts?.map((post) => (
               <Box
                 key={post.id}
                 sx={{

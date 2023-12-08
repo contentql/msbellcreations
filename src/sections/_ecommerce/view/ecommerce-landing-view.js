@@ -31,15 +31,14 @@ export default function EcommerceLandingView() {
       method: 'GET',
     }).then((res) => res.json())
   );
-  console.log('configuration', configuration);
+
   const PopularProducts = data?.data.sort((a, b) => b.sold - a.sold).slice(0, 8);
-  console.log('popular porducts:', PopularProducts);
+
   const Herodata = data?.data.filter((item) => item.home);
   const Hotdeals = data?.data.filter((item) => item.hot_deals);
   const Featuredproducts = data?.data.filter((item) => item.featured_products);
   const specialOffer = data?.data.filter((item) => item.special_offer).at(0);
 
-  console.log('filtered data', Herodata, Hotdeals, Featuredproducts, specialOffer);
   return (
     <Box sx={{mt:"30px"}}>
       {configuration?.data.Hero ? <EcommerceLandingHero Hero={Herodata} /> : null}

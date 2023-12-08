@@ -41,7 +41,7 @@ export default function EcommercePostView({blogId}) {
   const [open, setOpen] = useState(null);
 
   const { data:blogs } = useQuery(['blogs'], () =>
-    fetch(process.env.NEXT_PUBLIC_BLOGS_API, {
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/blogs?populate=*`, {
       method: 'GET',
     }).then((res) => res.json())
   );
@@ -49,7 +49,6 @@ export default function EcommercePostView({blogId}) {
   const blog = blogs?.data.filter((product) => product.id.toString() === blogId.toString()).at(0);
   const LatestPosts=blogs?.data.sort((a,b)=>b.createdAt-a.createdAt).slice(0,4)
 
-  console.log("post ",blog)
 
   const handleOpen = useCallback((event) => {
     setOpen(event.currentTarget);
@@ -73,7 +72,7 @@ export default function EcommercePostView({blogId}) {
           links={[
             { name: 'Home', href: '/' },
             { name: 'Blog', href: paths.eCommerce.posts},
-            { name: blog.title },
+            { name: blog?.title },
           ]}
         />
       </Container>
@@ -92,11 +91,11 @@ export default function EcommercePostView({blogId}) {
               }}
             >
               <Typography variant="body2" sx={{ color: 'text.disabled' }}>
-                {blog.duration}
+                {blog?.duration}
               </Typography>
 
               <Typography variant="h2" component="h1">
-                {blog.title}
+                {blog?.title}
               </Typography>
               <Typography variant="h5">{description}</Typography>
             </Stack>
@@ -129,9 +128,9 @@ export default function EcommercePostView({blogId}) {
 
             <Divider sx={{ mb: 6 }} />
 
-            <Markdown content={blog.content} firstLetter />
+            <Markdown content={blog?.content} firstLetter />
 
-            {tags.length && <PostTags tags={tags} />}
+            {tags?.length && <PostTags tags={tags} />}
 
             {/* <PostSocialsShare /> */}
 

@@ -63,7 +63,7 @@ const StyledThumbnailsContainer = styled('div')(({ length, theme }) => ({
 export default function EcommerceProductDetailsCarousel({ images }) {
   const theme = useTheme();
 
-  const slides = images.map((slide) => ({
+  const slides = images?.map((slide) => ({
     src: slide.url,
   }));
 
@@ -82,7 +82,7 @@ export default function EcommerceProductDetailsCarousel({ images }) {
     focusOnSelect: true,
     variableWidth: true,
     centerPadding: '0px',
-    slidesToShow: slides.length > 3 ? 3 : slides.length,
+    slidesToShow: slides?.length > 3 ? 3 : slides?.length,
   });
 
   useEffect(() => {
@@ -112,13 +112,13 @@ export default function EcommerceProductDetailsCarousel({ images }) {
           asNavFor={carouselThumb.nav}
           ref={carouselLarge.carouselRef}
         >
-          {slides.map((slide) => (
+          {slides?.map((slide) => (
             <Image
-              key={slide.src}
+              key={slide?.src}
               alt="product"
-              src={slide.src}
+              src={slide?.src}
               ratio="1/1"
-              onClick={() => lightbox.onOpen(slide.src)}
+              onClick={() => lightbox.onOpen(slide?.src)}
               sx={{ cursor: 'zoom-in' }}
             />
           ))}
@@ -128,13 +128,13 @@ export default function EcommerceProductDetailsCarousel({ images }) {
   );
 
   const renderThumbnails = (
-    <StyledThumbnailsContainer length={slides.length}>
+    <StyledThumbnailsContainer length={slides?.length}>
       <Carousel
         {...carouselThumb.carouselSettings}
         asNavFor={carouselLarge.nav}
         ref={carouselThumb.carouselRef}
       >
-        {slides.map((item, index) => (
+        {slides?.map((item, index) => (
           <Box key={item.src} sx={{ px: 1 }}>
             <Avatar
               key={item.src}

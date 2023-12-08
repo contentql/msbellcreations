@@ -224,13 +224,13 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
 
 EcommerceProductViewGridItem.propTypes = {
   product: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
     name: PropTypes.string,
-    sold: PropTypes.number,
+    sold: PropTypes.string,
     label: PropTypes.string,
     price: PropTypes.number,
-    category: PropTypes.string,
-    coverUrl: PropTypes.string,
+    category: PropTypes.object,
+    coverUrl: PropTypes.object,
     images: PropTypes.array,
     priceSale: PropTypes.number,
     ratingNumber: PropTypes.number,
