@@ -23,7 +23,7 @@ export default function MarketingFeaturedPostItem({ post }) {
       }}
       sx={{ bgcolor: 'background.default', borderRadius: 2 }}
     >
-      <Image src={post.coverUrl.url} alt={post.title} sx={{ flexGrow: 1, height: { md: 560 } }} />
+      <Image src={post.coverUrl.url} alt={post.title} sx={{ flexGrow: 1, height: { md: 560 }, maxWidth:{md:560} }} />
 
       <Stack
         justifyContent="space-between"
@@ -40,7 +40,7 @@ export default function MarketingFeaturedPostItem({ post }) {
             {post.title}
           </Link>
 
-          <TextMaxLine line={3} variant="body2" sx={{ color: 'text.secondary' }}>
+          <TextMaxLine line={6} variant="body2" sx={{ color: 'text.secondary' }}>
             {post.description}
           </TextMaxLine>
         </Stack>

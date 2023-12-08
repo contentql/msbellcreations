@@ -128,7 +128,7 @@ export default function EcommercePostView({blogId}) {
 
             <Divider sx={{ mb: 6 }} />
 
-            <Markdown content={blog?.content} firstLetter />
+            <Markdown content={blog?.content} />
 
             {tags?.length && <PostTags tags={tags} />}
 

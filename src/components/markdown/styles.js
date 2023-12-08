@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles';
-
+ 
 // ----------------------------------------------------------------------
-
+ 
 const StyledMarkdown = styled('div', {
   shouldForwardProp: (prop) => prop !== 'firstLetter',
 })(({ firstLetter, theme }) => ({
@@ -13,13 +13,13 @@ const StyledMarkdown = styled('div', {
   h5: { margin: 0, ...theme.typography.h5 },
   h6: { margin: 0, ...theme.typography.h6 },
   p: { margin: 0, ...theme.typography.body1 },
-
+ 
   br: {
     display: 'grid',
     content: '""',
     marginTop: '0.75em',
   },
-
+ 
   // Link
   a: {
     color: theme.palette.primary.main,
@@ -28,15 +28,84 @@ const StyledMarkdown = styled('div', {
       textDecoration: 'underline',
     },
   },
-
-  // List
-  '& ul, & ol': {
+ 
+  // List styles - Customize the appearance of nested lists by updating the styles below
+  // Add more nested lists below
+ 
+  // Unurdered List
+  ul: {
+    fontWeight: 'bold',
+    padding: 0,
     margin: 0,
-    '& li': {
-      lineHeight: 2,
-    },
+    paddingLeft:20,
+    paddingBottom:10
   },
-
+ 
+  // First Level Nested Unordered List
+  'ul li': {
+    listStyleType: '"\\27BA"',
+    paddingBottom:10,
+    paddingLeft:10,
+    
+  },
+ 
+  // Second Level Nested Unordered List
+  'ul ul li': {
+    listStyleType: 'circle',
+  },
+ 
+  // Third Level Nested Unordered List
+  'ul ul ul li': {
+    listStyleType: 'square',
+  },
+ 
+  // Fourth Level Nested Unordered List
+  'ul ul ul ul li': {
+    listStyleType: '"\\8674"',
+    paddingLeft: '0.5em',
+  },
+ 
+  // Fifth Level Nested Unordered List
+  'ul ul ul ul ul li': {
+    listStyleType: '"\\2192"',
+    paddingLeft: '0.5em',
+  },
+ 
+  // Add more styles for additional list levels below
+ 
+  // Ordered List
+  ol: {
+    fontWeight: 'bold',
+    padding: 0,
+    margin: 0,
+    paddingLeft: '20px',
+  },
+ 
+  // First Level Nested Ordered List
+  'ol li': {
+    listStyleType: 'decimal',
+  },
+ 
+  // Second Level Nested Ordered List
+  'ol ol li': {
+    listStyleType: 'upper-alpha',
+  },
+ 
+  // Third Level Nested Ordered List
+  'ol ol ol li': {
+    listStyleType: 'lower-alpha',
+  },
+ 
+  // Fourth Level Nested Ordered List
+  'ol ol ol ol li': {
+    listStyleType: 'upper-roman',
+  },
+ 
+  // Fifth Level Nested Ordered List
+  'ol ol ol ol ol li': {
+    listStyleType: 'lower-roman',
+  },
+ 
   // Divider
   hr: {
     margin: 0,
@@ -48,7 +117,7 @@ const StyledMarkdown = styled('div', {
     borderBottomWidth: 'thin',
     borderColor: theme.palette.divider,
   },
-
+ 
   // Blockquote
   '& blockquote': {
     lineHeight: 1.5,
@@ -78,12 +147,12 @@ const StyledMarkdown = styled('div', {
       color: theme.palette.text.disabled,
     },
   },
-
+ 
   // Image
   '& img': {
     borderRadius: theme.spacing(1),
   },
-
+ 
   // Table
   table: {
     width: '100%',
@@ -97,7 +166,7 @@ const StyledMarkdown = styled('div', {
       backgroundColor: theme.palette.background.neutral,
     },
   },
-
+ 
   // Checkbox
   input: {
     '&[type=checkbox]': {
@@ -133,7 +202,7 @@ const StyledMarkdown = styled('div', {
       },
     },
   },
-
+ 
   // First Letter
   ...(firstLetter && {
     '& > p:first-of-type': {
@@ -147,5 +216,5 @@ const StyledMarkdown = styled('div', {
     },
   }),
 }));
-
+ 
 export default StyledMarkdown;
