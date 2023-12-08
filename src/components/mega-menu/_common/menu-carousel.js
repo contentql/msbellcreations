@@ -43,7 +43,7 @@ export default function MenuCarousel({ products, numberShow, sx }) {
         }}
       >
         <Carousel ref={carousel.carouselRef} {...carousel.carouselSettings}>
-          {products.map((product) => (
+          {products?.map((product) => (
             <Box key={product.name} sx={{ px: 1, textAlign: 'center' }}>
               <Link
                 component={RouterLink}

@@ -47,7 +47,7 @@ export default function SplashScreen({ sx }) {
             repeat: Infinity,
           }}
         >
-          <Logo single sx={{ width: 128, height: 128 }} />
+          <Logo single sx={{ width: 200, height: 200 }} />
         </m.div>
       </StyledRoot>
 

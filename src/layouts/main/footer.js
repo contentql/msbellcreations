@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 
+import Box from "@mui/material/Box"
 import Link from '@mui/material/Link';
 import Masonry from '@mui/lab/Masonry';
 import Stack from '@mui/material/Stack';
@@ -18,6 +19,7 @@ import { _socials } from 'src/_mock';
 import Logo from 'src/components/logo';
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
+import Mlogo from 'src/components/logo/Mlogo';
 import { usePathname } from 'src/routes/hooks';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { RouterLink } from 'src/routes/components';
@@ -55,7 +57,17 @@ export default function Footer() {
 
   const simpleFooter = (
     <Container sx={{ py: 8, textAlign: 'center' }}>
-      <Logo single />
+      <Box
+        sx={{
+          height: {xs: 80, md: 1},
+          width: {xs:200,md: 250} ,
+          lineHeight: 0,
+          cursor: 'pointer',
+          display: 'inline-flex',
+        }}
+      >
+        <Mlogo/>
+      </Box>
 
       <Typography variant="caption" component="div" sx={{ color: 'text.secondary' }}>
         © 2023. All rights reserved
@@ -77,7 +89,7 @@ export default function Footer() {
           <Grid xs={12} md={4}>
             <Stack spacing={{ xs: 3, md: 5 }}>
               <Stack alignItems="flex-start" spacing={3}>
-                <Image src="/assets/images/footer.svg" alt="" sx={{width:"300pxpx",height:"80px"}}/>
+                <Image src="/assets/images/footer.svg" alt="" sx={{height:"35px"}}/>
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                   Ms. Bells Creations SOAPS, CANDLES, AND MORE! Created from all-natural materials
                   and infused with essential oils.
