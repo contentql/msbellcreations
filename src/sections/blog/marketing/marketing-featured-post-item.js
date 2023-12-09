@@ -23,7 +23,10 @@ export default function MarketingFeaturedPostItem({ post }) {
       }}
       sx={{ bgcolor: 'background.default', borderRadius: 2 }}
     >
-      <Image src={post.coverUrl.url} alt={post.title} sx={{ flexGrow: 1, height: { md: 560 }, maxWidth:{md:580} }} />
+
+
+      <Image src={post.coverUrl.url} alt={post.title} sx={{ flexGrow: 1, height: { md: 560 }, maxWidth:{md:560} }} />
+
 
       <Stack
         justifyContent="space-between"
