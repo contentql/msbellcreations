@@ -30,6 +30,7 @@ export default function EcommerceProductItemHero({ products,current }) {
       sx={{
         py: 10,
         px: { xs: 3, md: 10 },
+        backgroundColor:`${product.bgColor}`
       }}
     >
       <Grid xs={12} md={6}>
@@ -89,6 +90,7 @@ EcommerceProductItemHero.propTypes = {
       coverUrl: PropTypes.object,
       label: PropTypes.string,
       title: PropTypes.string,
+      bgColor:PropTypes.string
     })
   ),
   current: PropTypes.number,

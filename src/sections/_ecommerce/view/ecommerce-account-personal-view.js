@@ -33,13 +33,8 @@ export default function EcommerceAccountPersonalView() {
   const { UserData, updateUserData } = useUserStore();
   const EcommerceAccountPersonalSchema = Yup.object().shape({
     firstName: Yup.string().required('First name is required'),
-    lastName: Yup.string().required('Last name is required'),
     emailAddress: Yup.string().required('Email address is required'),
-    phoneNumber: Yup.string().required('Phone number is required'),
     gender: Yup.string().required('Gender is required'),
-    streetAddress: Yup.string().required('Street address is required'),
-    city: Yup.string().required('City is required'),
-    zipCode: Yup.string().required('Zip code is required'),
   });
 
   const { data:user, isLoading } = useQuery(
