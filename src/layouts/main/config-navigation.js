@@ -142,6 +142,7 @@ export const navConfig = [
   },
   // { title: 'Products', path: paths.eCommerce.products },
   { title: 'About Us', path: paths.eCommerce.about },
+  { title: 'Contact Us', path: paths.eCommerce.contact },
   { title: 'Blog', path: paths.eCommerce.posts },
   // {
   //   title: 'Pages',

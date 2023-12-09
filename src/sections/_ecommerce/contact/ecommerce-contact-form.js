@@ -73,6 +73,7 @@ export default function ContactForm() {
         theme: 'light',
       });
       const resData = await response.json();
+      reset();
     } catch (error) {
       toast.error('error, please try again', {
         position: 'bottom-right',
