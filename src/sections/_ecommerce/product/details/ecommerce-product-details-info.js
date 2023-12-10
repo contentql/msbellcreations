@@ -20,6 +20,7 @@ import { useCheckout } from 'src/app/checkoutstore';
 import { useResponsive } from 'src/hooks/use-responsive';
 
 import ProductPrice from '../../common/product-price';
+import { SplashScreen } from 'src/components/loading-screen';
 
 // ----------------------------------------------------------------------
 
@@ -48,7 +49,7 @@ export default function EcommerceProductDetailsInfo({
   priceSale,
   caption,
 }) {
-  const { data } = useQuery(['products'], () =>
+  const { data,isLoading } = useQuery(['products'], () =>
     fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products/${productId}`, {
       method: 'GET',
     }).then((res) => res.json())
@@ -98,7 +99,7 @@ export default function EcommerceProductDetailsInfo({
 
   return (
     <>
-      <Label color="success" sx={{ mb: 3 }}>
+      {!isLoading?<><Label color="success" sx={{ mb: 3 }}>
         In Stock
       </Label>
 
@@ -188,7 +189,7 @@ export default function EcommerceProductDetailsInfo({
             <Iconify icon="carbon:share" sx={{ mr: 1 }} /> Share
           </Stack>
         </WhatsappShareButton>
-      </Stack>
+      </Stack></>:<SplashScreen />}
     </>
   );
 }
