@@ -6,7 +6,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 
 import { bgGradient } from 'src/theme/css';
 import { _products } from 'src/_mock/_products';
-import Carousel, { useCarousel, CarouselDots } from 'src/components/carousel';
+import Carousel, { useCarousel, CarouselDots, CarouselArrows } from 'src/components/carousel';
 
 import EcommerceProductItemHero from '../product/item/ecommerce-product-item-hero';
 
@@ -55,15 +55,29 @@ export default function EcommerceLandingHero({ Hero }) {
           height: 'fixed',
         }}
       >
-        <Carousel ref={carousel.carouselRef} {...carousel.carouselSettings}>
-          {Hero?.map((product) => (
-            <EcommerceProductItemHero
-              key={product.id}
-              products={Hero}
-              current={carousel.currentIndex}
-            />
-          ))}
-        </Carousel>
+        <CarouselArrows
+          filled
+          onNext={carousel.onNext}
+          onPrev={carousel.onPrev}
+          leftButtonProps={{
+            size: 'small',
+            sx: { top: 'calc(50% )', left: 12 },
+          }}
+          rightButtonProps={{
+            size: 'small',
+            sx: { top: 'calc(50% )', right: 12 },
+          }}
+        >
+          <Carousel ref={carousel.carouselRef} {...carousel.carouselSettings}>
+            {Hero?.map((product) => (
+              <EcommerceProductItemHero
+                key={product.id}
+                products={Hero}
+                current={carousel.currentIndex}
+              />
+            ))}
+          </Carousel>
+        </CarouselArrows>
       </Box>
     </Container>
   );
