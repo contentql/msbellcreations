@@ -85,7 +85,6 @@ export default function TravelCheckoutView() {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
       router.push(paths.travel.orderCompleted);
-      console.log('DATA', data);
     } catch (error) {
       console.error(error);
     }

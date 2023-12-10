@@ -40,7 +40,6 @@ export default function VerifyView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
-      console.log('DATA', data);
     } catch (error) {
       console.error(error);
     }

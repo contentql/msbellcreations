@@ -29,7 +29,6 @@ export default function EcommerceCheckoutOrderSummary({
   loading,
 }) {
  
-  console.log("checkout products",products)
   return (
     <Stack
       spacing={3}
@@ -90,7 +89,6 @@ export default function EcommerceCheckoutOrderSummary({
         color="inherit"
         type="submit"
         loading={loading}
-        onSubmit={() => console.log('Hello')}
       >
         Order Now
       </LoadingButton>

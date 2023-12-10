@@ -18,7 +18,6 @@ import Carousel, { useCarousel, CarouselDots, CarouselArrows } from '../../carou
 
 export default function MenuCarousel({ products, numberShow, sx }) {
   const theme = useTheme();
-  console.log('price', products);
   const carousel = useCarousel({
     slidesToShow: numberShow,
     slidesToScroll: numberShow,

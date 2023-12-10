@@ -12,47 +12,33 @@ import PostSidebar from '../../blog/common/post-sidebar';
 import PostSearchMobile from '../../blog/common/post-search-mobile';
 import BlogMarketingPosts from '../../blog/marketing/marketing-posts';
 import BlogMarketingFeaturedPosts from '../../blog/marketing/marketing-featured-posts';
+import { SplashScreen } from 'src/components/loading-screen';
 
 // ----------------------------------------------------------------------
 
 export default function EcommercePostsView() {
-
-  const { data:blogs } = useQuery(['blogs'], () =>
+  const { data: blogs, isLoading } = useQuery(['blogs'], () =>
     fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/blogs?populate=*`, {
       method: 'GET',
     }).then((res) => res.json())
   );
 
+  if (isLoading) {
+    return <SplashScreen />;
+  }
 
- 
   return (
-<Container sx={{mb:{xs:"50px",md:"150px"}}}>
+    <Container sx={{ mb: { xs: "50px", md: "150px" } }}>
       <PostSearchMobile />
       <BlogMarketingFeaturedPosts posts={blogs?.data} />
-      <Container
-        sx={{
-          mt: 10,
-        }}
-      >
-        
-          <Grid xs={12} md={8}>
+      <Container sx={{ mt: 10 }}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={8}>
             <BlogMarketingPosts posts={blogs?.data} />
           </Grid>
-
-          {/* <Grid xs={12} md={4}>
-            <PostSidebar
-              popularTags={_tags}
-              categories={_categories}
-              recentPosts={{ list: _marketingPosts.slice(-4) }}
-              advertisement={{
-                title: 'Advertisement',
-                description: 'Duis leo. Donec orci lectus, aliquam ut, faucibus non',
-                imageUrl: _mock.image.marketing(9),
-                path: '',
-              }}
-            />
-          </Grid> */}
+          {/* Other Grid items go here */}
+        </Grid>
       </Container>
-      </Container>
+    </Container>
   );
 }

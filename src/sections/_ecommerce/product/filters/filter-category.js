@@ -17,8 +17,7 @@ export default function FilterCategory({
   onChangeCategories,
   ...other
 }) {
-  console.log("Filter category",options)
-  console.log('pr:', filterCategories);
+
   return (
     <Stack spacing={1} alignItems="flex-start" {...other}>
       {options?.filter((data)=>data.label!=='all').map((option) => (

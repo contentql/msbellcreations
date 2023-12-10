@@ -124,7 +124,7 @@ export default function EcommerceCheckoutView() {
     zipCode: UserData?.zipCode ? UserData?.zipCode : '',
     ShippingstreetAddress: '',
     Shippingcity: '',
-    Shippingcountry: 'United States',
+    Shippingcountry: '',
     ShippingzipCode: '',
     // shipping: 'free',
     // paymentMethods: 'mastercard',
@@ -191,7 +191,6 @@ export default function EcommerceCheckoutView() {
       // await new Promise((resolve) => setTimeout(resolve, 500));
       // reset();
       router.push(paths.eCommerce.orderCompleted);
-      console.log('DATA', data);
       // deleteAll();
     } catch (error) {
       console.error(error);

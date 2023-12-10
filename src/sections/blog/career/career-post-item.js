@@ -97,12 +97,12 @@ export default function    CareerPostItem({ post, index }) {
 CareerPostItem.propTypes = {
   index: PropTypes.number,
   post: PropTypes.shape({
-    id:PropTypes.string,
+    id:PropTypes.number,
     title: PropTypes.string,
-    coverUrl: PropTypes.string,
+    coverUrl: PropTypes.object,
     duration: PropTypes.string,
     description: PropTypes.string,
-    createdAt: PropTypes.instanceOf(Date),
+    createdAt: PropTypes.string,
     author: PropTypes.shape({
       avatarUrl: PropTypes.string,
       name: PropTypes.string,

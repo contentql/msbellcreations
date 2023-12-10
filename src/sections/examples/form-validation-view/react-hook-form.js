@@ -88,7 +88,6 @@ export default function ReactHookForm({ debug }) {
 
   const onSubmit = handleSubmit(async (data) => {
     await new Promise((resolve) => setTimeout(resolve, 3000));
-    console.log('DATA', data);
     reset();
   });
 
