@@ -14,12 +14,11 @@ import TextMaxLine from 'src/components/text-max-line';
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceProductItemHero({ products,current }) {
+export default function EcommerceProductItemHero({ products, current }) {
   const theme = useTheme();
-  
+
   const product = products[current];
-  
-  
+
   return (
     <Grid
       container
@@ -28,9 +27,10 @@ export default function EcommerceProductItemHero({ products,current }) {
         md: 0,
       }}
       sx={{
-        py: 10,
+        pt: 12,
+        pb: 10,
         px: { xs: 3, md: 10 },
-        backgroundColor:`${product.bgColor}`
+        backgroundColor: `${product.bgColor}`,
       }}
     >
       <Grid xs={12} md={6}>
@@ -48,7 +48,7 @@ export default function EcommerceProductItemHero({ products,current }) {
             {product.name}
           </TextMaxLine>
 
-          <TextMaxLine variant="body2" sx={{ mb: 5, color: 'text.secondary' }}>
+          <TextMaxLine line="3" variant="body2" sx={{ mb: 5, color: 'text.secondary' }}>
             {product.caption}
           </TextMaxLine>
 
@@ -59,7 +59,6 @@ export default function EcommerceProductItemHero({ products,current }) {
             color="inherit"
             variant="contained"
             endIcon={<Iconify icon="carbon:chevron-right" />}
-           
           >
             Shop Now
           </Button>
@@ -85,12 +84,12 @@ EcommerceProductItemHero.propTypes = {
   products: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
-      name:PropTypes.string,
+      name: PropTypes.string,
       caption: PropTypes.string,
       coverUrl: PropTypes.object,
       label: PropTypes.string,
       title: PropTypes.string,
-      bgColor:PropTypes.string
+      bgColor: PropTypes.string,
     })
   ),
   current: PropTypes.number,

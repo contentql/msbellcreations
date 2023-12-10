@@ -12,12 +12,13 @@ import EcommerceProductItemHero from '../product/item/ecommerce-product-item-her
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceLandingHero({Hero}) {
+export default function EcommerceLandingHero({ Hero }) {
   const theme = useTheme();
 
   const carousel = useCarousel({
     fade: true,
     speed: 100,
+
     autoplay: true,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -34,29 +35,33 @@ export default function EcommerceLandingHero({Hero}) {
       },
     }),
   });
-  const products=[_products[2],_products[3],_products[11],_products[6]]
+  const products = [_products[2], _products[3], _products[11], _products[6]];
 
   return (
     <Container
       sx={{
-        pt: { xs: 5, md: 8 },
+        pt: { xs: 5, md: 12 },
       }}
     >
       <Box
         sx={{
           ...bgGradient({
-            color: alpha(theme.palette.background.default, 0.9),
+            color: alpha(theme.palette.background.default, 0.8),
             imgUrl: '/assets/background/overlay_1.jpg',
           }),
           borderRadius: 3,
           overflow: 'hidden',
           position: 'relative',
-          height:'fixed'
+          height: 'fixed',
         }}
       >
         <Carousel ref={carousel.carouselRef} {...carousel.carouselSettings}>
           {Hero?.map((product) => (
-            <EcommerceProductItemHero key={product.id} products={Hero} current={carousel.currentIndex}/>
+            <EcommerceProductItemHero
+              key={product.id}
+              products={Hero}
+              current={carousel.currentIndex}
+            />
           ))}
         </Carousel>
       </Box>
@@ -64,6 +69,6 @@ export default function EcommerceLandingHero({Hero}) {
   );
 }
 
-EcommerceLandingHero.propTypes={
-  Hero:PropTypes.array,
-}
+EcommerceLandingHero.propTypes = {
+  Hero: PropTypes.array,
+};
