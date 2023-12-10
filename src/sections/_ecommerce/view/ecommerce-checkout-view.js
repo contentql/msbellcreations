@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import React, { useState, useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
+// import { useRouter } from 'next/navigation';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -15,6 +16,8 @@ import Collapse from '@mui/material/Collapse';
 import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import axios from 'axios';
 
 import { _products } from 'src/_mock';
 import { useCart } from 'src/app/store';
@@ -29,7 +32,7 @@ import FormProvider from 'src/components/hook-form';
 import EcommerceCheckoutNewCardForm from '../checkout/ecommerce-checkout-new-card-form';
 import EcommerceCheckoutOrderSummary from '../checkout/ecommerce-checkout-order-summary';
 import EcommerceCheckoutPaymentMethod from '../checkout/ecommerce-checkout-payment-method';
-import EcommerceCheckoutBillingDetails from '../checkout/ecommerce-checkout-billing-details'
+import EcommerceCheckoutBillingDetails from '../checkout/ecommerce-checkout-billing-details';
 import EcommerceCheckoutShippingMethod from '../checkout/ecommerce-checkout-shipping-method';
 import EcommerceCheckoutShippingDetails from '../checkout/ecommerce-checkout-shipping-details';
 import EcommerceCheckoutPersonalDetails from '../checkout/ecommerce-checkout-personal-details';
@@ -83,6 +86,7 @@ export default function EcommerceCheckoutView() {
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
   const [switchChecked, setSwitchChecked] = useState(false);
+
   useEffect(() => {
     const newSubtotal = checkItems.reduce(
       (acc, product) => acc + product.quantity * product.price,
@@ -115,7 +119,7 @@ export default function EcommerceCheckoutView() {
     firstName: UserData.userName.split(' ')[0],
     lastName: UserData.userName.split(' ')[1],
     emailAddress: UserData.email,
-    phoneNumber: UserData?.phoneNumber? UserData.phoneNumber:'',
+    phoneNumber: UserData?.phoneNumber ? UserData.phoneNumber : '',
     // password: '',
     // confirmPassword: '',
     streetAddress: UserData?.streetAddress ? UserData?.streetAddress : '',
@@ -163,38 +167,63 @@ export default function EcommerceCheckoutView() {
     }
     setSwitchChecked(!switchChecked);
   };
-  const onSubmit = handleSubmit(async (data) => {
+
+  // const onSubmit = handleSubmit(async (data) => {
+  //   try {
+  //     const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/orders`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Authorization: `Bearer ${UserData.authToken}`,
+  //       },
+  //       body: JSON.stringify({
+  //         firstName: data.firstName,
+  //         lastName: data.lastName,
+  //         emailAddress: data.emailAddress,
+  //         phoneNumber: data.phoneNumber,
+  //         streetAddress: data.streetAddress,
+  //         country: data.country,
+  //         city: data.city,
+  //         Shippingcity: data.Shippingcity,
+  //         Shippingcountry: data.Shippingcountry,
+  //         ShippingzipCode: data.ShippingzipCode,
+  //         ShippingstreetAddress: data.ShippingstreetAddress,
+  //         zipCode: data.zipCode,
+  //         product: checkItems,
+  //       }),
+  //     });
+  //     const resData = await response.json();
+  //     // await new Promise((resolve) => setTimeout(resolve, 500));
+  //     // reset();
+  //     router.push(paths.eCommerce.orderCompleted);
+  //     console.log('DATA', data);
+  //     // deleteAll();
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // });
+
+  const triggerStripe = handleSubmit(async (data) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/orders`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${UserData.authToken}`,
-        },
-        body: JSON.stringify({
-          firstName: data.firstName,
-          lastName: data.lastName,
-          emailAddress: data.emailAddress,
-          phoneNumber: data.phoneNumber,
-          streetAddress: data.streetAddress,
-          country: data.country,
-          city: data.city,
-          Shippingcity: data.Shippingcity,
-          Shippingcountry: data.Shippingcountry,
-          ShippingzipCode: data.ShippingzipCode,
-          ShippingstreetAddress: data.ShippingstreetAddress,
-          zipCode: data.zipCode,
-          product: checkItems,
-        }),
+      const { data: stripeData } = await axios.post('/api/stripe', {
+        email: 'kaparapu.akhilnaidu@gmail.com',
+        products: [
+          {
+            id: 9,
+            quantity: 3,
+          },
+          {
+            id: 10,
+            quantity: 1,
+          },
+        ],
       });
-      const resData = await response.json();
-      // await new Promise((resolve) => setTimeout(resolve, 500));
-      // reset();
-      router.push(paths.eCommerce.orderCompleted);
-      console.log('DATA', data);
-      // deleteAll();
+
+      await router.push(stripeData.url);
+
+      await console.log(stripeData);
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   });
 
@@ -210,7 +239,7 @@ export default function EcommerceCheckoutView() {
         Checkout
       </Typography>
 
-      <FormProvider methods={methods} onSubmit={onSubmit}>
+      <FormProvider methods={methods} onSubmit={triggerStripe}>
         <Grid container spacing={{ xs: 5, md: 8 }}>
           <Grid xs={12} md={8}>
             <Stack spacing={5} divider={<Divider sx={{ borderStyle: 'dashed' }} />}>
