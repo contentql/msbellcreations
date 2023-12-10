@@ -5,15 +5,11 @@
     "es2021": true
   },
   "plugins": [
-    "perfectionist",
-    "unused-imports",
+    // "perfectionist",
+    // "unused-imports",
     "prettier"
   ],
-  "extends": [
-    "airbnb",
-    "airbnb/hooks",
-    "prettier"
-  ],
+  "extends": ["airbnb", "airbnb/hooks", "prettier"],
   "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -24,25 +20,14 @@
       "impliedStrict": true
     },
     "babelOptions": {
-      "presets": [
-        "@babel/preset-react"
-      ]
+      "presets": ["@babel/preset-react"]
     }
   },
   "settings": {
     "import/resolver": {
       "alias": {
-        "map": [
-          [
-            "src",
-            "./src"
-          ]
-        ],
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".json"
-        ]
+        "map": [["src", "./src"]],
+        "extensions": [".js", ".jsx", ".json"]
       }
     }
   },
@@ -71,9 +56,7 @@
     "import/no-unresolved": [
       2,
       {
-        "ignore": [
-          "src"
-        ]
+        "ignore": ["src"]
       }
     ],
     "react/jsx-no-useless-fragment": [
@@ -124,10 +107,7 @@
         "order": "asc",
         "newlines-between": "always",
         "groups": [
-          [
-            "builtin",
-            "external"
-          ],
+          ["builtin", "external"],
           "mui",
           "internal",
           "parent",
