@@ -61,7 +61,7 @@ export default function NavList({ products, item }) {
         onMouseLeave={menuOpen.onFalse}
       />
 
-      {!!item.children && menuOpen.value && (
+      {/* {!!item.children && menuOpen.value && (
         <Portal>
           <Fade in={menuOpen.value}>
             <StyledMenu onMouseEnter={handleOpenMenu} onMouseLeave={menuOpen.onFalse}>
@@ -70,7 +70,7 @@ export default function NavList({ products, item }) {
                   <Box>
                     <MenuCarousel products={products} numberShow={7} />
                   </Box>
-                  {/* <Box
+                  <Box
                     gap={5}
                     display="grid"
                     gridTemplateColumns="repeat(5, 1fr)"
@@ -90,21 +90,21 @@ export default function NavList({ products, item }) {
                         isNew={list.isNew}
                       />
                     ))}
-                  </Box> */}
+                  </Box>
                 </Grid>
 
-                {/* {commonList && (
+                {commonList && (
                   <Grid xs={3}>
                     <Box sx={{ bgcolor: 'background.default', p: 5 }}>
                       <NavSubList subheader={commonList.subheader} items={commonList.items} />
                     </Box>
                   </Grid>
-                )} */}
+                )}
               </Grid>
             </StyledMenu>
           </Fade>
         </Portal>
-      )}
+      )} */}
     </>
   );
 }

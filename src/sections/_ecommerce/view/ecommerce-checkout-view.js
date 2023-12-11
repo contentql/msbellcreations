@@ -27,6 +27,7 @@ import { useRouter } from 'src/routes/hooks';
 import { useUserStore } from 'src/app/auth-store';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { useCheckout } from 'src/app/checkoutstore';
+import { useOrder } from 'src/app/order-store';
 import FormProvider from 'src/components/hook-form';
 
 import EcommerceCheckoutNewCardForm from '../checkout/ecommerce-checkout-new-card-form';
@@ -82,6 +83,7 @@ const PAYMENT_OPTIONS = [
 
 export default function EcommerceCheckoutView() {
   const { UserData } = useUserStore();
+  const {deleteAllOrders, orderItems, orderaddAll, updateValues,userDetails,} = useOrder();
   const { checkItems, deleteAll } = useCheckout();
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
@@ -97,6 +99,10 @@ export default function EcommerceCheckoutView() {
 
     setTotal(newTotal);
   }, [checkItems]);
+
+  useEffect(()=>{
+    deleteAllOrders()
+  },[])
 
   const router = useRouter();
 
@@ -140,6 +146,8 @@ export default function EcommerceCheckoutView() {
     // },
   };
 
+  console.log('order products', orderItems);
+  console.log("user order details",userDetails)
   const methods = useForm({
     resolver: yupResolver(EcommerceCheckoutSchema),
     defaultValues,
@@ -204,19 +212,27 @@ export default function EcommerceCheckoutView() {
   // });
 
   const triggerStripe = handleSubmit(async (data) => {
+   
+    orderaddAll(checkItems);
+    updateValues({
+      firstName: data.firstName,
+      lastName: data.lastName,
+      emailAddress: data.emailAddress,
+      phoneNumber: data.phoneNumber,
+      city:data.city,
+      country:data.country,
+      zipCode:data.zipCode,
+      streetAddress:data.streetAddress,
+      Shippingcity:data.Shippingcity,
+      Shippingcountry:data.Shippingcountry,
+      ShippingzipCode:data.ShippingzipCode,
+      ShippingstreetAddress:data.ShippingstreetAddress,
+    });
     try {
+      console.log('checkout data in stripe', data);
       const { data: stripeData } = await axios.post('/api/stripe', {
-        email: 'kaparapu.akhilnaidu@gmail.com',
-        products: [
-          {
-            id: 9,
-            quantity: 3,
-          },
-          {
-            id: 10,
-            quantity: 1,
-          },
-        ],
+        email: data.emailAddress,
+        products: checkItems,
       });
 
       await router.push(stripeData.url);
