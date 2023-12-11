@@ -110,15 +110,10 @@ export default function EcommerceCheckoutView() {
 
   const EcommerceCheckoutSchema = Yup.object().shape({
     firstName: Yup.string().required('First name is required'),
-    lastName: Yup.string().required('Last name is required'),
     emailAddress: Yup.string().required('Email address is required'),
-    phoneNumber: Yup.string().required('Phone number is required'),
     streetAddress: Yup.string().required('Street address is required'),
     city: Yup.string().required('City is required'),
     zipCode: Yup.string().required('Zip code is required'),
-    ShippingstreetAddress: Yup.string().required('Street address is required'),
-    Shippingcity: Yup.string().required('City is required'),
-    ShippingzipCode: Yup.string().required('Zip code is required'),
   });
 
   const defaultValues = {

@@ -41,7 +41,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
-import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import { ListItemButton } from '@mui/material';
 
@@ -250,7 +249,7 @@ export default function Header({ headerOnDark }) {
                   </Link>
                   <Divider sx={{ my: 1 }} />
                   {navigations.map(({ title, path, icon }, id) => {
-                    if (UserData.guest && id === 0) return null;
+                    // if (UserData.guest && id === 0) return null;
 
                     return (
                       <Link

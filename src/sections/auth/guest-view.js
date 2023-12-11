@@ -79,7 +79,8 @@ export default function GuestBackgroundView() {
             username: data.email,
             email: data.email,
             password: data.email,
-            guest:true
+            guest:true,
+            
           })
         });
         
