@@ -14,6 +14,8 @@ import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+
 import Label from 'src/components/label';
 import { paths } from 'src/routes/paths';
 import Iconify from 'src/components/iconify';
@@ -33,6 +35,8 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
   const [hover, setHover] = useState(false);
   const { cartItems, addProduct, updateQuantity } = useCart();
   const { wishItems, wishaddProduct, wishupdateQuantity } = useWish();
+
+  
 
   const AddtoCart = () => {
     const existingProduct = cartItems.find((item) => item.id === product.id);
