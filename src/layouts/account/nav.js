@@ -89,7 +89,7 @@ export default function Nav({ open, onClose }) {
 
         <Stack spacing={0.5}>
           <TextMaxLine variant="subtitle1" line={1}>
-            {UserData.userName}
+            {UserData.guest?`guest${UserData.id}`:UserData.userName}
           </TextMaxLine>
           <TextMaxLine variant="body2" line={1} sx={{ color: 'text.secondary' }}>
            {UserData.email}
@@ -100,9 +100,10 @@ export default function Nav({ open, onClose }) {
       <Divider sx={{ borderStyle: 'dashed' }} />
 
       <Stack sx={{ my: 1, px: 2 }}>
-        {navigations.map((item) => (
-          <NavItem key={item.title} item={item} />
-        ))}
+        {navigations.map((item,id) => {
+          if(UserData.guest && id===0) return null;
+          return <NavItem key={item.title} item={item} />
+})}
       </Stack>
 
       <Divider sx={{ borderStyle: 'dashed' }} />

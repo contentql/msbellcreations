@@ -35,11 +35,12 @@ function Logo({ single = false, sx }) {
     >
       <Box
         sx={{
-          height: {xs: 80, md: 1},
+          height: {xs: 70, md: 1},
           width: single ? {xs:20,md: 64} : 200,
           lineHeight: 0,
           cursor: 'pointer',
           display: 'inline-flex',
+          
           ...sx,
         }}
       >

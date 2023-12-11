@@ -49,7 +49,7 @@ export default function EcommerceAccountPersonalView() {
       }).then((res) => res.json())
   );
 
-  console.log("userdata",user)
+  
  
   // if (!isLoading && data) {
   //   console.log("diff",data)
@@ -67,7 +67,7 @@ export default function EcommerceAccountPersonalView() {
 
  
 
-  console.log('user data in Userdata', UserData);
+  
 
   const defaultValues = {
     firstName: UserData?.userName.split(" ")[0],
@@ -100,7 +100,7 @@ export default function EcommerceAccountPersonalView() {
       streetAddress: data.streetAddress,
       zipCode: data.zipCode,
       city: data.city})
-    console.log('api data', data);
+   
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_STRAPI_URL}api/users/${UserData.id}`,

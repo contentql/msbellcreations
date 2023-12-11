@@ -79,6 +79,7 @@ export const paths = {
   registerIllustration: '/auth/register-illustration',
   forgotPassword: '/auth/forgot-password',
   verify: '/auth/verify',
+  guest:'/auth/guest',
   // Common
   maintenance: '/maintenance',
   comingsoon: '/coming-soon',
