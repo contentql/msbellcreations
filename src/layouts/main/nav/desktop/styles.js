@@ -63,15 +63,25 @@ export const StyledNavItem = styled(ListItemButton, {
 // ----------------------------------------------------------------------
 
 export const StyledMenu = styled(Paper)(({ theme }) => ({
-  top: '33%',
+  top: '33%', 
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: '86%',
+  width: '86%', 
   borderRadius: '20px',
   position: 'fixed',
   zIndex: theme.zIndex.modal,
   boxShadow: theme.customShadows.dialog,
   backgroundColor: theme.palette.background.default,
+
+  // // Responsive styles using media queries
+  // '@media screen and (max-width: 600px)': {
+  //   top: '15%', // Adjust top value for smaller screens
+  //   width: '75%', // Adjust width for smaller screens
+  // },
+  // '@media screen and (max-width: 1200px)': {
+  //   top: '33%', // Adjust top value for larger screens
+  //   width: '85%', // Adjust width for larger screens
+  // },
 }));
 
 // ----------------------------------------------------------------------
