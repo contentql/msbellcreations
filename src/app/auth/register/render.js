@@ -11,7 +11,7 @@ export const Rend = ({ children }) => {
 
   // Check if the user is logged in, and navigate accordingly
   // console.log("UserData.isLoggedIn:",UserData.isLoggedIn)
-  if (UserData.isLoggedIn) {
+  if (UserData.isLoggedIn || UserData.guest) {
     router.push("/");
     return null; // Returning null since navigation will happen
   }

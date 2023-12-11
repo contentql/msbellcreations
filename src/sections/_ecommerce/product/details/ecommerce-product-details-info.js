@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
 import { useState, useCallback } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { WhatsappShareButton } from 'react-share';
+import { TwitterShareButton } from 'react-share';
 
 import Stack from '@mui/material/Stack';
 import Rating from '@mui/material/Rating';
@@ -182,7 +182,7 @@ if(isLoading){
       <Divider sx={{ borderStyle: 'dashed', my: 3 }} />
 
       <Stack spacing={3} direction="row" justifyContent={{ xs: 'center', md: 'unset' }}>
-        <WhatsappShareButton
+        <TwitterShareButton
           url={window.location.href}
           title={name}
           separator=":: "
@@ -190,7 +190,7 @@ if(isLoading){
           <Stack direction="row" alignItems="center" sx={{ typography: 'subtitle2' }}>
             <Iconify icon="carbon:share" sx={{ mr: 1 }} /> Share
           </Stack>
-        </WhatsappShareButton>
+        </TwitterShareButton>
       </Stack>
     </>
   );
