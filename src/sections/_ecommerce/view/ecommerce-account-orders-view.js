@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-
+import { useQuery } from 'react-query';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
@@ -18,11 +18,10 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import TablePagination from '@mui/material/TablePagination';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-
 import { _productsTable } from 'src/_mock';
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
-
+import { useUserStore } from 'src/app/auth-store';
 import { stableSort, getComparator } from '../account/utils';
 import EcommerceAccountOrdersTableRow from '../account/ecommerce-account-orders-table-row';
 import EcommerceAccountOrdersTableHead from '../account/ecommerce-account-orders-table-head';
@@ -30,25 +29,26 @@ import EcommerceAccountOrdersTableToolbar from '../account/ecommerce-account-ord
 
 // ----------------------------------------------------------------------
 
-const TABS = ['All Orders', 'Completed', 'To Process', 'Cancelled', 'Return & Refund'];
 
 export const TABLE_HEAD = [
   { id: 'orderId', label: 'Order ID' },
   { id: 'item', label: 'Item' },
-  { id: 'deliveryDate', label: 'Delivery date', width: 160 },
+  { id: 'Order date', label: 'Order Date', width: 160 },
   { id: 'price', label: 'Price', width: 100 },
-  { id: 'status', label: 'Status', width: 100 },
   { id: '' },
 ];
 
 // ----------------------------------------------------------------------
 
 export default function EcommerceAccountOrdersPage() {
+
+  const { UserData } = useUserStore();
+
   const [tab, setTab] = useState('All Orders');
 
   const [order, setOrder] = useState('asc');
 
-  const [orderBy, setOrderBy] = useState('orderId');
+  const [orderBy, setOrderBy] = useState('id');
 
   const [selected, setSelected] = useState([]);
 
@@ -58,6 +58,16 @@ export default function EcommerceAccountOrdersPage() {
 
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  const { data } = useQuery(['orders'], () =>
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/orders?populate=*`,{
+      method: 'GET',
+    }).then((res) => res.json())
+  );
+  const _pr=data?.data
+
+  console.log("pr data",_pr)
+ const filtered_data=_pr?.filter((state)=>state.emailAddress===UserData.email);
+console.log("user data order",filtered_data)
   const handleChangeTab = useCallback((event, newValue) => {
     setTab(newValue);
   }, []);
@@ -75,7 +85,7 @@ export default function EcommerceAccountOrdersPage() {
 
   const handleSelectAllRows = useCallback((event) => {
     if (event.target.checked) {
-      const newSelected = _productsTable.map((n) => n.id);
+      const newSelected = _productsTable?.map((n) => n.id);
       setSelected(newSelected);
       return;
     }
@@ -118,7 +128,7 @@ export default function EcommerceAccountOrdersPage() {
     setDense(event.target.checked);
   }, []);
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - _productsTable.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filtered_data.length) : 0;
 
   return (
     <>
@@ -126,7 +136,7 @@ export default function EcommerceAccountOrdersPage() {
         Orders
       </Typography>
 
-      <Tabs
+      {/* <Tabs
         value={tab}
         scrollButtons="auto"
         variant="scrollable"
@@ -136,9 +146,9 @@ export default function EcommerceAccountOrdersPage() {
         {TABS.map((category) => (
           <Tab key={category} value={category} label={category} />
         ))}
-      </Tabs>
+      </Tabs> */}
 
-      <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mt: 5, mb: 3 }}>
+      {/* <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mt: 5, mb: 3 }}>
         <TextField
           fullWidth
           hiddenLabel
@@ -155,7 +165,7 @@ export default function EcommerceAccountOrdersPage() {
           <DatePicker label="Start Date" sx={{ width: 1, minWidth: 180 }} />
           <DatePicker label="End Date" sx={{ width: 1, minWidth: 180 }} />
         </Stack>
-      </Stack>
+      </Stack> */}
 
       <TableContainer
         sx={{
@@ -193,7 +203,7 @@ export default function EcommerceAccountOrdersPage() {
             />
 
             <TableBody>
-              {stableSort(_productsTable, getComparator(order, orderBy))
+              {filtered_data && stableSort(filtered_data, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => (
                   <EcommerceAccountOrdersTableRow
@@ -202,6 +212,7 @@ export default function EcommerceAccountOrdersPage() {
                     selected={selected.includes(row.id)}
                     onSelectRow={() => handleSelectRow(row.id)}
                   />
+                  // console.log("row data",row)
                 ))}
 
               {emptyRows > 0 && (
@@ -219,7 +230,7 @@ export default function EcommerceAccountOrdersPage() {
       </TableContainer>
 
       <Box sx={{ position: 'relative' }}>
-        <TablePagination
+        {/* <TablePagination
           page={page}
           component="div"
           count={_productsTable.length}
@@ -227,7 +238,7 @@ export default function EcommerceAccountOrdersPage() {
           onPageChange={handleChangePage}
           rowsPerPageOptions={[5, 10, 25]}
           onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+        /> */}
 
         <FormControlLabel
           control={<Switch checked={dense} onChange={handleChangeDense} />}

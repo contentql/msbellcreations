@@ -131,6 +131,7 @@ export default function EcommerceCheckoutView() {
     Shippingcity: '',
     Shippingcountry: 'United States',
     ShippingzipCode: '',
+    totalPrice:""
     // shipping: 'free',
     // paymentMethods: 'mastercard',
     // newCard: {
@@ -222,6 +223,7 @@ export default function EcommerceCheckoutView() {
       Shippingcountry:data.Shippingcountry,
       ShippingzipCode:data.ShippingzipCode,
       ShippingstreetAddress:data.ShippingstreetAddress,
+      totalPrice:subtotal.toString()
     });
     try {
       console.log('checkout data in stripe', data);
