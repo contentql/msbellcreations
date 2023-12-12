@@ -101,7 +101,7 @@ export default function Nav({ open, onClose }) {
 
       <Stack sx={{ my: 1, px: 2 }}>
         {navigations.map((item,id) => {
-          if(UserData.guest && id===0) return null;
+          // if(UserData.guest && id===0) return null;
           return <NavItem key={item.title} item={item} />
 })}
       </Stack>

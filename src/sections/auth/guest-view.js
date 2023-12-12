@@ -81,6 +81,7 @@ export default function GuestBackgroundView() {
             password: data.email,
             guest:true,
             isLoggedIn:true
+
           })
         });
         

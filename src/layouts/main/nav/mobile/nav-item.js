@@ -18,7 +18,7 @@ export default function NavItem({ item, open, active, externalLink, ...other }) 
 
       <ListItemText disableTypography primary={item.title} />
 
-      {!!item.children && <Iconify width={16} icon="carbon:chevron-right" sx={{ ml: 1 }} />}
+      {/* {!!item.children && <Iconify width={16} icon="carbon:chevron-right" sx={{ ml: 1 }} />} */}
     </StyledNavItem>
   );
 
