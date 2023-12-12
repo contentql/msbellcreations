@@ -80,8 +80,8 @@ export default function GuestBackgroundView() {
             email: data.email,
             password: data.email,
             guest:true,
-            isLoggedIn:true
-
+            isLoggedIn:true,
+            avatar:`/assets/images/avatar/avatar_${Math.floor(Math.random() * 25) + 1}.jpg`
           })
         });
         
@@ -105,7 +105,8 @@ export default function GuestBackgroundView() {
               streetAddress: resData.user.streetAddress,
               phoneNumber: resData.user.phoneNumber,
               gender: resData.user.gender,
-              guest:true
+              guest:true,
+              avatar:resData.user.avatar
           };
     
           updateUserData(userData);
