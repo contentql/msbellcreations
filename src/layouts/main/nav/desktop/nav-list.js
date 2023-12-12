@@ -61,50 +61,21 @@ export default function NavList({ products, item }) {
         onMouseLeave={menuOpen.onFalse}
       />
 
-      {/* {!!item.children && menuOpen.value && (
-        <Portal>
+      {!!item.children && menuOpen.value && (
+        <Portal >
           <Fade in={menuOpen.value}>
             <StyledMenu onMouseEnter={handleOpenMenu} onMouseLeave={menuOpen.onFalse}>
               <Grid container>
                 <Grid>
-                  <Box>
+                  <Box sx={{borderRadius:2}}>
                     <MenuCarousel products={products} numberShow={7} />
                   </Box>
-                  <Box
-                    gap={5}
-                    display="grid"
-                    gridTemplateColumns="repeat(5, 1fr)"
-                    sx={{
-                      p: 5,
-                      height: 1,
-                      position: 'relative',
-                      bgcolor: 'background.neutral',
-                    }}
-                  >
-                    {mainList.map((list) => (
-                      <NavSubList
-                        key={list.subheader}
-                        subheader={list.subheader}
-                        cover={list.cover}
-                        items={list.items}
-                        isNew={list.isNew}
-                      />
-                    ))}
-                  </Box>
                 </Grid>
-
-                {commonList && (
-                  <Grid xs={3}>
-                    <Box sx={{ bgcolor: 'background.default', p: 5 }}>
-                      <NavSubList subheader={commonList.subheader} items={commonList.items} />
-                    </Box>
-                  </Grid>
-                )}
               </Grid>
             </StyledMenu>
           </Fade>
         </Portal>
-      )} */}
+      )}
     </>
   );
 }
