@@ -15,7 +15,8 @@ export const useOrder = create(persist((set) => ({
     set((state) => ({
       orderItems: state.orderItems.filter(() => false)
     })),
-
+    
+    resetUpdateValues: () => set({ userDetails: {} }),
 }),
   {
     name: 'order-items',

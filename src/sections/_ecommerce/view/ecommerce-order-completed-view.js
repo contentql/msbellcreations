@@ -18,16 +18,15 @@ import { useEffect } from 'react';
 // ----------------------------------------------------------------------
 
 export default function EcommerceOrderCompletedView() {
-  const { userDetails, orderItems ,deleteAllOrders} = useOrder();
+  const { userDetails, orderItems ,deleteAllOrders,resetUpdateValues} = useOrder();
   const { UserData } = useUserStore();
-
   const postData = async () => {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${UserData.authToken}`,
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_ORDERS_API_TOKEN}`,
         },
         body: JSON.stringify({
           firstName: userDetails.firstName,
@@ -41,12 +40,36 @@ export default function EcommerceOrderCompletedView() {
           Shippingcountry: userDetails.Shippingcountry,
           ShippingzipCode: userDetails.ShippingzipCode,
           ShippingstreetAddress: userDetails.ShippingstreetAddress,
+          totalPrice: userDetails.totalPrice,
           zipCode: userDetails.zipCode,
           product: orderItems,
         }),
       });
       if (res.ok) {
-        console.log('success');
+        const data = await res.json();
+      return data;
+      } else {
+        console.error('Error:', res.status, res.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
+  };
+
+  const putData = async (orderId) => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/orders/${orderId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_ORDERS_API_TOKEN}`,
+        },
+        body: JSON.stringify({
+          Email_config:true,
+        }),
+      });
+      if (res.ok) {
+        console.log('put success');
       } else {
         console.error('Error:', res.status, res.statusText);
       }
@@ -56,19 +79,24 @@ export default function EcommerceOrderCompletedView() {
   };
 
   const { mutate, isLoading } = useMutation(postData, {
-    onSuccess: (data) => {
-      console.log(data);
-      //empty zustnad state here
+    onSuccess:async (data) => {
+      console.log("success data",data)
+      const orderId =await data?.data.id;
+      console.log("id",orderId)
+      putData(orderId);
       deleteAllOrders()
+      resetUpdateValues()
+      
+
     },
 
     onError: (error) => {
     console.log(error)
     },
 
-    onSettled: () => {
-      queryClient.invalidateQueries('create');
-    },
+    // onSettled: () => {
+    //   queryClient.invalidateQueries('create');
+    // },
   });
   
   // const collectedData  = mutate()
