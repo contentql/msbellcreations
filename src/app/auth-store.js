@@ -16,7 +16,8 @@ const store = persist(
       streetAddress:'',
       phoneNumber:'',
       gender:'',
-      guest:false
+      guest:false,
+      avatar:''
     },
     updateUserData: (userData) => {
       set(() => ({

@@ -86,7 +86,8 @@ export default function LoginBackgroundView() {
           streetAddress: resData.user.streetAddress,
           phoneNumber: resData.user.phoneNumber,
           gender: resData.user.gender,
-          guest:false
+          guest:false,
+          avatar:resData.user.avatar
         };
         updateUserData(userData);
         router.push('/');
