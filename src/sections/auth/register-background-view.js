@@ -89,7 +89,8 @@ const onSubmit = handleSubmit(async (user) => {
       body: JSON.stringify({
         username: user.fullName,
         email: user.email,
-        password: user.password
+        password: user.password,
+        avatar:`/assets/images/avatar/avatar_${Math.floor(Math.random() * 25) + 1}.jpg`
       })
     });
     
@@ -107,12 +108,13 @@ const onSubmit = handleSubmit(async (user) => {
         isLoggedIn: resData.user.confirmed,
         email:resData.user.email,
         zipCode: resData.user.zipCode,
-          city: resData.user.city,
-          country: resData.user.country,
-          streetAddress: resData.user.streetAddress,
-          phoneNumber: resData.user.phoneNumber,
-          gender: resData.user.gender,
-          guest:false
+        city: resData.user.city,
+        country: resData.user.country,
+        streetAddress: resData.user.streetAddress,
+        phoneNumber: resData.user.phoneNumber,
+        gender: resData.user.gender,
+        guest:false,
+        avatar:resData.user.avatar
       };
 
       updateUserData(userData);

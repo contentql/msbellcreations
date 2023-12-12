@@ -22,7 +22,7 @@ export default function ProtectedRoute({ children }) {
     }
   }, [UserData.isLoggedIn, router]);
  
-  return UserData.isLoggedIn ? children : <SplashScreen />;
+  return UserData.isLoggedIn||UserData.guest ? children : <SplashScreen />;
 }
  
 ProtectedRoute.propTypes = {

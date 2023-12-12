@@ -29,6 +29,8 @@ const GENDER_OPTIONS = ['Male', 'Female', 'Other'];
 // ----------------------------------------------------------------------
 
 export default function EcommerceAccountPersonalView() {
+  const male=[5,7,9,10,12,13,14,15,17,18,19]
+  const female=[1,2,3,4,6,8,11,16,20,21,22,23,24,25]
   const passwordShow = useBoolean();
   const { UserData, updateUserData } = useUserStore();
   const EcommerceAccountPersonalSchema = Yup.object().shape({
@@ -95,11 +97,17 @@ export default function EcommerceAccountPersonalView() {
   } = methods;
 
   const onSubmit = handleSubmit(async (data) => {
+   // console.log("Data",data)
+    const img=data.gender==="Male"?`/assets/images/avatar/avatar_${male[Math.floor(Math.random() * male.length)]}.jpg`:
+    `/assets/images/avatar/avatar_${female[Math.floor(Math.random() * female.length)]}.jpg`;
+   // console.log(img)
     updateUserData({...UserData,phoneNumber: data.phoneNumber,gender: data.gender,
       country: data.country,
       streetAddress: data.streetAddress,
       zipCode: data.zipCode,
-      city: data.city})
+      city: data.city,
+      avatar:img
+    })
    
     try {
       const response = await fetch(
@@ -117,6 +125,7 @@ export default function EcommerceAccountPersonalView() {
             streetAddress: data.streetAddress,
             zipCode: data.zipCode,
             city: data.city,
+            avatar:img
           }),
         }
       );
@@ -131,7 +140,7 @@ export default function EcommerceAccountPersonalView() {
         theme: 'light',
       });
       const resData = await response.json();
-      console.log("Rahaman",resData,UserData)
+     
     } catch (error) {
       toast.error('error please try again', {
         position: 'bottom-right',
