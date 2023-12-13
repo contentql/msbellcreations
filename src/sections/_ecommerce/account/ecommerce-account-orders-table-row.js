@@ -40,7 +40,7 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
     <>
       <TableRow hover selected={selected}>
         <TableCell padding="checkbox">
-          <Checkbox color="primary" checked={selected} onClick={onSelectRow} />
+          {/* <Checkbox color="primary" checked={selected} onClick={onSelectRow} /> */}
         </TableCell>
 
         <TableCell sx={{ px: 1 }}>
