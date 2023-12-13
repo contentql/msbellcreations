@@ -27,6 +27,8 @@ import FormProvider, { RHFTextField } from 'src/components/hook-form';
 // ----------------------------------------------------------------------
 
 export default function GuestBackgroundView() {
+  
+  const female=[1,2,3,4,6,8,11,16,20,21,22,23,24,25]
   const passwordShow = useBoolean();
   const [loginError, setLoginError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -88,7 +90,7 @@ export default function GuestBackgroundView() {
             email: data.email,
             password: data.email,
             isLoggedIn:true,
-            avatar:`/assets/images/avatar/avatar_${Math.floor(Math.random() * 25) + 1}.jpg`,
+            avatar:`/assets/images/avatar/avatar_${female[Math.floor(Math.random() * female.length)]}.jpg`,
             role:roleId,
             confirmed:true,
             firstName:data.email,
