@@ -184,7 +184,7 @@ export default function Header({ headerOnDark }) {
               </IconButton>
             </Badge>
 
-            {mdUp && (UserData.isLoggedIn || UserData.guest ? 
+            {mdUp && (UserData.isLoggedIn  ? 
           (<>
             <Tooltip title="Account settings">
               <Avatar
@@ -242,12 +242,12 @@ export default function Header({ headerOnDark }) {
               >
                 <MenuItem onClick={handleClose}>
                   <Avatar src={UserData.avatar} />
-                  {UserData.userName}
+                  {UserData.username}
                 </MenuItem>
               </Link>
               <Divider sx={{ my: 1 }} />
               {navigations.map(({ title, path, icon }, id) => {
-                if (UserData.guest && id === 0) return null;
+               
 
                 return (
                   <Link

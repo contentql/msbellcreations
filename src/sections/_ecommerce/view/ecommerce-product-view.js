@@ -29,7 +29,7 @@ export default function EcommerceProductView({ productId }) {
     }).then((res) => res.json())
   );
 
-  const _mockProduct = data?.data.filter((product) => product.id.toString() === productId.toString()).at(0);
+  const _mockProduct = data?.data?.filter((product) => product.id.toString() === productId.toString()).at(0);
   
 
   useEffect(() => {

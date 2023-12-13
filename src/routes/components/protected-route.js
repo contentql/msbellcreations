@@ -17,7 +17,7 @@ export default function ProtectedRoute({ children }) {
   const { UserData } = useUserStore();
  
   useEffect(() => {
-    if (!(UserData.isLoggedIn||UserData.guest)) {
+    if (!(UserData.isLoggedIn)) {
       router.push(paths.loginBackground);
     }
   }, [UserData.isLoggedIn, router]);

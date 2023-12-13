@@ -225,12 +225,8 @@ export default function ChangePassword() {
           {' '}
           {renderHead}
           {renderForm}
-          <Divider>
-            <Typography variant="body2" sx={{ color: 'text.disabled' }}>
-              or continue with
-            </Typography>
-          </Divider>
-          {renderSocials}
+          
+         
         </>
       )}
 

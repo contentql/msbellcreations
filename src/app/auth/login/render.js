@@ -11,7 +11,7 @@ export const Rend = ({ children }) => {
   const { UserData } = useUserStore();
   const router = useRouter(); // Use useRouter hook for navigation
 
-  if (UserData.isLoggedIn || UserData.guest) {
+  if (UserData.isLoggedIn) {
     router.push("/");
     return <SplashScreen />; // Returning null since navigation will happen
   }
