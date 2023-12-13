@@ -2,7 +2,13 @@ import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
 import { useState, useCallback } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { TwitterShareButton } from 'react-share';
+import {
+  TwitterShareButton,
+  WhatsappShareButton,
+  LinkedinShareButton,
+  FacebookShareButton,
+  TwitterIcon,
+} from 'react-share';
 
 import Stack from '@mui/material/Stack';
 import Rating from '@mui/material/Rating';
@@ -19,8 +25,14 @@ import { RouterLink } from 'src/routes/components';
 import { useCheckout } from 'src/app/checkoutstore';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { SplashScreen } from 'src/components/loading-screen';
+import ShareIcon from '@mui/icons-material/Share';
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
 
 import ProductPrice from '../../common/product-price';
+
+import { FacebookIcon, LinkedinIcon, XIcon, WhatsappIcon } from 'react-share';
 
 // ----------------------------------------------------------------------
 
@@ -49,7 +61,43 @@ export default function EcommerceProductDetailsInfo({
   priceSale,
   caption,
 }) {
-  const { data,isLoading } = useQuery(['products'], () =>
+  const actions = [
+    {
+      icon: (
+        <TwitterShareButton url={window.location.href} title={name}>
+          <XIcon size={40} round="true" />
+        </TwitterShareButton>
+      ),
+      name: 'Twitter',
+    },
+    {
+      icon: (
+        <LinkedinShareButton  url={window.location.href} title={name}>
+          <LinkedinIcon size={40} round />
+        </LinkedinShareButton>
+      ),
+      name: 'Linkedin',
+    },
+    {
+      icon: (
+        <WhatsappShareButton  url={window.location.href} title={name} separator=":: ">
+          <WhatsappIcon size={40} round />
+        </WhatsappShareButton>
+      ),
+
+      name: 'Whatsapp',
+    },
+    {
+      icon: (
+        <FacebookShareButton url={window.location.href} >
+          <FacebookIcon size={40} round="true" />
+        </FacebookShareButton>
+      ),
+      name: 'Facebook',
+    },
+  ];
+
+  const { data, isLoading } = useQuery(['products'], () =>
     fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products/${productId}`, {
       method: 'GET',
     }).then((res) => res.json())
@@ -96,9 +144,9 @@ export default function EcommerceProductDetailsInfo({
       updateQuantity(_mockProduct.id, option);
     }
   };
-if(isLoading){
-  return <SplashScreen/>
-}
+  if (isLoading) {
+    return <SplashScreen />;
+  }
   return (
     <>
       <Label color="success" sx={{ mb: 3 }}>
@@ -181,16 +229,17 @@ if(isLoading){
 
       <Divider sx={{ borderStyle: 'dashed', my: 3 }} />
 
-      <Stack spacing={3} direction="row" justifyContent={{ xs: 'center', md: 'unset' }}>
-        <TwitterShareButton
-          url={window.location.href}
-          title={name}
-          separator=":: "
+      <Stack spacing={3} direction="row" >
+        <SpeedDial
+          ariaLabel="SpeedDial basic example"
+          sx={{ position: 'relative', bottom: 8, left: 16,boxShadow:0 }}
+          icon={<ShareIcon />}
+          direction="right"
         >
-          <Stack direction="row" alignItems="center" sx={{ typography: 'subtitle2' }}>
-            <Iconify icon="carbon:share" sx={{ mr: 1 }} /> Share
-          </Stack>
-        </TwitterShareButton>
+          {actions.map((action) => (
+            <SpeedDialAction key={action.name} icon={action.icon} tooltipTitle={action.name} />
+          ))}
+        </SpeedDial>
       </Stack>
     </>
   );

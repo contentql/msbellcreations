@@ -72,8 +72,8 @@ export default function EcommerceAccountPersonalView() {
   
 
   const defaultValues = {
-    firstName: UserData?.userName.split(" ")[0],
-    lastName: UserData?.userName.split(" ")[1],
+    firstName: UserData?.firstName,
+    lastName: UserData?.lastName,
     emailAddress: UserData?.email,
     phoneNumber: UserData?.phoneNumber,
     // birthday: UserData?.birthday,
@@ -83,6 +83,7 @@ export default function EcommerceAccountPersonalView() {
     zipCode: UserData?.zipCode,
     city: UserData.city,
     country: UserData.country,
+    
   };
 
   const methods = useForm({
@@ -106,9 +107,12 @@ export default function EcommerceAccountPersonalView() {
       streetAddress: data.streetAddress,
       zipCode: data.zipCode,
       city: data.city,
-      avatar:img
+      avatar:img,
+      firstName:data.firstName,
+      lastName:data.lastName
     })
    
+    console.log("user dsts",data)
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_STRAPI_URL}api/users/${UserData.id}`,
@@ -125,7 +129,9 @@ export default function EcommerceAccountPersonalView() {
             streetAddress: data.streetAddress,
             zipCode: data.zipCode,
             city: data.city,
-            avatar:img
+            avatar:img,
+            firstName:data.firstName,
+            lastName:data.lastName
           }),
         }
       );
@@ -193,7 +199,7 @@ export default function EcommerceAccountPersonalView() {
           )}
         /> */}
 
-        <RHFSelect native name="gender" label="Gender">
+        <RHFSelect native name="gender" label="Gender" defaultValue={"Male"}>
           {GENDER_OPTIONS.map((option) => (
             <option key={option} value={option}>
               {option}

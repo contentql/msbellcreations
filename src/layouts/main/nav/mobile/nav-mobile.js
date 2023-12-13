@@ -62,7 +62,7 @@ export default function NavMobile({ data }) {
             {data.map((link) => (
               <NavList key={link.title} item={link} />
             ))}
-          {UserData.isLoggedIn || UserData.guest ?
+          {UserData.isLoggedIn ?
 
                 <Link component={RouterLink}
                 href={paths.eCommerce.account.personal}>

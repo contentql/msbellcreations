@@ -117,8 +117,8 @@ export default function EcommerceCheckoutView() {
   });
 
   const defaultValues = {
-    firstName: UserData.userName.split(' ')[0],
-    lastName: UserData.userName.split(' ')[1],
+    firstName: UserData.firstName,
+    lastName: UserData.lastName,
     emailAddress: UserData.email,
     phoneNumber: UserData?.phoneNumber ? UserData.phoneNumber : '',
     // password: '',

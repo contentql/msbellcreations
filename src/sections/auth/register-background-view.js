@@ -113,7 +113,6 @@ const onSubmit = handleSubmit(async (user) => {
         streetAddress: resData.user.streetAddress,
         phoneNumber: resData.user.phoneNumber,
         gender: resData.user.gender,
-        guest:false,
         avatar:resData.user.avatar
       };
 

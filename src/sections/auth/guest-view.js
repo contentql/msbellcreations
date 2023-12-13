@@ -57,19 +57,27 @@ export default function GuestBackgroundView() {
     setValue,
   } = methods;
 
+ 
+
   const onSubmit = handleSubmit(async (data) => {
     
-    try {
-        // await new Promise((resolve) => setTimeout(resolve, 500));
-        // reset();
-        // console.log('DATA', user);
-        // const registeredRole = await strapi
-        // .query('role', 'users-permissions')
-        // .findOne({ name: 'guest' });
-
-        // console.log(registeredRole)
     
-        const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/auth/local/register`, {
+    try {
+      const users = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/users-permissions/roles`);
+
+      // Logging the response after converting it to JSON
+      const datas = await users.json();
+      const roleId=(datas.roles.find((role)=>role.name==="Guest")).id;
+
+ 
+
+
+      
+
+          
+          
+    
+        const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/users`, {
           method: 'POST',
           headers: {
             Accept: 'application/json',
@@ -79,38 +87,43 @@ export default function GuestBackgroundView() {
             username: data.email,
             email: data.email,
             password: data.email,
-            guest:true,
             isLoggedIn:true,
-            avatar:`/assets/images/avatar/avatar_${Math.floor(Math.random() * 25) + 1}.jpg`
+            avatar:`/assets/images/avatar/avatar_${Math.floor(Math.random() * 25) + 1}.jpg`,
+            role:roleId,
+            confirmed:true,
+            firstName:data.email,
+             
+
           })
         });
         
     
         const resData = await response.json();
-        console.log("Res",resData)
+       
         const { jwt } = resData;
         localStorage.setItem('token', jwt);
 
         
         if (response.ok) {
           const userData = {
-            id:resData.user.id,
+            id:resData.id,
             authToken: resData.jwt,
-            userName: resData.user.username,
-            isLoggedIn: resData.user.confirmed,
-            email:resData.user.email,
-            zipCode: resData.user.zipCode,
-              city: resData.user.city,
-              country: resData.user.country,
-              streetAddress: resData.user.streetAddress,
-              phoneNumber: resData.user.phoneNumber,
-              gender: resData.user.gender,
-              guest:true,
-              avatar:resData.user.avatar
+            userName: resData.username,
+            isLoggedIn: resData.confirmed,
+            email:resData.email,
+            zipCode: resData.zipCode,
+              city: resData.city,
+              country: resData.country,
+              streetAddress: resData.streetAddress,
+              phoneNumber: resData.phoneNumber,
+              gender: resData.gender,
+              avatar:resData.avatar,
+              firstName:resData.username,
+              lastName:resData.username
           };
     
           updateUserData(userData);
-          console.log("Helloooo1")
+         
           router.push('/')
          
           setSuccess(true);
@@ -126,12 +139,8 @@ export default function GuestBackgroundView() {
             });
           
         } else if (response.status === 400) {
-          if(resData.error.message==="Email or Username are already taken"  )
-          {
-            router.push('/')
-          }
           setLoginError(resData.error.message);
-          toast.error(resData.error.message, {
+          toast.error(`${resData.error.message==="Email already taken"? "Please reset your password for login":resData.error.message} `, {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
@@ -190,6 +199,16 @@ export default function GuestBackgroundView() {
     <FormProvider methods={methods} onSubmit={onSubmit}>
       <Stack spacing={2.5} alignItems="flex-end">
         <RHFTextField name="email" label="Email address" />
+
+        <Link
+          component={RouterLink}
+          href={paths.forgotPassword}
+          variant="body2"
+          underline="always"
+          color="text.secondary"
+        >
+          Reset password?
+        </Link>
 
         <LoadingButton
           fullWidth
