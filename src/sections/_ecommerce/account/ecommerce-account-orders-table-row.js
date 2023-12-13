@@ -15,11 +15,13 @@ import Iconify from 'src/components/iconify';
 //  utils
 import { fDate } from 'src/utils/format-time';
 import { fCurrency } from 'src/utils/format-number';
+import Box from '@mui/material/Box';
 
 // ----------------------------------------------------------------------
 
 export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selected }) {
   const [open, setOpen] = useState(null);
+  const [hover, setHover] = useState(null);
 
   const handleOpen = useCallback((event) => {
     setOpen(event.currentTarget);
@@ -27,6 +29,14 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
 
   const handleClose = useCallback(() => {
     setOpen(null);
+  }, []);
+
+  const handlehoverOpen = useCallback((event) => {
+    setHover(event.currentTarget);
+  }, []);
+
+  const handlehoverClose = useCallback(() => {
+    setHover(null);
   }, []);
 
   const inputStyles = {
@@ -47,9 +57,35 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
           <InputBase value={row.id} sx={inputStyles} />
         </TableCell>
 
-        <TableCell sx={{ px: 1 }}>
+        <TableCell sx={{ px: 1 }} onMouseOver={handlehoverOpen} >
           <InputBase value={row.product.map((data) => data.name).join(',')} sx={inputStyles} />
         </TableCell>
+        <Popover
+          open={Boolean(hover)}
+          anchorEl={hover}
+           onClose={handlehoverClose}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+          slotProps={{
+            paper: {
+              sx: { width: 500 },
+            },
+          }}
+        >
+          {row.product.map((products) => (
+            <Box
+              sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+                p: { xs: '10px', md: '20px' },
+              }}
+            >
+              <p>{products.name}</p>
+              <p>{products.quantity}</p>
+            </Box>
+          ))}
+        </Popover>
 
         <TableCell>{fDate(row.createdAt)}</TableCell>
 
@@ -70,11 +106,11 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
           </Label>
         </TableCell> */}
 
-        <TableCell align="right" padding="none">
+        {/* <TableCell align="right" padding="none">
           <IconButton onClick={handleOpen}>
             <Iconify icon="carbon:overflow-menu-vertical" />
           </IconButton>
-        </TableCell>
+        </TableCell> */}
       </TableRow>
 
       <Popover
