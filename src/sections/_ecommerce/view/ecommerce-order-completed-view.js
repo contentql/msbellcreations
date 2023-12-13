@@ -22,6 +22,7 @@ export default function EcommerceOrderCompletedView() {
   const { UserData } = useUserStore();
 
   const putData = async (orderId) => {
+
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/orders/${orderId}`, {
         method: 'PUT',
@@ -53,9 +54,9 @@ export default function EcommerceOrderCompletedView() {
       console.log(error);
     },
 
-    onSettled: () => {
-      queryClient.invalidateQueries('create');
-    },
+    // onSettled: () => {
+    //   queryClient.invalidateQueries('create');
+    // },
   });
 
   // const collectedData  = mutate()

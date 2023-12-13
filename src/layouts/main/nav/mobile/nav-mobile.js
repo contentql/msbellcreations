@@ -12,14 +12,23 @@ import Iconify from 'src/components/iconify';
 import { usePathname } from 'src/routes/hooks';
 import Scrollbar from 'src/components/scrollbar';
 import { useBoolean } from 'src/hooks/use-boolean';
+import Link from '@mui/material/Link';
+
+import { RouterLink } from 'src/routes/components';
+
+import { paths } from 'src/routes/paths';
 
 import { NAV } from '../../../config-layout';
 
 import NavList from './nav-list';
+import { useUserStore } from 'src/app/auth-store';
+
+import Avatar from '@mui/material/Avatar';
 
 // ----------------------------------------------------------------------
 
 export default function NavMobile({ data }) {
+  const {UserData}=useUserStore()
   const pathname = usePathname();
 
   const mobileOpen = useBoolean();
@@ -53,6 +62,20 @@ export default function NavMobile({ data }) {
             {data.map((link) => (
               <NavList key={link.title} item={link} />
             ))}
+          {UserData.isLoggedIn || UserData.guest ?
+
+                <Link component={RouterLink}
+                href={paths.eCommerce.account.personal}>
+                <Button variant="contained" color="inherit" sx={{width:"80%",ml:3.5 }}>
+                  Profile
+                </Button>
+                </Link>
+              
+              : <Link component={RouterLink} href={paths.loginBackground}>
+                <Button variant="contained" color="inherit" sx={{width:"80%",ml:3.5 }}>
+                  Login
+                </Button>
+              </Link>}
           </List>
 
           {/* <Stack spacing={1.5} sx={{ p: 3 }}>

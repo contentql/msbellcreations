@@ -80,13 +80,14 @@ export default function GuestBackgroundView() {
             email: data.email,
             password: data.email,
             guest:true,
-            
+            isLoggedIn:true,
+            avatar:`/assets/images/avatar/avatar_${Math.floor(Math.random() * 25) + 1}.jpg`
           })
         });
         
     
         const resData = await response.json();
-        console.log(resData)
+        console.log("Res",resData)
         const { jwt } = resData;
         localStorage.setItem('token', jwt);
 
@@ -104,7 +105,8 @@ export default function GuestBackgroundView() {
               streetAddress: resData.user.streetAddress,
               phoneNumber: resData.user.phoneNumber,
               gender: resData.user.gender,
-              guest:true
+              guest:true,
+              avatar:resData.user.avatar
           };
     
           updateUserData(userData);
@@ -124,6 +126,10 @@ export default function GuestBackgroundView() {
             });
           
         } else if (response.status === 400) {
+          if(resData.error.message==="Email or Username are already taken"  )
+          {
+            router.push('/')
+          }
           setLoginError(resData.error.message);
           toast.error(resData.error.message, {
             position: "top-right",

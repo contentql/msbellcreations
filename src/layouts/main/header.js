@@ -41,15 +41,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
-import Settings from '@mui/icons-material/Settings';
-import { ListItemButton } from '@mui/material';
 
-import ListItemText from '@mui/material/ListItemText';
 import { useRouter } from 'next/navigation';
 
 // ----------------------------------------------------------------------
 
 export default function Header({ headerOnDark }) {
+
   const router = useRouter();
   const { cartItems, cartempty } = useCart();
   const { wishItems, wishempty } = useWish();
@@ -186,105 +184,105 @@ export default function Header({ headerOnDark }) {
               </IconButton>
             </Badge>
 
-            {UserData.isLoggedIn || UserData.guest ? (
-              <>
-                {/* <Link component={RouterLink} href={paths.eLearning.account.personal}> */}
-                <Tooltip title="Account settings">
-                  <Avatar
-                    aria-controls={open ? 'basic-menu' : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
-                    onClick={handleClick}
-                    src="/assests/images/avatar/avatar_2.jpg"
-                    sx={{ width: 40, height: 40, cursor: 'pointer' }}
-                  />
-                </Tooltip>
-                <Menu
-                  anchorEl={anchorEl}
-                  id="account-menu"
-                  open={open}
-                  onClose={handleClose}
-                  onClick={handleClose}
-                  PaperProps={{
-                    elevation: 0,
-                    sx: {
-                      overflow: 'visible',
-                      filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                      mt: 1.5,
-                      padding: 2,
-                      width: 300,
-                      '& .MuiAvatar-root': {
-                        width: 32,
-                        height: 32,
-                        ml: -0.5,
-                        mr: 1,
-                      },
-                      '&:before': {
-                        content: '""',
-                        display: 'block',
-                        position: 'absolute',
-                        top: 0,
-                        right: 14,
-                        width: 10,
-                        height: 10,
-                        bgcolor: 'background.paper',
-                        transform: 'translateY(-50%) rotate(45deg)',
-                        zIndex: 0,
-                      },
-                    },
-                  }}
-                  transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                  anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-                >
+            {mdUp && (UserData.isLoggedIn || UserData.guest ? 
+          (<>
+            <Tooltip title="Account settings">
+              <Avatar
+                aria-controls={open ? 'basic-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
+                alt="User"
+                src={UserData.avatar}
+                sx={{ width: 40, height: 40, cursor: 'pointer' }}
+              />
+            </Tooltip>
+            <Menu
+              anchorEl={anchorEl}
+              id="account-menu"
+              open={open}
+              onClose={handleClose}
+              onClick={handleClose}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: 'visible',
+                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                  mt: 1.5,
+                  padding: 2,
+                  width: 300,
+                  '& .MuiAvatar-root': {
+                    width: 32,
+                    height: 32,
+                    ml: -0.5,
+                    mr: 1,
+                  },
+                  '&:before': {
+                    content: '""',
+                    display: 'block',
+                    position: 'absolute',
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: 'background.paper',
+                    transform: 'translateY(-50%) rotate(45deg)',
+                    zIndex: 0,
+                  },
+                },
+              }}
+              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            >
+              <Link
+                sx={{ color: 'black' }}
+                component={RouterLink}
+                href={paths.eCommerce.account.personal}
+                underline="none"
+              >
+                <MenuItem onClick={handleClose}>
+                  <Avatar src={UserData.avatar} />
+                  {UserData.userName}
+                </MenuItem>
+              </Link>
+              <Divider sx={{ my: 1 }} />
+              {navigations.map(({ title, path, icon }, id) => {
+                if (UserData.guest && id === 0) return null;
+
+                return (
                   <Link
+                    key={id} // Adding a key prop to the Link component
                     sx={{ color: 'black' }}
                     component={RouterLink}
-                    href={paths.eCommerce.account.personal}
+                    href={path} // Use "to" instead of "href" for React Router Links
                     underline="none"
                   >
                     <MenuItem onClick={handleClose}>
-                      <Avatar src="/assests/images/avatar/avatar_2.jpg" />
-                      {UserData.userName}
+                      <ListItemIcon sx={{ mr: 0 }}>{icon}</ListItemIcon>
+                      {title}
                     </MenuItem>
                   </Link>
-                  <Divider sx={{ my: 1 }} />
-                  {navigations.map(({ title, path, icon }, id) => {
-                    // if (UserData.guest && id === 0) return null;
+                );
+              })}
 
-                    return (
-                      <Link
-                        key={id} // Adding a key prop to the Link component
-                        sx={{ color: 'black' }}
-                        component={RouterLink}
-                        href={path} // Use "to" instead of "href" for React Router Links
-                        underline="none"
-                      >
-                        <MenuItem onClick={handleClose}>
-                          <ListItemIcon sx={{ mr: 0 }}>{icon}</ListItemIcon>
-                          {title}
-                        </MenuItem>
-                      </Link>
-                    );
-                  })}
-
-                  <Divider sx={{ my: 1 }} />
-                  <MenuItem
-                    onClick={() => {
-                      handleClose();
-                      router.push('/');
-                      removeUserData();
-                      wishempty();
-                      cartempty();
-                    }}
-                  >
-                    <ListItemIcon sx={{ mr: 0 }}>
-                      <Iconify icon="material-symbols:logout" />
-                    </ListItemIcon>
-                    Logout
-                  </MenuItem>
-                </Menu>
-              </>
-            ) : (
+              <Divider sx={{ my: 1 }} />
+              <MenuItem
+                onClick={() => {
+                  handleClose();
+                  router.push('/');
+                  removeUserData();
+                  wishempty();
+                  cartempty();
+                }}
+              >
+                <ListItemIcon sx={{ mr: 0 }}>
+                  <Iconify icon="material-symbols:logout" />
+                </ListItemIcon>
+                Logout
+              </MenuItem>
+            </Menu>
+          </>)
+             : (
               <>
                 <Link component={RouterLink} href={paths.loginBackground}>
                   <Button variant="contained" color="inherit">
@@ -292,7 +290,7 @@ export default function Header({ headerOnDark }) {
                   </Button>
                 </Link>
               </>
-            )}
+            ))}
 
             {!mdUp && <NavMobile data={navConfig} />}
           </Stack>
