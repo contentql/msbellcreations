@@ -16,7 +16,9 @@ import Iconify from 'src/components/iconify';
 import { fDate } from 'src/utils/format-time';
 import { fCurrency } from 'src/utils/format-number';
 import Box from '@mui/material/Box';
+
 import { Tooltip, Typography } from '@mui/material';
+
 
 // ----------------------------------------------------------------------
 
@@ -56,13 +58,17 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
 
         <TableCell sx={{ px: 1 }}>{row.id}</TableCell>
 
+
         <TableCell sx={{ px: 1 }} onClick={handlehoverOpen}>
           <Tooltip title="click to see all products" arrow><InputBase value={row.product.map((data) => data.name).join(',')} /></Tooltip>
+
         </TableCell>
         <Popover
           open={Boolean(hover)}
           anchorEl={hover}
+
           onClose={handlehoverClose}
+
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
           transformOrigin={{ vertical: 'top', horizontal: 'center' }}
           slotProps={{
@@ -98,6 +104,7 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
               </Box>
               <Divider />
             </>
+
           ))}
         </Popover>
 
