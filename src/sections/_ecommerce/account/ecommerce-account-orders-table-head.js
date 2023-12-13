@@ -16,7 +16,7 @@ export default function EcommerceAccountOrdersTableHead({
   onSort,
   orderBy,
   rowCount,
-  headCells,
+   headCells,
   numSelected,
   onSelectAllRows,
 }) {
@@ -24,11 +24,11 @@ export default function EcommerceAccountOrdersTableHead({
     <TableHead>
       <TableRow>
         <TableCell padding="checkbox">
-          <Checkbox
+          {/* <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllRows}
-          />
+          /> */}
         </TableCell>
 
         {headCells.map((headCell) => (

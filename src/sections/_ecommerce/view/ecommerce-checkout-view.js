@@ -180,21 +180,21 @@ export default function EcommerceCheckoutView() {
   //         'Content-Type': 'application/json',
   //         Authorization: `Bearer ${UserData.authToken}`,
   //       },
-  //       body: JSON.stringify({
-  //         firstName: data.firstName,
-  //         lastName: data.lastName,
-  //         emailAddress: data.emailAddress,
-  //         phoneNumber: data.phoneNumber,
-  //         streetAddress: data.streetAddress,
-  //         country: data.country,
-  //         city: data.city,
-  //         Shippingcity: data.Shippingcity,
-  //         Shippingcountry: data.Shippingcountry,
-  //         ShippingzipCode: data.ShippingzipCode,
-  //         ShippingstreetAddress: data.ShippingstreetAddress,
-  //         zipCode: data.zipCode,
-  //         product: checkItems,
-  //       }),
+      //   body: JSON.stringify({
+      //     firstName: data.firstName,
+      //     lastName: data.lastName,
+      //     emailAddress: data.emailAddress,
+      //     phoneNumber: data.phoneNumber,
+      //     streetAddress: data.streetAddress,
+      //     country: data.country,
+      //     city: data.city,
+      //     Shippingcity: data.Shippingcity,
+      //     Shippingcountry: data.Shippingcountry,
+      //     ShippingzipCode: data.ShippingzipCode,
+      //     ShippingstreetAddress: data.ShippingstreetAddress,
+      //     zipCode: data.zipCode,
+      //     product: checkItems,
+      //  }),
   //     });
   //     const resData = await response.json();
   //     // await new Promise((resolve) => setTimeout(resolve, 500));
@@ -207,8 +207,46 @@ export default function EcommerceCheckoutView() {
   //   }
   // });
 
+  const postData = async (data) => {
+
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/orders`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_ORDERS_API_TOKEN}`,
+        },
+         body: JSON.stringify({
+          firstName: data.firstName,
+          lastName: data.lastName,
+          emailAddress: data.emailAddress,
+          phoneNumber: data.phoneNumber,
+          streetAddress: data.streetAddress,
+          country: data.country,
+          city: data.city,
+          Shippingcity: data.Shippingcity,
+          Shippingcountry: data.Shippingcountry,
+          ShippingzipCode: data.ShippingzipCode,
+          ShippingstreetAddress: data.ShippingstreetAddress,
+          zipCode: data.zipCode,
+          totalPrice:subtotal.toString(),
+          product: checkItems,
+       }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        updateValues({...userDetails, OrderId:data.data.id})
+      } else {
+        console.error('Error:', res.status, res.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
+  };
+
+
   const triggerStripe = handleSubmit(async (data) => {
-   
+  
     orderaddAll(checkItems);
     updateValues({
       firstName: data.firstName,
@@ -226,6 +264,7 @@ export default function EcommerceCheckoutView() {
       totalPrice:subtotal.toString()
     });
     try {
+      postData(data);
       console.log('checkout data in stripe', data);
       const { data: stripeData } = await axios.post('/api/stripe', {
         email: data.emailAddress,

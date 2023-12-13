@@ -18,43 +18,8 @@ import { useEffect } from 'react';
 // ----------------------------------------------------------------------
 
 export default function EcommerceOrderCompletedView() {
-  const { userDetails, orderItems ,deleteAllOrders,resetUpdateValues} = useOrder();
+  const { userDetails, orderItems, deleteAllOrders, resetUpdateValues } = useOrder();
   const { UserData } = useUserStore();
-  const postData = async () => {
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/orders`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_ORDERS_API_TOKEN}`,
-        },
-        body: JSON.stringify({
-          firstName: userDetails.firstName,
-          lastName: userDetails.lastName,
-          emailAddress: userDetails.emailAddress,
-          phoneNumber: userDetails.phoneNumber,
-          streetAddress: userDetails.streetAddress,
-          country: userDetails.country,
-          city: userDetails.city,
-          Shippingcity: userDetails.Shippingcity,
-          Shippingcountry: userDetails.Shippingcountry,
-          ShippingzipCode: userDetails.ShippingzipCode,
-          ShippingstreetAddress: userDetails.ShippingstreetAddress,
-          totalPrice: userDetails.totalPrice,
-          zipCode: userDetails.zipCode,
-          product: orderItems,
-        }),
-      });
-      if (res.ok) {
-        const data = await res.json();
-      return data;
-      } else {
-        console.error('Error:', res.status, res.statusText);
-      }
-    } catch (error) {
-      console.error('Error:', error.message);
-    }
-  };
 
   const putData = async (orderId) => {
     try {
@@ -65,7 +30,7 @@ export default function EcommerceOrderCompletedView() {
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_ORDERS_API_TOKEN}`,
         },
         body: JSON.stringify({
-          Email_config:true,
+          Email_config: true,
         }),
       });
       if (res.ok) {
@@ -78,37 +43,29 @@ export default function EcommerceOrderCompletedView() {
     }
   };
 
-  const { mutate, isLoading } = useMutation(postData, {
-    onSuccess:async (data) => {
-      console.log("success data",data)
-      const orderId =await data?.data.id;
-      console.log("id",orderId)
-      putData(orderId);
-      deleteAllOrders()
-      resetUpdateValues()
-      
-
+  const { mutate, isLoading } = useMutation(() => putData(userDetails.OrderId), {
+    onSuccess: async (data) => {
+      deleteAllOrders();
+      resetUpdateValues();
     },
 
     onError: (error) => {
-    console.log(error)
+      console.log(error);
     },
 
-    // onSettled: () => {
-    //   queryClient.invalidateQueries('create');
-    // },
+    onSettled: () => {
+      queryClient.invalidateQueries('create');
+    },
   });
-  
+
   // const collectedData  = mutate()
   console.log('orders', UserData.authToken, userDetails, orderItems);
 
   useEffect(() => {
-    if(orderItems.length>0) {
-      mutate()
-      // empty zustand here
+    if (orderItems.length > 0) {
+      mutate();
     }
-   
-  }, [])
+  }, []);
 
   return (
     <Container

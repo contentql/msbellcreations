@@ -229,18 +229,18 @@ console.log("user data order",filtered_data)
         </Scrollbar>
       </TableContainer>
 
-      <Box sx={{ position: 'relative' }}>
-        {/* <TablePagination
+      <Box sx={{ position: 'relative', mt:3}}>
+        <TablePagination
           page={page}
           component="div"
-          count={_productsTable.length}
+          count={filtered_data?.length}
           rowsPerPage={rowsPerPage}
           onPageChange={handleChangePage}
           rowsPerPageOptions={[5, 10, 25]}
           onRowsPerPageChange={handleChangeRowsPerPage}
-        /> */}
+        />
 
-        <FormControlLabel
+        {/* <FormControlLabel
           control={<Switch checked={dense} onChange={handleChangeDense} />}
           label="Dense padding"
           sx={{
@@ -251,7 +251,7 @@ console.log("user data order",filtered_data)
               sm: 'absolute',
             },
           }}
-        />
+        /> */}
       </Box>
     </>
   );
