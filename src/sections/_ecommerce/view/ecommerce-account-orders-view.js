@@ -180,7 +180,7 @@ console.log("user data order",filtered_data)
         }}
       >
         <EcommerceAccountOrdersTableToolbar
-          rowCount={_productsTable.length}
+          rowCount={filtered_data?.length}
           numSelected={selected.length}
           onSelectAllRows={handleSelectAllRows}
         />
@@ -197,7 +197,7 @@ console.log("user data order",filtered_data)
               orderBy={orderBy}
               onSort={handleSort}
               headCells={TABLE_HEAD}
-              rowCount={_productsTable.length}
+              rowCount={filtered_data?.length}
               numSelected={selected.length}
               onSelectAllRows={handleSelectAllRows}
             />

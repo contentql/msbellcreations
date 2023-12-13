@@ -17,6 +17,9 @@ import { fDate } from 'src/utils/format-time';
 import { fCurrency } from 'src/utils/format-number';
 import Box from '@mui/material/Box';
 
+import { Tooltip, Typography } from '@mui/material';
+
+
 // ----------------------------------------------------------------------
 
 export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selected }) {
@@ -53,17 +56,19 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
           {/* <Checkbox color="primary" checked={selected} onClick={onSelectRow} /> */}
         </TableCell>
 
-        <TableCell sx={{ px: 1 }}>
-          <InputBase value={row.id} sx={inputStyles} />
-        </TableCell>
+        <TableCell sx={{ px: 1 }}>{row.id}</TableCell>
 
-        <TableCell sx={{ px: 1 }} onMouseOver={handlehoverOpen} >
-          <InputBase value={row.product.map((data) => data.name).join(',')} sx={inputStyles} />
+
+        <TableCell sx={{ px: 1 }} onClick={handlehoverOpen}>
+          <Tooltip title="click to see all products" arrow><InputBase value={row.product.map((data) => data.name).join(',')} /></Tooltip>
+
         </TableCell>
         <Popover
           open={Boolean(hover)}
           anchorEl={hover}
-           onClose={handlehoverClose}
+
+          onClose={handlehoverClose}
+
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
           transformOrigin={{ vertical: 'top', horizontal: 'center' }}
           slotProps={{
@@ -72,26 +77,40 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
             },
           }}
         >
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between',
+              p: { xs: '10px', md: '20px' },
+            }}
+          >
+            <Typography variant="h6">Product Name</Typography>
+            <Typography variant="h6">Quantity</Typography>
+          </Box>
+          <Divider />
           {row.product.map((products) => (
-            <Box
-              sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'space-between',
-                p: { xs: '10px', md: '20px' },
-              }}
-            >
-              <p>{products.name}</p>
-              <p>{products.quantity}</p>
-            </Box>
+            <>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  justifyContent: 'space-between',
+                  p: { xs: '10px', md: '20px' },
+                }}
+              >
+                <p>{products.name}</p>
+                <p>{products.quantity}</p>
+              </Box>
+              <Divider />
+            </>
+
           ))}
         </Popover>
 
         <TableCell>{fDate(row.createdAt)}</TableCell>
 
-        <TableCell sx={{ px: 1 }}>
-          <InputBase value={fCurrency(row.totalPrice)} sx={inputStyles} />
-        </TableCell>
+        <TableCell sx={{ px: 1 }}>{fCurrency(row.totalPrice)}</TableCell>
 
         {/* <TableCell>
           <Label
@@ -113,7 +132,7 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
         </TableCell> */}
       </TableRow>
 
-      <Popover
+      {/* <Popover
         open={Boolean(open)}
         anchorEl={open}
         onClose={handleClose}
@@ -138,7 +157,7 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
         <MenuItem onClick={handleClose} sx={{ color: 'error.main' }}>
           <Iconify icon="carbon:trash-can" sx={{ mr: 1 }} /> Delete
         </MenuItem>
-      </Popover>
+      </Popover> */}
     </>
   );
 }
