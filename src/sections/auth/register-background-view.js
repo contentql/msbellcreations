@@ -31,6 +31,8 @@ import FormProvider, { RHFTextField } from 'src/components/hook-form';
 // ----------------------------------------------------------------------
 
 export default function RegisterBackgroundView() {
+
+  const female=[1,2,3,4,6,8,11,16,20,21,22,23,24,25]
   const router=useRouter();
   const passwordShow = useBoolean();
 
@@ -90,7 +92,7 @@ const onSubmit = handleSubmit(async (user) => {
         username: user.fullName,
         email: user.email,
         password: user.password,
-        avatar:`/assets/images/avatar/avatar_${Math.floor(Math.random() * 25) + 1}.jpg`
+        avatar:`/assets/images/avatar/avatar_${female[Math.floor(Math.random() * female.length)]}.jpg`
       })
     });
     

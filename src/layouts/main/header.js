@@ -242,7 +242,7 @@ export default function Header({ headerOnDark }) {
               >
                 <MenuItem onClick={handleClose}>
                   <Avatar src={UserData.avatar} />
-                  {UserData.username}
+                  {UserData.firstName?UserData.firstName:UserData.userName}
                 </MenuItem>
               </Link>
               <Divider sx={{ my: 1 }} />
