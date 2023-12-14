@@ -81,7 +81,7 @@ const onSubmit = handleSubmit(async (user) => {
     // reset();
     // console.log('DATA', user);
     
-    //removeUserData();
+    removeUserData();
     const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/auth/local/register`, {
       method: 'POST',
       headers: {

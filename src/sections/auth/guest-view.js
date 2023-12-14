@@ -32,7 +32,7 @@ export default function GuestBackgroundView() {
   const passwordShow = useBoolean();
   const [loginError, setLoginError] = useState('');
   const [success, setSuccess] = useState(false);
-  const { updateUserData, UserData } = useUserStore();
+  const { updateUserData, UserData,removeUserData } = useUserStore();
 
   const [popup, setpopup] = useState(false);
 
@@ -70,6 +70,7 @@ export default function GuestBackgroundView() {
       // Logging the response after converting it to JSON
       const datas = await users.json();
       const roleId=(datas.roles.find((role)=>role.name==="Guest")).id;
+      removeUserData();
     
         const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/users`, {
           method: 'POST',

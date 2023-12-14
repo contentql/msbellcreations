@@ -37,7 +37,16 @@ const store = persist(
           userName: '',
           isLoggedIn: false,
           email:'',
-          
+          zipCode:'',
+      birthday:'',
+      city:'',
+      country:'',
+      streetAddress:'',
+      phoneNumber:'',
+      gender:'',
+      avatar:'',
+      firstName:'',
+      lastName:''
         },
       }));
     },
