@@ -90,7 +90,7 @@ export default function EcommerceProductDetailsInfo({
 
     {
       icon: (
-        <TwitterShareButton url={window.location.href} title={name}>
+        <TwitterShareButton url={window.location.href} title={name}  windowWidth={900}>
           <XIcon size={40} round="true" />
         </TwitterShareButton>
       ),
@@ -98,7 +98,7 @@ export default function EcommerceProductDetailsInfo({
     },
     {
       icon: (
-        <LinkedinShareButton url={window.location.href} title={name}>
+        <LinkedinShareButton url={window.location.href} title={name} windowWidth={900}>
           <LinkedinIcon size={40} round />
         </LinkedinShareButton>
       ),
@@ -106,7 +106,7 @@ export default function EcommerceProductDetailsInfo({
     },
     {
       icon: (
-        <WhatsappShareButton url={window.location.href} title={name} separator=":: ">
+        <WhatsappShareButton url={window.location.href} title={name} windowWidth={900} windowHeight={800} separator=":: ">
           <WhatsappIcon size={40} round />
         </WhatsappShareButton>
       ),
@@ -115,7 +115,7 @@ export default function EcommerceProductDetailsInfo({
     },
     {
       icon: (
-        <FacebookShareButton url={window.location.href}>
+        <FacebookShareButton url={window.location.href} windowWidth={900}>
           <FacebookIcon size={40} round="true" />
         </FacebookShareButton>
       ),
@@ -264,15 +264,15 @@ export default function EcommerceProductDetailsInfo({
 
       <Divider sx={{ borderStyle: 'dashed', my: 3 }} />
 
-      <Stack spacing={1} direction="row">
+      <Stack spacing={1} direction="row" >
         <SpeedDial
           ariaLabel="SpeedDial basic example"
-          sx={{ position: 'relative', bottom: 8, left: 16, boxShadow: 0 }}
+          sx={{ position: 'relative', bottom: 8, left: 16 }}
           icon={<ShareIcon />}
           direction="right"
         >
           {actions.map((action) => (
-            <SpeedDialAction key={action.name} sx={{ml:"-1px"}}  icon={action.icon} tooltipTitle={action.name} />
+            <SpeedDialAction key={action.name} sx={{ml:"-1px",boxShadow: 0}}  icon={action.icon} tooltipTitle={action.name} />
           ))}
         </SpeedDial>
       </Stack>

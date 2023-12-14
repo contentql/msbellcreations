@@ -11,6 +11,7 @@ import { alpha } from '@mui/material/styles';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemButton from '@mui/material/ListItemButton';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 import { _mock } from 'src/_mock';
 import { useCart } from 'src/app/store';
@@ -56,8 +57,52 @@ const navigations = [
 // ----------------------------------------------------------------------
 
 export default function Nav({ open, onClose }) {
+  
+  const { updateUserData, UserData,removeUserData } = useUserStore();
+  const male=[5,7,9,10,12,13,14,15,17,18,19]
+  
+  const female=[1,2,3,4,6,8,11,16,20,21,22,23,24,25]
 
-  const {UserData,removeUserData}=useUserStore()
+  const newavatar=()=>{
+    const newpic=UserData.gender==="Male"? male[Math.floor(Math.random() * male.length)]: female[Math.floor(Math.random() * female.length)]
+    updateUserData({...UserData,avatar:newpic})
+    
+    const api=async ()=>{
+    try{
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_STRAPI_URL}api/users/${UserData.id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            
+          },
+          body: JSON.stringify({
+            
+            avatar:newpic.toString(),
+        
+          }),
+        }
+      );
+      toast.success('Avatar changed!', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+    }
+    catch(err)
+    {
+      console.error(err.message)
+    }
+  }
+  api(newpic)
+  }
+
   const { wishempty} =useWish()
   const {cartempty}=useCart()
   const mdUp = useResponsive('up', 'md');
@@ -83,8 +128,8 @@ export default function Nav({ open, onClose }) {
     >
       <Stack spacing={2} sx={{ p: 3, pb: 2 }}>
         <Stack spacing={2} direction="row" alignItems="center">
-          <Avatar src={UserData.avatar} sx={{ width: 64, height: 64 }} alt="User"/>
-         
+          <Avatar src={`/assets/images/avatar/avatar_${UserData.avatar}.jpg`} sx={{ width: 64, height: 64 }} alt="User"/>
+         new avatar<RefreshIcon onClick={newavatar}/>
         </Stack>
 
         <Stack spacing={0.5}>

@@ -193,7 +193,7 @@ export default function Header({ headerOnDark }) {
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
                 alt="User"
-                src={UserData.avatar}
+                src={`/assets/images/avatar/avatar_${UserData.avatar}.jpg`}
                 sx={{ width: 40, height: 40, cursor: 'pointer' }}
               />
             </Tooltip>
@@ -241,7 +241,7 @@ export default function Header({ headerOnDark }) {
                 underline="none"
               >
                 <MenuItem onClick={handleClose}>
-                  <Avatar src={UserData.avatar} />
+                  <Avatar src={`/assets/images/avatar/avatar_${UserData.avatar}.jpg`} />
                   {UserData.firstName?`${UserData.firstName+" "+UserData.lastName}`:UserData.userName}
                 </MenuItem>
               </Link>

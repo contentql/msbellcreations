@@ -92,7 +92,7 @@ const onSubmit = handleSubmit(async (user) => {
         username: user.fullName,
         email: user.email,
         password: user.password,
-        avatar:`/assets/images/avatar/avatar_${female[Math.floor(Math.random() * female.length)]}.jpg`
+        avatar:`${female[Math.floor(Math.random() * female.length)]}`
       })
     });
     

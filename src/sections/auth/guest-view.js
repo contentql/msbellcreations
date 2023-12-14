@@ -83,7 +83,7 @@ export default function GuestBackgroundView() {
             email: data.email,
             password: data.email,
             isLoggedIn:true,
-            avatar:`/assets/images/avatar/avatar_${female[Math.floor(Math.random() * female.length)]}.jpg`,
+            avatar:`${female[Math.floor(Math.random() * female.length)]}`,
             role:roleId,
             confirmed:true,
              

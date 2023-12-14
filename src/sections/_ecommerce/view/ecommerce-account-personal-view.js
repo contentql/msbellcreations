@@ -24,7 +24,7 @@ import FormProvider, { RHFSelect, RHFTextField, RHFAutocomplete } from 'src/comp
 
 // ----------------------------------------------------------------------
 
-const GENDER_OPTIONS = ['Male', 'Female', 'Other'];
+const GENDER_OPTIONS = [ 'Female', 'Male','Other'];
 
 // ----------------------------------------------------------------------
 
@@ -99,8 +99,8 @@ export default function EcommerceAccountPersonalView() {
 
   const onSubmit = handleSubmit(async (data) => {
    // console.log("Data",data)
-    const img=data.gender==="Male"?`/assets/images/avatar/avatar_${male[Math.floor(Math.random() * male.length)]}.jpg`:
-    `/assets/images/avatar/avatar_${female[Math.floor(Math.random() * female.length)]}.jpg`;
+    const img=data.gender==="Male"?`${male[Math.floor(Math.random() * male.length)]}`:
+    `${female[Math.floor(Math.random() * female.length)]}`;
    // console.log(img)
     updateUserData({...UserData,phoneNumber: data.phoneNumber,gender: data.gender,
       country: data.country,
@@ -112,7 +112,6 @@ export default function EcommerceAccountPersonalView() {
       lastName:data.lastName
     })
    
-    console.log("user dsts",UserData)
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_STRAPI_URL}api/users/${UserData.id}`,
@@ -199,7 +198,7 @@ export default function EcommerceAccountPersonalView() {
           )}
         /> */}
 
-        <RHFSelect native name="gender" label="Gender" defaultValue={"Male"}>
+        <RHFSelect native name="gender" label="Gender" defaultValue={"Female"}>
           {GENDER_OPTIONS.map((option) => (
             <option key={option} value={option}>
               {option}
