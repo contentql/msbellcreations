@@ -199,7 +199,7 @@ export default function LoginBackgroundView() {
           fullWidth
           color="inherit"
           size="large"
-          variant="contained"
+          variant="outlined"
           href={paths.guest}
         >
           login as guest

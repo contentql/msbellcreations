@@ -70,14 +70,6 @@ export default function GuestBackgroundView() {
       // Logging the response after converting it to JSON
       const datas = await users.json();
       const roleId=(datas.roles.find((role)=>role.name==="Guest")).id;
-
- 
-
-
-      
-
-          
-          
     
         const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/users`, {
           method: 'POST',
@@ -93,7 +85,6 @@ export default function GuestBackgroundView() {
             avatar:`/assets/images/avatar/avatar_${female[Math.floor(Math.random() * female.length)]}.jpg`,
             role:roleId,
             confirmed:true,
-            firstName:data.email,
              
 
           })
@@ -101,6 +92,7 @@ export default function GuestBackgroundView() {
         
     
         const resData = await response.json();
+        console.log(resData)
        
         const { jwt } = resData;
         localStorage.setItem('token', jwt);
@@ -120,8 +112,6 @@ export default function GuestBackgroundView() {
               phoneNumber: resData.phoneNumber,
               gender: resData.gender,
               avatar:resData.avatar,
-              firstName:resData.username,
-              lastName:resData.username
           };
     
           updateUserData(userData);

@@ -37,6 +37,7 @@ const store = persist(
           userName: '',
           isLoggedIn: false,
           email:'',
+          
         },
       }));
     },

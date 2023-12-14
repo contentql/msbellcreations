@@ -39,7 +39,7 @@ export default function RegisterBackgroundView() {
   const [loginError, setLoginError] = useState('');
   const [success, setSuccess] = useState(false);
 
-  const updateUserData = useUserStore((store) => store?.updateUserData);
+  const {updateUserData,removeUserData} = useUserStore();
 
 
 
@@ -81,7 +81,7 @@ const onSubmit = handleSubmit(async (user) => {
     // reset();
     // console.log('DATA', user);
     
-
+    //removeUserData();
     const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/auth/local/register`, {
       method: 'POST',
       headers: {

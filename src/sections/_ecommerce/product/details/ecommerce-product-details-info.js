@@ -17,6 +17,10 @@ import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
+import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
+
+import 'react-toastify/dist/ReactToastify.css';
+
 import { useCart } from 'src/app/store';
 import { paths } from 'src/routes/paths';
 import Label from 'src/components/label';
@@ -29,6 +33,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
+import { toast, ToastContainer } from 'react-toastify';
 
 import ProductPrice from '../../common/product-price';
 
@@ -64,6 +69,27 @@ export default function EcommerceProductDetailsInfo({
   const actions = [
     {
       icon: (
+        <FileCopyIcon
+          onClick={() => {
+            navigator.clipboard.writeText(window.location.href);
+            toast.success('copied', {
+              position: 'bottom-right',
+              autoClose: 1000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+            });
+          }}
+        />
+      ),
+      name: 'Copy',
+    },
+
+    {
+      icon: (
         <TwitterShareButton url={window.location.href} title={name}>
           <XIcon size={40} round="true" />
         </TwitterShareButton>
@@ -72,7 +98,7 @@ export default function EcommerceProductDetailsInfo({
     },
     {
       icon: (
-        <LinkedinShareButton  url={window.location.href} title={name}>
+        <LinkedinShareButton url={window.location.href} title={name}>
           <LinkedinIcon size={40} round />
         </LinkedinShareButton>
       ),
@@ -80,7 +106,7 @@ export default function EcommerceProductDetailsInfo({
     },
     {
       icon: (
-        <WhatsappShareButton  url={window.location.href} title={name} separator=":: ">
+        <WhatsappShareButton url={window.location.href} title={name} separator=":: ">
           <WhatsappIcon size={40} round />
         </WhatsappShareButton>
       ),
@@ -89,7 +115,7 @@ export default function EcommerceProductDetailsInfo({
     },
     {
       icon: (
-        <FacebookShareButton url={window.location.href} >
+        <FacebookShareButton url={window.location.href}>
           <FacebookIcon size={40} round="true" />
         </FacebookShareButton>
       ),
@@ -227,17 +253,26 @@ export default function EcommerceProductDetailsInfo({
         </Stack>
       </Stack>
 
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
+
       <Divider sx={{ borderStyle: 'dashed', my: 3 }} />
 
-      <Stack spacing={3} direction="row" >
+      <Stack spacing={1} direction="row">
         <SpeedDial
           ariaLabel="SpeedDial basic example"
-          sx={{ position: 'relative', bottom: 8, left: 16,boxShadow:0 }}
+          sx={{ position: 'relative', bottom: 8, left: 16, boxShadow: 0 }}
           icon={<ShareIcon />}
           direction="right"
         >
           {actions.map((action) => (
-            <SpeedDialAction key={action.name} icon={action.icon} tooltipTitle={action.name} />
+            <SpeedDialAction key={action.name} sx={{ml:"-1px"}}  icon={action.icon} tooltipTitle={action.name} />
           ))}
         </SpeedDial>
       </Stack>
