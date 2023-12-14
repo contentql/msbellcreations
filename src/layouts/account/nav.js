@@ -23,6 +23,7 @@ import { useUserStore } from 'src/app/auth-store';
 import { RouterLink } from 'src/routes/components';
 import TextMaxLine from 'src/components/text-max-line';
 import { useResponsive } from 'src/hooks/use-responsive';
+import { Typography } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -128,13 +129,13 @@ export default function Nav({ open, onClose }) {
     >
       <Stack spacing={2} sx={{ p: 3, pb: 2 }}>
         <Stack spacing={2} direction="row" alignItems="center">
-          <Avatar src={`/assets/images/avatar/avatar_${UserData.avatar}.jpg`} sx={{ width: 64, height: 64 }} alt="User"/>
-         new avatar<RefreshIcon onClick={newavatar}/>
+          <Avatar src={`/assets/images/avatar/avatar_${UserData.avatar}.jpg`} sx={{cursor:"pointer", width: 64, height: 64 }} alt="User"/>
+         <Typography sx={{cursor:"pointer",  fontSize:"small"}} onClick={newavatar}>change photo<RefreshIcon sx={{width:20,ml:"2px", fontWeight:"semibold", color:"black"}}/></Typography>
         </Stack>
 
         <Stack spacing={0.5}>
           <TextMaxLine variant="subtitle1" line={1}>
-          {UserData.firstName?`${UserData.firstName+" "+UserData.lastName}`:"Guest"}
+          {UserData.firstName?`${UserData.firstName+" "+`${UserData.lastName!==undefined && UserData.lastName!==null?UserData.lastName:''}`}`:UserData.userName}
           </TextMaxLine>
           <TextMaxLine variant="body2" line={1} sx={{ color: 'text.secondary' }}>
            {UserData.email}
