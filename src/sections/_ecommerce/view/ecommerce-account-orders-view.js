@@ -68,9 +68,9 @@ export default function EcommerceAccountOrdersPage() {
   );
   const _pr=data?.data
 
-  console.log("pr data",_pr)
+  //console.log("pr data",_pr)
  const filtered_data=_pr?.filter((state)=>state.emailAddress===UserData.email);
-console.log("user data order",filtered_data)
+//console.log("user data order",filtered_data)
   const handleChangeTab = useCallback((event, newValue) => {
     setTab(newValue);
   }, []);

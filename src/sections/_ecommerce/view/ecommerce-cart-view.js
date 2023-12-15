@@ -14,18 +14,23 @@ import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 
 import {useCart} from "../../../app/store";
+import { useDummy } from 'src/app/dummy-store';
 import EcommerceCartList from '../cart/ecommerce-cart-list';
 import EcommerceCartSummary from '../cart/ecommerce-cart-summary';
+import { useEffect } from 'react';
 
 // ----------------------------------------------------------------------
 
 export default function EcommerceCartView() {
-  const {cartItems}=useCart();
+  const {dummyItems,addtodummy}=useDummy()
+  const {cartItems, cartempty, Addtocartall}=useCart();
+  useEffect(()=>{
+    cartItems.length===0&&Addtocartall(dummyItems)
+  },[])
   const subtotal = () => cartItems.reduce((acc, product) => 
   acc + product.quantity * product.price
 , 0);
 
-  
   return (
     <Container
       sx={{

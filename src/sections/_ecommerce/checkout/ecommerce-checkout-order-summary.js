@@ -28,7 +28,7 @@ export default function EcommerceCheckoutOrderSummary({
   products,
   loading,
 }) {
-  console.log('checkout products', products);
+ // console.log('checkout products', products);
   return (
     <Stack
       spacing={3}
@@ -89,7 +89,7 @@ export default function EcommerceCheckoutOrderSummary({
         color="inherit"
         type="submit"
         loading={loading}
-        onSubmit={() => console.log('Hello')}
+        
       >
         Order Now
       </LoadingButton>
@@ -172,7 +172,7 @@ function ProductItem({ product, ...other }) {
 
 ProductItem.propTypes = {
   product: PropTypes.shape({
-    coverUrl: PropTypes.string,
+    coverUrl: PropTypes.object,
     name: PropTypes.string,
     price: PropTypes.number,
   }),

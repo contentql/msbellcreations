@@ -18,7 +18,6 @@ export async function POST(req) {
       userSentProducts.map((purchasingProduct) => purchasingProduct.id).includes(product.id)
     );
 
-    console.log(email, userSentProducts);
 
     const session = await stripe.checkout.sessions.create({
       customer_email: email,
