@@ -60,7 +60,7 @@ export default function EcommerceCheckoutOrderSummary({
         <Row label="Tax" value={fPercent(tax)} />
       </Stack>
 
-      <TextField
+      {/* <TextField
         hiddenLabel
         placeholder="Discount Code"
         InputProps={{
@@ -70,7 +70,7 @@ export default function EcommerceCheckoutOrderSummary({
             </InputAdornment>
           ),
         }}
-      />
+      /> */}
 
       <Divider sx={{ borderStyle: 'dashed' }} />
 
@@ -141,7 +141,7 @@ function ProductItem({ product, ...other }) {
         </TextMaxLine>
 
         <Typography variant="subtitle2" sx={{ mt: 0.5, mb: 1.5 }}>
-          {fCurrency(product.price)}
+          {fCurrency(product?.price)}
         </Typography>
 
         <TextField

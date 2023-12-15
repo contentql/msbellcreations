@@ -89,6 +89,8 @@ export default function EcommerceCheckoutView() {
   const [total, setTotal] = useState(0);
   const [switchChecked, setSwitchChecked] = useState(false);
 
+
+console.log("userDetails",userDetails)
   useEffect(() => {
     const newSubtotal = checkItems.reduce(
       (acc, product) => acc + product.quantity * product.price,
@@ -207,6 +209,10 @@ export default function EcommerceCheckoutView() {
   //   }
   // });
 
+  const productData=checkItems.map((item=>({ name: item.name,quantity:item.quantity, productId:item.id.toString() })))
+
+  console.log("product",productData)
+
   const postData = async (data) => {
 
     try {
@@ -230,11 +236,12 @@ export default function EcommerceCheckoutView() {
           ShippingstreetAddress: data.ShippingstreetAddress,
           zipCode: data.zipCode,
           totalPrice:subtotal.toString(),
-          product: checkItems,
+          product: productData,
        }),
       });
       if (res.ok) {
         const data = await res.json();
+        DeleteOrder(userDetails.orderID)
         updateValues({...userDetails, OrderId:data.data.id})
       } else {
         console.error('Error:', res.status, res.statusText);
@@ -244,6 +251,26 @@ export default function EcommerceCheckoutView() {
     }
   };
 
+  const DeleteOrder = async (productId) => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/orders/${productId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_ORDERS_API_TOKEN}`,
+        },
+      });
+  
+      if (response.ok) {
+        console.log(`Product with ID ${productId} deleted successfully.`);
+      } else {
+        console.error(`Error deleting product. Status: ${response.status}, ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('Error during DELETE request:', error.message);
+    }
+  };
+  
 
   const triggerStripe = handleSubmit(async (data) => {
   
@@ -265,6 +292,7 @@ export default function EcommerceCheckoutView() {
     });
     try {
       postData(data);
+    
       console.log('checkout data in stripe', data);
       const { data: stripeData } = await axios.post('/api/stripe', {
         email: data.emailAddress,
