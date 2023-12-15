@@ -53,7 +53,7 @@ export default function ForgotPasswordView() {
           email, // user's email
         })
         .then((response) => {
-          console.log('Your user received an email');
+          //console.log('Your user received an email');
           toast.success('Email sent successfully', {
             position: 'bottom-right',
             autoClose: 1000,

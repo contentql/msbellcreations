@@ -66,7 +66,7 @@ export default function ChangePassword() {
 
   const onSubmit = handleSubmit(async (data) => {
     const { password, confirmPassword } = data;
-    console.log(password, confirmPassword);
+    //console.log(password, confirmPassword);
     try {
       // Request API.
       axios
@@ -76,7 +76,7 @@ export default function ChangePassword() {
           passwordConfirmation: confirmPassword,
         })
         .then((response) => {
-          console.log("Your user's password has been reset.");
+          //console.log("Your user's password has been reset.");
           toast.success('Password changed successfully', {
             position: 'bottom-right',
             autoClose: 1000,

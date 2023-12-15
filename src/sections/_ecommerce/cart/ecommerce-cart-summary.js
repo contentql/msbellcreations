@@ -17,18 +17,19 @@ import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 import { useCheckout } from 'src/app/checkoutstore';
 import { fPercent, fCurrency } from 'src/utils/format-number';
+import { useDummy } from 'src/app/dummy-store';
 
 export default function EcommerceCartSummary({ tax, shipping, discount }) {
-  const { cartItems, cartempty } = useCart();
+  const { cartItems, cartempty, Addtocartall} = useCart();
+  const {dummyItems,addtodummy}=useDummy()
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
   useEffect(() => {
-    // Calculate subtotal based on quantity and price of each item in the cart
+
     const newSubtotal = cartItems.reduce(
       (acc, product) => acc + product.quantity * product.price,
       0
     );
-
     // Update subtotal state
     setSubtotal(newSubtotal);
 
@@ -39,11 +40,15 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
     setTotal(newTotal);
   }, [cartItems, shipping, discount, tax]);
 
+  
+
   const { deleteAll, addAll } = useCheckout();
 
-  const gotocheckout = () => {
+
+  const gotocheckout = async () => {
     deleteAll();
-    cartempty();
+    await addtodummy(cartItems)
+    await cartempty();
     addAll(cartItems);
   };
 

@@ -23,6 +23,10 @@ export const useCart = create(persist((set) => ({
           false
         ),
       })),
+      Addtocartall: (products) =>
+      set((state) => ({
+        cartItems: [...products]
+      })),
 }),
 {
     name: 'cart-items', // name of the item in the storage (must be unique)

@@ -82,7 +82,6 @@ export default function GuestBackgroundView() {
           confirmed: true,
         }),
       });
-      console.log(response);
       const resData = await response.json();
 
       if (response.ok) {

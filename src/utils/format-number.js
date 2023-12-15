@@ -14,7 +14,7 @@ export function fCurrency(number) {
 }
 
 export function subCurrency(number) {
-  console.log(number)
+  //console.log(number)
   const format = number ? numeral(number).format('$0,0.00') : '$0.00';
  
   return result(format, '.00');

@@ -144,8 +144,8 @@ console.log("userDetails",userDetails)
     // },
   };
 
-  console.log('order products', orderItems);
-  console.log("user order details",userDetails)
+  // console.log('order products', orderItems);
+  // console.log("user order details",userDetails)
   const methods = useForm({
     resolver: yupResolver(EcommerceCheckoutSchema),
     defaultValues,
@@ -292,8 +292,6 @@ console.log("userDetails",userDetails)
     });
     try {
       postData(data);
-    
-      console.log('checkout data in stripe', data);
       const { data: stripeData } = await axios.post('/api/stripe', {
         email: data.emailAddress,
         products: checkItems,
@@ -301,7 +299,7 @@ console.log("userDetails",userDetails)
 
       await router.push(stripeData.url);
 
-      await console.log(stripeData);
+      
     } catch (error) {
       console.log(error);
     }

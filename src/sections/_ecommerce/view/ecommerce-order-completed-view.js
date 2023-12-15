@@ -14,12 +14,14 @@ import Iconify from 'src/components/iconify';
 import { RouterLink } from 'src/routes/components';
 import { varBounce, MotionContainer } from 'src/components/animate';
 import { useEffect } from 'react';
+import { useDummy } from 'src/app/dummy-store';
 
 // ----------------------------------------------------------------------
 
 export default function EcommerceOrderCompletedView() {
   const { userDetails, orderItems, deleteAllOrders, resetUpdateValues } = useOrder();
   const { UserData } = useUserStore();
+  const {dummyempty}=useDummy()
 
   const putData = async (orderId) => {
 
@@ -36,6 +38,8 @@ export default function EcommerceOrderCompletedView() {
       });
       if (res.ok) {
         console.log('put success');
+        dummyempty()
+
       } else {
         console.error('Error:', res.status, res.statusText);
       }
@@ -60,7 +64,7 @@ export default function EcommerceOrderCompletedView() {
   });
 
   // const collectedData  = mutate()
-  console.log('orders', UserData.authToken, userDetails, orderItems);
+  //console.log('orders', UserData.authToken, userDetails, orderItems);
 
   useEffect(() => {
     if (orderItems.length > 0) {
