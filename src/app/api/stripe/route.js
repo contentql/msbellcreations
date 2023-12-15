@@ -19,6 +19,7 @@ export async function POST(req) {
     );
 
 
+    
     const session = await stripe.checkout.sessions.create({
       customer_email: email,
       line_items: requiredProducts.map((requiredProduct) => {

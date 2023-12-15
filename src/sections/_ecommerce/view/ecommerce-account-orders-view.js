@@ -38,7 +38,7 @@ export const TABLE_HEAD = [
   { id: 'item', label: 'Item' },
   { id: 'Order date', label: 'Order Date', width: 160 },
   { id: 'price', label: 'Price', width: 100 },
-  { id: '' },
+  { id: 'payment status',label:"Payment Status" },
 ];
 
 // ----------------------------------------------------------------------
