@@ -17,7 +17,7 @@ import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -67,26 +67,7 @@ export default function EcommerceProductDetailsInfo({
   caption,
 }) {
   const actions = [
-    {
-      icon: (
-        <FileCopyIcon
-          onClick={() => {
-            navigator.clipboard.writeText(window.location.href);
-            toast.success('copied', {
-              position: 'bottom-right',
-              autoClose: 1000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-            });
-          }}
-        />
-      ),
-      name: 'Copy',
-    },
+    
 
     {
       icon: (
@@ -120,6 +101,27 @@ export default function EcommerceProductDetailsInfo({
         </FacebookShareButton>
       ),
       name: 'Facebook',
+    },
+    {
+      icon: (
+        <FileCopyIcon
+        sx={{ color:"black"}}
+          onClick={() => {
+            navigator.clipboard.writeText(window.location.href);
+            toast.success('copied', {
+              position: 'bottom-right',
+              autoClose: 1000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'light',
+            });
+          }}
+        />
+      ),
+      name: 'Copy',
     },
   ];
 
@@ -272,7 +274,7 @@ export default function EcommerceProductDetailsInfo({
           direction="right"
         >
           {actions.map((action) => (
-            <SpeedDialAction key={action.name} sx={{ml:"-1px",boxShadow: 0}}  icon={action.icon} tooltipTitle={action.name} />
+            <SpeedDialAction key={action.name} sx={{ml:"1px",boxShadow: 0}}  icon={action.icon} tooltipTitle={action.name} />
           ))}
         </SpeedDial>
       </Stack>

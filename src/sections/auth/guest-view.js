@@ -27,12 +27,11 @@ import FormProvider, { RHFTextField } from 'src/components/hook-form';
 // ----------------------------------------------------------------------
 
 export default function GuestBackgroundView() {
-  
-  const female=[1,2,3,4,6,8,11,16,20,21,22,23,24,25]
+  const female = [1, 2, 3, 4, 6, 8, 11, 16, 20, 21, 22, 23, 24, 25];
   const passwordShow = useBoolean();
   const [loginError, setLoginError] = useState('');
   const [success, setSuccess] = useState(false);
-  const { updateUserData, UserData,removeUserData } = useUserStore();
+  const { updateUserData, UserData, removeUserData } = useUserStore();
 
   const [popup, setpopup] = useState(false);
 
@@ -59,98 +58,102 @@ export default function GuestBackgroundView() {
     setValue,
   } = methods;
 
- 
-
   const onSubmit = handleSubmit(async (data) => {
-    
-    
+    removeUserData();
+
     try {
       const users = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/users-permissions/roles`);
-
-      // Logging the response after converting it to JSON
       const datas = await users.json();
-      const roleId=(datas.roles.find((role)=>role.name==="Guest")).id;
-      removeUserData();
-    
-        const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/users`, {
+      const roleId = datas.roles.find((role) => role.name === 'Guest').id;
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/users`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: data.email,
+          email: data.email,
+          password: data.email,
+          isLoggedIn: true,
+          avatar: `${female[Math.floor(Math.random() * female.length)]}`,
+          role: roleId,
+          confirmed: true,
+        }),
+      });
+      console.log(response);
+      const resData = await response.json();
+
+      if (response.ok) {
+        const respo = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/auth/local`, {
           method: 'POST',
           headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            username: data.email,
-            email: data.email,
-            password: data.email,
-            isLoggedIn:true,
-            avatar:`${female[Math.floor(Math.random() * female.length)]}`,
-            role:roleId,
-            confirmed:true,
-             
-
-          })
+          body: JSON.stringify({ identifier: data.email, password: data.email }),
         });
-        
-    
-        const resData = await response.json();
-        console.log(resData)
-       
-        const { jwt } = resData;
-        localStorage.setItem('token', jwt);
+        const resDataLogin = await respo.json();
 
-        
-        if (response.ok) {
-          const userData = {
-            id:resData.id,
-            authToken: resData.jwt,
-            userName: resData.username,
-            isLoggedIn: resData.confirmed,
-            email:resData.email,
-            zipCode: resData.zipCode,
-              city: resData.city,
-              country: resData.country,
-              streetAddress: resData.streetAddress,
-              phoneNumber: resData.phoneNumber,
-              gender: resData.gender,
-              avatar:resData.avatar,
-          };
-    
-          updateUserData(userData);
-         
-          router.push('/')
-         
-          setSuccess(true);
-          toast.success('Successfully registered!!', {
-            position: "bottom-right",
+        const { jwt } = resDataLogin;
+        localStorage.setItem('token', jwt);
+        const userData = {
+          id: resDataLogin.user.id,
+          authToken: resDataLogin.jwt,
+          isLoggedIn: true,
+          userName: resDataLogin.user.username,
+          email: resDataLogin.user.email,
+          birthday: resDataLogin.user.birthday,
+          zipCode: resDataLogin.user.zipCode,
+          city: resDataLogin.user.city,
+          country: resDataLogin.user.country,
+          streetAddress: resDataLogin.user.streetAddress,
+          phoneNumber: resDataLogin.user.phoneNumber,
+          gender: resDataLogin.user.gender,
+          avatar: resDataLogin.user.avatar,
+          firstName: resDataLogin.user.firstName,
+          lastName: resDataLogin.user.lastName,
+        };
+        updateUserData(userData);
+        router.push('/');
+
+        setSuccess(true);
+        toast.success('Successfully registered!!', {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        });
+      } else if (response.status === 400) {
+        setLoginError(resData.error.message);
+        toast.error(
+          `${
+            resData.error.message === 'Email already taken'
+              ? 'Please reset your password for login'
+              : resData.error.message
+          } `,
+          {
+            position: 'top-right',
             autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "light",
-            });
-          
-        } else if (response.status === 400) {
-          setLoginError(resData.error.message);
-          toast.error(`${resData.error.message==="Email already taken"? "Please reset your password for login":resData.error.message} `, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            });
-        } else {
-          setLoginError('An error occured, plese try again');
-        }
-      } catch (error) {
-        console.error(error);
+            theme: 'light',
+          }
+        );
+      } else {
+        setLoginError('An error occured, plese try again');
       }
-    });
-    
+    } catch (error) {
+      console.error(error);
+    }
+  });
 
   const renderHead = (
     <div>
