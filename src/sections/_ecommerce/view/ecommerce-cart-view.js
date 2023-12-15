@@ -22,10 +22,11 @@ import { useEffect } from 'react';
 // ----------------------------------------------------------------------
 
 export default function EcommerceCartView() {
-  const {dummyItems,addtodummy}=useDummy()
+  const {dummyItems,addtodummy,dummyempty}=useDummy()
   const {cartItems, cartempty, Addtocartall}=useCart();
   useEffect(()=>{
     cartItems.length===0&&Addtocartall(dummyItems)
+    dummyempty();
   },[])
   const subtotal = () => cartItems.reduce((acc, product) => 
   acc + product.quantity * product.price

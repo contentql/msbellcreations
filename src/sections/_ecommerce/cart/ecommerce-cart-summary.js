@@ -30,7 +30,6 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
       (acc, product) => acc + product.quantity * product.price,
       0
     );
-
     // Update subtotal state
     setSubtotal(newSubtotal);
 
