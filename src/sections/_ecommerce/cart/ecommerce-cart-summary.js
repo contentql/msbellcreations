@@ -76,7 +76,7 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
         <Row label="Tax" value={fPercent(subtotal === 0 ? 0 : tax)} />
       </Stack>
 
-      <TextField
+      {/* <TextField
         hiddenLabel
         placeholder="Discount Code"
         InputProps={{
@@ -86,7 +86,7 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
             </InputAdornment>
           ),
         }}
-      />
+      /> */}
 
       <Divider sx={{ borderStyle: 'dashed' }} />
 
