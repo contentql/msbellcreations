@@ -64,7 +64,7 @@ export default function EcommerceProductItemHot({ product, hotProduct = false, s
           />
         </Stack>
 
-        {hotProduct && (
+        {hotProduct ? (
           <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1 }}>
             <LinearProgress
               color="inherit"
@@ -78,7 +78,7 @@ export default function EcommerceProductItemHot({ product, hotProduct = false, s
               sx={{ flexShrink: 0, color: 'text.disabled' }}
             >{`🔥 ${product.sold} Sold`}</Typography>
           </Stack>
-        )}
+        ) : null}
       </Paper>
     </Link>
   );

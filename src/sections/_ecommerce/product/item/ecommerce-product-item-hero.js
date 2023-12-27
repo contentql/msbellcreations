@@ -41,7 +41,7 @@ export default function EcommerceProductItemHero({ products, current }) {
           }}
         >
           <Label color="warning" sx={{ mb: 2 }}>
-            {product.label}
+            {product.label || 'In Stock'}
           </Label>
 
           <TextMaxLine variant="h3" sx={{ mb: 2 }}>

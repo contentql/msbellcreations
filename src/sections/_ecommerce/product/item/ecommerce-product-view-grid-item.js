@@ -111,19 +111,19 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
       }}
       {...other}
     >
-      {product.label === 'new' && (
+      {product.label === 'new' ? (
         <Label color="info" sx={{ position: 'absolute', m: 1, top: 0, right: 0, zIndex: 9 }}>
           NEW
         </Label>
-      )}
+      ) : null}
 
-      {product.label === 'sale' && (
+      {product.label === 'sale' ? (
         <Label color="error" sx={{ position: 'absolute', m: 1, top: 0, right: 0, zIndex: 9 }}>
           SALE
         </Label>
-      )}
+      ) : null}
 
-      <Box sx={{ position: 'relative',  mb: 2, height: isMobile ? 'auto' : '100%' }}>
+      <Box sx={{ position: 'relative', mb: 2, height: isMobile ? 'auto' : '100%' }}>
         <Button onClick={AddtoCart}>
           <Fab
             className="add-to-cart"
@@ -153,7 +153,7 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
             color="primary"
             size="small"
             sx={{
-              right: isMobile ? 74: 60,
+              right: isMobile ? 74 : 60,
               zIndex: 9,
               bottom: 8,
               opacity: 0,
@@ -201,7 +201,7 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
 
       <Stack spacing={0.5}>
         <TextMaxLine variant="caption" line={1} sx={{ color: 'text.disabled' }}>
-          {product.category.label}
+          {product.category?.label}
         </TextMaxLine>
 
         <Link
@@ -210,13 +210,13 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
           color="inherit"
         >
           <TextMaxLine variant="body2" line={1} sx={{ fontWeight: 'fontWeightMedium' }}>
-            {product.name}
+            {product?.name}
           </TextMaxLine>
         </Link>
 
-        <ProductPrice price={product.price} priceSale={product.priceSale} />
+        <ProductPrice price={product?.price} priceSale={product?.priceSale} />
 
-        <ProductRating ratingNumber={product.ratingNumber} label={`${product.sold} sold`} />
+        <ProductRating ratingNumber={product?.ratingNumber} label={`${product?.sold} sold`} />
       </Stack>
     </Stack>
   );

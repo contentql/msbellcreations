@@ -16,14 +16,14 @@ import EcommerceProductItemHot from '../product/item/ecommerce-product-item-hot'
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceLandingHotDealToday({Hotdeals}) {
+export default function EcommerceLandingHotDealToday({ Hotdeals }) {
   const theme = useTheme();
 
   const mdUp = useResponsive('up', 'md');
 
   const carousel = useCarousel({
     dots: !mdUp,
-    slidesToShow: 6,
+    slidesToShow: Hotdeals?.length > 6 ? 6 : Hotdeals?.length,
     slidesToScroll: 6,
     ...CarouselDots({
       sx: {
@@ -111,6 +111,6 @@ export default function EcommerceLandingHotDealToday({Hotdeals}) {
     </Container>
   );
 }
-EcommerceLandingHotDealToday.propTypes={
+EcommerceLandingHotDealToday.propTypes = {
   Hotdeals: PropTypes.array,
-}
+};
