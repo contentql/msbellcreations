@@ -17,7 +17,7 @@ export default function EcommerceProductList({ loading, viewMode, products, filt
     if (filter.filterCategories.length === 0) return true;
     if (filter.filterCategories?.includes('all') && filter.filterCategories.length === 1)
       return true;
-    return filter.filterCategories?.includes(product?.category.label);
+    return filter.filterCategories?.includes(product?.category?.label);
   };
 
   const FilterByStartingPrice = (product) => {
