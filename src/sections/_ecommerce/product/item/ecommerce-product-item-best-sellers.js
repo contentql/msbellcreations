@@ -44,10 +44,15 @@ export default function EcommerceProductItemBestSellers({ product, ...other }) {
             bgcolor: 'background.neutral',
           }}
         />
-  
+
         <Stack spacing={0.5}>
-          <TextMaxLine variant="body2" line={1} sx={{ fontWeight: 'fontWeightMedium' }}>
-            {product.name}
+          <TextMaxLine
+            className="text-clip overflow-hidden"
+            variant="body2"
+            line={1}
+            sx={{ fontWeight: 'fontWeightMedium' }}
+          >
+            {product?.name?.split(' ').slice(0, 3).join(' ')}
           </TextMaxLine>
 
           <ProductRating ratingNumber={product.ratingNumber} label={`${product.sold} sold`} />

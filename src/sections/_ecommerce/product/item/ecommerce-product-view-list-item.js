@@ -146,7 +146,7 @@ export default function EcommerceProductViewListItem({ product, ...other }) {
       <Stack spacing={1}>
         <Stack spacing={0.5}>
           <TextMaxLine variant="caption" line={1} sx={{ color: 'text.disabled' }}>
-            {product.category.name}
+            {product?.category?.name}
           </TextMaxLine>
 
           <Link
