@@ -32,7 +32,7 @@ import BlogMarketingLatestPosts from '../../blog/marketing/marketing-latest-post
 
 // ----------------------------------------------------------------------
 
-export default function EcommercePostView({blogId}) {
+export default function EcommercePostView({ blogId }) {
   const { title, description, duration, createdAt, author, favorited, heroUrl, tags, content } =
     _marketingPosts[0];
 
@@ -40,15 +40,14 @@ export default function EcommercePostView({blogId}) {
 
   const [open, setOpen] = useState(null);
 
-  const { data:blogs } = useQuery(['blogs'], () =>
+  const { data: blogs } = useQuery(['individualblog'], () =>
     fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/blogs?populate=*`, {
       method: 'GET',
     }).then((res) => res.json())
   );
 
   const blog = blogs?.data.filter((product) => product.id.toString() === blogId.toString()).at(0);
-  const LatestPosts=blogs?.data.sort((a,b)=>b.createdAt-a.createdAt).slice(0,4)
-
+  const LatestPosts = blogs?.data.sort((a, b) => b.createdAt - a.createdAt).slice(0, 4);
 
   const handleOpen = useCallback((event) => {
     setOpen(event.currentTarget);
@@ -71,7 +70,7 @@ export default function EcommercePostView({blogId}) {
           sx={{ my: 3 }}
           links={[
             { name: 'Home', href: '/' },
-            { name: 'Blog', href: paths.eCommerce.posts},
+            { name: 'Blog', href: paths.eCommerce.posts },
             { name: blog?.title },
           ]}
         />
@@ -162,12 +161,12 @@ export default function EcommercePostView({blogId}) {
             Share via {social.label}
           </MenuItem>
         ))}
-      </Popover>  
+      </Popover>
     </>
   );
 }
 
-EcommercePostView.propTypes={
+EcommercePostView.propTypes = {
   // eslint-disable-next-line react/no-unused-prop-types
   blog: PropTypes.object,
-}
+};

@@ -44,12 +44,12 @@ const SORT_OPTIONS = [
 export default function EcommerceProductsView() {
   const { prod, Productsadd } = useProducts();
 
-  const { data } = useQuery(['products'], () =>
-    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products?populate=*`,{
+  const { data } = useQuery(['productsPageData'], () =>
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products?populate=*`, {
       method: 'GET',
     }).then((res) => res.json())
   );
- 
+
   const { data: category } = useQuery(['categories'], () =>
     fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/categories?populate=*`, {
       method: 'GET',
@@ -57,7 +57,8 @@ export default function EcommerceProductsView() {
   );
 
   const mobileOpen = useBoolean();
-  const Bestsellers=data?.data.sort((a,b)=>b.sold-a.sold).slice(0,4)
+  const Bestsellers =
+    data && data.data.length && data?.data?.sort((a, b) => b.sold - a.sold).slice(0, 4);
   const searchParams = useSearchParams();
 
   const [filters, setFilters] = useState({
