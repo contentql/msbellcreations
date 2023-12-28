@@ -32,7 +32,7 @@ export default function EcommerceLandingView() {
     }).then((res) => res.json())
   );
 
-  console.log('Data: ', data);
+  //console.log('Data: ', data);
 
   const PopularProducts = data?.data?.sort((a, b) => b.sold - a.sold).slice(0, 8);
 

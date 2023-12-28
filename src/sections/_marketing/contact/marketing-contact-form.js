@@ -50,7 +50,7 @@ export default function MarketingContactForm() {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
-      console.log('DATA', data);
+      //console.log('DATA', data);
     } catch (error) {
       console.error(error);
     }

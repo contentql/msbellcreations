@@ -211,7 +211,7 @@ console.log("userDetails",userDetails)
 
   const productData=checkItems.map((item=>({ name: item.name,quantity:item.quantity, productId:item.id.toString() })))
 
-  console.log("product",productData)
+  //console.log("product",productData)
 
   const postData = async (data) => {
 

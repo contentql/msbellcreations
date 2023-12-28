@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useState, useCallback } from 'react';
 
 import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
 import Popover from '@mui/material/Popover';
 import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
@@ -37,26 +38,25 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
       method: 'GET',
     }).then((res) => res.json())
   );
-  console.log('row data', products?.data[0]);
 
   const handleCheckout = (id, product) => {
-    console.log('Input Product Array:', product);
+    //console.log('Input Product Array:', product);
 
     const commonElements = products?.data?.filter((item1) =>
       product.some((item2) => item2.productId.toString() === item1.id.toString())
     );
 
-    console.log('Common Elements:', commonElements);
+    //console.log('Common Elements:', commonElements);
 
     const newArray = commonElements.map((item1) => {
       const match = product.find((item2) => item2.productId.toString() === item1.id.toString());
       return match ? { ...item1, quantity: match.quantity } : item1;
     });
 
-    console.log('Quantity Added Array:', newArray);
+    //console.log('Quantity Added Array:', newArray);
 
     deleteAll();
-    console.log('common', commonElements);
+    //console.log('common', commonElements);
     addAll(newArray);
     updateValues({ ...userDetails, orderID: id });
   };
@@ -113,31 +113,30 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
             },
           }}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'space-between',
-              p: { xs: '10px', md: '20px' },
-            }}
-          >
-            <Typography variant="h6">Product Name</Typography>
-            <Typography variant="h6">Quantity</Typography>
-          </Box>
+          <Grid container spacing={2} className='py-2'>
+            <Grid item xs={9}>
+              <Typography variant="h6">
+              Product Name
+            </Typography>
+            </Grid>
+            <Grid item xs={3} >
+             <Typography className='text-center' variant="h6">Quantity</Typography>
+            </Grid>
+          </Grid>
+         
           {row.product.map((products) => (
             <>
               <Divider />
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  justifyContent: 'space-between',
-                  p: { xs: '10px', md: '20px' },
-                }}
-              >
-                <p>{products.name}</p>
-                <p>{products.quantity}</p>
-              </Box>
+             <Grid container spacing={2} className='py-2'>
+            <Grid item xs={9}>
+              <Typography  >
+              {products.name}
+            </Typography>
+            </Grid>
+            <Grid item xs={3}>
+             <Typography className='text-center'>{products.quantity}</Typography>
+            </Grid>
+          </Grid>
             </>
           ))}
         </Popover>

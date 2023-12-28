@@ -44,7 +44,7 @@ const SORT_OPTIONS = [
 export default function EcommerceProductsView() {
   const { prod, Productsadd } = useProducts();
 
-  const { data } = useQuery(['productsPageData'], () =>
+  const { data, isLoading } = useQuery(['productsPageData'], () =>
     fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products?populate=*`, {
       method: 'GET',
     }).then((res) => res.json())
@@ -71,17 +71,7 @@ export default function EcommerceProductsView() {
 
   const [sort, setSort] = useState('latest');
 
-  const loading = useBoolean(true);
-
   const [viewMode, setViewMode] = useState('grid');
-
-  useEffect(() => {
-    const fakeLoading = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      loading.onFalse();
-    };
-    fakeLoading();
-  }, [loading]);
 
   const handleChangeViewMode = useCallback((event, newAlignment) => {
     if (newAlignment !== null) {
@@ -170,7 +160,7 @@ export default function EcommerceProductsView() {
           </Stack>
 
           <EcommerceProductList
-            loading={loading.value}
+            loading={isLoading}
             viewMode={viewMode}
             filter={filters}
             products={data?.data}

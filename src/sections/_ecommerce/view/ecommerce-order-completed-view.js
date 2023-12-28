@@ -37,7 +37,7 @@ export default function EcommerceOrderCompletedView() {
         }),
       });
       if (res.ok) {
-        console.log('put success');
+        //console.log('put success');
         dummyempty()
 
       } else {
