@@ -157,7 +157,7 @@ export default function GuestBackgroundView() {
   const renderHead = (
     <div>
       <Typography variant="h3" paragraph>
-        Guest Login
+        Guest E-mail
       </Typography>
 
       <Typography variant="body2" sx={{ color: 'text.secondary' }}>
@@ -195,16 +195,6 @@ export default function GuestBackgroundView() {
       <Stack spacing={2.5} alignItems="flex-end">
         <RHFTextField name="email" label="Email address" />
 
-        <Link
-          component={RouterLink}
-          href={paths.forgotPassword}
-          variant="body2"
-          underline="always"
-          color="text.secondary"
-        >
-          Reset password?
-        </Link>
-
         <LoadingButton
           fullWidth
           color="inherit"
@@ -213,7 +203,7 @@ export default function GuestBackgroundView() {
           variant="contained"
           loading={isSubmitting}
         >
-          Login
+          Submit
         </LoadingButton>
       </Stack>
     </FormProvider>
