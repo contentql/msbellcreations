@@ -6,8 +6,8 @@ function Qrcode() {
   return (
     <div className='flex justify-center mt-6'>
     <div className='flex flex-col gap-5'>
-    <QRCode size={300} value={process.env.NEXT_PUBLIC_QRCODE_URL} qrStyle={"dots"} />
-    <p className='text-2xl font-extrabold self-center'>Scan the Qrcode</p>
+    <QRCode  size={300} value={process.env.NEXT_PUBLIC_QRCODE_URL}  />
+    <p className='text-2xl font-extrabold self-center'>Scan the Qr code</p>
     </div>
     </div>
   )
