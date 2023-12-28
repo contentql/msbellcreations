@@ -124,7 +124,7 @@ function ProductItem({ product, ...other }) {
   return (
     <Stack direction="row" alignItems="flex-start" {...other}>
       <Image
-        src={product.coverUrl.url}
+        src={product?.coverUrl.url}
         sx={{
           mr: 2,
           width: 64,

@@ -130,7 +130,7 @@ export default function EcommerceProductDetailsInfo({
   ];
 
   const { data, isLoading } = useQuery(['individualProduct'], () =>
-    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products/${productId}`, {
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products/${productId}?populate=*`, {
       method: 'GET',
     }).then((res) => res.json())
   );
@@ -157,7 +157,7 @@ export default function EcommerceProductDetailsInfo({
 
   const gotocheckout = async () => {
     deleteAll();
-    const product = _products?.find((item) => item.id === productId);
+    const product = data?.data;
     checkaddProducts(product);
     checkupdateQuantity(product.id, parseInt(option, 10));
   };
