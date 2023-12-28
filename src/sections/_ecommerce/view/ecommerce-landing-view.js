@@ -20,7 +20,7 @@ import EcommerceLandingFeaturedProducts from '../landing/ecommerce-landing-featu
 // ----------------------------------------------------------------------
 
 export default function EcommerceLandingView() {
-  const { data } = useQuery(['products'], () =>
+  const { data } = useQuery(['productsData'], () =>
     fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products?populate=*`, {
       method: 'GET',
     }).then((res) => res.json())
@@ -32,7 +32,9 @@ export default function EcommerceLandingView() {
     }).then((res) => res.json())
   );
 
-  const PopularProducts = data?.data.sort((a, b) => b.sold - a.sold).slice(0, 8);
+  console.log('Data: ', data);
+
+  const PopularProducts = data?.data?.sort((a, b) => b.sold - a.sold).slice(0, 8);
 
   const Herodata = data?.data.filter((item) => item.home);
   const Hotdeals = data?.data.filter((item) => item.hot_deals);
@@ -40,7 +42,7 @@ export default function EcommerceLandingView() {
   const specialOffer = data?.data.filter((item) => item.special_offer).at(0);
 
   return (
-    <Box sx={{mt:"30px"}}>
+    <Box sx={{ mt: '30px' }}>
       {configuration?.data.Hero ? <EcommerceLandingHero Hero={Herodata} /> : null}
 
       <EcommerceLandingCategories />
@@ -51,9 +53,9 @@ export default function EcommerceLandingView() {
         <EcommerceLandingFeaturedProducts Featuredproducts={Featuredproducts} />
       ) : null}
 
-
-      {configuration?.data.special_offer?<EcommerceLandingSpecialOffer  specialOffer={specialOffer}/>:null}
-
+      {configuration?.data.special_offer ? (
+        <EcommerceLandingSpecialOffer specialOffer={specialOffer} />
+      ) : null}
 
       {/* <EcommerceLandingFeaturedBrands /> */}
 
@@ -63,9 +65,9 @@ export default function EcommerceLandingView() {
 
       {/* <EcommerceLandingTopProducts /> */}
 
-
-      {configuration?.data.testimonials?<EcommerceTestimonial testimonials={_testimonials} />:null}
+      {configuration?.data.testimonials ? (
+        <EcommerceTestimonial testimonials={_testimonials} />
+      ) : null}
     </Box>
-
   );
 }

@@ -67,11 +67,9 @@ export default function EcommerceProductDetailsInfo({
   caption,
 }) {
   const actions = [
-    
-
     {
       icon: (
-        <TwitterShareButton url={window.location.href} title={name}  windowWidth={900}>
+        <TwitterShareButton url={window.location.href} title={name} windowWidth={900}>
           <XIcon size={40} round="true" />
         </TwitterShareButton>
       ),
@@ -87,7 +85,13 @@ export default function EcommerceProductDetailsInfo({
     },
     {
       icon: (
-        <WhatsappShareButton url={window.location.href} title={name} windowWidth={900} windowHeight={800} separator=":: ">
+        <WhatsappShareButton
+          url={window.location.href}
+          title={name}
+          windowWidth={900}
+          windowHeight={800}
+          separator=":: "
+        >
           <WhatsappIcon size={40} round />
         </WhatsappShareButton>
       ),
@@ -105,7 +109,7 @@ export default function EcommerceProductDetailsInfo({
     {
       icon: (
         <FileCopyIcon
-        sx={{ color:"black"}}
+          sx={{ color: 'black' }}
           onClick={() => {
             navigator.clipboard.writeText(window.location.href);
             toast.success('copied', {
@@ -125,7 +129,7 @@ export default function EcommerceProductDetailsInfo({
     },
   ];
 
-  const { data, isLoading } = useQuery(['products'], () =>
+  const { data, isLoading } = useQuery(['individualProduct'], () =>
     fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products/${productId}`, {
       method: 'GET',
     }).then((res) => res.json())
@@ -266,7 +270,7 @@ export default function EcommerceProductDetailsInfo({
 
       <Divider sx={{ borderStyle: 'dashed', my: 3 }} />
 
-      <Stack spacing={1} direction="row" >
+      <Stack spacing={1} direction="row">
         <SpeedDial
           ariaLabel="SpeedDial basic example"
           sx={{ position: 'relative', bottom: 8, left: 16 }}
@@ -274,7 +278,12 @@ export default function EcommerceProductDetailsInfo({
           direction="right"
         >
           {actions.map((action) => (
-            <SpeedDialAction key={action.name} sx={{ml:"1px",boxShadow: 0}}  icon={action.icon} tooltipTitle={action.name} />
+            <SpeedDialAction
+              key={action.name}
+              sx={{ ml: '1px', boxShadow: 0 }}
+              icon={action.icon}
+              tooltipTitle={action.name}
+            />
           ))}
         </SpeedDial>
       </Stack>

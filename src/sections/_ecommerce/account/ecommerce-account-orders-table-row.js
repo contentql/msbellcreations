@@ -28,37 +28,37 @@ import { useCheckout } from 'src/app/checkoutstore';
 
 export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selected }) {
   const { addAll, deleteAll } = useCheckout();
-  const {userDetails,updateValues}=useOrder();
+  const { userDetails, updateValues } = useOrder();
 
   const router = useRouter();
 
-  const { data: products } = useQuery(['products'], () =>
+  const { data: products } = useQuery(['orderedproducts'], () =>
     fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products?populate=*`, {
       method: 'GET',
     }).then((res) => res.json())
   );
   console.log('row data', products?.data[0]);
 
-  const handleCheckout = (id,product) => {
+  const handleCheckout = (id, product) => {
     console.log('Input Product Array:', product);
-  
+
     const commonElements = products?.data?.filter((item1) =>
       product.some((item2) => item2.productId.toString() === item1.id.toString())
     );
-  
+
     console.log('Common Elements:', commonElements);
-  
+
     const newArray = commonElements.map((item1) => {
       const match = product.find((item2) => item2.productId.toString() === item1.id.toString());
       return match ? { ...item1, quantity: match.quantity } : item1;
     });
-  
-    console.log('Quantity Added Array:', newArray)
+
+    console.log('Quantity Added Array:', newArray);
 
     deleteAll();
     console.log('common', commonElements);
     addAll(newArray);
-    updateValues({...userDetails,orderID:id})
+    updateValues({ ...userDetails, orderID: id });
   };
 
   const [open, setOpen] = useState(null);
@@ -154,7 +154,7 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
                 href={paths.eCommerce.checkout}
                 sx={{ color: 'red' }}
                 variant="outlined"
-                onClick={() => handleCheckout(row.id,row.product)}
+                onClick={() => handleCheckout(row.id, row.product)}
               >
                 Pending
               </Button>

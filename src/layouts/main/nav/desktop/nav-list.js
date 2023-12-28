@@ -59,16 +59,20 @@ export default function NavList({ products, item }) {
         // externalLink={externalLink}
         onMouseEnter={handleOpenMenu}
         onMouseLeave={menuOpen.onFalse}
+        products={products}
       />
 
-      {!!item.children && menuOpen.value && (
-        <Portal >
+      {!!item.children && menuOpen.value && products?.length > 4 && (
+        <Portal>
           <Fade in={menuOpen.value}>
             <StyledMenu onMouseEnter={handleOpenMenu} onMouseLeave={menuOpen.onFalse}>
               <Grid container>
                 <Grid>
-                  <Box sx={{borderRadius:2}}>
-                    <MenuCarousel products={products} numberShow={7} />
+                  <Box sx={{ borderRadius: 2 }}>
+                    <MenuCarousel
+                      products={products}
+                      numberShow={products?.length > 6 ? 7 : products?.length}
+                    />
                   </Box>
                 </Grid>
               </Grid>
@@ -81,7 +85,7 @@ export default function NavList({ products, item }) {
 }
 
 NavList.propTypes = {
-  products:PropTypes.array,
+  products: PropTypes.array,
   item: PropTypes.shape({
     children: PropTypes.array,
     path: PropTypes.string,

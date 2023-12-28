@@ -23,45 +23,36 @@ import EcommerceProductDetailsDescription from '../product/details/ecommerce-pro
 export default function EcommerceProductView({ productId }) {
   const loading = useBoolean(true);
   // console.log('id ', productId);
-  const { data } = useQuery(['products'], () =>
+  const { data, isLoading } = useQuery(['productsinView', productId], () =>
     fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products?populate=*`, {
       method: 'GET',
     }).then((res) => res.json())
   );
 
-  const _mockProduct = data?.data?.filter((product) => product.id.toString() === productId.toString()).at(0);
-  
+  const _mockProduct = data?.data
+    ?.filter((product) => product.id.toString() === productId.toString())
+    .at(0);
 
-  useEffect(() => {
-    const fakeLoading = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      loading.onFalse();
-    };
-    fakeLoading();
-  }, [loading]);
-
-  if (loading.value) {
+  if (isLoading) {
     return <SplashScreen />;
   }
 
   return (
     <>
-    <Container>
+      <Container>
         <CustomBreadcrumbs
           sx={{ my: 3 }}
           links={[
             { name: 'Home', href: '/' },
-            { name: 'Products', href: paths.eCommerce.products},
-            { name: _mockProduct?.name},
+            { name: 'Products', href: paths.eCommerce.products },
+            { name: _mockProduct?.name },
           ]}
         />
       </Container>
-      <Container sx={{ overflow: 'hidden',mt:4 }}>
-        
-
-        <Grid container spacing={{ xs: 5, md: 8}}>
+      <Container sx={{ overflow: 'hidden', mt: 4 }}>
+        <Grid container spacing={{ xs: 5, md: 8 }}>
           <Grid xs={12} md={6} lg={7}>
-          <EcommerceProductDetailsCarousel images={_mockProduct?.images} /> 
+            <EcommerceProductDetailsCarousel images={_mockProduct?.images} />
           </Grid>
 
           <Grid xs={12} md={6} lg={5}>
