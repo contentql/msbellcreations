@@ -169,6 +169,7 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
             <Iconify icon="carbon:favorite" />
           </Fab>
         </Button>
+        <Link href={`${paths.eCommerce.products}/${product.id}`}>
         <Image
           src={product.coverUrl.url}
           sx={{
@@ -177,6 +178,7 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
             bgcolor: 'background.neutral',
           }}
         />
+        </Link>
         {/* <Box  sx={{
             flexShrink: 0,
             borderRadius: 1.5,

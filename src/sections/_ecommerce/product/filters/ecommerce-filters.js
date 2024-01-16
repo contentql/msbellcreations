@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { Link } from '@mui/material';
 import Stack from '@mui/material/Stack';
@@ -48,6 +50,19 @@ const TAG_OPTIONS = ['Books and Media', 'Pet', 'Electronics', 'Food', 'Automotiv
 
 export default function EcommerceFilters({ filters, setFilters, open, onClose, categories }) {
   const mdUp = useResponsive('up', 'md');
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    const filtersParam = searchParams.get('filters');
+    if (filtersParam) {
+      const decodedFilters = JSON.parse(decodeURIComponent(filtersParam));
+      setFilters({
+        ...filters,
+        filterCategories: decodedFilters,
+      });
+      
+    } 
+  }, []);
 
   // const [filters, setFilters] = useState(defaultValues);
 
@@ -58,12 +73,20 @@ export default function EcommerceFilters({ filters, setFilters, open, onClose, c
 
   const handleChangeCategories = useCallback(
     (name) => {
+      const updatedCategories = getSelected(filters.filterCategories, name);
+      // Convert the updatedCategories array to a string
+      const updatedCategoriesString = encodeURIComponent(JSON.stringify(updatedCategories));
+      const params = new URLSearchParams(searchParams.toString());
+      params.set('filters', updatedCategoriesString);
+      // Update the URL with the new filters
+      router.push(process.env.NEXT_PUBLIC_FRONTEND_URL + paths.eCommerce.products + '?' + params);
+
       setFilters({
         ...filters,
         filterCategories: getSelected(filters.filterCategories, name),
       });
     },
-    [filters, setFilters]
+    [filters, setFilters, router]
   );
 
   // const handleChangeBrand = useCallback(
