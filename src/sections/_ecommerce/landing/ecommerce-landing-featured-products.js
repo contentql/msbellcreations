@@ -12,7 +12,7 @@ import EcommerceProductItemCountDown from '../product/item/ecommerce-product-ite
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceLandingFeaturedProducts({Featuredproducts}) {
+export default function EcommerceLandingFeaturedProducts({ Featuredproducts }) {
   return (
     <Container
       sx={{
@@ -56,16 +56,31 @@ export default function EcommerceLandingFeaturedProducts({Featuredproducts}) {
               lg: 'repeat(2, 1fr)',
             }}
           >
-            {Featuredproducts?.slice(2).map((product) => (
+            {Featuredproducts?.slice(2, 6).map((product) => (
               <EcommerceProductItemHot key={product.id} product={product} />
             ))}
           </Box>
         </Grid>
       </Grid>
+      <Grid xs={12} lg={4} sx={{ pt: 3 }}>
+        <Box
+          gap={3}
+          display="grid"
+          gridTemplateColumns={{
+            xs: 'repeat(2, 1fr)',
+            md: 'repeat(4, 1fr)',
+            lg: 'repeat(5, 1fr)',
+          }}
+        >
+          {Featuredproducts?.slice(6).map((product) => (
+            <EcommerceProductItemHot key={product.id} product={product} />
+          ))}
+        </Box>
+      </Grid>
     </Container>
   );
 }
 
-EcommerceLandingFeaturedProducts.propTypes={
-  Featuredproducts:PropTypes.array,
-}
+EcommerceLandingFeaturedProducts.propTypes = {
+  Featuredproducts: PropTypes.array,
+};

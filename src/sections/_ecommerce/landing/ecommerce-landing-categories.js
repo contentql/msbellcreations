@@ -62,13 +62,10 @@ const CATEGORIES = [
 
 export default function EcommerceLandingCategories() {
   const { data } = useQuery(['categories'], () =>
-
-    fetch( `${process.env.NEXT_PUBLIC_STRAPI_URL}api/categories?populate=*`, {
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/categories?populate=*`, {
       method: 'GET',
     }).then((res) => res.json())
   );
-
-
 
   return (
     <Container
@@ -87,12 +84,12 @@ export default function EcommerceLandingCategories() {
       </Typography>
 
       <Box
-        gap={3}
+        gap={{ xs: 3, lg: 5 }}
         display="grid"
         gridTemplateColumns={{
           xs: 'repeat(2, 1fr)',
           sm: 'repeat(3, 1fr)',
-          md: 'repeat(4, 1fr)',
+          md: 'repeat(3, 1fr)',
         }}
       >
         {data?.data.map((category) => (
@@ -102,7 +99,7 @@ export default function EcommerceLandingCategories() {
             justifyContent="center"
             sx={{
               px: 1,
-              py: 3,
+              py: 5,
               borderRadius: 2,
               cursor: 'pointer',
               border: (theme) => `solid 1px ${alpha(theme.palette.grey[500], 0.24)}`,
@@ -126,17 +123,15 @@ export default function EcommerceLandingCategories() {
                   alignItems: 'center',
                 }}
               >
-
                 <Box
-                  // sx={{
-                  //   display: 'flex',
-                  //   justifyContent: 'center',
-                  //   alignItems: 'center',
-                  // }}
+                // sx={{
+                //   display: 'flex',
+                //   justifyContent: 'center',
+                //   alignItems: 'center',
+                // }}
                 >
                   <Image src={category.icon.url} sx={{ objectFit: 'contain', height: '50px' }} />
                 </Box>
-
               </Box>
             </Link>
             <TextMaxLine variant="subtitle2" line={1}>
