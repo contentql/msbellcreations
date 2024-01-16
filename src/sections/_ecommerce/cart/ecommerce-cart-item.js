@@ -66,7 +66,7 @@ export default function EcommerceCartItem({ product, wishlist }) {
         />
 
         <Stack spacing={0.5} sx={{ p: 2 }}>
-          <Link href={`/e-commerce/products/${product.id}`}>
+          <Link href={`/products/${product.id}`}>
             <Typography variant="subtitle2">{product.name}</Typography>
           </Link>
         </Stack>

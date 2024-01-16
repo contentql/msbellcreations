@@ -50,7 +50,7 @@ export default function EcommerceProductsView() {
     }).then((res) => res.json())
   );
 
-  const { data: category } = useQuery(['categories'], () =>
+  const { data: category } = useQuery(['categoriesinFilter'], () =>
     fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/categories?populate=*`, {
       method: 'GET',
     }).then((res) => res.json())
