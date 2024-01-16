@@ -76,7 +76,7 @@ export default function EcommerceFilters({ filters, setFilters, open, onClose, c
       const updatedCategories = getSelected(filters.filterCategories, name);
       // Convert the updatedCategories array to a string
       const updatedCategoriesString = encodeURIComponent(JSON.stringify(updatedCategories));
-      const params = new URLSearchParams(searchParams.toString());
+      const params = new URLSearchParams(router.query);
       params.set('filters', updatedCategoriesString);
       // Update the URL with the new filters
       router.push(process.env.NEXT_PUBLIC_FRONTEND_URL + paths.eCommerce.products + '?' + params);
@@ -89,48 +89,12 @@ export default function EcommerceFilters({ filters, setFilters, open, onClose, c
     [filters, setFilters, router]
   );
 
-  // const handleChangeBrand = useCallback(
-  //   (name) => {
-  //     setFilters({
-  //       ...filters,
-  //       filterBrand: getSelected(filters.filterBrand, name),
-  //     });
-  //   },
-  //   [filters]
-  // );
-
-  // const handleChangeShipping = useCallback(
-  //   (name) => {
-  //     setFilters({
-  //       ...filters,
-  //       filterShipping: getSelected(filters.filterShipping, name),
-  //     });
-  //   },
-  //   [filters]
-  // );
-
-  // const handleChangeTag = useCallback(
-  //   (name) => {
-  //     setFilters({
-  //       ...filters,
-  //       filterTag: getSelected(filters.filterTag, name),
-  //     });
-  //   },
-  //   [filters]
-  // );
-
-  // const handleChangeRating = useCallback(
-  //   (event) => {
-  //     setFilters({
-  //       ...filters,
-  //       filterRating: event.target.value,
-  //     });
-  //   },
-  //   [filters]
-  // );
 
   const handleChangeStartPrice = useCallback(
     (event) => {
+      const params = new URLSearchParams(router.query);
+      params.set('start', event.target.value);
+      router.push(process.env.NEXT_PUBLIC_FRONTEND_URL + paths.eCommerce.products + '?' + params);
       setFilters({
         ...filters,
         filterPrice: {
