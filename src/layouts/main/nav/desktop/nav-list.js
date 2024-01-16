@@ -59,10 +59,9 @@ export default function NavList({ products, item }) {
         // externalLink={externalLink}
         onMouseEnter={handleOpenMenu}
         onMouseLeave={menuOpen.onFalse}
-        products={products}
       />
 
-      {!!item.children && menuOpen.value && products?.length > 4 && (
+      {/* {!!item.children && menuOpen.value && products?.length > 4 && (
         <Portal>
           <Fade in={menuOpen.value}>
             <StyledMenu onMouseEnter={handleOpenMenu} onMouseLeave={menuOpen.onFalse}>
@@ -79,7 +78,7 @@ export default function NavList({ products, item }) {
             </StyledMenu>
           </Fade>
         </Portal>
-      )}
+      )} */}
     </>
   );
 }

@@ -23,9 +23,9 @@ export const NavItem = forwardRef(
       >
         {item.title}
 
-        {!!item.children && products?.length > 4 && (
+        {/* {!!item.children && products?.length > 4 && (
           <Iconify width={16} icon="carbon:chevron-down" sx={{ ml: 1 }} />
-        )}
+        )} */}
       </StyledNavItem>
     );
 

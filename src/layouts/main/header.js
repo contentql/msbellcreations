@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useQuery } from 'react-query';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -59,12 +58,6 @@ export default function Header({ headerOnDark }) {
     wishempty();
     cartempty();
   };
-
-  const { data } = useQuery(['Hoverproducts'], () =>
-    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products?populate=*`, {
-      method: 'GET',
-    }).then((res) => res.json())
-  );
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -170,7 +163,7 @@ export default function Header({ headerOnDark }) {
             </Link> */}
           </Box>
 
-          {mdUp && <NavDesktop products={data?.data} data={navConfig} />}
+          {mdUp && <NavDesktop data={navConfig} />}
 
           <Stack
             spacing={{ xs: 2, md: 4 }}
