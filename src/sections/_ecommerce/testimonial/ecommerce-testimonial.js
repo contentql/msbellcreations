@@ -14,13 +14,16 @@ import TestimonialItem from './ecommerce-testimonial-item';
 // ----------------------------------------------------------------------
 
 export default function EcommerceTestimonial({ testimonials }) {
+ 
   const theme = useTheme();
 
   const mdUp = useResponsive('up', 'md');
 
+
+
   const carousel = useCarousel({
     dots: !mdUp,
-    slidesToShow: 4,
+    slidesToShow: testimonials?.length > 4 ? 4 : testimonials?.length,
     slidesToScroll: 1,
     ...CarouselDots({
       sx: {
@@ -64,7 +67,7 @@ export default function EcommerceTestimonial({ testimonials }) {
       </Stack>
 
       <Carousel ref={carousel.carouselRef} {...carousel.carouselSettings}>
-        {testimonials.map((testimonial) => (
+        {testimonials?.map((testimonial) => (
           <Box key={testimonial.id} sx={{ px: 1.5 }}>
             <TestimonialItem testimonial={testimonial} />
           </Box>

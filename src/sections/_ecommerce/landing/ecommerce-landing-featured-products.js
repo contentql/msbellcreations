@@ -62,7 +62,7 @@ export default function EcommerceLandingFeaturedProducts({ Featuredproducts }) {
           </Box>
         </Grid>
       </Grid>
-      <Grid xs={12} lg={4} sx={{ pt: 3 }}>
+      <Grid xs={12} lg={5} sx={{ pt: 3 }}>
         <Box
           gap={3}
           display="grid"

@@ -68,9 +68,7 @@ export default function EcommerceLandingCategories() {
     }).then((res) => res.json())
   );
 
-  useEffect(()=>{
-    console.log(data)
-  },[data])
+ 
 
   return (
     <Container
@@ -94,7 +92,7 @@ export default function EcommerceLandingCategories() {
         gridTemplateColumns={{
           xs: 'repeat(2, 1fr)',
           sm: 'repeat(3, 1fr)',
-          md: 'repeat(3, 1fr)',
+          md: 'repeat(5, 1fr)',
         }}
       >
         {data?.data.map((category) => (

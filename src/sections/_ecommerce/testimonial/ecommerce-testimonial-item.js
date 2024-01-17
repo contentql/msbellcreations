@@ -9,6 +9,7 @@ import { fDate } from 'src/utils/format-time';
 // ----------------------------------------------------------------------
 
 export default function TestimonialItem({ testimonial, sx, ...other }) {
+  console.log(testimonial)
   return (
     <Stack
       spacing={1}
