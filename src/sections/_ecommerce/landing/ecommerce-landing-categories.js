@@ -12,6 +12,7 @@ import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
 import { useProducts } from 'src/app/products-store';
 import TextMaxLine from 'src/components/text-max-line';
+import { useEffect } from 'react';
 
 // ----------------------------------------------------------------------
 
@@ -62,10 +63,14 @@ const CATEGORIES = [
 
 export default function EcommerceLandingCategories() {
   const { data } = useQuery(['categories'], () =>
-    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/categories?populate=*`, {
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/categories?sort=rank:asc&populate=*`, {
       method: 'GET',
     }).then((res) => res.json())
   );
+
+  useEffect(()=>{
+    console.log(data)
+  },[data])
 
   return (
     <Container

@@ -6,9 +6,10 @@ import Typography from '@mui/material/Typography';
 
 import Markdown from 'src/components/markdown';
 
+
 // ----------------------------------------------------------------------
 
-export default function EcommerceProductDetailsDescription({ description, specifications }) {
+export default function EcommerceProductDetailsDescription({ description,ingredients,howtouse, specifications }) {
 
   
   return (
@@ -41,6 +42,14 @@ export default function EcommerceProductDetailsDescription({ description, specif
         <Typography variant="h6"> Description </Typography>
         <Markdown content={description} />
       </Stack>
+      <Stack spacing={2}>
+        <Typography variant="h6"> How to use </Typography>
+        <Markdown content={howtouse} />
+      </Stack>
+      <Stack spacing={2}>
+        <Typography variant="h6"> Ingredients </Typography>
+        <Markdown content={ingredients} />
+      </Stack>
     </Stack>
   );
 }
@@ -48,4 +57,6 @@ export default function EcommerceProductDetailsDescription({ description, specif
 EcommerceProductDetailsDescription.propTypes = {
   description: PropTypes.string,
   specifications: PropTypes.array,
+  ingredients: PropTypes.string,
+  howtouse: PropTypes.string,
 };

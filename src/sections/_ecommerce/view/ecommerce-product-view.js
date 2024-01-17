@@ -72,6 +72,8 @@ export default function EcommerceProductView({ productId }) {
           <Grid xs={12} md={6} lg={7}>
             <EcommerceProductDetailsDescription
               description={_mockProduct?.description}
+              ingredients={_mockProduct?.ingredients}
+              howtouse={_mockProduct?.howtouse}
               // specifications={[
               //   { label: 'Category', value: 'Mobile' },
               //   { label: 'Manufacturer', value: 'Apple' },
