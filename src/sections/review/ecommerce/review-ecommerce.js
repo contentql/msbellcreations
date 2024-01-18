@@ -16,7 +16,8 @@ export default function ReviewEcommerce({review,productId}) {
 
   return (
     <>
-      <ReviewSummary review={review} ratingNumber={(total/review.length).toFixed(1)} reviewNumber={review.length} onOpenForm={formOpen.onTrue} />
+      <ReviewSummary review={review} ratingNumber={Number.isNaN(total / review.length) ? 0 : (total / review.length).toFixed(1)}
+ reviewNumber={review.length} onOpenForm={formOpen.onTrue} />
 
       <Container>
         <ReviewList reviews={review} />
