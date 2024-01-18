@@ -33,7 +33,7 @@ export default function ReviewList({ reviews }) {
         />
       ))}
 
-      <Pagination
+     { reviews.length!==0&&<Pagination
         count={pageCount}
         page={currentPage}
         color="primary"
@@ -45,7 +45,7 @@ export default function ReviewList({ reviews }) {
             justifyContent: 'center',
           },
         }}
-      />
+      />}
     </Box>
   );
 }
