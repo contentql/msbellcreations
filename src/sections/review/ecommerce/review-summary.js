@@ -37,11 +37,7 @@ export default function ReviewSummary({review, reviewNumber, ratingNumber, onOpe
                   value={ratingNumber}
                   readOnly
                   precision={0.1}
-                  sx={{
-                    '& svg': {
-                      color: 'text.primary',
-                    },
-                  }}
+                 
                 />
                 <Typography variant="body2">{fShortenNumber(reviewNumber)} reviews</Typography>
               </Stack>
