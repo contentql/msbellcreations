@@ -58,17 +58,57 @@ export default function EcommerceLandingFeaturedProducts({ Featuredproducts }) {
         </Grid>
 
         <Grid xs={12} lg={4}>
-          <Box
-            gap={3}
-            display="grid"
-            gridTemplateColumns={{
-              xs: 'repeat(2, 1fr)',
-              md: 'repeat(4, 1fr)',
-              lg: 'repeat(2, 1fr)',
-            }}
-          >
+          <Box gap={3} display="flex" justifyContent="center" sx={{ flexWrap: 'wrap' }}>
             {Featuredproducts?.slice(2, 6).map((product) => (
-              <EcommerceProductItemHot key={product.id} product={product} />
+              <Stack
+                alignItems="center"
+                justifyContent="center"
+                sx={{
+                  width: { xs: '150px', sm: '250px', md: '400px', lg: '170px' },
+                  margin: '0',
+                }}
+              >
+                <Link
+                  component={RouterLink}
+                  href={`${paths.eCommerce.products}/${product.id}`}
+                  color="inherit"
+                  underline="none"
+                >
+                  <Paper
+                    variant="outlined"
+                    sx={{
+                      p: 2,
+                      borderRadius: 2,
+                      bgcolor: 'background.default',
+                      transition: (theme) =>
+                        theme.transitions.create('background-color', {
+                          easing: theme.transitions.easing.easeIn,
+                          duration: theme.transitions.duration.shortest,
+                        }),
+                      '&:hover': {
+                        bgcolor: 'background.neutral',
+                      },
+                    }}
+                  >
+                    <Image
+                      src={product.coverUrl.url}
+                      sx={{
+                        mb: 2,
+                        borderRadius: 1.5,
+                        bgcolor: 'background.neutral',
+                      }}
+                    />
+
+                    <Stack spacing={0.5}>
+                      <TextMaxLine variant="body2" line={1} sx={{ fontWeight: 'fontWeightMedium' }}>
+                        {product.name}
+                      </TextMaxLine>
+
+                      <ProductPrice price={product.price} />
+                    </Stack>
+                  </Paper>
+                </Link>
+              </Stack>
             ))}
           </Box>
         </Grid>
@@ -80,7 +120,7 @@ export default function EcommerceLandingFeaturedProducts({ Featuredproducts }) {
               alignItems="center"
               justifyContent="center"
               sx={{
-                width: { xs: '150px', sm: '330px', md: '220px', lg: '170px' },
+                width: { xs: '150px', sm: '250px', md: '400px', lg: '170px' },
                 margin: '0',
               }}
             >
