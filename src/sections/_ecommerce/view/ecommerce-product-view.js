@@ -33,6 +33,8 @@ export default function EcommerceProductView({ productId }) {
     ?.filter((product) => product.id.toString() === productId.toString())
     .at(0);
 
+    
+
   if (isLoading) {
     return <SplashScreen />;
   }
@@ -86,7 +88,7 @@ export default function EcommerceProductView({ productId }) {
         </Grid>
       </Container>
 
-      {/* <ReviewEcommerce /> */}
+       <ReviewEcommerce productId={productId} review={_mockProduct?.review}/> 
     </>
   );
 }

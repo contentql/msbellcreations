@@ -16,9 +16,15 @@ import FormHelperText from '@mui/material/FormHelperText';
 
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
 
+import { useQuery, useQueryClient } from 'react-query';
+import { useUserStore } from 'src/app/auth-store';
+
 // ----------------------------------------------------------------------
 
-export default function ReviewNewForm({ onClose, ...other }) {
+export default function ReviewNewForm({ onClose, productId, review, ...other }) {
+  const {UserData}=useUserStore()
+  const queryClient = useQueryClient();
+   //queryClient.invalidateQueries(['productsinView', productId]);
   const defaultValues = {
     rating: 0,
     review: '',
@@ -32,6 +38,7 @@ export default function ReviewNewForm({ onClose, ...other }) {
     review: Yup.string().required('Review is required'),
     email: Yup.string().required('Email is required').email('That is not an email'),
   });
+
 
   const methods = useForm({
     resolver: yupResolver(NewReviewSchema),
@@ -48,12 +55,31 @@ export default function ReviewNewForm({ onClose, ...other }) {
   const onSubmit = handleSubmit(async (data) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
+      const tt = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products/${productId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          review: [
+            ...review,
+            {
+              name: data.name,
+              rating: data.rating,
+              review: data.review,
+              avatar:`/assets/images/avatar/avatar_${UserData.avatar}.jpg`,
+              email:data.email
+            },
+          ],
+        }),
+      });
+
       reset();
       onClose();
       //console.log('DATA', data);
+      queryClient.invalidateQueries(['productsinView', productId]);
     } catch (error) {
       console.error(error);
     }
+    
   });
 
   return (

@@ -15,7 +15,7 @@ import ReviewProgress from '../common/review-progress';
 
 // ----------------------------------------------------------------------
 
-export default function ReviewSummary({ reviewNumber, ratingNumber, onOpenForm }) {
+export default function ReviewSummary({review, reviewNumber, ratingNumber, onOpenForm }) {
   return (
     <Box
       sx={{
@@ -59,7 +59,7 @@ export default function ReviewSummary({ reviewNumber, ratingNumber, onOpenForm }
           </Grid>
 
           <Grid xs={12} md={4}>
-            <ReviewProgress />
+            <ReviewProgress review={review}/>
           </Grid>
         </Grid>
       </Container>

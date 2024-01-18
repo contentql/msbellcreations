@@ -11,7 +11,7 @@ import { fDate } from 'src/utils/format-time';
 
 // ----------------------------------------------------------------------
 
-export default function ReviewItem({ name, rating, message, createdAt, avatarUrl }) {
+export default function ReviewItem({ name, rating, message,  avatarUrl }) {
   return (
     <Stack
       direction="row"
@@ -28,20 +28,12 @@ export default function ReviewItem({ name, rating, message, createdAt, avatarUrl
           value={rating}
           precision={0.5}
           readOnly
-          sx={{
-            '& svg': {
-              color: 'text.primary',
-            },
-          }}
+          
         />
 
         <Typography variant="subtitle1">{name}</Typography>
 
-        {createdAt && (
-          <Typography variant="caption" sx={{ color: 'text.disabled' }}>
-            {fDate(createdAt)}
-          </Typography>
-        )}
+       
 
         <Typography variant="body2">{message}</Typography>
 
@@ -79,5 +71,4 @@ ReviewItem.propTypes = {
   rating: PropTypes.number,
   message: PropTypes.string,
   avatarUrl: PropTypes.string,
-  createdAt: PropTypes.instanceOf(Date),
 };
