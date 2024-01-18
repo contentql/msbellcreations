@@ -41,36 +41,36 @@ export default function EcommerceLandingView() {
 
   const PopularProducts = data?.data?.sort((a, b) => b.sold - a.sold).slice(0, 8);
 
-  const Herodata = data?.data.filter((item) => item.home);
-  const Hotdeals = data?.data.filter((item) => item.hot_deals);
-  const Featuredproducts = data?.data.filter((item) => item.featured_products);
-  const specialOffer = data?.data.filter((item) => item.special_offer).at(0);
+  const Herodata = data?.data?.filter((item) => item.home);
+  const Hotdeals = data?.data?.filter((item) => item.hot_deals);
+  const Featuredproducts = data?.data?.filter((item) => item.featured_products);
+  const specialOffer = data?.data?.filter((item) => item.special_offer).at(0);
 
   return (
     <Box sx={{ mt: '30px' }}>
-      {configuration?.data.Hero ? <EcommerceLandingHero Hero={Herodata} /> : null}
+      {configuration?.data?.Hero ? <EcommerceLandingHero Hero={Herodata} /> : null}
 
       <EcommerceLandingCategories />
 
-      {configuration?.data.hot_deals ? <EcommerceLandingHotDealToday Hotdeals={Hotdeals} /> : null}
+      {configuration?.data?.hot_deals ? <EcommerceLandingHotDealToday Hotdeals={Hotdeals} /> : null}
 
-      {configuration?.data.featured_products ? (
+      {configuration?.data?.featured_products ? (
         <EcommerceLandingFeaturedProducts Featuredproducts={Featuredproducts} />
       ) : null}
 
-      {configuration?.data.special_offer ? (
+      {configuration?.data?.special_offer ? (
         <EcommerceLandingSpecialOffer specialOffer={specialOffer} />
       ) : null}
 
       {/* <EcommerceLandingFeaturedBrands /> */}
 
-      {configuration?.data.popular_products ? (
+      {configuration?.data?.popular_products ? (
         <EcommerceLandingPopularProducts PopularProducts={PopularProducts} />
       ) : null}
 
       {/* <EcommerceLandingTopProducts /> */}
 
-      {configuration?.data.testimonials ? (
+      {configuration?.data?.testimonials ? (
         <EcommerceTestimonial testimonials={reviews?.data} />
       ) : null}
     </Box>

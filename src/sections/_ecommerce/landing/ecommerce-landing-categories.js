@@ -95,7 +95,7 @@ export default function EcommerceLandingCategories() {
           md: 'repeat(5, 1fr)',
         }}
       >
-        {data?.data.map((category) => (
+        {data?.data?.map((category) => (
           <Stack
             key={category.label}
             alignItems="center"
