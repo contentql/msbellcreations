@@ -68,8 +68,6 @@ export default function EcommerceLandingCategories() {
     }).then((res) => res.json())
   );
 
- 
-
   return (
     <Container
       sx={{
@@ -86,21 +84,15 @@ export default function EcommerceLandingCategories() {
         Categories
       </Typography>
 
-      <Box
-        gap={{ xs: 3, lg: 5 }}
-        display="grid"
-        gridTemplateColumns={{
-          xs: 'repeat(2, 1fr)',
-          sm: 'repeat(3, 1fr)',
-          md: 'repeat(5, 1fr)',
-        }}
-      >
+      <Box gap={{ xs: 3, lg: 5 }} display="flex" justifyContent="center" sx={{ flexWrap: 'wrap' }}>
         {data?.data.map((category) => (
           <Stack
             key={category.label}
             alignItems="center"
             justifyContent="center"
             sx={{
+              width: { xs: '150px', md: '190px' },
+              margin: '0',
               px: 1,
               py: 5,
               borderRadius: 2,
