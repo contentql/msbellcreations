@@ -12,10 +12,12 @@ import Iconify from 'src/components/iconify';
 import { fShortenNumber } from 'src/utils/format-number';
 
 import ReviewProgress from '../common/review-progress';
+import { useUserStore } from 'src/app/auth-store';
 
 // ----------------------------------------------------------------------
 
-export default function ReviewSummary({review, reviewNumber, ratingNumber, onOpenForm }) {
+export default function ReviewSummary({ review, reviewNumber, ratingNumber, onOpenForm }) {
+  const { UserData } = useUserStore();
   return (
     <Box
       sx={{
@@ -33,30 +35,17 @@ export default function ReviewSummary({review, reviewNumber, ratingNumber, onOpe
               <Typography variant="h2"> {ratingNumber}</Typography>
 
               <Stack spacing={0.5}>
-                <Rating
-                  value={ratingNumber}
-                  readOnly
-                  precision={0.1}
-                 
-                />
+               { <Rating value={ratingNumber} readOnly precision={0.1} />}
                 <Typography variant="body2">{fShortenNumber(reviewNumber)} reviews</Typography>
               </Stack>
             </Stack>
 
-            <Button
-              size="large"
-              color="inherit"
-              variant="contained"
-              startIcon={<Iconify icon="carbon:edit" />}
-              onClick={onOpenForm}
-            >
-              Write a Review
-            </Button>
+            
           </Grid>
 
-          <Grid xs={12} md={4}>
-            <ReviewProgress review={review}/>
-          </Grid>
+          {/* <Grid xs={12} md={4}>
+  <ReviewProgress review={review}/>
+</Grid> */}
         </Grid>
       </Container>
     </Box>

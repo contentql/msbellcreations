@@ -34,6 +34,7 @@ import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import { toast, ToastContainer } from 'react-toastify';
+import { useUserStore } from 'src/app/auth-store';
 
 import ProductPrice from '../../common/product-price';
 
@@ -65,6 +66,7 @@ export default function EcommerceProductDetailsInfo({
   totalReviews,
   priceSale,
   caption,
+  onOpenForm,
 }) {
   const actions = [
     {
@@ -129,6 +131,7 @@ export default function EcommerceProductDetailsInfo({
     },
   ];
 
+  const { UserData } = useUserStore();
   const { data, isLoading } = useQuery(['individualProduct'], () =>
     fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products/${productId}?populate=*`, {
       method: 'GET',
@@ -268,25 +271,43 @@ export default function EcommerceProductDetailsInfo({
         draggable
       />
 
-      <Divider sx={{ borderStyle: 'dashed', my: 3 }} />
+      <div className="flex flex-wrap gap-y-4 gap-3" style={{ display: 'flex', alignItems: 'center' }}>
+        {UserData?.isLoggedIn && (
+          <Button
+            size="large"
+            color="inherit"
+            variant="contained"
+            startIcon={<Iconify icon="carbon:edit" />}
+            onClick={onOpenForm}
+          >
+            Review
+          </Button>
+        )}
 
-      <Stack spacing={1} direction="row">
-        <SpeedDial
-          ariaLabel="SpeedDial basic example"
-          sx={{ position: 'relative', bottom: 8, left: 16 }}
-          icon={<ShareIcon />}
-          direction="right"
-        >
-          {actions.map((action) => (
-            <SpeedDialAction
-              key={action.name}
-              sx={{ ml: '1px', boxShadow: 0 }}
-              icon={action.icon}
-              tooltipTitle={action.name}
-            />
-          ))}
-        </SpeedDial>
-      </Stack>
+        <Stack spacing={1} direction="row">
+          <SpeedDial
+            ariaLabel="SpeedDial basic example"
+            sx={{
+              position: 'relative',
+              bottom: 8,
+              
+              top: 0,
+            }}
+            icon={<ShareIcon />}
+            
+            direction="right"
+          >
+            {actions.map((action) => (
+              <SpeedDialAction
+                key={action.name}
+                sx={{ ml: '1px', boxShadow: 0 }}
+                icon={action.icon}
+                tooltipTitle={action.name}
+              />
+            ))}
+          </SpeedDial>
+        </Stack>
+      </div>
     </>
   );
 }

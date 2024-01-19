@@ -22,7 +22,7 @@ import EcommerceProductDetailsDescription from '../product/details/ecommerce-pro
 
 export default function EcommerceProductView({ productId }) {
   const loading = useBoolean(true);
-  // console.log('id ', productId);
+   const formOpen = useBoolean();
   const { data, isLoading } = useQuery(['productsinView', productId], () =>
     fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/products?populate=*`, {
       method: 'GET',
@@ -59,13 +59,14 @@ export default function EcommerceProductView({ productId }) {
 
           <Grid xs={12} md={6} lg={5}>
             <EcommerceProductDetailsInfo
+              onOpenForm={formOpen.onTrue}
               productId={_mockProduct?.id}
               name={_mockProduct?.name}
               price={_mockProduct?.price}
               caption={_mockProduct?.caption}
               priceSale={_mockProduct?.priceSale}
               ratingNumber={_mockProduct?.ratingNumber}
-              totalReviews={_mockProduct?.totalReviews}
+              totalReviews={_mockProduct?.review?.length}
             />
           </Grid>
         </Grid>
@@ -88,7 +89,7 @@ export default function EcommerceProductView({ productId }) {
         </Grid>
       </Container>
 
-       <ReviewEcommerce productId={productId} review={_mockProduct?.review}/> 
+       <ReviewEcommerce formOpen={formOpen} productId={productId} review={_mockProduct?.review}/> 
     </>
   );
 }

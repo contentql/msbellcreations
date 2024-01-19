@@ -29,14 +29,12 @@ export default function ReviewNewForm({ onClose, productId, review, ...other }) 
     rating: 0,
     review: '',
     name: '',
-    email: '',
   };
 
   const NewReviewSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
     rating: Yup.number().min(1, 'Rating must be greater than or equal to 1'),
     review: Yup.string().required('Review is required'),
-    email: Yup.string().required('Email is required').email('That is not an email'),
   });
 
 
@@ -60,14 +58,15 @@ export default function ReviewNewForm({ onClose, productId, review, ...other }) 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           review: [
-            ...review,
+            
             {
               name: data.name,
               rating: data.rating,
               review: data.review,
               avatar:`/assets/images/avatar/avatar_${UserData.avatar}.jpg`,
-              email:data.email
+              email:UserData.email
             },
+            ...review
           ],
         }),
       });
@@ -115,7 +114,6 @@ export default function ReviewNewForm({ onClose, productId, review, ...other }) 
 
             <RHFTextField name="name" label="Name *" />
 
-            <RHFTextField name="email" label="Email address *" />
           </Stack>
         </DialogContent>
 
