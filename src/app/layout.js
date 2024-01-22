@@ -16,7 +16,7 @@ import { SettingsDrawer, SettingsProvider } from 'src/components/settings';
 export const metadata = {
   title: 'msbellcreations',
   description:
-    'The CQL Design is built on top of MUI, a powerful library that provides flexible, customizable, and easy-to-use components.',
+    'Ms. Bells Creations SOAPS, CANDLES, AND MORE! Created from all-natural materials and infused with essential oils.',
   keywords: 'react,material,kit,application,dashboard,admin,template',
   themeColor: '#000000',
   manifest: '/manifest.json',
