@@ -1,6 +1,6 @@
 'use client';
 
-
+import { useQuery } from 'react-query';
 import { Stack } from '@mui/system';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -22,6 +22,11 @@ import { useEffect } from 'react';
 // ----------------------------------------------------------------------
 
 export default function EcommerceCartView() {
+  const { data: configuration } = useQuery(['configuration'], () =>
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/configuration?populate=*`, {
+      method: 'GET',
+    }).then((res) => res.json())
+  );
   const {dummyItems,addtodummy,dummyempty}=useDummy()
   const {cartItems, cartempty, Addtocartall}=useCart();
   useEffect(()=>{
@@ -51,11 +56,11 @@ export default function EcommerceCartView() {
 
         <Grid xs={12} md={4}>
           <EcommerceCartSummary
-            tax={20}
+            tax={configuration?.data?.tax || 0}
             total={0.0}
             subtotal={subtotal()}
-            shipping={55.47}
-            discount={18.17}
+            shipping={configuration?.data?.shipping || 0}
+            discount={configuration?.data?.discount || 0}
           />
         </Grid>
       </Grid>:<Stack alignItems="center"

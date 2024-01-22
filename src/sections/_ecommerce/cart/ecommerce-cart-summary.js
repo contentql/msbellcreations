@@ -24,23 +24,28 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
   const {dummyItems,addtodummy}=useDummy()
   const [subtotal, setSubtotal] = useState(0);
   const [total, setTotal] = useState(0);
-  useEffect(() => {
+ useEffect(() => {
+  const newSubtotal = cartItems.reduce(
+    (acc, product) => acc + product.quantity * product.price,
+    0
+  );
 
-    const newSubtotal = cartItems.reduce(
-      (acc, product) => acc + product.quantity * product.price,
-      0
-    );
-    // Update subtotal state
-    setSubtotal(newSubtotal);
+  // Calculate the discount
+  const discountmoney = newSubtotal * (discount / 100);
 
-    // Calculate the final total including tax, shipping, and discount
-    const newTotal = newSubtotal + shipping + discount - tax;
+  // Calculate the subtotal with discount
+  const subtotal_with_discount = newSubtotal - discountmoney;
 
-    // Update total state
-    setTotal(newTotal);
-  }, [cartItems, shipping, discount, tax]);
+  // Calculate the tax amount
+  const taxamount = subtotal_with_discount * (tax / 100);
 
-  
+  // Update subtotal state
+  setSubtotal(newSubtotal);
+
+  // Update total state
+  setTotal(subtotal_with_discount + shipping + taxamount);
+}, [cartItems, shipping, discount, tax]);
+
 
   const { deleteAll, addAll } = useCheckout();
 
@@ -64,7 +69,7 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
       <Typography variant="h6"> Summary </Typography>
 
       <Stack spacing={2}>
-        <Row label="Subtotal" value={fCurrency(subtotal)} />
+       
 
         <Row label="Shipping" value={fCurrency(cartItems.length === 0 ? 0 : shipping)} />
 
@@ -74,6 +79,8 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
         />
 
         <Row label="Tax" value={fPercent(subtotal === 0 ? 0 : tax)} />
+
+         <Row label="Subtotal" value={fCurrency(subtotal.toFixed(1))} />
       </Stack>
 
       {/* <TextField
@@ -92,7 +99,7 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
 
       <Row
         label="Total"
-        value={fCurrency(subtotal === 0 ? 0 : total)}
+        value={fCurrency(subtotal === 0 ? 0 : total.toFixed(2))}
         sx={{
           typography: 'h6',
           '& span': { typography: 'h6' },

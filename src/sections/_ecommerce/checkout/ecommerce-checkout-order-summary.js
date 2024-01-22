@@ -4,16 +4,16 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
+import { useState,useEffect } from 'react';
 import { alpha } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
-import InputAdornment from '@mui/material/InputAdornment';
+import { useCheckout } from 'src/app/checkoutstore';
 
 import Image from 'src/components/image';
 import Iconify from 'src/components/iconify';
-import { useCheckout } from 'src/app/checkoutstore';
 import TextMaxLine from 'src/components/text-max-line';
 import { fPercent, fCurrency } from 'src/utils/format-number';
 
@@ -21,14 +21,37 @@ import { fPercent, fCurrency } from 'src/utils/format-number';
 
 export default function EcommerceCheckoutOrderSummary({
   tax,
-  total,
-  subtotal,
   shipping,
   discount,
   products,
   loading,
 }) {
- // console.log('checkout products', products);
+  const { checkItems } = useCheckout();
+  const [subtotal, setSubtotal] = useState(0);
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    const newSubtotal = checkItems.reduce(
+      (acc, product) => acc + product.quantity * product.price,
+      0
+    );
+
+    // Calculate the discount
+    const discountmoney = newSubtotal * (discount / 100);
+
+    // Calculate the subtotal with discount
+    const subtotal_with_discount = newSubtotal - discountmoney;
+
+    // Calculate the tax amount
+    const taxamount = subtotal_with_discount * (tax / 100);
+
+    // Update subtotal state
+    setSubtotal(newSubtotal);
+
+    // Update total state
+    setTotal(subtotal_with_discount + shipping + taxamount);
+  }, [checkItems,tax,discount,shipping]);
+
   return (
     <Stack
       spacing={3}
@@ -51,13 +74,16 @@ export default function EcommerceCheckoutOrderSummary({
       )}
 
       <Stack spacing={2}>
-        <Row label="Subtotal" value={fCurrency(subtotal)} />
-
         <Row label="Shipping" value={fCurrency(shipping)} />
 
-        <Row label="Discount (15%)" value={`-${fCurrency(discount)}`} />
+        <Row
+          label={`Discount (${fPercent(discount)})`}
+          value={`-${fCurrency(subtotal === 0 ? 0 : discount)}`}
+        />
 
         <Row label="Tax" value={fPercent(tax)} />
+
+        <Row label="Subtotal" value={fCurrency(subtotal)} />
       </Stack>
 
       {/* <TextField
@@ -76,7 +102,7 @@ export default function EcommerceCheckoutOrderSummary({
 
       <Row
         label="Total"
-        value={fCurrency(subtotal + tax + shipping - discount)}
+        value={fCurrency(total)}
         sx={{
           typography: 'h6',
           '& span': { typography: 'h6' },
@@ -89,7 +115,6 @@ export default function EcommerceCheckoutOrderSummary({
         color="inherit"
         type="submit"
         loading={loading}
-        
       >
         Order Now
       </LoadingButton>

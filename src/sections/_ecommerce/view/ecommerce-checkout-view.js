@@ -1,6 +1,7 @@
 'use client';
 
 import * as Yup from 'yup';
+import { useQuery } from 'react-query';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import React, { useState, useEffect } from 'react';
@@ -82,6 +83,16 @@ const PAYMENT_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function EcommerceCheckoutView() {
+
+
+   const { data: configuration } = useQuery(['configuration'], () =>
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/configuration?populate=*`, {
+      method: 'GET',
+    }).then((res) => res.json())
+  );
+
+
+
   const { UserData } = useUserStore();
   const {deleteAllOrders, orderItems, orderaddAll, updateValues,userDetails,} = useOrder();
   const { checkItems, deleteAll } = useCheckout();
@@ -90,17 +101,9 @@ export default function EcommerceCheckoutView() {
   const [switchChecked, setSwitchChecked] = useState(false);
 
 
-console.log("userDetails",userDetails)
-  useEffect(() => {
-    const newSubtotal = checkItems.reduce(
-      (acc, product) => acc + product.quantity * product.price,
-      0
-    );
-    setSubtotal(newSubtotal);
-    const newTotal = newSubtotal;
+ 
 
-    setTotal(newTotal);
-  }, [checkItems]);
+
 
   useEffect(()=>{
     deleteAllOrders()
@@ -212,6 +215,7 @@ console.log("userDetails",userDetails)
   const productData=checkItems.map((item=>({ name: item.name,quantity:item.quantity, productId:item.id.toString() })))
 
   //console.log("product",productData)
+
 
   const postData = async (data) => {
 
@@ -375,11 +379,11 @@ console.log("userDetails",userDetails)
 
           <Grid xs={12} md={4}>
             <EcommerceCheckoutOrderSummary
-              tax={checkItems.length !== 0 ? 7 : 0}
-              total={0}
-              subtotal={subtotal}
-              shipping={checkItems.length !== 0 ? 55.47 : 0}
-              discount={checkItems.length !== 0 ? 16.17 : 0}
+              tax={checkItems.length !== 0 ? configuration?.data.tax : 0}
+              total={total}
+              subtotal={0}
+              shipping={checkItems.length !== 0 ? configuration?.data.shipping : 0}
+              discount={checkItems.length !== 0 ? configuration?.data.discount : 0}
               products={checkItems}
               loading={isSubmitting}
             />
