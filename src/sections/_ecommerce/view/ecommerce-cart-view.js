@@ -51,11 +51,11 @@ export default function EcommerceCartView() {
 
         <Grid xs={12} md={4}>
           <EcommerceCartSummary
-            tax={7}
-            total={357.09}
+            tax={20}
+            total={0.0}
             subtotal={subtotal()}
             shipping={55.47}
-            discount={16.17}
+            discount={18.17}
           />
         </Grid>
       </Grid>:<Stack alignItems="center"

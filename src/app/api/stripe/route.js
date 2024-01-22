@@ -24,7 +24,7 @@ export async function POST(req) {
       customer_email: email,
       line_items: requiredProducts.map((requiredProduct) => {
         const price_data = {
-          currency: 'inr',
+          currency: 'usd',
           product_data: {
             name: requiredProduct.name,
           },
