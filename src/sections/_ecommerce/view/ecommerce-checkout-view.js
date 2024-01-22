@@ -299,6 +299,7 @@ export default function EcommerceCheckoutView() {
       const { data: stripeData } = await axios.post('/api/stripe', {
         email: data.emailAddress,
         products: checkItems,
+        total:total
       });
 
       await router.push(stripeData.url);

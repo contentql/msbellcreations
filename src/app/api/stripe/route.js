@@ -10,7 +10,7 @@ axios.defaults.baseURL = process.env.NEXT_PUBLIC_STRAPI_URL;
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 export async function POST(req) {
-  const { email, products: userSentProducts } = await req.json();
+  const { email, products: userSentProducts, total } = await req.json();
   try {
     const { data } = await axios.get('/api/products');
     const allProducts = await data.data;
@@ -38,6 +38,11 @@ export async function POST(req) {
       mode: 'payment',
       success_url: `${process.env.FRONTEND_URL}/order-completed`,
       cancel_url: `${process.env.FRONTEND_URL}/cancel`,
+      payment_intent_data: {
+        // Pass the calculated total amount to Stripe
+        amount: total,
+        currency: 'usd',
+      },
     });
 
     // return redirect(session.url);
