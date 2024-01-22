@@ -386,6 +386,7 @@ export default function EcommerceCheckoutView() {
               discount={checkItems.length !== 0 ? configuration?.data.discount : 0}
               products={checkItems}
               loading={isSubmitting}
+              setTotal={setTotal}
             />
           </Grid>
         </Grid>
