@@ -37,7 +37,10 @@ export default function ReviewSummary({ review, reviewNumber, ratingNumber, onOp
               <Stack spacing={0.5}>
                 {<Rating value={ratingNumber} readOnly precision={0.1} />}
                 <Typography variant="body2">{fShortenNumber(reviewNumber)} reviews</Typography>
-                {UserData?.isLoggedIn && (
+               
+              </Stack>
+            </Stack>
+             {UserData?.isLoggedIn && (
                   <Button
                     size="large"
                     color="inherit"
@@ -48,8 +51,6 @@ export default function ReviewSummary({ review, reviewNumber, ratingNumber, onOp
                     write a Review
                   </Button>
                 )}
-              </Stack>
-            </Stack>
           </Grid>
 
           {/* <Grid xs={12} md={4}>
