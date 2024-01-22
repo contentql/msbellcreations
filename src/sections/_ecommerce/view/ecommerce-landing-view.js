@@ -70,9 +70,9 @@ export default function EcommerceLandingView() {
 
       {/* <EcommerceLandingTopProducts /> */}
 
-      {configuration?.data?.testimonials ? (
+      {/*configuration?.data?.testimonials ? (
         <EcommerceTestimonial testimonials={reviews?.data} />
-      ) : null}
+      ) : null*/}
     </Box>
   );
 }

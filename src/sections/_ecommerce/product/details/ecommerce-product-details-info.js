@@ -272,17 +272,7 @@ export default function EcommerceProductDetailsInfo({
       />
 
       <div className="flex flex-wrap gap-y-4 gap-3" style={{ display: 'flex', alignItems: 'center' }}>
-        {UserData?.isLoggedIn && (
-          <Button
-            size="large"
-            color="inherit"
-            variant="contained"
-            startIcon={<Iconify icon="carbon:edit" />}
-            onClick={onOpenForm}
-          >
-            Review
-          </Button>
-        )}
+       
 
         <Stack spacing={1} direction="row">
           <SpeedDial

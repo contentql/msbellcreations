@@ -35,12 +35,21 @@ export default function ReviewSummary({ review, reviewNumber, ratingNumber, onOp
               <Typography variant="h2"> {ratingNumber}</Typography>
 
               <Stack spacing={0.5}>
-               { <Rating value={ratingNumber} readOnly precision={0.1} />}
+                {<Rating value={ratingNumber} readOnly precision={0.1} />}
                 <Typography variant="body2">{fShortenNumber(reviewNumber)} reviews</Typography>
+                {UserData?.isLoggedIn && (
+                  <Button
+                    size="large"
+                    color="inherit"
+                    variant="contained"
+                    startIcon={<Iconify icon="carbon:edit" />}
+                    onClick={onOpenForm}
+                  >
+                    write a Review
+                  </Button>
+                )}
               </Stack>
             </Stack>
-
-            
           </Grid>
 
           {/* <Grid xs={12} md={4}>
