@@ -37,7 +37,7 @@ export async function POST(req) {
       }),
       mode: 'payment',
       success_url: `${process.env.FRONTEND_URL}/order-completed`,
-      cancel_url: `${process.env.FRONTEND_URL}/cancel`,
+      cancel_url: `${process.env.FRONTEND_URL}/cart`,
     });
 
     // return redirect(session.url);
