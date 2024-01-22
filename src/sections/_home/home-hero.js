@@ -62,8 +62,7 @@ export default function HomeHero() {
               </Typography>
 
               <Typography sx={{ color: 'text.secondary' }}>
-                The CQL Design is built on top of MUI, a powerful library that provides flexible,
-                customizable, and easy-to-use components.
+                Ms. Bells Creations SOAPS, CANDLES, AND MORE! Created from all-natural materials and infused with essential oils.
               </Typography>
 
               <Button
