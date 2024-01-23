@@ -218,7 +218,8 @@ const EcommerceProductViewGridItem = ({ product, sx, ...other }) => {
 
         <ProductPrice price={product?.price} priceSale={product?.priceSale} />
 
-        <ProductRating ratingNumber={product?.ratingNumber} label={`${product?.sold} sold`} />
+
+        <ProductRating ratingNumber={product?.review.reduce((acc,ele)=>acc+=ele.rating,0)/product?.review.length} label={`${product?.sold} sold`} />
       </Stack>
     </Stack>
   );

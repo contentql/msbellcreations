@@ -160,7 +160,7 @@ export default function EcommerceProductViewListItem({ product, ...other }) {
           </Link>
         </Stack>
 
-        <ProductRating ratingNumber={product.ratingNumber} label={`${product.sold} sold`} />
+        <ProductRating ratingNumber={product?.review.reduce((acc,ele)=>acc+=ele.rating,0)/product?.review.length} label={`${product.sold} sold`} />
 
         <TextMaxLine variant="body2" line={1} sx={{ color: 'text.secondary' }}>
           {product.caption}

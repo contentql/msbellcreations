@@ -67,6 +67,7 @@ export default function EcommerceProductView({ productId }) {
               priceSale={_mockProduct?.priceSale}
               ratingNumber={_mockProduct?.ratingNumber}
               totalReviews={_mockProduct?.review?.length}
+              avgRating={_mockProduct?.review?.reduce((sum,ele)=>sum+=ele.rating,0)/_mockProduct?.review?.length}
             />
           </Grid>
         </Grid>

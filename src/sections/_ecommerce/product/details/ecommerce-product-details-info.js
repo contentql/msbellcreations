@@ -67,6 +67,7 @@ export default function EcommerceProductDetailsInfo({
   priceSale,
   caption,
   onOpenForm,
+  avgRating
 }) {
   const actions = [
     {
@@ -192,7 +193,7 @@ export default function EcommerceProductDetailsInfo({
         <Typography variant="h4"> {name} </Typography>
 
         <Stack spacing={0.5} direction="row" alignItems="center">
-          <Rating size="small" value={ratingNumber} readOnly precision={0.5} />
+          <Rating size="small" value={avgRating.toFixed(2)} readOnly precision={0.5} />
 
           <Typography variant="caption" sx={{ color: 'text.disabled' }}>
             ({totalReviews} reviews)
