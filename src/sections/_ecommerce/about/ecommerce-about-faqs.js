@@ -15,7 +15,7 @@ import { useResponsive } from 'src/hooks/use-responsive';
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceAboutFaqs() {
+export default function EcommerceAboutFaqs({ faqs }) {
   const mdUp = useResponsive('up', 'md');
 
   const [expanded, setExpanded] = useState(false);
@@ -40,34 +40,38 @@ export default function EcommerceAboutFaqs() {
             <Typography variant="h2">Frequently Asked Questions</Typography>
           </Stack>
 
-          {_faqs.map((faq) => (
-            <Accordion
-              key={faq.id}
-              expanded={expanded === faq.id}
-              onChange={handleChangeExpanded(faq.id)}
-            >
-              <AccordionSummary
-                sx={{
-                  minHeight: 64,
-                  [`& .${accordionSummaryClasses.content}`]: {
-                    p: 0,
-                    m: 0,
-                  },
-                  [`&.${accordionSummaryClasses.expanded}`]: {
-                    bgcolor: 'action.selected',
-                  },
-                }}
+          {faqs?.length > 0 &&
+            faqs.map((faq) => (
+              <Accordion
+                key={faq.id}
+                expanded={expanded === faq.id}
+                onChange={handleChangeExpanded(faq.id)}
               >
-                <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                  {faq.question}
-                </Typography>
+                <AccordionSummary
+                  sx={{
+                    minHeight: 64,
+                    [`& .${accordionSummaryClasses.content}`]: {
+                      p: 0,
+                      m: 0,
+                    },
+                    [`&.${accordionSummaryClasses.expanded}`]: {
+                      bgcolor: 'action.selected',
+                    },
+                  }}
+                >
+                  <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                    {faq.question}
+                  </Typography>
 
-                <Iconify width={24} icon={expanded === faq.id ? 'carbon:subtract' : 'carbon:add'} />
-              </AccordionSummary>
+                  <Iconify
+                    width={24}
+                    icon={expanded === faq.id ? 'carbon:subtract' : 'carbon:add'}
+                  />
+                </AccordionSummary>
 
-              <AccordionDetails>{faq.answer}</AccordionDetails>
-            </Accordion>
-          ))}
+                <AccordionDetails>{faq.answer}</AccordionDetails>
+              </Accordion>
+            ))}
         </Grid>
 
         {mdUp && (
