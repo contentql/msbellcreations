@@ -239,7 +239,7 @@ export default function EcommerceCheckoutView() {
           ShippingzipCode: data.ShippingzipCode,
           ShippingstreetAddress: data.ShippingstreetAddress,
           zipCode: data.zipCode,
-          totalPrice:subtotal.toString(),
+          totalPrice:total.toString(),
           product: productData,
        }),
       });
