@@ -38,19 +38,16 @@ export default function EcommerceCheckoutOrderSummary({
     );
 
     // Calculate the discount
-    const discountmoney = newSubtotal * (discount / 100);
 
-    // Calculate the subtotal with discount
-    const subtotal_with_discount = newSubtotal - discountmoney;
 
     // Calculate the tax amount
-    const taxamount = subtotal_with_discount * (tax / 100);
+    const taxamount = newSubtotal * (tax / 100);
 
     // Update subtotal state
     setSubtotal(newSubtotal);
 
     // Update total state
-    setTotal(subtotal_with_discount + shipping + taxamount);
+    setTotal(newSubtotal + shipping + taxamount);
   }, [checkItems,tax,discount,shipping]);
 
   return (
@@ -77,10 +74,7 @@ export default function EcommerceCheckoutOrderSummary({
       <Stack spacing={2}>
         <Row label="Shipping" value={fCurrency(shipping)} />
 
-        <Row
-          label={`Discount (${fPercent(discount)})`}
-          value={`-${fCurrency(subtotal === 0 ? 0 : discount)}`}
-        />
+      
 
         <Row label="Tax" value={fPercent(tax)} />
 

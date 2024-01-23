@@ -30,20 +30,16 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
     0
   );
 
-  // Calculate the discount
-  const discountmoney = newSubtotal * (discount / 100);
-
-  // Calculate the subtotal with discount
-  const subtotal_with_discount = newSubtotal - discountmoney;
+  
 
   // Calculate the tax amount
-  const taxamount = subtotal_with_discount * (tax / 100);
+  const taxamount = newSubtotal * (tax / 100);
 
   // Update subtotal state
   setSubtotal(newSubtotal);
 
   // Update total state
-  setTotal(subtotal_with_discount + shipping + taxamount);
+  setTotal(newSubtotal + shipping + taxamount);
 }, [cartItems, shipping, discount, tax]);
 
 
@@ -73,10 +69,7 @@ export default function EcommerceCartSummary({ tax, shipping, discount }) {
 
         <Row label="Shipping" value={fCurrency(cartItems.length === 0 ? 0 : shipping)} />
 
-        <Row
-          label={`Discount (${fPercent(discount)})`}
-          value={`-${fCurrency(subtotal === 0 ? 0 : discount)}`}
-        />
+       
 
         <Row label="Tax" value={fPercent(subtotal === 0 ? 0 : tax)} />
 
