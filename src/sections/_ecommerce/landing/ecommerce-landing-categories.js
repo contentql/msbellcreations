@@ -125,7 +125,15 @@ export default function EcommerceLandingCategories() {
                 //   alignItems: 'center',
                 // }}
                 >
-                  <Image src={category.icon.url} sx={{ objectFit: 'contain', height: '50px' }} />
+                  <Image
+                    src={
+                      category?.icon === null
+                        ? '/assets/images/defalutCategory.png'
+                        : category.icon.url
+                    }
+                    alt={category?.label}
+                    sx={{ objectFit: 'contain', height: '50px' }}
+                  />
                 </Box>
               </Box>
             </Link>
