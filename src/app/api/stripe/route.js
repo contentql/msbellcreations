@@ -10,7 +10,7 @@ axios.defaults.baseURL = process.env.NEXT_PUBLIC_STRAPI_URL;
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 export async function POST(req) {
-  const { email, products: userSentProducts } = await req.json();
+  const { email, products: userSentProducts, total } = await req.json();
   try {
     const { data } = await axios.get('/api/products');
     const allProducts = await data.data;
@@ -18,8 +18,6 @@ export async function POST(req) {
       userSentProducts.map((purchasingProduct) => purchasingProduct.id).includes(product.id)
     );
 
-
-    
     const session = await stripe.checkout.sessions.create({
       customer_email: email,
       line_items: requiredProducts.map((requiredProduct) => {
@@ -35,6 +33,9 @@ export async function POST(req) {
 
         return { price_data, quantity };
       }),
+      automatic_tax: {
+        enabled: true,
+      },
       mode: 'payment',
       success_url: `${process.env.FRONTEND_URL}/order-completed`,
       cancel_url: `${process.env.FRONTEND_URL}/cart`,
