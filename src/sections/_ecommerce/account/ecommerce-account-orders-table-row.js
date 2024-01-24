@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import Popover from '@mui/material/Popover';
+import Stack from '@mui/material/Stack';
 import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
@@ -14,6 +15,8 @@ import axios from 'axios';
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
 import { useOrder } from 'src/app/order-store';
+import Link from 'next/link';
+import Image from 'src/components/image/image';
 //  utils
 import { useQuery } from 'react-query';
 import { fDate } from 'src/utils/format-time';
@@ -38,7 +41,7 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
       method: 'GET',
     }).then((res) => res.json())
   );
-
+  console.log('row', row);
   const handleCheckout = (id, product) => {
     //console.log('Input Product Array:', product);
 
@@ -60,6 +63,21 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
     addAll(newArray);
     updateValues({ ...userDetails, orderID: id });
   };
+
+  const rowdata = products?.data?.filter((element1) => {
+    return row.product?.some(
+      (element2) => element2.productId.toString() === element1.id.toString()
+    );
+  });
+
+  const rowArray = rowdata?.map((item1) => {
+    const matchdata = row?.product.find(
+      (item2) => item2.productId.toString() === item1.id.toString()
+    );
+    return matchdata ? { ...item1, quantity: matchdata.quantity } : item1;
+  });
+
+  console.log('Common Elements:', rowArray);
 
   const [open, setOpen] = useState(null);
   const [hover, setHover] = useState(null);
@@ -109,36 +127,61 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
           transformOrigin={{ vertical: 'top', horizontal: 'center' }}
           slotProps={{
             paper: {
-              sx: { width: 500 },
+              sx: { width: 'full' },
             },
           }}
         >
-          <Grid container spacing={2} className='py-2'>
+          <Grid container className="bg-purple-100 text-purple-800 z-20 sticky top-0 p-4">
             <Grid item xs={9}>
-              <Typography variant="h6">
-              Product Name
-            </Typography>
-            </Grid>
-            <Grid item xs={3} >
-             <Typography className='text-center' variant="h6">Quantity</Typography>
-            </Grid>
-          </Grid>
-         
-          {row.product.map((products) => (
-            <>
-              <Divider />
-             <Grid container spacing={2} className='py-2'>
-            <Grid item xs={9}>
-              <Typography  >
-              {products.name}
-            </Typography>
+              <Typography variant="h6">Item</Typography>
             </Grid>
             <Grid item xs={3}>
-             <Typography className='text-center'>{products.quantity}</Typography>
+              <Typography className="text-center" variant="h6">
+                Quantity
+              </Typography>
             </Grid>
           </Grid>
-            </>
-          ))}
+
+          {rowArray?.length > 0 &&
+            rowArray?.map((products) => (
+              <>
+                <Grid container spacing={2} className="py-2">
+                  <Grid item xs={9}>
+                    <Stack direction="row" alignItems="center" flexGrow={1}>
+                      <Image
+                        src={products.coverUrl.url}
+                        sx={{
+                          width: 80,
+                          height: 80,
+                          flexShrink: 0,
+                          borderRadius: 1.5,
+                          bgcolor: 'background.neutral',
+                        }}
+                      />
+
+                      <Stack spacing={0.5} sx={{ p: 2 }}>
+                        <Link href={`/products/${products.id}`}>
+                          <Typography variant="subtitle2">{products.name}</Typography>
+                        </Link>
+                      </Stack>
+                    </Stack>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Stack alignItems="center">
+                      {' '}
+                      <Typography
+                        spacing={0.5}
+                        sx={{ p: 2 }}
+                        className="bg-purple-100 text-purple-800 text-xs font-medium  rounded"
+                      >
+                        <span className="p-2 text-center">{products.quantity}</span>
+                      </Typography>
+                    </Stack>
+                  </Grid>
+                </Grid>
+                <Divider />
+              </>
+            ))}
         </Popover>
 
         <TableCell>{fDate(row.createdAt)}</TableCell>
@@ -146,7 +189,7 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
         <TableCell sx={{ px: 1 }}>{fCurrency(row.totalPrice)}</TableCell>
         <TableCell sx={{ px: 1 }}>
           {row.status === false ? (
-            <Tooltip title="click to pay" placement="top" arrow>
+            <Tooltip title="repay now" placement="top">
               {' '}
               <Button
                 component={RouterLink}
