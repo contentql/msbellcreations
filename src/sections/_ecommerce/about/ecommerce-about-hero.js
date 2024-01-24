@@ -3,12 +3,13 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-
+import Markdown from 'src/components/markdown';
 import Image from 'src/components/image';
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceAboutHero() {
+export default function EcommerceAboutHero({ about }) {
+  console.log('a', about?.images);
   return (
     <Box
       sx={{
@@ -42,40 +43,29 @@ export default function EcommerceAboutHero() {
             lg={5}
             sx={{
               color: 'grey.800',
-              textAlign: { xs: 'center', md: 'left' },
+              textAlign: { xs: 'left', md: 'left' },
             }}
           >
-            <Typography variant="h3">Our Story</Typography>
-
-            <Typography
-              sx={{
-                textAlign: { xs: 'left' },
-                mt: 3,
-                mb: 3,
-              }}
-            >
-              Nora started this way of living when she had her first child in 1986 and she found a
-              reason to follow her grandmother’s homeopathic remedies from her childhood. Ever since
-              then she has been supplying family and friends with healthy, chemical free solutions
-              to their everyday needs.
+            <Typography variant="h3" sx={{ mb: { sm: 4, md: 8 } }}>
+              Our Story
             </Typography>
-            <Typography sx={{ textAlign: { xs: 'left' } }}>
-              In 2022, Nora decided to launch Ms. Bells Creations with the help of her daughter in
-              law, Lindsey. They both posses a passion of bringing natural products into the homes
-              of people everywhere.
-            </Typography>
+            <Markdown content={about?.about} />
           </Grid>
 
           <Grid xs={12} md={6} lg={6}>
-            <Image
-              sx={{ borderRadius: 2 }}
-              alt="Author-image"
-              src="/assets/images/About/Author-image-1.jpg"
-            />
+            {about?.images.length > 0 > 0 &&
+              about?.images.map((image, index) => (
+                <Image
+                  key={index}
+                  sx={{ borderRadius: 2, mb: 4 }}
+                  alt="Author-image"
+                  src={image?.url}
+                />
+              ))}
           </Grid>
         </Grid>
       </Container>
-      <Container sx={{ mt: { xs: 5, md: 10 } }}>
+      {/* <Container sx={{ mt: { xs: 5, md: 10 } }}>
         <Grid container spacing={{ xs: 8, md: 3 }} justifyContent="space-between">
           <Grid xs={12} md={6} lg={6}>
             <Image
@@ -104,7 +94,7 @@ export default function EcommerceAboutHero() {
             </Typography>
           </Grid>
         </Grid>
-      </Container>
+      </Container> */}
     </Box>
   );
 }
