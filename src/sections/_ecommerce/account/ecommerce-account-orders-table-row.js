@@ -127,7 +127,7 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
           transformOrigin={{ vertical: 'top', horizontal: 'center' }}
           slotProps={{
             paper: {
-              sx: { width: 'full' },
+              sx: { width: 600 },
             },
           }}
         >
@@ -172,7 +172,7 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
                       <Typography
                         spacing={0.5}
                         sx={{ p: 2 }}
-                        className="bg-purple-100 text-purple-800 text-xs font-medium  rounded"
+                        className="bg-purple-100 text-purple-800 text-xs rounded-xl font-medium  rounded"
                       >
                         <span className="p-2 text-center">{products.quantity}</span>
                       </Typography>
