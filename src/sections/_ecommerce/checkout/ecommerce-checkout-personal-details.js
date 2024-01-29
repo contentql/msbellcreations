@@ -10,34 +10,28 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Iconify from 'src/components/iconify';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { RHFTextField } from 'src/components/hook-form';
+import { useUserStore } from 'src/app/auth-store';
+import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
 
 // ----------------------------------------------------------------------
 
 export default function EcommerceCheckoutPersonalDetails() {
+  const { UserData } = useUserStore();
+  const { setValue, getValues } = useForm();
+  useEffect(() => {
+    if (UserData.firstName || UserData.lastName || UserData.phoneNumber) {
+      setValue('firstName', UserData.firstName ? UserData.firstName : getValues('firstName'));
+      setValue('lastName', UserData.lastName ? UserData.lastName : getValues('lastName'));
+      setValue('emailAddress', UserData.email ? UserData.email : getValues('email'));
+      setValue('phoneNumber', UserData.phoneNumber ? UserData.phoneNumber : getValues('phoneNumber'));
+    }
+  }, []);
+
   const passwordShow = useBoolean();
 
   return (
     <>
-      {/* <Stack direction="row" flexWrap="wrap" alignItems="center" spacing={1} sx={{ mb: 4 }}>
-        <Typography variant="subtitle2">Sign in with:</Typography>
-
-        <Button
-          color="inherit"
-          variant="outlined"
-          startIcon={<Iconify icon="carbon:logo-facebook" sx={{ color: '#1877F2' }} />}
-        >
-          Facebook
-        </Button>
-
-        <Button color="inherit" variant="outlined" startIcon={<Iconify icon="logos:google-icon" />}>
-          Google
-        </Button>
-
-        <Button color="inherit" variant="outlined" startIcon={<Iconify icon="carbon:email" />}>
-          Continue with Email
-        </Button>
-      </Stack> */}
-
       <Box
         rowGap={2.5}
         columnGap={2}
@@ -85,4 +79,3 @@ export default function EcommerceCheckoutPersonalDetails() {
     </>
   );
 }
-
