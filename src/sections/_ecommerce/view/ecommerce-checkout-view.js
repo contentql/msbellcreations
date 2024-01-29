@@ -93,7 +93,7 @@ export default function EcommerceCheckoutView() {
 
 
 
-  const { UserData } = useUserStore();
+  const { UserData,updateUserData } = useUserStore();
   const {deleteAllOrders, orderItems, orderaddAll, updateValues,userDetails,} = useOrder();
   const { checkItems, deleteAll } = useCheckout();
   const [subtotal, setSubtotal] = useState(0);
@@ -274,9 +274,59 @@ export default function EcommerceCheckoutView() {
       console.error('Error during DELETE request:', error.message);
     }
   };
+
+
+    const send=async (data) => {
+
+    updateUserData({...UserData, ...data});
+   
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_STRAPI_URL}api/users/${UserData.id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${UserData.authToken}`,
+            
+          },
+          body: JSON.stringify({
+            phoneNumber: UserData.phoneNumber,
+            gender: UserData.gender,
+            country: UserData.country,
+            streetAddress: UserData.streetAddress,
+            zipCode: UserData.zipCode,
+            city: UserData.city,
+            firstName:UserData.firstName,
+            lastName:UserData.lastName
+          }),
+        }
+      );
+     
+    } catch (error) {
+     
+      console.error(error);
+    }
+  };
+
   
+  const Updateuser=(data)=>{
+    const newData = {};
+    if(!UserData.firstName || UserData.firstName.trim() === "") newData.firstName = data.firstName;
+    if(!UserData.lastName || UserData.lastName.trim() === "") newData.lastName = data.lastName;
+    if(!UserData.phoneNumber || UserData.phoneNumber.trim() === "") newData.phoneNumber = data.phoneNumber;
+    if(!UserData.city || UserData.city.trim() === "") newData.city = data.city;
+    if(!UserData.zipCode || UserData.zipCode.trim() === "") newData.zipCode = data.zipCode;
+    if(!UserData.streetAddress || UserData.streetAddress.trim() === "") newData.streetAddress = data.streetAddress;
+    if(!UserData.country || UserData.country.trim() === "") newData.country = data.country;
+
+    send(newData);
+  }
+
 
   const triggerStripe = handleSubmit(async (data) => {
+
+
   
     orderaddAll(checkItems);
     updateValues({
@@ -296,6 +346,7 @@ export default function EcommerceCheckoutView() {
     });
     try {
       postData(data);
+      Updateuser(data)
       const { data: stripeData } = await axios.post('/api/stripe', {
         email: data.emailAddress,
         products: checkItems,
