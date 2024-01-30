@@ -32,11 +32,7 @@ export default function EcommerceLandingView() {
     }).then((res) => res.json())
   );
 
-  const { data: reviews } = useQuery(['review'], () =>
-    fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/reviews?sort=rank:asc&populate=*`, {
-      method: 'GET',
-    }).then((res) => res.json())
-  );
+
 
 
   const PopularProducts = data?.data?.sort((a, b) => b.sold - a.sold).slice(0, 8);
