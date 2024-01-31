@@ -37,8 +37,8 @@ export async function POST(req) {
         enabled: true,
       },
       mode: 'payment',
-      success_url: `${process.env.FRONTEND_URL}/order-completed`,
-      cancel_url: `${process.env.FRONTEND_URL}/cart`,
+      success_url: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/order-completed`,
+      cancel_url: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/cart`,
     });
 
     // return redirect(session.url);
