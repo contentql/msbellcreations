@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
@@ -42,15 +42,34 @@ import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 
 import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { useDummy } from 'src/app/dummy-store';
 
 // ----------------------------------------------------------------------
 
 export default function Header({ headerOnDark }) {
   const router = useRouter();
-  const { cartItems, cartempty } = useCart();
+  const {dummyItems,dummyempty}=useDummy();
+  const { cartItems, cartempty,Addtocartall } = useCart();
   const { wishItems, wishempty } = useWish();
   const { UserData, removeUserData } = useUserStore();
   const theme = useTheme();
+
+  const pathname = usePathname()
+
+  useEffect(()=>{
+    
+    if(pathname!=="/checkout/")
+    {
+      if(cartItems.length==0)
+      {
+         Addtocartall(dummyItems);
+         dummyempty()
+
+      }
+     
+    }
+  },[pathname])
 
   const logout = () => {
     router.push('/');
