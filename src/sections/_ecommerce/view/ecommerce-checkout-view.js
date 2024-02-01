@@ -350,6 +350,9 @@ export default function EcommerceCheckoutView() {
       const { data: stripeData } = await axios.post('/api/stripe', {
         email: data.emailAddress,
         products: checkItems,
+        tax:configuration?.data.tax,
+        total:parseInt(subtotal),
+        shipping:configuration?.data.shipping,
       });
 
       await router.push(stripeData.url);
@@ -432,7 +435,8 @@ export default function EcommerceCheckoutView() {
             <EcommerceCheckoutOrderSummary
               tax={checkItems.length !== 0 ? configuration?.data.tax : 0}
               total={total}
-              subtotal={0}
+              subtotal={subtotal}
+              setSubtotal={setSubtotal}
               shipping={checkItems.length !== 0 ? configuration?.data.shipping : 0}
               discount={checkItems.length !== 0 ? configuration?.data.discount : 0}
               products={checkItems}

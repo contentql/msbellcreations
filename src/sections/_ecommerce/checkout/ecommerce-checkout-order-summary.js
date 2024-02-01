@@ -26,10 +26,12 @@ export default function EcommerceCheckoutOrderSummary({
   products,
   loading,
   total,
-  setTotal
+  setTotal,
+  subtotal,
+  setSubtotal
 }) {
   const { checkItems } = useCheckout();
-  const [subtotal, setSubtotal] = useState(0);
+  
 
   useEffect(() => {
     const newSubtotal = checkItems.reduce(
