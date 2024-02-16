@@ -55,14 +55,14 @@ export default function EcommerceOrderCompletedView() {
     onError: (error) => {
       console.log(error);
     },
-    if(isLoading) {
-      <SplashScreen />;
-    },
 
     // onSettled: () => {
     //   queryClient.invalidateQueries('create');
     // },
   });
+  if (isLoading) {
+    <SplashScreen />;
+  }
 
   // const collectedData  = mutate()
   //console.log('orders', UserData.authToken, userDetails, orderItems);
