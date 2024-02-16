@@ -1,30 +1,30 @@
 'use client';
 
-import { m } from 'framer-motion';
-import { useMutation } from 'react-query';
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { useOrder } from 'src/app/order-store';
-import { useUserStore } from 'src/app/auth-store';
-import { paths } from 'src/routes/paths';
-import Iconify from 'src/components/iconify';
-import { RouterLink } from 'src/routes/components';
-import { varBounce, MotionContainer } from 'src/components/animate';
+import { m } from 'framer-motion';
 import { useEffect } from 'react';
+import { useMutation } from 'react-query';
+import { useUserStore } from 'src/app/auth-store';
 import { useDummy } from 'src/app/dummy-store';
+import { useOrder } from 'src/app/order-store';
+import { MotionContainer, varBounce } from 'src/components/animate';
+import Iconify from 'src/components/iconify';
+import { SplashScreen } from 'src/components/loading-screen';
+import { RouterLink } from 'src/routes/components';
+import { paths } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
 
 export default function EcommerceOrderCompletedView() {
   const { userDetails, orderItems, deleteAllOrders, resetUpdateValues } = useOrder();
   const { UserData } = useUserStore();
-  const {dummyempty}=useDummy()
+  const { dummyempty } = useDummy();
 
   const putData = async (orderId) => {
-
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/orders/${orderId}`, {
         method: 'PUT',
@@ -37,9 +37,7 @@ export default function EcommerceOrderCompletedView() {
         }),
       });
       if (res.ok) {
-        //console.log('put success');
-        dummyempty()
-
+        dummyempty();
       } else {
         console.error('Error:', res.status, res.statusText);
       }
@@ -56,6 +54,9 @@ export default function EcommerceOrderCompletedView() {
 
     onError: (error) => {
       console.log(error);
+    },
+    if(isLoading) {
+      <SplashScreen />;
     },
 
     // onSettled: () => {
