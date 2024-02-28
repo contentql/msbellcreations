@@ -61,7 +61,10 @@ export default function EcommerceOrderCompletedView() {
     // },
   });
   if (isLoading) {
-    <SplashScreen />;
+    <>
+      <p style={{color:"red"}}>The payment is under process, please do not refresh or leave this page!</p>
+      <SplashScreen />
+    </>;
   }
 
   // const collectedData  = mutate()

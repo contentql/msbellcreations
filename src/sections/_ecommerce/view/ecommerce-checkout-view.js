@@ -1,43 +1,34 @@
 'use client';
 
-import * as Yup from 'yup';
-import { useQuery } from 'react-query';
-import PropTypes from 'prop-types';
-import { useForm } from 'react-hook-form';
-import React, { useState, useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useQuery } from 'react-query';
+import * as Yup from 'yup';
 // import { useRouter } from 'next/navigation';
 
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Switch from '@mui/material/Switch';
-import Divider from '@mui/material/Divider';
-import Collapse from '@mui/material/Collapse';
-import Grid from '@mui/material/Unstable_Grid2';
 import Container from '@mui/material/Container';
+import Divider from '@mui/material/Divider';
+import Stack from '@mui/material/Stack';
+import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Unstable_Grid2';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import axios from 'axios';
 
-import { _products } from 'src/_mock';
-import { useCart } from 'src/app/store';
-import { paths } from 'src/routes/paths';
-import Iconify from 'src/components/iconify';
-import { useRouter } from 'src/routes/hooks';
 import { useUserStore } from 'src/app/auth-store';
-import { useBoolean } from 'src/hooks/use-boolean';
 import { useCheckout } from 'src/app/checkoutstore';
 import { useOrder } from 'src/app/order-store';
 import FormProvider from 'src/components/hook-form';
+import { useBoolean } from 'src/hooks/use-boolean';
+import { useRouter } from 'src/routes/hooks';
 
-import EcommerceCheckoutNewCardForm from '../checkout/ecommerce-checkout-new-card-form';
-import EcommerceCheckoutOrderSummary from '../checkout/ecommerce-checkout-order-summary';
-import EcommerceCheckoutPaymentMethod from '../checkout/ecommerce-checkout-payment-method';
 import EcommerceCheckoutBillingDetails from '../checkout/ecommerce-checkout-billing-details';
-import EcommerceCheckoutShippingMethod from '../checkout/ecommerce-checkout-shipping-method';
-import EcommerceCheckoutShippingDetails from '../checkout/ecommerce-checkout-shipping-details';
+import EcommerceCheckoutOrderSummary from '../checkout/ecommerce-checkout-order-summary';
 import EcommerceCheckoutPersonalDetails from '../checkout/ecommerce-checkout-personal-details';
+import EcommerceCheckoutShippingDetails from '../checkout/ecommerce-checkout-shipping-details';
 
 // ----------------------------------------------------------------------
 
@@ -325,9 +316,6 @@ export default function EcommerceCheckoutView() {
 
 
   const triggerStripe = handleSubmit(async (data) => {
-
-
-  
     orderaddAll(checkItems);
     updateValues({
       firstName: data.firstName,
