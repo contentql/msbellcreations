@@ -1,26 +1,22 @@
 'use client';
 
-import * as Yup from 'yup';
-import { useQuery } from 'react-query';
-import 'react-toastify/dist/ReactToastify.css';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, Controller } from 'react-hook-form';
-import { toast, ToastContainer } from 'react-toastify';
+import { useForm } from 'react-hook-form';
+import { useQuery } from 'react-query';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import * as Yup from 'yup';
 
+import LoadingButton from '@mui/lab/LoadingButton';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import LoadingButton from '@mui/lab/LoadingButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-import { countries } from 'src/assets/data';
-import Iconify from 'src/components/iconify';
 import { useUserStore } from 'src/app/auth-store';
+import { countries } from 'src/assets/data';
+import FormProvider, { RHFAutocomplete, RHFSelect, RHFTextField } from 'src/components/hook-form';
+import Iconify from 'src/components/iconify';
 import { useBoolean } from 'src/hooks/use-boolean';
-import { SplashScreen } from 'src/components/loading-screen';
-import FormProvider, { RHFSelect, RHFTextField, RHFAutocomplete } from 'src/components/hook-form';
 
 // ----------------------------------------------------------------------
 
@@ -78,10 +74,11 @@ export default function EcommerceAccountPersonalView() {
     phoneNumber: UserData?.phoneNumber,
     // birthday: UserData?.birthday,
     gender: UserData?.gender ? UserData.gender : 'male',
-
     streetAddress: UserData.streetAddress,
+    streetAddress2: UserData.streetAddress2,
     zipCode: UserData?.zipCode,
     city: UserData.city,
+    state:UserData?.state,
     country: UserData.country,
     
   };
@@ -105,11 +102,14 @@ export default function EcommerceAccountPersonalView() {
     updateUserData({...UserData,phoneNumber: data.phoneNumber,gender: data.gender,
       country: data.country,
       streetAddress: data.streetAddress,
+      streetAddress2: data.streetAddress2,
       zipCode: data.zipCode,
+      state:data.state,
       city: data.city,
       avatar:img,
       firstName:data.firstName,
-      lastName:data.lastName
+      lastName: data.lastName,
+      
     })
    
     try {
@@ -129,6 +129,8 @@ export default function EcommerceAccountPersonalView() {
             streetAddress: data.streetAddress,
             zipCode: data.zipCode,
             city: data.city,
+            streetAddress2:data.streetAddress2,
+            state: data.state,
             avatar:img,
             firstName:data.firstName,
             lastName:data.lastName
@@ -199,7 +201,7 @@ export default function EcommerceAccountPersonalView() {
           )}
         /> */}
 
-        <RHFSelect native name="gender" label="Gender" defaultValue={"Female"}>
+        <RHFSelect native name="gender" label="Gender" defaultValue={'Female'}>
           {GENDER_OPTIONS.map((option) => (
             <option key={option} value={option}>
               {option}
@@ -220,11 +222,10 @@ export default function EcommerceAccountPersonalView() {
 
         <Stack spacing={2.5}>
           <RHFTextField name="streetAddress" label="Street Address" />
-
+          <RHFTextField name="streetAddress2" label="Street Address 2" />
           <RHFTextField name="zipCode" label="Zip Code" />
-
-          <RHFTextField name="city" label="City" />
-
+          <RHFTextField name="city" label="City/Town" />
+          <RHFTextField name="state" label="state" />
           <RHFAutocomplete
             name="country"
             label="Country"

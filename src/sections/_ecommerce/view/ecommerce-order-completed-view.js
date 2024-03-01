@@ -33,7 +33,8 @@ export default function EcommerceOrderCompletedView() {
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_ORDERS_API_TOKEN}`,
         },
         body: JSON.stringify({
-          status: true,
+          paymentStatus: true,
+          shippingStatus: false,
         }),
       });
       if (res.ok) {

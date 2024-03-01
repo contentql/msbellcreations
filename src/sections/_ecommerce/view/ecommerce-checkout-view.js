@@ -110,6 +110,11 @@ export default function EcommerceCheckoutView() {
     streetAddress: Yup.string().required('Street address is required'),
     city: Yup.string().required('City is required'),
     zipCode: Yup.string().required('Zip code is required'),
+    ShippingstreetAddress: Yup.string().required('Street address is required'),
+    Shippingstate: Yup.string().required('state is required'),
+    Shippingcity: Yup.string().required('city is required'),
+    ShippingzipCode: Yup.string().required('zip code is required'),
+    Shippingcountry: Yup.string().required('country is required'),
   });
 
   const defaultValues = {
@@ -121,13 +126,17 @@ export default function EcommerceCheckoutView() {
     // confirmPassword: '',
     streetAddress: UserData?.streetAddress ? UserData?.streetAddress : '',
     city: UserData?.city ? UserData?.city : '',
+    streetAddress2: UserData?.streetAddress2 ? UserData?.streetAddress2 : '',
+    state: UserData?.state ? UserData?.state : '',
     country: UserData?.country ? UserData?.country : '',
     zipCode: UserData?.zipCode ? UserData?.zipCode : '',
     ShippingstreetAddress: '',
+    ShippingstreetAddress2: '',
+    Shippingstate: '',
     Shippingcity: '',
     Shippingcountry: 'United States',
     ShippingzipCode: '',
-    totalPrice:""
+    totalPrice: '',
     // shipping: 'free',
     // paymentMethods: 'mastercard',
     // newCard: {
@@ -159,10 +168,14 @@ export default function EcommerceCheckoutView() {
       setValue('ShippingzipCode', getValues('zipCode'));
       setValue('Shippingcity', getValues('city'));
       setValue('Shippingcountry', getValues('country'));
+      setValue('ShippingstreetAddress2', getValues('streetAddress2'));
+      setValue('Shippingstate', getValues('state'));
     } else {
       setValue('ShippingstreetAddress', getValues(''));
       setValue('ShippingzipCode', getValues(''));
       setValue('Shippingcity', getValues(''));
+      setValue('ShippingstreetAddress2', getValues(''));
+      setValue('Shippingstate', getValues(''));
       setValue('Shippingcountry', 'United States');
     }
     setSwitchChecked(!switchChecked);
@@ -206,10 +219,8 @@ export default function EcommerceCheckoutView() {
   const productData=checkItems.map((item=>({ name: item.name,quantity:item.quantity, productId:item.id.toString() })))
 
   //console.log("product",productData)
-
-
   const postData = async (data) => {
-
+   const ShippingDetails= data.ShippingstreetAddress + ', ' + data.ShippingstreetAddress2 + ',' + data.Shippingcity + ',' + data.Shippingstate + ',' +data.Shippingcountry +',' +data.ShippingzipCode
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}api/orders`, {
         method: 'POST',
@@ -217,22 +228,28 @@ export default function EcommerceCheckoutView() {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_ORDERS_API_TOKEN}`,
         },
-         body: JSON.stringify({
+        body: JSON.stringify({
           firstName: data.firstName,
           lastName: data.lastName,
           emailAddress: data.emailAddress,
           phoneNumber: data.phoneNumber,
           streetAddress: data.streetAddress,
+          streetAddress2: data.streetAddress2,
+          state: data.state,
           country: data.country,
           city: data.city,
           Shippingcity: data.Shippingcity,
           Shippingcountry: data.Shippingcountry,
           ShippingzipCode: data.ShippingzipCode,
           ShippingstreetAddress: data.ShippingstreetAddress,
+          ShippingstreetAddress2: data.ShippingstreetAddress2,
+          Shippingstate: data.Shippingstate,
           zipCode: data.zipCode,
-          totalPrice:total.toFixed(2).toString(),
+          totalPrice: total.toFixed(2).toString(),
           product: productData,
-       }),
+          ShippingCompleteDetails:ShippingDetails
+           
+        }),
       });
       if (res.ok) {
         const data = await res.json();
@@ -279,17 +296,18 @@ export default function EcommerceCheckoutView() {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${UserData.authToken}`,
-            
           },
           body: JSON.stringify({
             phoneNumber: UserData.phoneNumber,
             gender: UserData.gender,
             country: UserData.country,
             streetAddress: UserData.streetAddress,
+            streetAddress2: UserData.streetAddress2,
+            state: UserData.state,
             zipCode: UserData.zipCode,
             city: UserData.city,
-            firstName:UserData.firstName,
-            lastName:UserData.lastName
+            firstName: UserData.firstName,
+            lastName: UserData.lastName,
           }),
         }
       );
@@ -309,7 +327,9 @@ export default function EcommerceCheckoutView() {
     if(!UserData.city || UserData.city.trim() === "") newData.city = data.city;
     if(!UserData.zipCode || UserData.zipCode.trim() === "") newData.zipCode = data.zipCode;
     if(!UserData.streetAddress || UserData.streetAddress.trim() === "") newData.streetAddress = data.streetAddress;
-    if(!UserData.country || UserData.country.trim() === "") newData.country = data.country;
+    if (!UserData.country || UserData.country.trim() === "") newData.country = data.country;
+    if (!UserData.streetAddress2 || UserData.streetAddress2.trim() === '') newData.streetAddress2 = data.streetAddress2;
+    if (!UserData.state || UserData.state.trim() === '') newData.state = data.state;
 
     send(newData);
   }
@@ -325,7 +345,7 @@ export default function EcommerceCheckoutView() {
       city:data.city,
       country:data.country,
       zipCode:data.zipCode,
-      streetAddress:data.streetAddress,
+      streetAddress: data.streetAddress,
       Shippingcity:data.Shippingcity,
       Shippingcountry:data.Shippingcountry,
       ShippingzipCode:data.ShippingzipCode,

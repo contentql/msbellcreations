@@ -1,33 +1,26 @@
 import PropTypes from 'prop-types';
-import { useState, useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
+import InputBase, { inputBaseClasses } from '@mui/material/InputBase';
 import Popover from '@mui/material/Popover';
 import Stack from '@mui/material/Stack';
-import MenuItem from '@mui/material/MenuItem';
-import TableRow from '@mui/material/TableRow';
-import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
-import IconButton from '@mui/material/IconButton';
-import InputBase, { inputBaseClasses } from '@mui/material/InputBase';
-import axios from 'axios';
-import Label from 'src/components/label';
-import Iconify from 'src/components/iconify';
-import { useOrder } from 'src/app/order-store';
+import TableRow from '@mui/material/TableRow';
 import Link from 'next/link';
+import { useOrder } from 'src/app/order-store';
 import Image from 'src/components/image/image';
 //  utils
-import { useQuery } from 'react-query';
-import { fDate } from 'src/utils/format-time';
-import { fCurrency } from 'src/utils/format-number';
-import Box from '@mui/material/Box';
-import { useRouter } from 'src/routes/hooks';
 import { Tooltip, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
-import { paths } from 'src/routes/paths';
-import { RouterLink } from 'src/routes/components';
+import { useQuery } from 'react-query';
 import { useCheckout } from 'src/app/checkoutstore';
+import { RouterLink } from 'src/routes/components';
+import { useRouter } from 'src/routes/hooks';
+import { paths } from 'src/routes/paths';
+import { fCurrency } from 'src/utils/format-number';
+import { fDate } from 'src/utils/format-time';
 // ----------------------------------------------------------------------
 
 export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selected }) {
@@ -188,7 +181,7 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
 
         <TableCell sx={{ px: 1 }}>{fCurrency(row.totalPrice)}</TableCell>
         <TableCell sx={{ px: 1 }}>
-          {row.status === false ? (
+          {row.paymentStatus === false ? (
             <Tooltip title="repay now" placement="top">
               {' '}
               <Button
@@ -198,6 +191,21 @@ export default function EcommerceAccountOrdersTableRow({ row, onSelectRow, selec
                 variant="outlined"
                 onClick={() => handleCheckout(row.id, row.product)}
               >
+                Pending
+              </Button>
+            </Tooltip>
+          ) : (
+            <Button sx={{ color: 'green' }} variant="outlined">
+              Success
+            </Button>
+          )}
+        </TableCell>
+        <TableCell sx={{ px: 1 }}>
+          {row.shippingStatus === null ? (
+            <div> -----</div>
+          ) : row.shippingStatus === false ? (
+            <Tooltip title="Shipping still pending" placement="top">
+              <Button sx={{ color: 'red' }} variant="outlined">
                 Pending
               </Button>
             </Tooltip>

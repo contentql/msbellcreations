@@ -1,34 +1,26 @@
 'use client';
 
-import { useState, useCallback } from 'react';
-import { useQuery } from 'react-query';
 import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
 import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
-import Switch from '@mui/material/Switch';
-import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import InputAdornment from '@mui/material/InputAdornment';
-import TableContainer from '@mui/material/TableContainer';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import TablePagination from '@mui/material/TablePagination';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
+import Link from 'next/link';
+import { useCallback, useState } from 'react';
+import { useQuery } from 'react-query';
 import { _productsTable } from 'src/_mock';
-import Iconify from 'src/components/iconify';
-import Scrollbar from 'src/components/scrollbar';
 import { useUserStore } from 'src/app/auth-store';
-import { stableSort, getComparator } from '../account/utils';
-import EcommerceAccountOrdersTableRow from '../account/ecommerce-account-orders-table-row';
-import EcommerceAccountOrdersTableHead from '../account/ecommerce-account-orders-table-head';
-import EcommerceAccountOrdersTableToolbar from '../account/ecommerce-account-orders-table-toolbar';
-import { paths } from 'src/routes/paths';
 import Image from 'src/components/image';
-import Link from 'next/link'
+import Scrollbar from 'src/components/scrollbar';
+import { paths } from 'src/routes/paths';
+import EcommerceAccountOrdersTableHead from '../account/ecommerce-account-orders-table-head';
+import EcommerceAccountOrdersTableRow from '../account/ecommerce-account-orders-table-row';
+import EcommerceAccountOrdersTableToolbar from '../account/ecommerce-account-orders-table-toolbar';
+import { getComparator, stableSort } from '../account/utils';
 
 // ----------------------------------------------------------------------
 
@@ -38,7 +30,8 @@ export const TABLE_HEAD = [
   { id: 'item', label: 'Item' },
   { id: 'Order date', label: 'Order Date', width: 160 },
   { id: 'price', label: 'Price', width: 100 },
-  { id: 'payment status',label:"Payment Status" },
+  { id: 'payment status', label: 'Payment' },
+  { id: 'shipping status', label: 'Shipping' },
 ];
 
 // ----------------------------------------------------------------------

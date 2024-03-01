@@ -46,7 +46,9 @@ const store = persist(
       gender:'',
       avatar:'',
       firstName:'',
-      lastName:''
+      lastName: '',
+      streetAddress2: '',
+      state: '',
         },
       }));
     },
